@@ -15,6 +15,11 @@
 		F987BA2D1AA7C721008FDD56 /* HearHereAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987BA2C1AA7C721008FDD56 /* HearHereAppTests.swift */; };
 		F987BA371AA7C7F7008FDD56 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F987BA361AA7C7F7008FDD56 /* MapKit.framework */; };
 		F987BA391AA7C7FD008FDD56 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F987BA381AA7C7FD008FDD56 /* EventKit.framework */; };
+		F995C3E41AA91CA300F6EC88 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F995C3E31AA91CA300F6EC88 /* TabBarController.swift */; };
+		F995C3E61AA91D1600F6EC88 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F995C3E51AA91D1600F6EC88 /* TagsViewController.swift */; };
+		F995C3E81AA91D4D00F6EC88 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F995C3E71AA91D4D00F6EC88 /* SignUpViewController.swift */; };
+		F995C3EA1AA91D6500F6EC88 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F995C3E91AA91D6500F6EC88 /* SignInViewController.swift */; };
+		F995C3EC1AA91DA200F6EC88 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F995C3EB1AA91DA200F6EC88 /* SearchViewController.swift */; };
 		F9CF09721AA7E179005E28F7 /* CalendarTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09711AA7E179005E28F7 /* CalendarTab.swift */; };
 		F9CF09741AA7E18E005E28F7 /* MapTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09731AA7E18E005E28F7 /* MapTab.swift */; };
 		F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */; };
@@ -43,6 +48,11 @@
 		F987BA2C1AA7C721008FDD56 /* HearHereAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearHereAppTests.swift; sourceTree = "<group>"; };
 		F987BA361AA7C7F7008FDD56 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F987BA381AA7C7FD008FDD56 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		F995C3E31AA91CA300F6EC88 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = ../TabBarController.swift; sourceTree = "<group>"; };
+		F995C3E51AA91D1600F6EC88 /* TagsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
+		F995C3E71AA91D4D00F6EC88 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		F995C3E91AA91D6500F6EC88 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		F995C3EB1AA91DA200F6EC88 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		F9CF09711AA7E179005E28F7 /* CalendarTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarTab.swift; sourceTree = "<group>"; };
 		F9CF09731AA7E18E005E28F7 /* MapTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTab.swift; sourceTree = "<group>"; };
 		F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTab.swift; sourceTree = "<group>"; };
@@ -96,6 +106,11 @@
 				F9CF09711AA7E179005E28F7 /* CalendarTab.swift */,
 				F9CF09731AA7E18E005E28F7 /* MapTab.swift */,
 				F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */,
+				F995C3EB1AA91DA200F6EC88 /* SearchViewController.swift */,
+				F995C3E91AA91D6500F6EC88 /* SignInViewController.swift */,
+				F995C3E71AA91D4D00F6EC88 /* SignUpViewController.swift */,
+				F995C3E51AA91D1600F6EC88 /* TagsViewController.swift */,
+				F995C3E31AA91CA300F6EC88 /* TabBarController.swift */,
 				F987BA161AA7C720008FDD56 /* AppDelegate.swift */,
 				F987BA1D1AA7C720008FDD56 /* Images.xcassets */,
 				F987BA1F1AA7C720008FDD56 /* LaunchScreen.xib */,
@@ -229,9 +244,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F995C3EC1AA91DA200F6EC88 /* SearchViewController.swift in Sources */,
 				F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */,
 				F9CF09741AA7E18E005E28F7 /* MapTab.swift in Sources */,
+				F995C3E81AA91D4D00F6EC88 /* SignUpViewController.swift in Sources */,
 				F987BA191AA7C720008FDD56 /* HomeTab.swift in Sources */,
+				F995C3E41AA91CA300F6EC88 /* TabBarController.swift in Sources */,
+				F995C3EA1AA91D6500F6EC88 /* SignInViewController.swift in Sources */,
+				F995C3E61AA91D1600F6EC88 /* TagsViewController.swift in Sources */,
 				F9CF09721AA7E179005E28F7 /* CalendarTab.swift in Sources */,
 				F987BA171AA7C720008FDD56 /* AppDelegate.swift in Sources */,
 			);

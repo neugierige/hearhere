@@ -7,7 +7,6 @@
         <!--MapTab-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
                 <viewController id="vXZ-lx-hvc" userLabel="MapTab" customClass="MapTab" customModule="HearHereApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
@@ -34,6 +33,7 @@
                         <barButtonItem key="rightBarButtonItem" image="filter" id="TTv-PR-vXl" userLabel="FilterButton"/>
                     </navigationItem>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1371" y="1799"/>
         </scene>
@@ -101,7 +101,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Calendar View" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cBB-jG-BIt">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calendar View" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cBB-jG-BIt">
                                 <rect key="frame" x="245" y="72" width="111" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -110,7 +110,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="cBB-jG-BIt" firstAttribute="top" secondItem="a1N-hW-9h0" secondAttribute="bottom" constant="8" symbolic="YES" id="yEl-tz-U8w"/>
+                            <constraint firstItem="cBB-jG-BIt" firstAttribute="centerX" secondItem="w8Q-xz-61m" secondAttribute="centerX" id="dk9-bB-BbU"/>
+                            <constraint firstItem="cBB-jG-BIt" firstAttribute="top" secondItem="a1N-hW-9h0" secondAttribute="bottom" constant="8" symbolic="YES" id="nVt-H4-bWH"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Calendar" id="7Du-kd-kxW">
@@ -126,10 +127,10 @@
             </objects>
             <point key="canvasLocation" x="1371" y="1107"/>
         </scene>
-        <!--View Controller-->
+        <!--Search View Controller-->
         <scene sceneID="1OE-6y-fnr">
             <objects>
-                <viewController id="ROP-1e-api" sceneMemberID="viewController">
+                <viewController id="ROP-1e-api" userLabel="Search View Controller" customClass="SearchViewController" customModule="HearHereApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lUB-8W-nHb"/>
                         <viewControllerLayoutGuide type="bottom" id="ng8-cV-Xhh"/>
@@ -142,7 +143,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e09-Xn-kXj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2066" y="1107"/>
+            <point key="canvasLocation" x="2100" y="1107"/>
         </scene>
         <!--HomeTab-->
         <scene sceneID="6je-yf-Ij9">
@@ -177,10 +178,31 @@
             </objects>
             <point key="canvasLocation" x="1371" y="445"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tags View Controller-->
+        <scene sceneID="Ifd-Fa-iXJ">
+            <objects>
+                <viewController id="GKQ-YE-Rt8" userLabel="Tags View Controller" customClass="TagsViewController" customModule="HearHereApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="izB-tI-RCN"/>
+                        <viewControllerLayoutGuide type="bottom" id="rl8-RQ-RG0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0dh-d9-RaK">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="Vxu-Wk-QyW" kind="show" id="JK1-U6-C5e"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b9c-X3-Yw0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-293" y="420"/>
+        </scene>
+        <!--TabBar Controller-->
         <scene sceneID="Ljp-yu-Exw">
             <objects>
-                <tabBarController id="Vxu-Wk-QyW" sceneMemberID="viewController">
+                <tabBarController id="Vxu-Wk-QyW" userLabel="TabBar Controller" customClass="TabBarController" customModule="HearHereApp" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="14c-9I-4Vi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -274,6 +296,50 @@
             </objects>
             <point key="canvasLocation" x="617" y="445"/>
         </scene>
+        <!--SignUp View Controller-->
+        <scene sceneID="zdu-Vi-FsM">
+            <objects>
+                <viewController id="vEm-HM-kqR" userLabel="SignUp View Controller" customClass="SignUpViewController" customModule="HearHereApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QVF-S7-eUG"/>
+                        <viewControllerLayoutGuide type="bottom" id="RtP-J4-VVx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Phj-U8-0Yk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="GKQ-YE-Rt8" kind="show" id="vrg-YX-ELn"/>
+                        <segue destination="Vxu-Wk-QyW" kind="show" id="HzI-45-Db6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9qR-qZ-Am0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-999" y="420"/>
+        </scene>
+        <!--SignIn View Controller-->
+        <scene sceneID="kLx-Z9-niM">
+            <objects>
+                <viewController id="hU5-bJ-asy" userLabel="SignIn View Controller" customClass="SignInViewController" customModule="HearHereApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mcs-yp-Ptl"/>
+                        <viewControllerLayoutGuide type="bottom" id="yx6-I0-xgr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="K3x-ix-sLa">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="vEm-HM-kqR" kind="show" id="Gt6-1N-rJG"/>
+                        <segue destination="Vxu-Wk-QyW" kind="show" id="ni5-Q7-n1G"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k2i-01-vrI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1689" y="420"/>
+        </scene>
     </scenes>
     <resources>
         <image name="calendar" width="32" height="32"/>
@@ -283,4 +349,7 @@
         <image name="search" width="22" height="22"/>
         <image name="user_2" width="32" height="32"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="JK1-U6-C5e"/>
+    </inferredMetricsTieBreakers>
 </document>
