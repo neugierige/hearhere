@@ -1,0 +1,442 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F987BA171AA7C720008FDD56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987BA161AA7C720008FDD56 /* AppDelegate.swift */; };
+		F987BA191AA7C720008FDD56 /* HomeTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987BA181AA7C720008FDD56 /* HomeTab.swift */; };
+		F987BA1C1AA7C720008FDD56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F987BA1A1AA7C720008FDD56 /* Main.storyboard */; };
+		F987BA1E1AA7C720008FDD56 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F987BA1D1AA7C720008FDD56 /* Images.xcassets */; };
+		F987BA211AA7C720008FDD56 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F987BA1F1AA7C720008FDD56 /* LaunchScreen.xib */; };
+		F987BA2D1AA7C721008FDD56 /* HearHereAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987BA2C1AA7C721008FDD56 /* HearHereAppTests.swift */; };
+		F987BA371AA7C7F7008FDD56 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F987BA361AA7C7F7008FDD56 /* MapKit.framework */; };
+		F987BA391AA7C7FD008FDD56 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F987BA381AA7C7FD008FDD56 /* EventKit.framework */; };
+		F9CF09721AA7E179005E28F7 /* CalendarTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09711AA7E179005E28F7 /* CalendarTab.swift */; };
+		F9CF09741AA7E18E005E28F7 /* MapTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09731AA7E18E005E28F7 /* MapTab.swift */; };
+		F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F987BA271AA7C721008FDD56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F987BA091AA7C720008FDD56 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F987BA101AA7C720008FDD56;
+			remoteInfo = HearHereApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F987BA111AA7C720008FDD56 /* HearHereApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HearHereApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F987BA151AA7C720008FDD56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F987BA161AA7C720008FDD56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F987BA181AA7C720008FDD56 /* HomeTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTab.swift; sourceTree = "<group>"; };
+		F987BA1B1AA7C720008FDD56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F987BA1D1AA7C720008FDD56 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F987BA201AA7C720008FDD56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		F987BA261AA7C721008FDD56 /* HearHereAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HearHereAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F987BA2B1AA7C721008FDD56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F987BA2C1AA7C721008FDD56 /* HearHereAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearHereAppTests.swift; sourceTree = "<group>"; };
+		F987BA361AA7C7F7008FDD56 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		F987BA381AA7C7FD008FDD56 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		F9CF09711AA7E179005E28F7 /* CalendarTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarTab.swift; sourceTree = "<group>"; };
+		F9CF09731AA7E18E005E28F7 /* MapTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTab.swift; sourceTree = "<group>"; };
+		F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTab.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F987BA0E1AA7C720008FDD56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F987BA391AA7C7FD008FDD56 /* EventKit.framework in Frameworks */,
+				F987BA371AA7C7F7008FDD56 /* MapKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F987BA231AA7C721008FDD56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F987BA081AA7C720008FDD56 = {
+			isa = PBXGroup;
+			children = (
+				F987BA381AA7C7FD008FDD56 /* EventKit.framework */,
+				F987BA361AA7C7F7008FDD56 /* MapKit.framework */,
+				F987BA131AA7C720008FDD56 /* HearHereApp */,
+				F987BA291AA7C721008FDD56 /* HearHereAppTests */,
+				F987BA121AA7C720008FDD56 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F987BA121AA7C720008FDD56 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F987BA111AA7C720008FDD56 /* HearHereApp.app */,
+				F987BA261AA7C721008FDD56 /* HearHereAppTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F987BA131AA7C720008FDD56 /* HearHereApp */ = {
+			isa = PBXGroup;
+			children = (
+				F987BA1A1AA7C720008FDD56 /* Main.storyboard */,
+				F987BA181AA7C720008FDD56 /* HomeTab.swift */,
+				F9CF09711AA7E179005E28F7 /* CalendarTab.swift */,
+				F9CF09731AA7E18E005E28F7 /* MapTab.swift */,
+				F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */,
+				F987BA161AA7C720008FDD56 /* AppDelegate.swift */,
+				F987BA1D1AA7C720008FDD56 /* Images.xcassets */,
+				F987BA1F1AA7C720008FDD56 /* LaunchScreen.xib */,
+				F987BA141AA7C720008FDD56 /* Supporting Files */,
+			);
+			path = HearHereApp;
+			sourceTree = "<group>";
+		};
+		F987BA141AA7C720008FDD56 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F987BA151AA7C720008FDD56 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F987BA291AA7C721008FDD56 /* HearHereAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				F987BA2C1AA7C721008FDD56 /* HearHereAppTests.swift */,
+				F987BA2A1AA7C721008FDD56 /* Supporting Files */,
+			);
+			path = HearHereAppTests;
+			sourceTree = "<group>";
+		};
+		F987BA2A1AA7C721008FDD56 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F987BA2B1AA7C721008FDD56 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F987BA101AA7C720008FDD56 /* HearHereApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F987BA301AA7C721008FDD56 /* Build configuration list for PBXNativeTarget "HearHereApp" */;
+			buildPhases = (
+				F987BA0D1AA7C720008FDD56 /* Sources */,
+				F987BA0E1AA7C720008FDD56 /* Frameworks */,
+				F987BA0F1AA7C720008FDD56 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HearHereApp;
+			productName = HearHereApp;
+			productReference = F987BA111AA7C720008FDD56 /* HearHereApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F987BA251AA7C721008FDD56 /* HearHereAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F987BA331AA7C721008FDD56 /* Build configuration list for PBXNativeTarget "HearHereAppTests" */;
+			buildPhases = (
+				F987BA221AA7C721008FDD56 /* Sources */,
+				F987BA231AA7C721008FDD56 /* Frameworks */,
+				F987BA241AA7C721008FDD56 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F987BA281AA7C721008FDD56 /* PBXTargetDependency */,
+			);
+			name = HearHereAppTests;
+			productName = HearHereAppTests;
+			productReference = F987BA261AA7C721008FDD56 /* HearHereAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F987BA091AA7C720008FDD56 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = LXing;
+				TargetAttributes = {
+					F987BA101AA7C720008FDD56 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					F987BA251AA7C721008FDD56 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = F987BA101AA7C720008FDD56;
+					};
+				};
+			};
+			buildConfigurationList = F987BA0C1AA7C720008FDD56 /* Build configuration list for PBXProject "HearHereApp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F987BA081AA7C720008FDD56;
+			productRefGroup = F987BA121AA7C720008FDD56 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F987BA101AA7C720008FDD56 /* HearHereApp */,
+				F987BA251AA7C721008FDD56 /* HearHereAppTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F987BA0F1AA7C720008FDD56 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F987BA1C1AA7C720008FDD56 /* Main.storyboard in Resources */,
+				F987BA211AA7C720008FDD56 /* LaunchScreen.xib in Resources */,
+				F987BA1E1AA7C720008FDD56 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F987BA241AA7C721008FDD56 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F987BA0D1AA7C720008FDD56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */,
+				F9CF09741AA7E18E005E28F7 /* MapTab.swift in Sources */,
+				F987BA191AA7C720008FDD56 /* HomeTab.swift in Sources */,
+				F9CF09721AA7E179005E28F7 /* CalendarTab.swift in Sources */,
+				F987BA171AA7C720008FDD56 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F987BA221AA7C721008FDD56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F987BA2D1AA7C721008FDD56 /* HearHereAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F987BA281AA7C721008FDD56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F987BA101AA7C720008FDD56 /* HearHereApp */;
+			targetProxy = F987BA271AA7C721008FDD56 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F987BA1A1AA7C720008FDD56 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F987BA1B1AA7C720008FDD56 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F987BA1F1AA7C720008FDD56 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F987BA201AA7C720008FDD56 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F987BA2E1AA7C721008FDD56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F987BA2F1AA7C721008FDD56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F987BA311AA7C721008FDD56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = HearHereApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F987BA321AA7C721008FDD56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = HearHereApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F987BA341AA7C721008FDD56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HearHereAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HearHereApp.app/HearHereApp";
+			};
+			name = Debug;
+		};
+		F987BA351AA7C721008FDD56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HearHereAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HearHereApp.app/HearHereApp";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F987BA0C1AA7C720008FDD56 /* Build configuration list for PBXProject "HearHereApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F987BA2E1AA7C721008FDD56 /* Debug */,
+				F987BA2F1AA7C721008FDD56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F987BA301AA7C721008FDD56 /* Build configuration list for PBXNativeTarget "HearHereApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F987BA311AA7C721008FDD56 /* Debug */,
+				F987BA321AA7C721008FDD56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F987BA331AA7C721008FDD56 /* Build configuration list for PBXNativeTarget "HearHereAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F987BA341AA7C721008FDD56 /* Debug */,
+				F987BA351AA7C721008FDD56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F987BA091AA7C720008FDD56 /* Project object */;
+}
