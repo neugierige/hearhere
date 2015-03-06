@@ -1,14 +1,14 @@
 //
-//  TagsViewController.swift
+//  SearchViewController.swift
 //  HearHereApp
 //
-//  Created by Matthew Korporaal on 3/5/15.
+//  Created by Luyuan Xing on 3/5/15.
 //  Copyright (c) 2015 LXing. All rights reserved.
 //
 
 import UIKit
 
-class TagsViewController: UIViewController {
+class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
