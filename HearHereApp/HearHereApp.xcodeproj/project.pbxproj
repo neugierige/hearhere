@@ -27,6 +27,8 @@
 		466A27761AAA20AE00AB6BB5 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466A27751AAA20AE00AB6BB5 /* TagsViewController.swift */; };
 		466A278B1AAA851200AB6BB5 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466A278A1AAA851200AB6BB5 /* SearchView.swift */; };
 		466A278D1AAAC78900AB6BB5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466A278C1AAAC78900AB6BB5 /* User.swift */; };
+		F93A26CF1AAB6BB700ED3BD8 /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93A26CE1AAB6BB700ED3BD8 /* EventDetailView.swift */; };
+		F93A26D11AAB6D9C00ED3BD8 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */; };
 		F987BA171AA7C720008FDD56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987BA161AA7C720008FDD56 /* AppDelegate.swift */; };
 		F987BA191AA7C720008FDD56 /* HomeTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987BA181AA7C720008FDD56 /* HomeTab.swift */; };
 		F987BA1C1AA7C720008FDD56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F987BA1A1AA7C720008FDD56 /* Main.storyboard */; };
@@ -42,6 +44,8 @@
 		F9CF09721AA7E179005E28F7 /* CalendarTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09711AA7E179005E28F7 /* CalendarTab.swift */; };
 		F9CF09741AA7E18E005E28F7 /* MapTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09731AA7E18E005E28F7 /* MapTab.swift */; };
 		F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */; };
+		F9E8A59F1AB38D9500A4452D /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9E8A59D1AB38D9500A4452D /* CustomCell.xib */; };
+		F9E8A5A01AB38D9500A4452D /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E8A59E1AB38D9500A4452D /* CustomCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +79,8 @@
 		466A27751AAA20AE00AB6BB5 /* TagsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
 		466A278A1AAA851200AB6BB5 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		466A278C1AAAC78900AB6BB5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F93A26CE1AAB6BB700ED3BD8 /* EventDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
+		F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		F987BA111AA7C720008FDD56 /* HearHereApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HearHereApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F987BA151AA7C720008FDD56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F987BA161AA7C720008FDD56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +100,8 @@
 		F9CF09711AA7E179005E28F7 /* CalendarTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarTab.swift; sourceTree = "<group>"; };
 		F9CF09731AA7E18E005E28F7 /* MapTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTab.swift; sourceTree = "<group>"; };
 		F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTab.swift; sourceTree = "<group>"; };
+		F9E8A59D1AB38D9500A4452D /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		F9E8A59E1AB38D9500A4452D /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +166,7 @@
 				F9CF09711AA7E179005E28F7 /* CalendarTab.swift */,
 				F9CF09731AA7E18E005E28F7 /* MapTab.swift */,
 				F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */,
+				F93A26D21AAB6DA800ED3BD8 /* EventDetail */,
 				F995C3E31AA91CA300F6EC88 /* TabBarController.swift */,
 				F995C3EB1AA91DA200F6EC88 /* SearchViewController.swift */,
 				F995C3E91AA91D6500F6EC88 /* SignInViewController.swift */,
@@ -184,6 +193,17 @@
 				466A27711AAA163700AB6BB5 /* TagListView.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		F93A26D21AAB6DA800ED3BD8 /* EventDetail */ = {
+			isa = PBXGroup;
+			children = (
+				F93A26CE1AAB6BB700ED3BD8 /* EventDetailView.swift */,
+				F9E8A59D1AB38D9500A4452D /* CustomCell.xib */,
+				F9E8A59E1AB38D9500A4452D /* CustomCell.swift */,
+				F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */,
+			);
+			name = EventDetail;
 			sourceTree = "<group>";
 		};
 		F987BA081AA7C720008FDD56 = {
@@ -328,6 +348,7 @@
 			files = (
 				F987BA1C1AA7C720008FDD56 /* Main.storyboard in Resources */,
 				F987BA211AA7C720008FDD56 /* LaunchScreen.xib in Resources */,
+				F9E8A59F1AB38D9500A4452D /* CustomCell.xib in Resources */,
 				F987BA1E1AA7C720008FDD56 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,11 +368,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F995C3EC1AA91DA200F6EC88 /* SearchViewController.swift in Sources */,
+				F93A26D11AAB6D9C00ED3BD8 /* WebViewController.swift in Sources */,
 				F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */,
 				F9CF09741AA7E18E005E28F7 /* MapTab.swift in Sources */,
 				F995C3E81AA91D4D00F6EC88 /* SignUpViewController.swift in Sources */,
 				466A278D1AAAC78900AB6BB5 /* User.swift in Sources */,
+				F93A26CF1AAB6BB700ED3BD8 /* EventDetailView.swift in Sources */,
 				F987BA191AA7C720008FDD56 /* HomeTab.swift in Sources */,
+				F9E8A5A01AB38D9500A4452D /* CustomCell.swift in Sources */,
 				F995C3E41AA91CA300F6EC88 /* TabBarController.swift in Sources */,
 				4609CC3A1AA974E200D2E70D /* Configuration.swift in Sources */,
 				F995C3EA1AA91D6500F6EC88 /* SignInViewController.swift in Sources */,
