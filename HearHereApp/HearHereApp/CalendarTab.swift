@@ -20,7 +20,7 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var event1 = Event(eventID: "BBBB", name: "Masterworks Festival Chorus New York City Chamber Orchestra", dateTime: NSDate(), venue: "Carnegie Hall", image: "")
+        var event1 = Event(eventID: "BBBB", name: "Masterworks Festival Chorus New York City Chamber Orchestra Fruitcake gingerbread chocolate bar gingerbread gummi bears.", dateTime: NSDate(), venue: "Carnegie Hall Lollipop chocolate cotton candy tart jelly gingerbread chocolate cake lollipop cake.", image: "")
         
         for index in 0...20 {
             eventsArray.append(event1)
@@ -56,10 +56,24 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate 
         
         let event = eventsArray[indexPath.row]
         
+        if cell.viewWithTag(1) == nil {
+            let timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.width / 5, height: self.rowHeight))
+            timeLabel.tag = 1
+            // med blue
+            timeLabel.textColor = UIColor(red: 0.247, green: 0.341, blue: 0.396, alpha: 1.0)
+            timeLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 14.0)
+            timeLabel.textAlignment = .Center
+            cell.contentView.addSubview(timeLabel)
+        }
+        
+        let timeLabel = cell.viewWithTag(1) as UILabel
+        
         // Populate text labels
         let eventTime = formatDateTime(event.dateTime, type: "time")
-        cell.textLabel?.text = eventTime
-        cell.detailTextLabel?.text = "\(event.name)\n\n\(event.venue)"
+        timeLabel.text = "\(eventTime)"
+        cell.textLabel?.text = "\(event.name)"
+        cell.detailTextLabel?.text = "\(event.venue)"
+        
         return cell
     }
     
@@ -105,21 +119,21 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate 
     override func supportedInterfaceOrientations() -> Int {
         return UIInterfaceOrientation.Portrait.rawValue
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
