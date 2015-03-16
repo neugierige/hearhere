@@ -27,6 +27,9 @@
 		466A27761AAA20AE00AB6BB5 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466A27751AAA20AE00AB6BB5 /* TagsViewController.swift */; };
 		466A278B1AAA851200AB6BB5 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466A278A1AAA851200AB6BB5 /* SearchView.swift */; };
 		466A278D1AAAC78900AB6BB5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466A278C1AAAC78900AB6BB5 /* User.swift */; };
+		DBD31EB01AB35C5B00B03CAA /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD31EAF1AB35C5B00B03CAA /* Event.swift */; };
+		DBD31EB21AB35CAA00B03CAA /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD31EB11AB35CAA00B03CAA /* HomeTableViewCell.swift */; };
+		DBD31EB41AB3663900B03CAA /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD31EB31AB3663900B03CAA /* CalendarTableViewCell.swift */; };
 		F987BA171AA7C720008FDD56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987BA161AA7C720008FDD56 /* AppDelegate.swift */; };
 		F987BA191AA7C720008FDD56 /* HomeTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987BA181AA7C720008FDD56 /* HomeTab.swift */; };
 		F987BA1C1AA7C720008FDD56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F987BA1A1AA7C720008FDD56 /* Main.storyboard */; };
@@ -75,6 +78,9 @@
 		466A27751AAA20AE00AB6BB5 /* TagsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
 		466A278A1AAA851200AB6BB5 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		466A278C1AAAC78900AB6BB5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		DBD31EAF1AB35C5B00B03CAA /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		DBD31EB11AB35CAA00B03CAA /* HomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		DBD31EB31AB3663900B03CAA /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
 		F987BA111AA7C720008FDD56 /* HearHereApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HearHereApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F987BA151AA7C720008FDD56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F987BA161AA7C720008FDD56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -172,6 +178,7 @@
 			children = (
 				466A278C1AAAC78900AB6BB5 /* User.swift */,
 				4609CC371AA974AF00D2E70D /* DataManager.swift */,
+				DBD31EAF1AB35C5B00B03CAA /* Event.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -182,6 +189,8 @@
 				466A278A1AAA851200AB6BB5 /* SearchView.swift */,
 				466A27721AAA163700AB6BB5 /* TagView.swift */,
 				466A27711AAA163700AB6BB5 /* TagListView.swift */,
+				DBD31EB11AB35CAA00B03CAA /* HomeTableViewCell.swift */,
+				DBD31EB31AB3663900B03CAA /* CalendarTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -350,10 +359,13 @@
 				F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */,
 				F9CF09741AA7E18E005E28F7 /* MapTab.swift in Sources */,
 				F995C3E81AA91D4D00F6EC88 /* SignUpViewController.swift in Sources */,
+				DBD31EB41AB3663900B03CAA /* CalendarTableViewCell.swift in Sources */,
 				466A278D1AAAC78900AB6BB5 /* User.swift in Sources */,
 				F987BA191AA7C720008FDD56 /* HomeTab.swift in Sources */,
+				DBD31EB21AB35CAA00B03CAA /* HomeTableViewCell.swift in Sources */,
 				F995C3E41AA91CA300F6EC88 /* TabBarController.swift in Sources */,
 				4609CC3A1AA974E200D2E70D /* Configuration.swift in Sources */,
+				DBD31EB01AB35C5B00B03CAA /* Event.swift in Sources */,
 				F995C3EA1AA91D6500F6EC88 /* SignInViewController.swift in Sources */,
 				4609CC381AA974AF00D2E70D /* DataManager.swift in Sources */,
 				466A27741AAA163700AB6BB5 /* TagView.swift in Sources */,
