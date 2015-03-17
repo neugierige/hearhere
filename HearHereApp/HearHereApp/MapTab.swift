@@ -18,7 +18,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class MapTab: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     var map = MKMapView()
     var arrayOfMapItems = [MKPointAnnotation]()

@@ -26,6 +26,7 @@
 		466A27741AAA163700AB6BB5 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466A27721AAA163700AB6BB5 /* TagView.swift */; };
 		466A27761AAA20AE00AB6BB5 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466A27751AAA20AE00AB6BB5 /* TagsViewController.swift */; };
 		466A278B1AAA851200AB6BB5 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466A278A1AAA851200AB6BB5 /* SearchView.swift */; };
+		466CC8931AB8C640002FE4F0 /* MapTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466CC8921AB8C640002FE4F0 /* MapTab.swift */; };
 		46795D751AB7D30300D504F6 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46795D741AB7D30300D504F6 /* Artist.swift */; };
 		4693CDCD1AB7D69100DCBA29 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4693CDCC1AB7D69100DCBA29 /* Venue.swift */; };
 		4693CDD41AB7D6B800DCBA29 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4693CDCF1AB7D6B800DCBA29 /* Category.swift */; };
@@ -60,7 +61,6 @@
 		F995C3EA1AA91D6500F6EC88 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F995C3E91AA91D6500F6EC88 /* SignInViewController.swift */; };
 		F995C3EC1AA91DA200F6EC88 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F995C3EB1AA91DA200F6EC88 /* SearchViewController.swift */; };
 		F9CF09721AA7E179005E28F7 /* CalendarTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09711AA7E179005E28F7 /* CalendarTab.swift */; };
-		F9CF09741AA7E18E005E28F7 /* MapTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09731AA7E18E005E28F7 /* MapTab.swift */; };
 		F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +94,7 @@
 		466A27721AAA163700AB6BB5 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		466A27751AAA20AE00AB6BB5 /* TagsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
 		466A278A1AAA851200AB6BB5 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		466CC8921AB8C640002FE4F0 /* MapTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapTab.swift; path = HearHereApp/MapTab.swift; sourceTree = "<group>"; };
 		46795D741AB7D30300D504F6 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		4693CDCC1AB7D69100DCBA29 /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Venue.swift; path = ../Venue.swift; sourceTree = "<group>"; };
 		4693CDCF1AB7D6B800DCBA29 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -135,7 +136,6 @@
 		F995C3E91AA91D6500F6EC88 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		F995C3EB1AA91DA200F6EC88 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		F9CF09711AA7E179005E28F7 /* CalendarTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarTab.swift; sourceTree = "<group>"; };
-		F9CF09731AA7E18E005E28F7 /* MapTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTab.swift; sourceTree = "<group>"; };
 		F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTab.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -216,7 +216,6 @@
 				4693CDE01AB7D85300DCBA29 /* FilterPopoverViewController.swift */,
 				4693CDE11AB7D85300DCBA29 /* FriendsTableViewController.swift */,
 				F9CF09711AA7E179005E28F7 /* CalendarTab.swift */,
-				F9CF09731AA7E18E005E28F7 /* MapTab.swift */,
 				F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */,
 				F995C3E31AA91CA300F6EC88 /* TabBarController.swift */,
 				F995C3EB1AA91DA200F6EC88 /* SearchViewController.swift */,
@@ -263,6 +262,7 @@
 		F987BA081AA7C720008FDD56 = {
 			isa = PBXGroup;
 			children = (
+				466CC8921AB8C640002FE4F0 /* MapTab.swift */,
 				F987BA131AA7C720008FDD56 /* HearHereApp */,
 				F987BA291AA7C721008FDD56 /* HearHereAppTests */,
 				F987BA121AA7C720008FDD56 /* Products */,
@@ -481,7 +481,6 @@
 				4693CDE71AB7D8CB00DCBA29 /* FriendsTableViewCell.swift in Sources */,
 				F93A26D11AAB6D9C00ED3BD8 /* WebViewController.swift in Sources */,
 				F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */,
-				F9CF09741AA7E18E005E28F7 /* MapTab.swift in Sources */,
 				F983DA521AB8ADCF00A3B4E2 /* DetailViewController.swift in Sources */,
 				4693CDE21AB7D85300DCBA29 /* FilterPopoverViewController.swift in Sources */,
 				F995C3E81AA91D4D00F6EC88 /* SignUpViewController.swift in Sources */,
@@ -497,6 +496,7 @@
 				F995C3E41AA91CA300F6EC88 /* TabBarController.swift in Sources */,
 				4609CC3A1AA974E200D2E70D /* Configuration.swift in Sources */,
 				4693CDE31AB7D85300DCBA29 /* FriendsTableViewController.swift in Sources */,
+				466CC8931AB8C640002FE4F0 /* MapTab.swift in Sources */,
 				46795D751AB7D30300D504F6 /* Artist.swift in Sources */,
 				F995C3EA1AA91D6500F6EC88 /* SignInViewController.swift in Sources */,
 				4609CC381AA974AF00D2E70D /* DataManager.swift in Sources */,
