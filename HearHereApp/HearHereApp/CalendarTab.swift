@@ -20,11 +20,14 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var event1 = Event(eventID: "BBBB", name: "Masterworks Festival Chorus New York City Chamber Orchestra Fruitcake gingerbread chocolate bar gingerbread gummi bears.", dateTime: NSDate(), venue: "Carnegie Hall Lollipop chocolate cotton candy tart jelly gingerbread chocolate cake lollipop cake.", image: "")
-        
-        for index in 0...20 {
-            eventsArray.append(event1)
+        DataManager.retrieveAllEvents { events in
+            self.eventsArray = events
         }
+//        var event1 = Event(eventID: "BBBB", name: "Masterworks Festival Chorus New York City Chamber Orchestra Fruitcake gingerbread chocolate bar gingerbread gummi bears.", dateTime: NSDate(), venue: "Carnegie Hall Lollipop chocolate cotton candy tart jelly gingerbread chocolate cake lollipop cake.", image: "")
+        
+//        for index in 0...20 {
+//            eventsArray.append(event1)
+//        }
         
         for index in 0...5 {
             datesArray.append(NSDate())
@@ -71,8 +74,8 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate 
         // Populate text labels
         let eventTime = formatDateTime(event.dateTime, type: "time")
         timeLabel.text = "\(eventTime)"
-        cell.textLabel?.text = "\(event.name)"
-        cell.detailTextLabel?.text = "\(event.venue)"
+        cell.textLabel?.text = "\(event.title)"
+        cell.detailTextLabel?.text = "\(event.venue.name)"
         
         return cell
     }

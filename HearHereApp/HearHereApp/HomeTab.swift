@@ -17,12 +17,14 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        var event1 = Event(eventID: "AAAA", name: "Beethoven, Berlioz, and Adès Tiramisu bear claw topping tiramisu", dateTime: NSDate(), venue: "Pastry donut chocolate. Cupcake croissant jujubes danish jelly-o apple pie jelly beans danish wafer.", image: "avery-fisher-hall.jpg")
-        
-        for index in 0...20 {
-            eventsArray.append(event1)
+        DataManager.retrieveAllEvents { events in
+            self.eventsArray = events
         }
+//        var event1 = Event(eventID: "AAAA", name: "Beethoven, Berlioz, and Adès Tiramisu bear claw topping tiramisu", dateTime: NSDate(), venue: "Pastry donut chocolate. Cupcake croissant jujubes danish jelly-o apple pie jelly beans danish wafer.", image: "avery-fisher-hall.jpg")
+        
+//        for index in 0...20 {
+//            eventsArray.append(event1)
+//        }
         
         tableView = UITableView(frame: CGRect(x: 0, y: tableY, width: self.view.frame.width, height: self.view.frame.height - tableY - 49.0), style: UITableViewStyle.Plain)
         
@@ -54,7 +56,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         // Create background image
         let backgroundView = UIImageView()
         backgroundView.contentMode = .ScaleToFill
-        backgroundView.image = UIImage(named: event.image)
+//        backgroundView.image = UIImage(named: event.image)
         cell.backgroundView = backgroundView
         
         // Tint background image
@@ -71,7 +73,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         // Populate text labels
         let dateTime = formatDateTime(event.dateTime)
         
-        cell.textLabel?.text = "\(event.name)"
+        cell.textLabel?.text = "\(event.title)"
         cell.textLabel?.textColor = cellColors.txtColor
         
         cell.detailTextLabel?.text = "\(dateTime)\n\(event.venue)"
