@@ -18,40 +18,7 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
 
     let tagColors  = ["Artist":Configuration.tagUIColorA, "Category":Configuration.tagUIColorB, "Venue":Configuration.tagUIColorC]
     
-    enum Tag {
         
-//        case Artist
-//        case Category
-//        case Venue
-//        case All
-        case Color(String)
-        
-//        var title: String {
-//            switch(self) {
-//            case .Artist:   return "Artist"
-//            case .Category: return "Category"
-//            case .Venue:    return "Venue"
-//            case .All:      return "All"
-//            }
-//        }
-//        var color: UIColor {
-//            switch(self) {
-//            case .Artist:   return Configuration.tagUIColorA
-//            case .Category: return Configuration.tagUIColorB
-//            case .Venue:    return Configuration.tagUIColorC
-//            case .All:      return Configuration.tagFontUIColor
-//            }
-//        }
-        var color: UIColor {
-            switch(self) {
-            case .Artist:   return Configuration.tagUIColorA
-            case .Category: return Configuration.tagUIColorB
-            case .Venue:    return Configuration.tagUIColorC
-            case .All:      return Configuration.tagFontUIColor
-            }
-        }
-    }
-    
     // MARK: View properties
     private var setupMode: Bool?
     private var searchField: UITextField!
