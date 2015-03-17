@@ -39,6 +39,10 @@
 		46DABD371AACABEB004D4A36 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DABD361AACABEB004D4A36 /* Artist.swift */; };
 		46DABD3B1AACD8B5004D4A36 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DABD3A1AACD8B5004D4A36 /* Category.swift */; };
 		46E7C8B31AB754BC00D0C0F5 /* FilterPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E7C8B11AB754BC00D0C0F5 /* FilterPopoverViewController.swift */; };
+		DBD31EB21AB35CAA00B03CAA /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD31EB11AB35CAA00B03CAA /* HomeTableViewCell.swift */; };
+		DBD31EB41AB3663900B03CAA /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD31EB31AB3663900B03CAA /* CalendarTableViewCell.swift */; };
+		F93A26CF1AAB6BB700ED3BD8 /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93A26CE1AAB6BB700ED3BD8 /* EventDetailView.swift */; };
+		F93A26D11AAB6D9C00ED3BD8 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */; };
 		F987BA171AA7C720008FDD56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987BA161AA7C720008FDD56 /* AppDelegate.swift */; };
 		F987BA191AA7C720008FDD56 /* HomeTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987BA181AA7C720008FDD56 /* HomeTab.swift */; };
 		F987BA1C1AA7C720008FDD56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F987BA1A1AA7C720008FDD56 /* Main.storyboard */; };
@@ -54,6 +58,8 @@
 		F9CF09721AA7E179005E28F7 /* CalendarTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09711AA7E179005E28F7 /* CalendarTab.swift */; };
 		F9CF09741AA7E18E005E28F7 /* MapTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09731AA7E18E005E28F7 /* MapTab.swift */; };
 		F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */; };
+		F9E8A59F1AB38D9500A4452D /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9E8A59D1AB38D9500A4452D /* CustomCell.xib */; };
+		F9E97D0B1AB7AB7200B31CFA /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E97D0A1AB7AB7200B31CFA /* CustomCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +108,10 @@
 		46E7C8B11AB754BC00D0C0F5 /* FilterPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterPopoverViewController.swift; sourceTree = "<group>"; };
 		550A2B1B14AF6A4FBD8A931B /* Pods_HearHereApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HearHereApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C92C234776377DADDCB707DE /* Pods-HearHereApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HearHereApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HearHereApp/Pods-HearHereApp.debug.xcconfig"; sourceTree = "<group>"; };
+		DBD31EB11AB35CAA00B03CAA /* HomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		DBD31EB31AB3663900B03CAA /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
+		F93A26CE1AAB6BB700ED3BD8 /* EventDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
+		F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		F987BA111AA7C720008FDD56 /* HearHereApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HearHereApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F987BA151AA7C720008FDD56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F987BA161AA7C720008FDD56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +131,8 @@
 		F9CF09711AA7E179005E28F7 /* CalendarTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarTab.swift; sourceTree = "<group>"; };
 		F9CF09731AA7E18E005E28F7 /* MapTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTab.swift; sourceTree = "<group>"; };
 		F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTab.swift; sourceTree = "<group>"; };
+		F9E8A59D1AB38D9500A4452D /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		F9E97D0A1AB7AB7200B31CFA /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +201,7 @@
 				F9CF09711AA7E179005E28F7 /* CalendarTab.swift */,
 				F9CF09731AA7E18E005E28F7 /* MapTab.swift */,
 				F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */,
+				F93A26D21AAB6DA800ED3BD8 /* EventDetail */,
 				F995C3E31AA91CA300F6EC88 /* TabBarController.swift */,
 				F995C3EB1AA91DA200F6EC88 /* SearchViewController.swift */,
 				F995C3E91AA91D6500F6EC88 /* SignInViewController.swift */,
@@ -212,6 +225,7 @@
 				46C148A31AB25E9700792B80 /* UserRouter.swift */,
 				46C148A51AB2A0E800792B80 /* ClassRouter.swift */,
 				4609CC371AA974AF00D2E70D /* DataManager.swift */,
+				DBD31EAF1AB35C5B00B03CAA /* Event.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -223,6 +237,8 @@
 				466A27721AAA163700AB6BB5 /* TagView.swift */,
 				466A27711AAA163700AB6BB5 /* TagListView.swift */,
 				46CB940A1AB40E090002F73B /* FriendsTableViewCell.swift */,
+				DBD31EB11AB35CAA00B03CAA /* HomeTableViewCell.swift */,
+				DBD31EB31AB3663900B03CAA /* CalendarTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -234,6 +250,15 @@
 				31182D8765397811287A81B8 /* Pods-HearHereApp.release.xcconfig */,
 			);
 			name = Pods;
+		F93A26D21AAB6DA800ED3BD8 /* EventDetail */ = {
+			isa = PBXGroup;
+			children = (
+				F9E97D0A1AB7AB7200B31CFA /* CustomCell.swift */,
+				F9E8A59D1AB38D9500A4452D /* CustomCell.xib */,
+				F93A26CE1AAB6BB700ED3BD8 /* EventDetailView.swift */,
+				F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */,
+			);
+			name = EventDetail;
 			sourceTree = "<group>";
 		};
 		F987BA081AA7C720008FDD56 = {
@@ -383,6 +408,7 @@
 			files = (
 				F987BA1C1AA7C720008FDD56 /* Main.storyboard in Resources */,
 				F987BA211AA7C720008FDD56 /* LaunchScreen.xib in Resources */,
+				F9E8A59F1AB38D9500A4452D /* CustomCell.xib in Resources */,
 				F987BA1E1AA7C720008FDD56 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -451,6 +477,8 @@
 			files = (
 				F995C3EC1AA91DA200F6EC88 /* SearchViewController.swift in Sources */,
 				46CB940F1AB48D5C0002F73B /* Venue.swift in Sources */,
+				F93A26D11AAB6D9C00ED3BD8 /* WebViewController.swift in Sources */,
+				F9E97D0B1AB7AB7200B31CFA /* CustomCell.swift in Sources */,
 				F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */,
 				46CB940B1AB40E090002F73B /* FriendsTableViewCell.swift in Sources */,
 				46D07DA11AB367060007E17F /* FriendsTableViewController.swift in Sources */,
@@ -461,11 +489,15 @@
 				466A278D1AAAC78900AB6BB5 /* User.swift in Sources */,
 				46DABD3B1AACD8B5004D4A36 /* Category.swift in Sources */,
 				46C440091AB6AA9F00C5A44B /* Model.swift in Sources */,
+				DBD31EB41AB3663900B03CAA /* CalendarTableViewCell.swift in Sources */,
+				F93A26CF1AAB6BB700ED3BD8 /* EventDetailView.swift in Sources */,
 				F987BA191AA7C720008FDD56 /* HomeTab.swift in Sources */,
+				DBD31EB21AB35CAA00B03CAA /* HomeTableViewCell.swift in Sources */,
 				F995C3E41AA91CA300F6EC88 /* TabBarController.swift in Sources */,
 				46C148A41AB25E9700792B80 /* UserRouter.swift in Sources */,
 				4609CC3A1AA974E200D2E70D /* Configuration.swift in Sources */,
 				46C148A61AB2A0E800792B80 /* ClassRouter.swift in Sources */,
+				DBD31EB01AB35C5B00B03CAA /* Event.swift in Sources */,
 				F995C3EA1AA91D6500F6EC88 /* SignInViewController.swift in Sources */,
 				4609CC381AA974AF00D2E70D /* DataManager.swift in Sources */,
 				466A27741AAA163700AB6BB5 /* TagView.swift in Sources */,
