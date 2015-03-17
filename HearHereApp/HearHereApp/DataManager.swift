@@ -150,6 +150,7 @@ extension DataManager {
 
     class func saveUser(user: User, completion: Bool? -> Void) {
         if let currentUser = PFUser.currentUser() {
+        
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
                 
                 var ids = user.artists.map { $0.objectId }

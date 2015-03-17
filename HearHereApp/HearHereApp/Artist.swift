@@ -5,13 +5,16 @@
 //  Created by Matthew Korporaal on 3/8/15.
 //  Copyright (c) 2015 LXing. All rights reserved.
 //
-// test
+
 import Foundation
 import Parse
 
 class Artist: Model {//: Printable {
     var name: String!
-
+    var url: String?
+    var email: String?
+    var detail: String?
+    
     required init(id: String) {
         super.init(id: id)
     }
