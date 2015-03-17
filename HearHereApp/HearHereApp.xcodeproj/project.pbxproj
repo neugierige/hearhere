@@ -94,7 +94,7 @@
 		466A27721AAA163700AB6BB5 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		466A27751AAA20AE00AB6BB5 /* TagsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
 		466A278A1AAA851200AB6BB5 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
-		466CC8921AB8C640002FE4F0 /* MapTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapTab.swift; path = HearHereApp/MapTab.swift; sourceTree = "<group>"; };
+		466CC8921AB8C640002FE4F0 /* MapTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTab.swift; sourceTree = "<group>"; };
 		46795D741AB7D30300D504F6 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		4693CDCC1AB7D69100DCBA29 /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Venue.swift; path = ../Venue.swift; sourceTree = "<group>"; };
 		4693CDCF1AB7D6B800DCBA29 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -218,6 +218,7 @@
 				F9CF09711AA7E179005E28F7 /* CalendarTab.swift */,
 				F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */,
 				F995C3E31AA91CA300F6EC88 /* TabBarController.swift */,
+				466CC8921AB8C640002FE4F0 /* MapTab.swift */,
 				F995C3EB1AA91DA200F6EC88 /* SearchViewController.swift */,
 				F995C3E91AA91D6500F6EC88 /* SignInViewController.swift */,
 				F995C3E71AA91D4D00F6EC88 /* SignUpViewController.swift */,
@@ -262,7 +263,6 @@
 		F987BA081AA7C720008FDD56 = {
 			isa = PBXGroup;
 			children = (
-				466CC8921AB8C640002FE4F0 /* MapTab.swift */,
 				F987BA131AA7C720008FDD56 /* HearHereApp */,
 				F987BA291AA7C721008FDD56 /* HearHereAppTests */,
 				F987BA121AA7C720008FDD56 /* Products */,

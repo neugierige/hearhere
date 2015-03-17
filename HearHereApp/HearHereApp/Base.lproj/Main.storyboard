@@ -7,7 +7,7 @@
         <!--MapTab-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" userLabel="MapTab" customClass="CalendarTab" customModule="HearHereApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" userLabel="MapTab" customClass="MapTab" customModule="HearHereApp" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="Map" id="fFZ-Gu-dMA">
                         <barButtonItem key="rightBarButtonItem" image="filter" id="TTv-PR-vXl" userLabel="FilterButton"/>
                     </navigationItem>
