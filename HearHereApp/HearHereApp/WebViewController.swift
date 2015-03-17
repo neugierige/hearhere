@@ -12,7 +12,7 @@ class WebViewController: UIViewController {
 
     var webView = UIWebView()
     
-    var request: NSURLRequest?  //get URL from Parse HERE!
+    var request: NSURLRequest?
     
     override func viewDidLoad() {
         

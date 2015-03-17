@@ -6,62 +6,108 @@
 //  Copyright (c) 2015 LXing. All rights reserved.
 //
 
+//
+//  ViewController.swift
+//  MapPractice
+//
+//  Created by Luyuan Xing on 3/16/15.
+//  Copyright (c) 2015 LXing. All rights reserved.
+//
+
 import UIKit
 import MapKit
+import CoreLocation
 
-class MapTab: UIViewController, MKMapViewDelegate {
-    var mapView: MKMapView!
-    var mapContainerView: UIView!
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+    
+    var map = MKMapView()
+    var arrayOfMapItems = [MKPointAnnotation]()
+    let locationManager = CLLocationManager()
+    
+    //***** DUMMY DATA TO BE REPLACED
+    var userLocation = CLLocationCoordinate2DMake(40.74106,-73.989699)
+    var mapItemTitle = "What Happens If You Have A Really Long Title That Just Goes On Forever"
+    var mapItemSubTitle = "8:00 PM"
+    var testButton = UIButton()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapContainerView = UIView(frame: CGRectZero)
-        mapContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        view.addSubview(mapContainerView)
-
+        map.delegate = self
+        map.frame = self.view.frame
+        self.view.addSubview(map)
         
-        mapView = MKMapView(frame: CGRect(origin: mapContainerView.frame.origin, size: mapContainerView.frame.size))
-        mapView.showsUserLocation = true
-        mapView.delegate = self
-        mapView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
-        mapContainerView.addSubview(mapView)
-
-        var varBindDict = NSMutableDictionary()
-        varBindDict.setValue(mapContainerView, forKey: "mapContainerView")
-        varBindDict.setValue(mapView, forKey: "mapView")
+        //**** REQUEST USER LOCATION
+        self.locationManager.requestWhenInUseAuthorization()
+        if (CLLocationManager.locationServicesEnabled()) {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+        }
         
-        view.addConstraints([
-            NSLayoutConstraint.constraintsWithVisualFormat("|[mapView]|", options: .allZeros, metrics: nil, views: varBindDict),
-            NSLayoutConstraint.constraintsWithVisualFormat("V:|[mapView]|", options: .allZeros, metrics: nil, views: varBindDict)
-        ])
         
-        mapView.addConstraints([
-            NSLayoutConstraint.constraintsWithVisualFormat("|[mapContainerView]|", options: .allZeros, metrics: nil, views: varBindDict),
-            NSLayoutConstraint.constraintsWithVisualFormat("V:|[mapContainerView]|", options: .allZeros, metrics: nil, views: varBindDict)
-        ])
+        //**** TEST BUTTON
+        testButton.frame = CGRect(x: 10, y: 0, width: 10, height: 10)
+        testButton.backgroundColor = UIColor.blueColor()
         
-        // This was my first try, same error
-//        view.addConstraints([
-//            NSLayoutConstraint.constraintsWithVisualFormat("|[mapContainerView]|", options: .allZeros, metrics: nil, views: varBindDict),
-//            NSLayoutConstraint.constraintsWithVisualFormat("V:|[mapContainerView]|", options: .allZeros, metrics: nil, views: varBindDict)
-//        ])
         
-        let location = CLLocationCoordinate2D(
-            latitude: 51.50007773,
-            longitude: -0.1246402
-        )
-        // 2
-        let span = MKCoordinateSpanMake(0.05, 0.05)
-        let region = MKCoordinateRegion(center: location, span: span)
-        mapView.setRegion(region, animated: true)
+        let annotation1 = MKPointAnnotation()
+        annotation1.coordinate = self.userLocation
+        annotation1.title = mapItemTitle
+        annotation1.subtitle = mapItemSubTitle
         
-        //3
-        let annotation = MKPointAnnotation()
-        annotation.setCoordinate(location)
-        annotation.title = "Big Ben"
-        annotation.subtitle = "London"
-        mapView.addAnnotation(annotation)
+        let pt = MKMapPointForCoordinate(annotation1.coordinate)
+        let w = MKMapPointsPerMeterAtLatitude(annotation1.coordinate.latitude) * 1200
+        self.map.visibleMapRect = MKMapRectMake(pt.x - w/2.0, pt.y - w/2.0, w, w)
+        self.map.addAnnotation(annotation1)
+        
     }
-
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        var currentLocation: CLLocationCoordinate2D = manager.location.coordinate
+        println("coordinates are: \(currentLocation.latitude), \(currentLocation.longitude)")
+    }
+    
+    
+    
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        var v : MKAnnotationView! = nil
+        if annotation.title == mapItemTitle {
+            let ident = "droppedPin"
+            v = mapView.dequeueReusableAnnotationViewWithIdentifier(ident)
+            if v == nil {
+                v = MKPinAnnotationView(annotation:annotation, reuseIdentifier:ident)
+                v.canShowCallout = true
+                
+                let button: UIButton = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as UIButton
+                
+                button.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
+                v.rightCalloutAccessoryView = button
+            }
+            v.annotation = annotation
+        }
+        return v
+    }
+    
+    //***** CALLOUT TAPPED NOT WORKING
+    //    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
+    //        if control == view.rightCalloutAccessoryView {
+    //            println("callout tapped!")
+    //        }
+    //    }
+    
+    func buttonClicked(sender: UIButton!) {
+        println("button clicked!")
+        showViewController(WebViewController(), sender: nil)
+    }
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
 }
