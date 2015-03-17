@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		14348DFF9ACA26ED225F0C01 /* Pods_HearHereApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550A2B1B14AF6A4FBD8A931B /* Pods_HearHereApp.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		4609CC381AA974AF00D2E70D /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4609CC371AA974AF00D2E70D /* DataManager.swift */; };
 		4609CC3A1AA974E200D2E70D /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4609CC391AA974E200D2E70D /* Configuration.swift */; };
 		4609CC3C1AA9758A00D2E70D /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4609CC3B1AA9758A00D2E70D /* Parse.framework */; };
@@ -28,17 +27,7 @@
 		466A27761AAA20AE00AB6BB5 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466A27751AAA20AE00AB6BB5 /* TagsViewController.swift */; };
 		466A278B1AAA851200AB6BB5 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466A278A1AAA851200AB6BB5 /* SearchView.swift */; };
 		466A278D1AAAC78900AB6BB5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466A278C1AAAC78900AB6BB5 /* User.swift */; };
-		46C148A41AB25E9700792B80 /* UserRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C148A31AB25E9700792B80 /* UserRouter.swift */; };
-		46C148A61AB2A0E800792B80 /* ClassRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C148A51AB2A0E800792B80 /* ClassRouter.swift */; };
-		46C440091AB6AA9F00C5A44B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C440081AB6AA9F00C5A44B /* Model.swift */; };
-		46CB940B1AB40E090002F73B /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46CB940A1AB40E090002F73B /* FriendsTableViewCell.swift */; };
-		46CB940F1AB48D5C0002F73B /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46CB940E1AB48D5C0002F73B /* Venue.swift */; };
-		46D07DA11AB367060007E17F /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D07DA01AB367060007E17F /* FriendsTableViewController.swift */; };
-		46D78CB71AADEF57004579AC /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D78CB61AADEF57004579AC /* Event.swift */; };
-		46DABD351AACAB49004D4A36 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46DABD341AACAB49004D4A36 /* Social.framework */; };
-		46DABD371AACABEB004D4A36 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DABD361AACABEB004D4A36 /* Artist.swift */; };
-		46DABD3B1AACD8B5004D4A36 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DABD3A1AACD8B5004D4A36 /* Category.swift */; };
-		46E7C8B31AB754BC00D0C0F5 /* FilterPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E7C8B11AB754BC00D0C0F5 /* FilterPopoverViewController.swift */; };
+		DBD31EB01AB35C5B00B03CAA /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD31EAF1AB35C5B00B03CAA /* Event.swift */; };
 		DBD31EB21AB35CAA00B03CAA /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD31EB11AB35CAA00B03CAA /* HomeTableViewCell.swift */; };
 		DBD31EB41AB3663900B03CAA /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD31EB31AB3663900B03CAA /* CalendarTableViewCell.swift */; };
 		F93A26CF1AAB6BB700ED3BD8 /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93A26CE1AAB6BB700ED3BD8 /* EventDetailView.swift */; };
@@ -73,7 +62,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		31182D8765397811287A81B8 /* Pods-HearHereApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HearHereApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-HearHereApp/Pods-HearHereApp.release.xcconfig"; sourceTree = "<group>"; };
 		4609CC371AA974AF00D2E70D /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		4609CC391AA974E200D2E70D /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		4609CC3B1AA9758A00D2E70D /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -89,25 +77,12 @@
 		4609CC471AA9761100D2E70D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		4609CC481AA9761100D2E70D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		4609CC491AA9761100D2E70D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		46265D7E1AAC52F500441419 /* HearHereApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HearHereApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		466A27711AAA163700AB6BB5 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
 		466A27721AAA163700AB6BB5 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		466A27751AAA20AE00AB6BB5 /* TagsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
 		466A278A1AAA851200AB6BB5 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		466A278C1AAAC78900AB6BB5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		46C148A31AB25E9700792B80 /* UserRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRouter.swift; sourceTree = "<group>"; };
-		46C148A51AB2A0E800792B80 /* ClassRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassRouter.swift; sourceTree = "<group>"; };
-		46C440081AB6AA9F00C5A44B /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		46CB940A1AB40E090002F73B /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
-		46CB940E1AB48D5C0002F73B /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Venue.swift; path = ../Venue.swift; sourceTree = "<group>"; };
-		46D07DA01AB367060007E17F /* FriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
-		46D78CB61AADEF57004579AC /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Event.swift; path = ../Event.swift; sourceTree = "<group>"; };
-		46DABD341AACAB49004D4A36 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		46DABD361AACABEB004D4A36 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Artist.swift; path = ../../../../HEER/hearhere/HearHereApp/HearHereApp/Artist.swift; sourceTree = "<group>"; };
-		46DABD3A1AACD8B5004D4A36 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
-		46E7C8B11AB754BC00D0C0F5 /* FilterPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterPopoverViewController.swift; sourceTree = "<group>"; };
-		550A2B1B14AF6A4FBD8A931B /* Pods_HearHereApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HearHereApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C92C234776377DADDCB707DE /* Pods-HearHereApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HearHereApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HearHereApp/Pods-HearHereApp.debug.xcconfig"; sourceTree = "<group>"; };
+		DBD31EAF1AB35C5B00B03CAA /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		DBD31EB11AB35CAA00B03CAA /* HomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		DBD31EB31AB3663900B03CAA /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
 		F93A26CE1AAB6BB700ED3BD8 /* EventDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
@@ -140,7 +115,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46DABD351AACAB49004D4A36 /* Social.framework in Frameworks */,
 				4609CC4A1AA9761100D2E70D /* AudioToolbox.framework in Frameworks */,
 				4609CC4B1AA9761100D2E70D /* CFNetwork.framework in Frameworks */,
 				4609CC4C1AA9761100D2E70D /* CoreGraphics.framework in Frameworks */,
@@ -156,7 +130,6 @@
 				4609CC3C1AA9758A00D2E70D /* Parse.framework in Frameworks */,
 				F987BA371AA7C7F7008FDD56 /* MapKit.framework in Frameworks */,
 				4609CC3E1AA9759600D2E70D /* Bolts.framework in Frameworks */,
-				14348DFF9ACA26ED225F0C01 /* Pods_HearHereApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,7 +146,6 @@
 		4609CC301AA9716100D2E70D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				46DABD341AACAB49004D4A36 /* Social.framework */,
 				4609CC3F1AA9761100D2E70D /* AudioToolbox.framework */,
 				4609CC401AA9761100D2E70D /* CFNetwork.framework */,
 				4609CC411AA9761100D2E70D /* CoreGraphics.framework */,
@@ -189,7 +161,6 @@
 				4609CC3B1AA9758A00D2E70D /* Parse.framework */,
 				F987BA381AA7C7FD008FDD56 /* EventKit.framework */,
 				F987BA361AA7C7F7008FDD56 /* MapKit.framework */,
-				550A2B1B14AF6A4FBD8A931B /* Pods_HearHereApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -206,9 +177,7 @@
 				F995C3EB1AA91DA200F6EC88 /* SearchViewController.swift */,
 				F995C3E91AA91D6500F6EC88 /* SignInViewController.swift */,
 				F995C3E71AA91D4D00F6EC88 /* SignUpViewController.swift */,
-				46E7C8B11AB754BC00D0C0F5 /* FilterPopoverViewController.swift */,
 				466A27751AAA20AE00AB6BB5 /* TagsViewController.swift */,
-				46D07DA01AB367060007E17F /* FriendsTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -216,14 +185,7 @@
 		4609CC361AA9744F00D2E70D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				46C440081AB6AA9F00C5A44B /* Model.swift */,
 				466A278C1AAAC78900AB6BB5 /* User.swift */,
-				46DABD361AACABEB004D4A36 /* Artist.swift */,
-				46DABD3A1AACD8B5004D4A36 /* Category.swift */,
-				46D78CB61AADEF57004579AC /* Event.swift */,
-				46CB940E1AB48D5C0002F73B /* Venue.swift */,
-				46C148A31AB25E9700792B80 /* UserRouter.swift */,
-				46C148A51AB2A0E800792B80 /* ClassRouter.swift */,
 				4609CC371AA974AF00D2E70D /* DataManager.swift */,
 				DBD31EAF1AB35C5B00B03CAA /* Event.swift */,
 			);
@@ -236,20 +198,12 @@
 				466A278A1AAA851200AB6BB5 /* SearchView.swift */,
 				466A27721AAA163700AB6BB5 /* TagView.swift */,
 				466A27711AAA163700AB6BB5 /* TagListView.swift */,
-				46CB940A1AB40E090002F73B /* FriendsTableViewCell.swift */,
 				DBD31EB11AB35CAA00B03CAA /* HomeTableViewCell.swift */,
 				DBD31EB31AB3663900B03CAA /* CalendarTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
 		};
-		A937613704BB0237BBB938A4 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				C92C234776377DADDCB707DE /* Pods-HearHereApp.debug.xcconfig */,
-				31182D8765397811287A81B8 /* Pods-HearHereApp.release.xcconfig */,
-			);
-			name = Pods;
 		F93A26D21AAB6DA800ED3BD8 /* EventDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,7 +222,6 @@
 				F987BA291AA7C721008FDD56 /* HearHereAppTests */,
 				F987BA121AA7C720008FDD56 /* Products */,
 				4609CC301AA9716100D2E70D /* Frameworks */,
-				A937613704BB0237BBB938A4 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -296,7 +249,6 @@
 		F987BA141AA7C720008FDD56 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				46265D7E1AAC52F500441419 /* HearHereApp-Bridging-Header.h */,
 				4609CC391AA974E200D2E70D /* Configuration.swift */,
 				F987BA1D1AA7C720008FDD56 /* Images.xcassets */,
 				F987BA1F1AA7C720008FDD56 /* LaunchScreen.xib */,
@@ -330,12 +282,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F987BA301AA7C721008FDD56 /* Build configuration list for PBXNativeTarget "HearHereApp" */;
 			buildPhases = (
-				8CC7F2114CF8D5EF642F8603 /* Check Pods Manifest.lock */,
 				F987BA0D1AA7C720008FDD56 /* Sources */,
 				F987BA0E1AA7C720008FDD56 /* Frameworks */,
 				F987BA0F1AA7C720008FDD56 /* Resources */,
-				437FBD5EA39477ECE50D20FE /* Embed Pods Frameworks */,
-				CF5A267E8B856359BB7B54A8 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -422,81 +371,24 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		437FBD5EA39477ECE50D20FE /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HearHereApp/Pods-HearHereApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8CC7F2114CF8D5EF642F8603 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		CF5A267E8B856359BB7B54A8 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HearHereApp/Pods-HearHereApp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		F987BA0D1AA7C720008FDD56 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				F995C3EC1AA91DA200F6EC88 /* SearchViewController.swift in Sources */,
-				46CB940F1AB48D5C0002F73B /* Venue.swift in Sources */,
 				F93A26D11AAB6D9C00ED3BD8 /* WebViewController.swift in Sources */,
 				F9E97D0B1AB7AB7200B31CFA /* CustomCell.swift in Sources */,
 				F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */,
-				46CB940B1AB40E090002F73B /* FriendsTableViewCell.swift in Sources */,
-				46D07DA11AB367060007E17F /* FriendsTableViewController.swift in Sources */,
 				F9CF09741AA7E18E005E28F7 /* MapTab.swift in Sources */,
-				46D78CB71AADEF57004579AC /* Event.swift in Sources */,
 				F995C3E81AA91D4D00F6EC88 /* SignUpViewController.swift in Sources */,
-				46E7C8B31AB754BC00D0C0F5 /* FilterPopoverViewController.swift in Sources */,
-				466A278D1AAAC78900AB6BB5 /* User.swift in Sources */,
-				46DABD3B1AACD8B5004D4A36 /* Category.swift in Sources */,
-				46C440091AB6AA9F00C5A44B /* Model.swift in Sources */,
 				DBD31EB41AB3663900B03CAA /* CalendarTableViewCell.swift in Sources */,
+				466A278D1AAAC78900AB6BB5 /* User.swift in Sources */,
 				F93A26CF1AAB6BB700ED3BD8 /* EventDetailView.swift in Sources */,
 				F987BA191AA7C720008FDD56 /* HomeTab.swift in Sources */,
 				DBD31EB21AB35CAA00B03CAA /* HomeTableViewCell.swift in Sources */,
 				F995C3E41AA91CA300F6EC88 /* TabBarController.swift in Sources */,
-				46C148A41AB25E9700792B80 /* UserRouter.swift in Sources */,
 				4609CC3A1AA974E200D2E70D /* Configuration.swift in Sources */,
-				46C148A61AB2A0E800792B80 /* ClassRouter.swift in Sources */,
 				DBD31EB01AB35C5B00B03CAA /* Event.swift in Sources */,
 				F995C3EA1AA91D6500F6EC88 /* SignInViewController.swift in Sources */,
 				4609CC381AA974AF00D2E70D /* DataManager.swift in Sources */,
@@ -504,7 +396,6 @@
 				466A27731AAA163700AB6BB5 /* TagListView.swift in Sources */,
 				F9CF09721AA7E179005E28F7 /* CalendarTab.swift in Sources */,
 				466A278B1AAA851200AB6BB5 /* SearchView.swift in Sources */,
-				46DABD371AACABEB004D4A36 /* Artist.swift in Sources */,
 				F987BA171AA7C720008FDD56 /* AppDelegate.swift in Sources */,
 				466A27761AAA20AE00AB6BB5 /* TagsViewController.swift in Sources */,
 			);
@@ -627,7 +518,6 @@
 		};
 		F987BA311AA7C721008FDD56 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C92C234776377DADDCB707DE /* Pods-HearHereApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -636,18 +526,12 @@
 				);
 				INFOPLIST_FILE = HearHereApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-framework",
-					"\"OCMapper\"",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		F987BA321AA7C721008FDD56 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 31182D8765397811287A81B8 /* Pods-HearHereApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -656,11 +540,6 @@
 				);
 				INFOPLIST_FILE = HearHereApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-framework",
-					"\"OCMapper\"",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
