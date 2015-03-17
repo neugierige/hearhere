@@ -18,7 +18,32 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
 
     let tagColors  = ["Artist":Configuration.tagUIColorA, "Category":Configuration.tagUIColorB, "Venue":Configuration.tagUIColorC]
     
+    enum Tag {
         
+        case Artist
+        case Category
+        case Venue
+        case All
+        
+        var title: String {
+            switch(self) {
+            case .Artist:   return "Artist"
+            case .Category: return "Category"
+            case .Venue:    return "Venue"
+            case .All:      return "All"
+            }
+        }
+        
+        var color: UIColor {
+            switch(self) {
+            case .Artist:   return Configuration.tagUIColorA
+            case .Category: return Configuration.tagUIColorB
+            case .Venue:    return Configuration.tagUIColorC
+            case .All:      return Configuration.tagFontUIColor
+            }
+        }
+    }
+    
     // MARK: View properties
     private var setupMode: Bool?
     private var searchField: UITextField!
@@ -168,9 +193,7 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
         leftPopoverVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         leftPopoverVC.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
         leftPopoverVC.filterDelegate = self
-        
         presentViewController(leftPopoverVC, animated: true, completion: nil)
-
     }
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController!) -> UIModalPresentationStyle {
@@ -187,14 +210,6 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
             }
         }
     }
-    //    /**
-    //
-    //
-    //    :param: button
-    //    */
-    //    func filterButtonTouched(button: UIButton) {
-    //        println("filter")
-    //    }
     
     // MARK: SearchView delegate method keyboard behaviors
     

@@ -23,8 +23,12 @@ struct Configuration {
     static var tagUIColorC = UIColor(red: 244/255, green: 179/255, blue: 80/255, alpha: 1.0)
     
     // Parse
-    static var parseApplicationID = "mTDskuO4PaaHfOKdqA2uvPyx8HqozJx8OUT9a3cL"
-    static var parseClientKey = "j4fFLe93tqZ2A5ye14MxlWh7Ovnh0L6QP6WmP2Yg"
-    static var parseRestAPIKey = "vdWPeFzyDJSfRrTVyCjqbzminfhRsczeTPCyqPso"
+    static var parseApplicationID = "c2rCBsaTy87zy20OyLmNgWubtIsvUUlM6YdXkLv6"
+    static var parseClientKey = "ng4iMK7tUlbwRczOfQ4lUgvsdOGq1LEVDismykTq"
+    static var parseRestAPIKey = "pThQ4JIqBkkSRN1psPqPbLF5vjaaM3H9o8UiUBwy"
+    
+//    static var parseApplicationID = "mTDskuO4PaaHfOKdqA2uvPyx8HqozJx8OUT9a3cL"
+//    static var parseClientKey = "j4fFLe93tqZ2A5ye14MxlWh7Ovnh0L6QP6WmP2Yg"
+//    static var parseRestAPIKey = "vdWPeFzyDJSfRrTVyCjqbzminfhRsczeTPCyqPso"
 }
 
