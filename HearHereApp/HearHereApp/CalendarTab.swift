@@ -23,6 +23,7 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate 
         DataManager.retrieveAllEvents { events in
             self.eventsArray = events
         }
+        println(eventsArray.count)
 //        var event1 = Event(eventID: "BBBB", name: "Masterworks Festival Chorus New York City Chamber Orchestra Fruitcake gingerbread chocolate bar gingerbread gummi bears.", dateTime: NSDate(), venue: "Carnegie Hall Lollipop chocolate cotton candy tart jelly gingerbread chocolate cake lollipop cake.", image: "")
         
 //        for index in 0...20 {
