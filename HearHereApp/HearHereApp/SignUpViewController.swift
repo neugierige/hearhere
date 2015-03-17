@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parse
 
 class SignUpViewController: UIViewController, UITextFieldDelegate {
 
@@ -30,7 +29,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = Configuration.backgroundUIColor
+        view.backgroundColor = Configuration.lightBlueUIColor
         
         loadUI()
         
@@ -107,7 +106,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         signUpButton.setTitle("Sign Up", forState: .Normal)
         signUpButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
         signUpButton.layer.cornerRadius = cornerRadius
-        signUpButton.backgroundColor = Configuration.buttonUIColor
+        signUpButton.backgroundColor = Configuration.lightGreyUIColor
         signUpButton.addTarget(self, action: "signUpPressed:", forControlEvents: .TouchUpInside)
         scrollView.addSubview(signUpButton)
         
@@ -140,9 +139,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     func processSignUp(sender: UIButton) {
-        // Create Parse user
-        var user = PFUser()
-        
         // If all fields are not blank
         if let username = username.text {
             if let email = email.text {
@@ -152,17 +148,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                             if validatePassword() {
                                 self.spinner.hidden = false
                                 self.spinner.startAnimating()
-                                user.username = username
-                                user.email = email
-                                user.password = password
-                                // Log the user in                        
-                                user.signUpInBackgroundWithBlock { (succeeded: Bool!, error: NSError!) in
-                                    if (error == nil) {
-                                        // On success, sign in and switch button
-                                        self.signIn()
-                                    } else {
-                                        self.displaySuccessErrorLabel(error.userInfo!.debugDescription, valid: false)
+                                var user = User(username: username, email: email, password: password)
+                                DataManager.signUpUser(user) { error in
+                                    if let e = error {
+                                        self.displaySuccessErrorLabel(e, valid: false)
                                         self.spinner.stopAnimating()
+                                    } else {
+                                        self.performSegueWithIdentifier("tags", sender: self)
                                     }
                                 }
                             } else {
@@ -195,24 +187,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             return true
         } else {
             return false
-        }
-    }
-    /**
-    If successful signup, then log user in and send to tags page
-    */
-    func signIn() {
-        PFUser.logInWithUsernameInBackground(self.username.text, password: self.password.text) { (user: PFUser!, error: NSError!) in
-            if let newUser = user {
-                // continue with sign in screens
-                self.displaySuccessErrorLabel("Success! Click Next.", valid: true)
-                self.spinner.stopAnimating()
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.performSegueWithIdentifier("tags", sender: self)
-                }
-            } else {
-                self.displaySuccessErrorLabel(error.localizedDescription, valid: false)
-                self.spinner.stopAnimating()
-            }
         }
     }
     

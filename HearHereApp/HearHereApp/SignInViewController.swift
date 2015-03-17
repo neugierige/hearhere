@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parse
 
 class SignInViewController: UIViewController, UITextFieldDelegate {
     
@@ -27,7 +26,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = Configuration.backgroundUIColor
+        view.backgroundColor = Configuration.lightBlueUIColor
 
         loadUI()
         
@@ -99,7 +98,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         signInButton.setTitle("Sign In", forState: .Normal)
         signInButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
         signInButton.layer.cornerRadius = cornerRadius
-        signInButton.backgroundColor = Configuration.buttonUIColor
+        signInButton.backgroundColor = Configuration.lightGreyUIColor
         signInButton.addTarget(self, action: "signInPressed:", forControlEvents: .TouchUpInside)
         scrollView.addSubview(signInButton)
         
@@ -132,14 +131,18 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     func signInPressed(sender: UIButton?) {
         spinner.hidden = false
         spinner.startAnimating()
-        PFUser.logInWithUsernameInBackground(username.text, password: password.text) {
-            (user: PFUser!, error: NSError!) in
-            if user != nil {
-                self.performSegueWithIdentifier("main", sender: self)				
-            } else {
-                self.spinner.stopAnimating()
-                self.displaySuccessErrorLabel("Invalid login credentials. Try again.", valid: false)
+        if username.text != "" && password.text != "" {
+            var user = User(username: username.text, password: password.text)
+            DataManager.signInUser(user) { error in
+                if let e = error {
+                    self.spinner.stopAnimating()
+                    self.displaySuccessErrorLabel(e, valid: false)
+                } else {
+                    self.performSegueWithIdentifier("main", sender: self)
+                }
             }
+        } else {
+            self.displaySuccessErrorLabel("Fill both fields", valid: false)
         }
     }
     

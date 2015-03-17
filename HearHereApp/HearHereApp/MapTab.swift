@@ -7,29 +7,61 @@
 //
 
 import UIKit
+import MapKit
 
-class MapTab: UIViewController {
-
+class MapTab: UIViewController, MKMapViewDelegate {
+    var mapView: MKMapView!
+    var mapContainerView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        mapContainerView = UIView(frame: CGRectZero)
+        mapContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        view.addSubview(mapContainerView)
 
-        // Do any additional setup after loading the view.
+        
+        mapView = MKMapView(frame: CGRect(origin: mapContainerView.frame.origin, size: mapContainerView.frame.size))
+        mapView.showsUserLocation = true
+        mapView.delegate = self
+        mapView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        mapContainerView.addSubview(mapView)
+
+        var varBindDict = NSMutableDictionary()
+        varBindDict.setValue(mapContainerView, forKey: "mapContainerView")
+        varBindDict.setValue(mapView, forKey: "mapView")
+        
+        view.addConstraints([
+            NSLayoutConstraint.constraintsWithVisualFormat("|[mapView]|", options: .allZeros, metrics: nil, views: varBindDict),
+            NSLayoutConstraint.constraintsWithVisualFormat("V:|[mapView]|", options: .allZeros, metrics: nil, views: varBindDict)
+        ])
+        
+        mapView.addConstraints([
+            NSLayoutConstraint.constraintsWithVisualFormat("|[mapContainerView]|", options: .allZeros, metrics: nil, views: varBindDict),
+            NSLayoutConstraint.constraintsWithVisualFormat("V:|[mapContainerView]|", options: .allZeros, metrics: nil, views: varBindDict)
+        ])
+        
+        // This was my first try, same error
+//        view.addConstraints([
+//            NSLayoutConstraint.constraintsWithVisualFormat("|[mapContainerView]|", options: .allZeros, metrics: nil, views: varBindDict),
+//            NSLayoutConstraint.constraintsWithVisualFormat("V:|[mapContainerView]|", options: .allZeros, metrics: nil, views: varBindDict)
+//        ])
+        
+        let location = CLLocationCoordinate2D(
+            latitude: 51.50007773,
+            longitude: -0.1246402
+        )
+        // 2
+        let span = MKCoordinateSpanMake(0.05, 0.05)
+        let region = MKCoordinateRegion(center: location, span: span)
+        mapView.setRegion(region, animated: true)
+        
+        //3
+        let annotation = MKPointAnnotation()
+        annotation.setCoordinate(location)
+        annotation.title = "Big Ben"
+        annotation.subtitle = "London"
+        mapView.addAnnotation(annotation)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

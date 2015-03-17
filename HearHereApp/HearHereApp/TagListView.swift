@@ -28,7 +28,7 @@ class TagListView: UIScrollView {
     
     override init(frame:CGRect) {
         super.init(frame: frame)
-        backgroundColor = Configuration.backgroundUIColor
+        backgroundColor = Configuration.lightBlueUIColor
         contentSize = CGSize(width: CGRectGetWidth(UIScreen.mainScreen().bounds), height: 0)
     }
     override init() {

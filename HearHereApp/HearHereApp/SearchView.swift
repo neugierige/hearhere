@@ -11,17 +11,21 @@ import UIKit
 protocol SearchViewProtocol {
     func searchViewKeyboardWillShow(keyboardEndFrame: CGRect)
     func searchViewKeyboardDidHide()
-    func searchViewTextInput(uppercaseString: String)
-    func searchViewSaveUserInfo()
+    func searchViewDidInputText(uppercaseString: String)
+    func searchViewRightButtonPressed(sender: UIButton)
+    func searchViewLeftButtonPressed(sender: UIButton)
+//    func setLeftBackgroundImage(imageNamed: String, forState: UIControlState)
 }
 class SearchView: UIView, UITextFieldDelegate {
     
+    var leftButton: UIButton!
+    var rightButton: UIButton!
     var searchField: UITextField!
     var delegate: SearchViewProtocol!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = Configuration.backgroundUIColor
+        backgroundColor = Configuration.lightBlueUIColor
         loadUI()
     }
     
@@ -31,10 +35,16 @@ class SearchView: UIView, UITextFieldDelegate {
     
     func loadUI() {
         
+        leftButton = UIButton(frame: CGRectMake(0, 0, 22, 22))
+        leftButton.setBackgroundImage(UIImage(named: "filter"), forState: .Normal)
+        leftButton.addTarget(self, action: "leftButtonTouched:", forControlEvents: UIControlEvents.TouchUpInside)
+        leftButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        addSubview(leftButton)
+        
         searchField = UITextField()
         searchField.backgroundColor = UIColor.whiteColor()
         searchField.layer.cornerRadius = 18
-        searchField.placeholder = "Choose things that interest you."
+        searchField.placeholder = "What are you into?"
         searchField.textAlignment = NSTextAlignment.Center
         searchField.autocorrectionType = UITextAutocorrectionType.No
         searchField.delegate = self
@@ -45,18 +55,20 @@ class SearchView: UIView, UITextFieldDelegate {
         searchField.addSubview(searchImageView)
         addSubview(searchField)
         
-        let filterButton = UIButton(frame: CGRectMake(0, 0, 22, 22))
-        filterButton.setBackgroundImage(UIImage(named: "filter"), forState: .Normal)
-        filterButton.addTarget(self, action: "filterButtonTouched:", forControlEvents: UIControlEvents.TouchUpInside)
-        filterButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        addSubview(filterButton)
+        rightButton = UIButton(frame: CGRectMake(0, 0, 22, 22))
+        rightButton.setBackgroundImage(UIImage(named: "home"), forState: .Normal)
+        rightButton.addTarget(self, action: "rightButtonTouched:", forControlEvents: UIControlEvents.TouchUpInside)
+        rightButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        addSubview(rightButton)
         
         var viewBindingsDict = NSMutableDictionary()
         viewBindingsDict.setValue(searchField, forKey: "searchField")
-        viewBindingsDict.setValue(filterButton, forKey: "filterButton")
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(>=8)-[filterButton(22)]-10-|", options: nil, metrics: nil, views: viewBindingsDict))
+        viewBindingsDict.setValue(leftButton, forKey: "leftButton")
+        viewBindingsDict.setValue(rightButton, forKey: "rightButton")
+        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(>=8)-[leftButton(22)]-10-|", options: nil, metrics: nil, views: viewBindingsDict))
         addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(>=8)-[searchField(35)]-4-|", options: nil, metrics: nil, views: viewBindingsDict))
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[searchField(>=200)]-[filterButton(22)]-|", options: nil, metrics: nil, views: viewBindingsDict))
+        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(>=8)-[rightButton(22)]-10-|", options: nil, metrics: nil, views: viewBindingsDict))
+        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[leftButton(22)]-[searchField(>=200)]-[rightButton(22)]-|", options: nil, metrics: nil, views: viewBindingsDict))
         
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "searching:", name: "UITextFieldTextDidChangeNotification", object: searchField)
@@ -71,12 +83,12 @@ class SearchView: UIView, UITextFieldDelegate {
     
     :param: button <#button description#>
     */
-    func filterButtonTouched(button: UIButton) {
-        println("filter")
-        // MARK: TODO figure out how to implement filter
-        // MARK: TODO move this to its own target and button
-        delegate!.searchViewSaveUserInfo()
-        
+    func leftButtonTouched(sender: UIButton) {
+        delegate!.searchViewLeftButtonPressed(sender)
+    }
+    
+    func rightButtonTouched(sender: UIButton) {
+        delegate!.searchViewRightButtonPressed(sender)
     }
     
     /**
@@ -87,7 +99,7 @@ class SearchView: UIView, UITextFieldDelegate {
     internal func searching(notification: NSNotification) {
         // Uppercase text to search and search if more than one character in field
         var text = (notification.object as UITextField).text.uppercaseString
-        delegate!.searchViewTextInput(text)
+        delegate!.searchViewDidInputText(text)
     }
     
     // MARK: Keyboard behaviors

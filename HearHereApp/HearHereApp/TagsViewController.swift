@@ -9,13 +9,13 @@
 import UIKit
 import Parse
 
-class TagsViewController: UIViewController, SearchViewProtocol {
-
+class TagsViewController: UIViewController, SearchViewProtocol, UIPopoverPresentationControllerDelegate {
+    
     // MARK: Tag Properties
     private var tagNames = [String]()
-    private var tagNameAndColor = [String: UIColor]()
-    var categories = [PFObject](), artists = [PFObject](), venues = [PFObject]()
-    var tagTypeArray = [[PFObject]]()
+    private var tagNameAndColor = [String:UIColor]()
+    var leftPopoverVC: FilterPopoverViewController!
+
     let tagColors  = ["Artist":Configuration.tagUIColorA, "Category":Configuration.tagUIColorB, "Venue":Configuration.tagUIColorC]
     
     // MARK: View properties
@@ -39,7 +39,7 @@ class TagsViewController: UIViewController, SearchViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.lightGrayColor()
-
+        
         // Search View Section
         searchView = makeSearchView()
         view.addSubview(searchView)
@@ -52,23 +52,16 @@ class TagsViewController: UIViewController, SearchViewProtocol {
         tagPickListView = makePickListView()
         view.addSubview(tagPickListView)
         
-        // class names to query, and background colors, set font color
-        let tagTypes   = ["Artist", "Category", "Venue"]
-        tagTypeArray = [categories, artists, venues]
+        // Get data (names) and create tags, set colors
         TagView.color2 = Configuration.tagFontUIColor
-        // Get class objects from database, load, and keep local copy
-        map(enumerate(tagTypes)) { (i, type) in
-            DataManager.getObjectsInBackground(type, keys: ["name"]) { (objects: [PFObject]?, error: String?) in
-                if let objects = objects {
-                    TagView.color1 = self.tagColors[tagTypes[i]]!
-                    self.loadTags(objects)
-                    self.tagTypeArray[i] = objects
-                } else {
-                    if let e = error {
-                        println(e)
-                    }
-                }
-            }
+        DataManager.retrieveAllArtists { artists in
+            artists.map { self.loadTags($0.name, tagType: "Artist") }; return
+        }
+        DataManager.retrieveAllVenues { venues in
+            venues.map { self.loadTags($0.name, tagType: "Venue") }; return
+        }
+        DataManager.retrieveAllCategories { categories in
+            categories.map { self.loadTags($0.name, tagType: "Category") }; return
         }
     }
     
@@ -78,6 +71,7 @@ class TagsViewController: UIViewController, SearchViewProtocol {
         let origin = CGPointMake(0, topLayoutGuide.length)
         let size = CGSizeMake(screenSize.width, screenSize.height*searchViewHeightRatio)
         let v = SearchView(frame: CGRect(origin: origin,size: size))
+        v.rightButton.setBackgroundImage(UIImage(named: "next"), forState: .Normal)
         v.delegate = self
         return v
     }
@@ -105,15 +99,12 @@ class TagsViewController: UIViewController, SearchViewProtocol {
     :param: objects Parse class object
     :param: color tag UIColor
     */
-    private func loadTags(objects: [PFObject]) {
-        for object in objects as [PFObject] {
-            if let tagTitle = object["name"] as? String {
-                // Create a new tag and append title string to local array
-                createTag(tagTitle)
-                tagNames.append(tagTitle)
-                tagNameAndColor[tagTitle] = TagView.color1
-            }
-        }
+    private func loadTags(tagName: String, tagType: String) {
+        TagView.color1 = tagColors[tagType]!
+        // Create a new tag and append title string to local array
+        self.createTag(tagName)
+        tagNames.append(tagName)
+        tagNameAndColor[tagName] = TagView.color1
     }
     
     /**
@@ -129,7 +120,7 @@ class TagsViewController: UIViewController, SearchViewProtocol {
             }
         }
     }
-
+    
     // MARK: SearchView delegate method implementations
     
     /**
@@ -137,7 +128,7 @@ class TagsViewController: UIViewController, SearchViewProtocol {
     
     :param: uppercaseString text from search field capitalized
     */
-    func searchViewTextInput(uppercaseString: String) {
+    func searchViewDidInputText(uppercaseString: String) {
         // Uppercase text to search and search if more than one character in field
         if countElements(uppercaseString) > 1 {
             var subset = tagNames.filter { $0.uppercaseString.rangeOfString(uppercaseString) != nil }
@@ -163,6 +154,28 @@ class TagsViewController: UIViewController, SearchViewProtocol {
         }
     }
     
+    func searchViewLeftButtonPressed(sender: UIButton) {
+        leftPopoverVC = FilterPopoverViewController()
+        leftPopoverVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        leftPopoverVC.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
+        
+        if let popoverController = leftPopoverVC.popoverPresentationController {
+            leftPopoverVC.delegate = self
+        }
+        
+        presentViewController(leftPopoverVC, animated: true, completion: nil)
+        
+//        if let popoverController = leftPopoverVC.popoverPresentationController {
+//            popoverController.sourceRect = searchView.bounds
+//            popoverController.sourceView = searchView
+//            popoverController.permittedArrowDirections = UIPopoverArrowDirection.Unknown
+//        }
+    }
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController!) -> UIModalPresentationStyle {
+        return .OverCurrentContext
+    }
+    
     //    /**
     //    <#Description#>
     //
@@ -174,31 +187,66 @@ class TagsViewController: UIViewController, SearchViewProtocol {
     
     // MARK: SearchView delegate method keyboard behaviors
     
-    func searchViewSaveUserInfo() {
-        var user = PFUser.currentUser()
-        if user != nil {
-            // matchedPicks = getPickName() - make function 
-            // typeArray.filter { contains(matchedPicks, $0 }
-            // add to user
-            var currentPicks = tagPickListView.getAllTagNames()
-            let emptyTag = TagView(tagName: "")
-            var matchedPicks = [String]()
-            currentPicks.map { matchedPicks.append(emptyTag.splitTagName($0).0) }
-            
-            var relation = user.relationForKey("artists")
-            
-//            relation.addObject(<#object: PFObject!#>)
-        } else {
-            println("error: no one logged in")
+    func searchViewRightButtonPressed(sender: UIButton) {
+        var categories = [String]()
+        var artists = [String]()
+        var venues = [String]()
+        // add objects with categories that match user picks and update user
+        DataManager.getCurrentUserModel() { user in
+            if let user = user {
+                // add to user
+                var currentPicks = self.tagPickListView.getAllTagNames()
+                let emptyTag = TagView(tagName: "")
+                var matchedPicks = [String]()
+                currentPicks.map { matchedPicks.append(emptyTag.splitTagName($0).0) }
+                self.tagNames.filter { contains(matchedPicks, $0) }.map { name -> Void in
+                    switch self.tagNameAndColor[name]! {
+                    case Configuration.tagUIColorA:
+                        artists.append(name)
+                    case Configuration.tagUIColorB:
+                        categories.append(name)
+                    case Configuration.tagUIColorC:
+                        venues.append(name)
+                    default:
+                        println("None")
+                    }
+                }
+                DataManager.retrieveArtistsWithNames(artists) { artists in
+                    if let artists = artists {
+                        user.artists = artists
+                    }
+                    DataManager.retrieveCategoriesWithNames(categories) { categories in
+                        if let categories = categories {
+                            user.categories = categories
+                        }
+                        DataManager.retrieveVenuesWithNames(venues) { venues in
+                            if let venues = venues {
+                                user.venues = venues
+                            }
+                            DataManager.saveUser(user) { success in
+                                dispatch_async(dispatch_get_main_queue()) {
+                                   // self.presentViewController(FriendsTableViewController(), animated: true, completion: nil)
+                            self.performSegueWithIdentifier("main", sender: self)
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                
+            } else {
+                println("error: no one logged in")
+            }
         }
     }
+    
     /**
     Add height to content view, so tags are not hidden.
     
     :param: keyBoardFrame keyboard frame
     */
     func searchViewKeyboardWillShow(keyboardFrame: CGRect) {
-        tagPickListView.frame.origin.y = keyboardFrame.origin.y - 45
+        tagPickListView.frame.origin.y = keyboardFrame.origin.y-45
     }
     
     /**

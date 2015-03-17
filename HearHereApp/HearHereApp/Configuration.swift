@@ -7,17 +7,24 @@
 //
 
 import UIKit
-import Parse
+//import Parse
 
 struct Configuration {
     
-    static var backgroundUIColor = UIColor(red:149.0/255.0, green:165.0/255.0, blue:166.0/255.0, alpha:1.0)
-    static var buttonUIColor = UIColor(red: 241/255, green: 196/255, blue: 15/255, alpha: 1.0)
-    static var tagFontUIColor = UIColor(red: 108/255, green: 122/255, blue: 137/255, alpha: 1.0)
+    static var lightGreyUIColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1.0)
+    static var lightBlueUIColor = UIColor(red: 0.741, green: 0.831, blue: 0.871, alpha: 1.0)
+    static var medBlueUIColor   = UIColor(red: 0.247, green: 0.341, blue: 0.396, alpha: 1.0)
+    static var darkBlueUIColor  = UIColor(red: 0.168, green: 0.227, blue: 0.258, alpha: 1.0)
+    static var orangeUIColor    = UIColor(red: 0.247, green: 0.341, blue: 0.396, alpha: 1.0)
+
+    static var tagFontUIColor = UIColor.whiteColor()
     static var tagUIColorA = UIColor(red: 190/255, green: 144/255, blue: 212/255, alpha: 1.0)
     static var tagUIColorB = UIColor(red: 137/255, green: 196/255, blue: 244/255, alpha: 1.0)
     static var tagUIColorC = UIColor(red: 244/255, green: 179/255, blue: 80/255, alpha: 1.0)
-    static var userSession: PFUser!
-    static var applicationID = "mTDskuO4PaaHfOKdqA2uvPyx8HqozJx8OUT9a3cL"
-    static var clientKey = "j4fFLe93tqZ2A5ye14MxlWh7Ovnh0L6QP6WmP2Yg"
+    
+    // Parse
+    static var parseApplicationID = "mTDskuO4PaaHfOKdqA2uvPyx8HqozJx8OUT9a3cL"
+    static var parseClientKey = "j4fFLe93tqZ2A5ye14MxlWh7Ovnh0L6QP6WmP2Yg"
+    static var parseRestAPIKey = "vdWPeFzyDJSfRrTVyCjqbzminfhRsczeTPCyqPso"
 }
+

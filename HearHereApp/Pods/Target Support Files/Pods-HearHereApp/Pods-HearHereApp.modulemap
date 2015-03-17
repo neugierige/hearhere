@@ -1,0 +1,6 @@
+framework module Pods_HearHereApp {
+  umbrella header "Pods-HearHereApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
