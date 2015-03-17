@@ -27,6 +27,9 @@
 		466A27761AAA20AE00AB6BB5 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466A27751AAA20AE00AB6BB5 /* TagsViewController.swift */; };
 		466A278B1AAA851200AB6BB5 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466A278A1AAA851200AB6BB5 /* SearchView.swift */; };
 		466A278D1AAAC78900AB6BB5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466A278C1AAAC78900AB6BB5 /* User.swift */; };
+		DBD31EB01AB35C5B00B03CAA /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD31EAF1AB35C5B00B03CAA /* Event.swift */; };
+		DBD31EB21AB35CAA00B03CAA /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD31EB11AB35CAA00B03CAA /* HomeTableViewCell.swift */; };
+		DBD31EB41AB3663900B03CAA /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD31EB31AB3663900B03CAA /* CalendarTableViewCell.swift */; };
 		F93A26CF1AAB6BB700ED3BD8 /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93A26CE1AAB6BB700ED3BD8 /* EventDetailView.swift */; };
 		F93A26D11AAB6D9C00ED3BD8 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */; };
 		F987BA171AA7C720008FDD56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987BA161AA7C720008FDD56 /* AppDelegate.swift */; };
@@ -45,7 +48,7 @@
 		F9CF09741AA7E18E005E28F7 /* MapTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09731AA7E18E005E28F7 /* MapTab.swift */; };
 		F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */; };
 		F9E8A59F1AB38D9500A4452D /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9E8A59D1AB38D9500A4452D /* CustomCell.xib */; };
-		F9E8A5A01AB38D9500A4452D /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E8A59E1AB38D9500A4452D /* CustomCell.swift */; };
+		F9E97D0B1AB7AB7200B31CFA /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E97D0A1AB7AB7200B31CFA /* CustomCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +82,9 @@
 		466A27751AAA20AE00AB6BB5 /* TagsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
 		466A278A1AAA851200AB6BB5 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		466A278C1AAAC78900AB6BB5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		DBD31EAF1AB35C5B00B03CAA /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		DBD31EB11AB35CAA00B03CAA /* HomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		DBD31EB31AB3663900B03CAA /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
 		F93A26CE1AAB6BB700ED3BD8 /* EventDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
 		F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		F987BA111AA7C720008FDD56 /* HearHereApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HearHereApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,7 +107,7 @@
 		F9CF09731AA7E18E005E28F7 /* MapTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTab.swift; sourceTree = "<group>"; };
 		F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTab.swift; sourceTree = "<group>"; };
 		F9E8A59D1AB38D9500A4452D /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
-		F9E8A59E1AB38D9500A4452D /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		F9E97D0A1AB7AB7200B31CFA /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +187,7 @@
 			children = (
 				466A278C1AAAC78900AB6BB5 /* User.swift */,
 				4609CC371AA974AF00D2E70D /* DataManager.swift */,
+				DBD31EAF1AB35C5B00B03CAA /* Event.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -191,6 +198,8 @@
 				466A278A1AAA851200AB6BB5 /* SearchView.swift */,
 				466A27721AAA163700AB6BB5 /* TagView.swift */,
 				466A27711AAA163700AB6BB5 /* TagListView.swift */,
+				DBD31EB11AB35CAA00B03CAA /* HomeTableViewCell.swift */,
+				DBD31EB31AB3663900B03CAA /* CalendarTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -198,9 +207,9 @@
 		F93A26D21AAB6DA800ED3BD8 /* EventDetail */ = {
 			isa = PBXGroup;
 			children = (
-				F93A26CE1AAB6BB700ED3BD8 /* EventDetailView.swift */,
+				F9E97D0A1AB7AB7200B31CFA /* CustomCell.swift */,
 				F9E8A59D1AB38D9500A4452D /* CustomCell.xib */,
-				F9E8A59E1AB38D9500A4452D /* CustomCell.swift */,
+				F93A26CE1AAB6BB700ED3BD8 /* EventDetailView.swift */,
 				F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */,
 			);
 			name = EventDetail;
@@ -369,15 +378,18 @@
 			files = (
 				F995C3EC1AA91DA200F6EC88 /* SearchViewController.swift in Sources */,
 				F93A26D11AAB6D9C00ED3BD8 /* WebViewController.swift in Sources */,
+				F9E97D0B1AB7AB7200B31CFA /* CustomCell.swift in Sources */,
 				F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */,
 				F9CF09741AA7E18E005E28F7 /* MapTab.swift in Sources */,
 				F995C3E81AA91D4D00F6EC88 /* SignUpViewController.swift in Sources */,
+				DBD31EB41AB3663900B03CAA /* CalendarTableViewCell.swift in Sources */,
 				466A278D1AAAC78900AB6BB5 /* User.swift in Sources */,
 				F93A26CF1AAB6BB700ED3BD8 /* EventDetailView.swift in Sources */,
 				F987BA191AA7C720008FDD56 /* HomeTab.swift in Sources */,
-				F9E8A5A01AB38D9500A4452D /* CustomCell.swift in Sources */,
+				DBD31EB21AB35CAA00B03CAA /* HomeTableViewCell.swift in Sources */,
 				F995C3E41AA91CA300F6EC88 /* TabBarController.swift in Sources */,
 				4609CC3A1AA974E200D2E70D /* Configuration.swift in Sources */,
+				DBD31EB01AB35C5B00B03CAA /* Event.swift in Sources */,
 				F995C3EA1AA91D6500F6EC88 /* SignInViewController.swift in Sources */,
 				4609CC381AA974AF00D2E70D /* DataManager.swift in Sources */,
 				466A27741AAA163700AB6BB5 /* TagView.swift in Sources */,
