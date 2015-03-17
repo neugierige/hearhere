@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class TagsViewController: UIViewController, SearchViewProtocol, UIPopoverPresentationControllerDelegate {
+class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverViewControllerProtocol {
     
     // MARK: Tag Properties
     private var tagNames = [String]()
@@ -18,7 +18,34 @@ class TagsViewController: UIViewController, SearchViewProtocol, UIPopoverPresent
 
     let tagColors  = ["Artist":Configuration.tagUIColorA, "Category":Configuration.tagUIColorB, "Venue":Configuration.tagUIColorC]
     
+    enum TagMode {
+        
+        case Artist
+        case Category
+        case Venue
+        case All
+        
+        var title: String {
+            switch(self) {
+            case .Artist:   return "Artist"
+            case .Category: return "Category"
+            case .Venue:    return "Venue"
+            case .All:      return "All"
+            }
+        }
+        
+        var color: UIColor {
+            switch(self) {
+            case .Artist:   return Configuration.tagUIColorA
+            case .Category: return Configuration.tagUIColorB
+            case .Venue:    return Configuration.tagUIColorC
+            case .All:      return Configuration.tagFontUIColor
+            }
+        }
+    }
+    
     // MARK: View properties
+    private var setupMode: Bool?
     private var searchField: UITextField!
     private var searchView: UIView!
     private var tagPoolListView: TagListView!, tagPickListView: TagListView!
@@ -43,7 +70,7 @@ class TagsViewController: UIViewController, SearchViewProtocol, UIPopoverPresent
         // Search View Section
         searchView = makeSearchView()
         view.addSubview(searchView)
-        
+
         // All Tag Scroll View Section
         tagPoolListView = makePoolListView()
         view.addSubview(tagPoolListView)
@@ -55,6 +82,7 @@ class TagsViewController: UIViewController, SearchViewProtocol, UIPopoverPresent
         // Get data (names) and create tags, set colors
         TagView.color2 = Configuration.tagFontUIColor
         DataManager.retrieveAllArtists { artists in
+            self.setupMode = true
             artists.map { self.loadTags($0.name, tagType: "Artist") }; return
         }
         DataManager.retrieveAllVenues { venues in
@@ -63,6 +91,10 @@ class TagsViewController: UIViewController, SearchViewProtocol, UIPopoverPresent
         DataManager.retrieveAllCategories { categories in
             categories.map { self.loadTags($0.name, tagType: "Category") }; return
         }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.setupMode = false
     }
     
     // MARK: Create View Methods
@@ -103,8 +135,10 @@ class TagsViewController: UIViewController, SearchViewProtocol, UIPopoverPresent
         TagView.color1 = tagColors[tagType]!
         // Create a new tag and append title string to local array
         self.createTag(tagName)
-        tagNames.append(tagName)
-        tagNameAndColor[tagName] = TagView.color1
+        if setupMode! {
+            tagNames.append(tagName)
+            tagNameAndColor[tagName] = TagView.color1
+        }
     }
     
     /**
@@ -158,28 +192,30 @@ class TagsViewController: UIViewController, SearchViewProtocol, UIPopoverPresent
         leftPopoverVC = FilterPopoverViewController()
         leftPopoverVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         leftPopoverVC.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
-        
-        if let popoverController = leftPopoverVC.popoverPresentationController {
-            leftPopoverVC.delegate = self
-        }
+        leftPopoverVC.filterDelegate = self
         
         presentViewController(leftPopoverVC, animated: true, completion: nil)
-        
-//        if let popoverController = leftPopoverVC.popoverPresentationController {
-//            popoverController.sourceRect = searchView.bounds
-//            popoverController.sourceView = searchView
-//            popoverController.permittedArrowDirections = UIPopoverArrowDirection.Unknown
-//        }
+
     }
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController!) -> UIModalPresentationStyle {
         return .OverCurrentContext
     }
     
+    func filterTypeChosen(type: TagView) {
+        tagPoolListView.removeAllTagViews()
+//        var mode = FilterMode.Artist
+//        mode.mode
+        for (name, color) in tagNameAndColor {
+            if color == tagColors[type.name] {
+                loadTags(name, tagType: type.name)
+            }
+        }
+    }
     //    /**
-    //    <#Description#>
     //
-    //    :param: button <#button description#>
+    //
+    //    :param: button
     //    */
     //    func filterButtonTouched(button: UIButton) {
     //        println("filter")
@@ -226,7 +262,7 @@ class TagsViewController: UIViewController, SearchViewProtocol, UIPopoverPresent
                             DataManager.saveUser(user) { success in
                                 dispatch_async(dispatch_get_main_queue()) {
                                    // self.presentViewController(FriendsTableViewController(), animated: true, completion: nil)
-                            self.performSegueWithIdentifier("main", sender: self)
+                                    self.performSegueWithIdentifier("main", sender: self)
                                 }
                             }
                         }
