@@ -8,14 +8,23 @@
 
 import UIKit
 
-@IBDesignable
 class EventDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let scrollView = UIScrollView()
-    //let containerView = UIView()
     let table = UITableView()
     let margin: CGFloat = 10
     let cellReuseID = "cell"
+    
+    
+    //*****INFO TO LOAD FROM PARSE
+    var eventNameText = "New York Philharmonic & Warner Bros. Present Bugs Bunny at the Symphony"
+    var dateTimeLabelText = "7:30PM Wednesday, September 30"
+    var venueNameLabelText = "Carnegie Hall, Isaac Stern Auditorium"
+    var price = "$20-$55"
+    var programInfoText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+    var ticketLink = "http://www.google.com"
+    var arrayOfTags = [UIView]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,11 +43,11 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         containerView.addSubview(image)
         
         //EVENT NAME
-        var eventName = UITextView(frame: CGRect(x: margin, y: image.frame.maxY+margin, width: maxWidth, height: titleTextHeight*2))
-        eventName.editable = false
+        var eventName = UILabel(frame: CGRect(x: margin, y: image.frame.maxY+margin, width: maxWidth, height: titleTextHeight*2))
+        eventName.numberOfLines = 2
         eventName.font = UIFont(name: "HelveticaNeue-UltraLight", size: 20)
         containerView.addSubview(eventName)
-        eventName.text = "New York Philharmonic & Warner Bros. Present Bugs Bunny at the Symphony"
+        eventName.text = eventNameText
         //eventName.sizeToFit()
         //eventName.layoutIfNeeded()
         eventName.backgroundColor = UIColor.clearColor()
@@ -47,21 +56,20 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         var dateTimeLabel = UILabel(frame: CGRect(x: margin, y: eventName.frame.maxY+margin, width: maxWidth*3/4, height: bodyTextHeight))
         containerView.addSubview(dateTimeLabel)
         dateTimeLabel.font = UIFont(name: "HelveticaNeue-Light", size: 13)
-        dateTimeLabel.text = "7:30PM Wednesday, September 30"
+        dateTimeLabel.text = dateTimeLabelText
         dateTimeLabel.backgroundColor = eventName.backgroundColor
         
         //VENUE NAME
         var venueNameLabel = UILabel(frame: CGRect(x: margin, y: dateTimeLabel.frame.maxY, width: dateTimeLabel.frame.width, height: bodyTextHeight))
         containerView.addSubview(venueNameLabel)
         venueNameLabel.font = dateTimeLabel.font
-        venueNameLabel.text = "Carnegie Hall, Isaac Stern Auditorium"
+        venueNameLabel.text = venueNameLabelText
         venueNameLabel.backgroundColor = eventName.backgroundColor
         
         //TICKET BUTTON
         var ticketButton = UIButton(frame: CGRect(x: dateTimeLabel.frame.maxX, y: dateTimeLabel.frame.minY, width: maxWidth/4, height: bodyTextHeight*2))
         containerView.addSubview(ticketButton)
         ticketButton.layer.cornerRadius = 6
-        var price = "$20-$55"
         ticketButton.setTitle("\(price)", forState: UIControlState.Normal)
         ticketButton.titleLabel?.font = UIFont.systemFontOfSize(12)
         ticketButton.addTarget(self, action: "openWeb", forControlEvents: UIControlEvents.TouchUpInside)
@@ -72,13 +80,16 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         containerView.addSubview(programInfo)
         programInfo.font = UIFont.systemFontOfSize(12)
         programInfo.editable = false
-        programInfo.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+        programInfo.text = programInfoText
         programInfo.sizeToFit()
-        //programInfo.layoutIfNeeded()
+        
+        
+        //TAGS CONTAINER
+        var tagsContainer = UIView(frame: CGRect(x: margin, y: programInfo.frame.maxY+margin, width: maxWidth, height: 300))
         
         
         //TABLE
-        table.frame = CGRect(x: 0, y: programInfo.frame.maxY+margin, width: view.frame.width, height: 2*44)
+        table.frame = CGRect(x: 0, y: tagsContainer.frame.maxY+margin, width: view.frame.width, height: 2*44)
         containerView.addSubview(table)
         table.scrollEnabled = false
         table.delegate = self
@@ -95,17 +106,6 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         
     }
     
-    
-    func openShare() {
-        let textToShare = "text to share"
-        if let myWebsite = NSURL(string: "http://google.com/") {
-            let objectsToShare = [textToShare, myWebsite]
-            let shareVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-            self.presentViewController(shareVC, animated: true, completion: nil)
-        }
-    }
-    
-    
     //CONFIGURE TABLE
     var tableCellContent = ["Artist Information", "Venue Information"]
     var selectedIndex = NSNotFound
@@ -121,88 +121,60 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
     
     var cellInTable = CustomCell()
     
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        cellInTable = tableView.dequeueReusableCellWithIdentifier(cellReuseID, forIndexPath: indexPath) as CustomCell
-        cellInTable.labelLeft.text = "\(tableCellContent[indexPath.row])"
-        cellInTable.textView.text = "lajsdlakjsdlakjsd asld asldkj laskdjl akjslkajsdl kjasld kjalsd kjlskj asdlkja sdlkja sdlkja sdlkajs dlkajlkjlkajsldkj laksdjlk jasdl kja ldskj lakjl kasdlkjas asdlkjasd aslkj sdklj lkjasdlkjasd dlkjalksd lkjasdlkj laskjd lkjasd lajsdlakjsdlakjsd asld asldkj laskdjl akjslkajsdl kjasld kjalsd kjlskj asdlkja sdlkja sdlkja sdlkajs dlkajlkjlkajsldkj laksdjlk jasdl kja ldskj lakjl kasdlkjas asdlkjasd aslkj sdklj lkjasdlkjasd dlkjalksd lkjasdlkj laskjd lkjasd"
-        cellInTable.labelRight.font = UIFont.systemFontOfSize(18)
-        cellInTable.labelRight.textColor = UIColor.blueColor()
-        cellInTable.labelRight.text = "+"
-        return cellInTable
-    }
-    
-    //    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    //        var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as? UITableViewCell
-    //        if cell == nil {
-    //            cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "Cell")
-    //        }
-    //        cell?.textLabel?.text = "\(tableCellContent[indexPath.row])"
-    //        cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-    //        return cell!
-    //    }
-    
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if selectedIndex == indexPath.row {
-            self.view.layoutIfNeeded()
-            return 128
-        } else {
-            scrollView.contentSize = CGSize(width: self.view.bounds.width, height: self.view.bounds.height)
-            return 44
+        var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as? UITableViewCell
+        if cell == nil {
+            cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "Cell")
         }
+        cell?.textLabel?.text = "\(tableCellContent[indexPath.row])"
+        cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        cell?.selectionStyle = .None
+        return cell!
     }
+    
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var arrayOfIndexPaths = [NSIndexPath]()
-        if selectedIndex == indexPath.row {
-            selectedIndex = NSNotFound
-            arrayOfIndexPaths.append(indexPath)
-            table.beginUpdates()
-            table.reloadRowsAtIndexPaths(arrayOfIndexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
-            table.endUpdates()
-            //            UIView.animateWithDuration(0.3) {
-            //                self.table.frame.size = self.table.contentSize
-            //            }
-            return
+        
+        var detailVC = DetailViewController()
+        if indexPath.row == 0 {
+            detailVC.textViewText = "artist information"
+        } else {
+            detailVC.textViewText = "venue information"
         }
         
-        if selectedIndex != NSNotFound {
-            var prevPath = NSIndexPath(forRow: selectedIndex, inSection: 0)
-            selectedIndex = indexPath.row
-            arrayOfIndexPaths.append(prevPath)
-            table.beginUpdates()
-            table.reloadRowsAtIndexPaths(arrayOfIndexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
-            table.endUpdates()
-            //            UIView.animateWithDuration(0.3) {
-            //                self.table.frame.size = self.table.contentSize
-            //            }
-        }
-        
-        selectedIndex = indexPath.row
-        arrayOfIndexPaths.append(indexPath)
-        table.beginUpdates()
-        table.reloadRowsAtIndexPaths(arrayOfIndexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
-        table.endUpdates()
-        //        UIView.animateWithDuration(0.3) {
-        //            self.table.frame.size = self.table.contentSize
-        //        }
+        showViewController(detailVC, sender: indexPath)
     }
+    
     
     
     //WEBVIEW
     func openWeb() {
-        if let url = NSURL(string: "http://google.com") {
-            performSegueWithIdentifier("openTicketingWeb", sender: NSURLRequest(URL: url))
+        
+        if let url = NSURL(string: ticketLink) {
+            var webVC = WebViewController()
+            webVC.request = NSURLRequest(URL: url)
+            showViewController(webVC, sender: nil)
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let request = sender as? NSURLRequest {
-            var destinationViewController = segue.destinationViewController as WebViewController
-            destinationViewController.request = request
+    override func performSegueWithIdentifier(identifier: String?, sender: AnyObject?) {
+        if identifier == "openTicketingWeb" {
+            println("opening ticketing site")
         }
     }
+
     
+    
+    //SHARE
+    func openShare() {
+        let textToShare = "text to share"
+        if let myWebsite = NSURL(string: ticketLink) {
+            let objectsToShare = [textToShare, myWebsite]
+            let shareVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            self.presentViewController(shareVC, animated: true, completion: nil)
+        }
+    }
     
     //CONFIGURE SCROLLVIEW
     func addScrollView() {
@@ -212,4 +184,3 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
 }
-

@@ -46,6 +46,7 @@
 		DBD31EB21AB35CAA00B03CAA /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD31EB11AB35CAA00B03CAA /* HomeTableViewCell.swift */; };
 		DBD31EB41AB3663900B03CAA /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD31EB31AB3663900B03CAA /* CalendarTableViewCell.swift */; };
 		F93A26D11AAB6D9C00ED3BD8 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */; };
+		F983DA521AB8ADCF00A3B4E2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F983DA511AB8ADCF00A3B4E2 /* DetailViewController.swift */; };
 		F987BA171AA7C720008FDD56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987BA161AA7C720008FDD56 /* AppDelegate.swift */; };
 		F987BA191AA7C720008FDD56 /* HomeTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987BA181AA7C720008FDD56 /* HomeTab.swift */; };
 		F987BA1C1AA7C720008FDD56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F987BA1A1AA7C720008FDD56 /* Main.storyboard */; };
@@ -116,6 +117,7 @@
 		DBD31EB11AB35CAA00B03CAA /* HomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		DBD31EB31AB3663900B03CAA /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
 		F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		F983DA511AB8ADCF00A3B4E2 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F987BA111AA7C720008FDD56 /* HearHereApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HearHereApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F987BA151AA7C720008FDD56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F987BA161AA7C720008FDD56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -210,8 +212,6 @@
 		4609CC331AA9732C00D2E70D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */,
-				4693CDE41AB7D88E00DCBA29 /* EventDetailView.swift */,
 				F987BA181AA7C720008FDD56 /* HomeTab.swift */,
 				4693CDE01AB7D85300DCBA29 /* FilterPopoverViewController.swift */,
 				4693CDE11AB7D85300DCBA29 /* FriendsTableViewController.swift */,
@@ -223,6 +223,9 @@
 				F995C3E91AA91D6500F6EC88 /* SignInViewController.swift */,
 				F995C3E71AA91D4D00F6EC88 /* SignUpViewController.swift */,
 				466A27751AAA20AE00AB6BB5 /* TagsViewController.swift */,
+				4693CDE41AB7D88E00DCBA29 /* EventDetailView.swift */,
+				F983DA511AB8ADCF00A3B4E2 /* DetailViewController.swift */,
+				F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 				F93A26D11AAB6D9C00ED3BD8 /* WebViewController.swift in Sources */,
 				F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */,
 				F9CF09741AA7E18E005E28F7 /* MapTab.swift in Sources */,
+				F983DA521AB8ADCF00A3B4E2 /* DetailViewController.swift in Sources */,
 				4693CDE21AB7D85300DCBA29 /* FilterPopoverViewController.swift in Sources */,
 				F995C3E81AA91D4D00F6EC88 /* SignUpViewController.swift in Sources */,
 				4693CDD61AB7D6B800DCBA29 /* Model.swift in Sources */,

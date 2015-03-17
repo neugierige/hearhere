@@ -1,0 +1,33 @@
+//
+//  DetailViewController.swift
+//  EventDetailVC
+//
+//  Created by Luyuan Xing on 3/13/15.
+//  Copyright (c) 2015 LXing. All rights reserved.
+//
+
+import UIKit
+
+class DetailViewController: UIViewController {
+    
+    var textView = UITextView()
+    var scrollView = UIScrollView()
+    var margin: CGFloat = 10.0
+    
+    //***** INFO TO LOAD FROM PARSE
+    var textViewText: String?
+    
+    override func viewDidLoad() {
+        self.view.backgroundColor = UIColor.whiteColor()
+        if let navBarHeight = navigationController?.navigationBar.frame.height {
+            textView.frame = CGRect(x: margin, y: navBarHeight+margin, width: view.frame.width-2*margin, height: view.frame.height)
+        }
+        textView.editable = false
+        textView.text = textViewText
+        self.view.addSubview(textView)
+        
+        scrollView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.bounds.height)
+        self.view.addSubview(scrollView)
+    }
+    
+}
