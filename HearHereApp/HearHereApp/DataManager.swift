@@ -337,7 +337,7 @@ extension DataManager {
     }
     
     class func retrieveAllEvents(completion: [Event] -> Void) {
-        var request = ClassRouter.GetVenues(nil)
+        var request = ClassRouter.GetEvents(nil)
         makeEventHTTPRequest(request) { events in
             completion(events!)
         }

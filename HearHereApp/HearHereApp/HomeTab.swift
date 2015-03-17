@@ -71,12 +71,12 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
         
         // Populate text labels
-        let dateTime = formatDateTime(event.dateTime)
+//        let dateTime = formatDateTime(event.dateTime)
         
         cell.textLabel?.text = "\(event.title)"
         cell.textLabel?.textColor = cellColors.txtColor
         
-        cell.detailTextLabel?.text = "\(dateTime)\n\(event.venue)"
+//        cell.detailTextLabel?.text = "\(dateTime)\n\(event.venue)"
         cell.detailTextLabel?.textColor = cellColors.txtColor
         return cell
     }

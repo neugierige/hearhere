@@ -15,10 +15,10 @@ class Event: Model {
     var categories: [Category]!
     
     var title: String!
-    var dateTime: NSDate!
+    var dateTime: String!
     var program: String!
     var photoURL: String!
-    var ticketSite: String!
+    var ticketURL: String!
     var ticketMethod: String!
     var priceMin: Double!
     var priceMax: Double!
@@ -30,9 +30,9 @@ class Event: Model {
     convenience required init(object: PFObject) {
         self.init(id: object["objectId"]  as String!)
         if let n = object["title"]        as? String { title = n }
-        if let a = object["dateTime"]     as? NSDate { dateTime = a }
+        if let a = object["dateTime"]     as? String { dateTime = a }
         if let p = object["program"]      as? String { program = p }
-        if let u = object["ticketSite"]   as? String { ticketSite = u }
+        if let u = object["ticketURL"]   as? String { ticketURL = u }
         if let u = object["ticketMethod"] as? String { ticketMethod = u }
         if let u = object["priceMin"]     as? Double { priceMin = u }
         if let u = object["priceMax"]     as? Double { priceMax = u }
@@ -51,9 +51,11 @@ class Event: Model {
     convenience init?(json: NSDictionary) {
         self.init(id: json["objectId"]  as String!)
         if let n = json["title"]        as? String { title = n }
-        if let a = json["dateTime"]     as? NSDate { dateTime = a }
+        if let a = json["dateTime"] as? NSDictionary {
+            if let date = a["iso"] as? String { dateTime = date }
+        }
         if let p = json["program"]      as? String { program = p }
-        if let u = json["ticketSite"]   as? String { ticketSite = u }
+        if let u = json["ticketURL"]   as? String { ticketURL = u }
         if let u = json["ticketMethod"] as? String { ticketMethod = u }
         if let u = json["priceMin"]     as? Double { priceMin = u }
         if let u = json["priceMax"]     as? Double { priceMax = u }
