@@ -230,14 +230,14 @@
 		4609CC361AA9744F00D2E70D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4693CDCC1AB7D69100DCBA29 /* Venue.swift */,
-				4693CDDA1AB7D7B300DCBA29 /* ClassRouter.swift */,
-				4693CDD81AB7D71500DCBA29 /* UserRouter.swift */,
-				46795D741AB7D30300D504F6 /* Artist.swift */,
-				4693CDCF1AB7D6B800DCBA29 /* Category.swift */,
-				4693CDD01AB7D6B800DCBA29 /* Event.swift */,
 				4693CDD11AB7D6B800DCBA29 /* Model.swift */,
 				4693CDD21AB7D6B800DCBA29 /* User.swift */,
+				46795D741AB7D30300D504F6 /* Artist.swift */,
+				4693CDCF1AB7D6B800DCBA29 /* Category.swift */,
+				4693CDCC1AB7D69100DCBA29 /* Venue.swift */,
+				4693CDD01AB7D6B800DCBA29 /* Event.swift */,
+				4693CDDA1AB7D7B300DCBA29 /* ClassRouter.swift */,
+				4693CDD81AB7D71500DCBA29 /* UserRouter.swift */,
 				4609CC371AA974AF00D2E70D /* DataManager.swift */,
 			);
 			name = Models;

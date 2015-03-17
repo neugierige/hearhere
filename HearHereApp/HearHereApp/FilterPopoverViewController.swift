@@ -7,10 +7,13 @@
 //
 
 import UIKit
-
+protocol FilterPopoverViewControllerProtocol {
+    func filterTypeChosen(type: TagView)
+}
 class FilterPopoverViewController: UIViewController, UIPopoverPresentationControllerDelegate {
 
     var delegate: UIPopoverPresentationControllerDelegate!
+    var filterDelegate: FilterPopoverViewControllerProtocol!
     var containerView: UIView!
     
     override func viewDidLoad() {
@@ -33,9 +36,11 @@ class FilterPopoverViewController: UIViewController, UIPopoverPresentationContro
         var artist = TagView(tagName: "Artist")
         var xOffset = (containerView.frame.width-artist.frame.width)/2
         artist.frame.origin = CGPointMake(xOffset, 6)
-//        artist.tagViewTapped { tagView in
-//            println("hi"), return
-//        }
+        addTagView(artist) { tagView in
+            self.dismissViewControllerAnimated(true) {
+                self.filterTags(tagView)
+            }
+        }
         containerView.addSubview(artist)
         
         TagView.color2 = Configuration.tagFontUIColor
@@ -43,6 +48,11 @@ class FilterPopoverViewController: UIViewController, UIPopoverPresentationContro
         var category = TagView(tagName: "Category")
         xOffset = (containerView.frame.width-category.frame.width)/2
         category.frame.origin = CGPointMake(xOffset,46)
+        addTagView(category) { tagView in
+            self.dismissViewControllerAnimated(true) {
+                self.filterTags(tagView)
+            }
+        }
         containerView.addSubview(category)
         
         TagView.color2 = Configuration.tagFontUIColor
@@ -51,14 +61,29 @@ class FilterPopoverViewController: UIViewController, UIPopoverPresentationContro
         xOffset = (containerView.frame.width-venue.frame.width)/2
         containerView.addSubview(venue)
         venue.frame.origin = CGPointMake(xOffset,86)
+        addTagView(venue) { tagView in
+            self.dismissViewControllerAnimated(true) {
+                self.filterTags(tagView)
+            }
+        }
         venue.setNeedsDisplay()
 
     
 
     }
 
+    func addTagView(tag: TagView , completion: ((TagView)->Void)?) {
+        if let completion = completion {
+            tag.tagViewTapped = { tagView in
+                completion(tagView)
+            }
+        }
+    }
 
-
+    func filterTags(type: TagView) {
+        filterDelegate!.filterTypeChosen(type)
+    }
+    
     override func viewWillAppear(animated: Bool) {
         self.preferredContentSize = containerView.frame.size
     }
