@@ -131,7 +131,6 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         table.delegate = self
         table.dataSource = self
         table.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1.0)
-        table.registerNib(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: cellReuseID)
         
         //SHARE BUTTON
         shareButton.frame = CGRect(x: margin, y: table.frame.maxY+margin, width: maxWidth, height: 44)
@@ -153,9 +152,6 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
-    
-    var cellInTable = CustomCell()
-    
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as? UITableViewCell
@@ -210,9 +206,7 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         self.view.addSubview(scrollView)
         scrollView.backgroundColor = UIColor.whiteColor()
         scrollView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-        
-        //scrollView.contentSize = CGSize(width: containerView.bounds.width, height: containerView.bounds.height + margin)
-        //println("\(containerView.bounds.width), \(containerView.bounds.height)")
+
     }
     
     
@@ -225,7 +219,6 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
     func addContainerView() {
         scrollView.addSubview(containerView)
         containerView.backgroundColor = lightBlue
-        //containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 850) //shareButton.frame.maxY + margin)
         scrollView.layoutIfNeeded()
     }
     
