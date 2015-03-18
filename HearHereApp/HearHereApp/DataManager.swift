@@ -356,12 +356,13 @@ extension DataManager {
                                 events.append(event)
                             }
                         }
+                        dispatch_async(dispatch_get_main_queue()) {
+                            completion(events)
+                        }
                     }
                 }
             }
-            dispatch_async(dispatch_get_main_queue()) {
-                completion(events)
-            }
+
         }
     }
  

@@ -15,6 +15,7 @@ class Venue: Model, Printable {
     var address: String!
     var phone: String!
     var url: String!
+    var photo = UIImage()
     
     required init(id: String) {
         super.init(id: id)
@@ -30,6 +31,14 @@ class Venue: Model, Printable {
         if let a = object["address"] as? String { address = a }
         if let p = object["phone"]   as? String { phone = p }
         if let u = object["url"]     as? String { url = u }
+        if let f = object["photo"] as? PFFile {
+            f.getDataInBackgroundWithBlock({ (data, error) -> Void in
+                var d = NSData(data: data)
+                if let image = UIImage(data: d) {
+                    self.photo = image
+                }
+            })
+        }
     }
     
     convenience init?(json: NSDictionary) {

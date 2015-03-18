@@ -10,12 +10,12 @@ import Foundation
 import Parse
 
 class Event: Model {
-    var venue: Venue!
-    var artists: [Artist]!
-    var categories: [Category]!
+    lazy var venue = [Venue]()
+    lazy var artists = [Artist]()
+    lazy var categories = [Category]()
     
     var title: String!
-    var dateTime: String!
+    var dateTime: NSDate!
     var program: String!
     var photoURL: String!
     var ticketURL: String!
@@ -30,7 +30,7 @@ class Event: Model {
     convenience required init(object: PFObject) {
         self.init(id: object["objectId"]  as String!)
         if let n = object["title"]        as? String { title = n }
-        if let a = object["dateTime"]     as? String { dateTime = a }
+        if let a = object["dateTime"]     as? NSDate { dateTime = a }
         if let p = object["program"]      as? String { program = p }
         if let u = object["ticketURL"]   as? String { ticketURL = u }
         if let u = object["ticketMethod"] as? String { ticketMethod = u }
@@ -38,7 +38,7 @@ class Event: Model {
         if let u = object["priceMax"]     as? Double { priceMax = u }
         
         if let v = object.objectForKey("venue") as? PFObject {
-            venue = Venue(object: v)
+            venue.append(Venue(object: v as PFObject))
         }
         if let a = object.objectForKey("artists") as? [AnyObject] {
             a.map { self.artists.append(Artist(object: $0 as PFObject)) }
@@ -52,7 +52,19 @@ class Event: Model {
         self.init(id: json["objectId"]  as String!)
         if let n = json["title"]        as? String { title = n }
         if let a = json["dateTime"] as? NSDictionary {
-            if let date = a["iso"] as? String { dateTime = date }
+            if let date = a["iso"] as? String {
+                var formatter = NSDateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                
+//                formatter.timeZone = NSTimeZone.systemTimeZone()
+//                formatter.locale = NSLocale.currentLocale()
+//                formatter.formatterBehavior = NSDateFormatterBehavior.BehaviorDefault
+//                formatter.dateStyle = .MediumStyle
+//                formatter.timeStyle = .ShortStyle
+                if let nsdate = formatter.dateFromString(date) {
+                    self.dateTime = nsdate
+                }
+            }
         }
         if let p = json["program"]      as? String { program = p }
         if let u = json["ticketURL"]   as? String { ticketURL = u }
@@ -60,15 +72,49 @@ class Event: Model {
         if let u = json["priceMin"]     as? Double { priceMin = u }
         if let u = json["priceMax"]     as? Double { priceMax = u }
         
-        if let v = json.objectForKey("venue") as? PFObject {
-            venue = Venue(object: v)
-        }
-        if let a = json.objectForKey("artists") as? [AnyObject] {
-            a.map { self.artists.append(Artist(object: $0 as PFObject)) }
-        }
-        if let c = json.objectForKey("categories") as? [AnyObject] {
-            c.map { self.categories.append(Category(object: $0 as PFObject)) }
-        }
+//        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
+            if let v = json["venue"] as? NSArray {
+                println(v)
+                var id = v[0].objectForKey("objectId") as String
+                //            var q = PFQuery(className: "Venue").whereKey(<#key: String!#>, containsString: <#String!#>)
+                var query = PFQuery(className: "Venue")
+                query.whereKey("objectId", equalTo: id)
+                var objects = query.findObjects() //InBackgroundWithBlock { objects, error in
+                if let o = objects as? [PFObject] {
+                    var ven = Venue(object: o[0] as PFObject)
+                    self.venue.append(ven)
+                }
+            }
+            
+            if let a = json["artists"] as? NSArray {
+                var ids = [String]()
+                for i in a {
+                    ids.append(i.objectForKey("objectId") as String)
+                }
+                var query = PFQuery(className: "Artist").whereKey("objectId", containedIn: ids)
+                var objects = query.findObjects() //InBackgroundWithBlock { objects, error in
+                if let o = objects as? [PFObject] {
+                    for artist in o {
+                        var ven = Artist(object: artist as PFObject)
+                        self.artists.append(ven)
+                    }
+                }
+            }
+            if let a = json["categories"] as? NSArray {
+                var ids = [String]()
+                for i in a {
+                    ids.append(i.objectForKey("objectId") as String)
+                }
+                var query = PFQuery(className: "Category").whereKey("objectId", containedIn: ids)
+                var objects = query.findObjects() ///InBackgroundWithBlock { objects, error in
+                if let o = objects as? [PFObject] {
+                    for category in o {
+                        var ven = Category(object: category as PFObject)
+                        self.categories.append(ven)
+                    }
+                }
+            }
+        //}
         
     }
     
