@@ -19,6 +19,10 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         super.viewDidLoad()
         DataManager.retrieveAllEvents { events in
             self.eventsArray = events
+            if let theTableView = self.tableView {
+                theTableView.dataSource = self
+                theTableView.reloadData()
+            }
         }
 //        var event1 = Event(eventID: "AAAA", name: "Beethoven, Berlioz, and Adès Tiramisu bear claw topping tiramisu", dateTime: NSDate(), venue: "Pastry donut chocolate. Cupcake croissant jujubes danish jelly-o apple pie jelly beans danish wafer.", image: "avery-fisher-hall.jpg")
         
@@ -30,13 +34,14 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         
         if let theTableView = tableView {
             theTableView.registerClass(HomeTableViewCell.self, forCellReuseIdentifier: "homeCell")
-            theTableView.dataSource = self
+            theTableView.dataSource = nil
             theTableView.delegate = self
             theTableView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
             theTableView.rowHeight = self.rowHeight
             theTableView.separatorStyle = UITableViewCellSeparatorStyle.None
             view.addSubview(theTableView)
         }
+
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -78,7 +83,13 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         
 //        cell.detailTextLabel?.text = "\(dateTime)\n\(event.venue)"
         cell.detailTextLabel?.textColor = cellColors.txtColor
+        
         return cell
+    }
+    
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        navigationController?.showViewController(EventDetailViewController(), sender: indexPath)
     }
     
     func chooseColors(index: Int) -> (bkgColor: UIColor, txtColor: UIColor) {

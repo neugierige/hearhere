@@ -70,8 +70,6 @@ class MapTab: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         println("coordinates are: \(currentLocation.latitude), \(currentLocation.longitude)")
     }
     
-    
-    
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         var v : MKAnnotationView! = nil
         if annotation.title == mapItemTitle {
@@ -91,16 +89,8 @@ class MapTab: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         return v
     }
     
-    //***** CALLOUT TAPPED NOT WORKING
-    //    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
-    //        if control == view.rightCalloutAccessoryView {
-    //            println("callout tapped!")
-    //        }
-    //    }
-    
     func buttonClicked(sender: UIButton!) {
-        println("button clicked!")
-        showViewController(WebViewController(), sender: nil)
+        showViewController(EventDetailViewController(), sender: nil)
     }
     
     

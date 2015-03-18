@@ -10,11 +10,20 @@ import UIKit
 
 class EventDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    //*****CONSTANTS
     let scrollView = UIScrollView()
+    let containerView = UIView()
     let table = UITableView()
     let margin: CGFloat = 10
     let cellReuseID = "cell"
+    let shareButton = UIButton()
     
+    //*****COLORS
+    var darkBlue = Configuration.darkBlueUIColor
+    var medBlue = Configuration.medBlueUIColor
+    var lightBlue = Configuration.lightBlueUIColor
+    var lightGrey = Configuration.lightGreyUIColor
+    var orange = Configuration.orangeUIColor
     
     //*****INFO TO LOAD FROM PARSE
     var eventNameText = "New York Philharmonic & Warner Bros. Present Bugs Bunny at the Symphony"
@@ -23,23 +32,34 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
     var price = "$20-$55"
     var programInfoText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
     var ticketLink = "http://www.google.com"
-    var arrayOfTags = [UIView]()
+    var arrayOfTags: [String] = ["foo", "bar", "matt", "Prima", "sean","travis","Rudd"]
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: shareButton.frame.maxY + margin)
+        containerView.layoutIfNeeded()
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor.redColor()
+        
+        
+        addContainerView()
+        addScrollView()
+        
+        //CONSTANTS
         var navBarHeight = self.navigationController?.navigationBar.frame.maxY ?? view.frame.minY
         var maxWidth: CGFloat = view.frame.width-2*margin
         var titleTextHeight: CGFloat = 30
         var bodyTextHeight: CGFloat = 18
         
-        addScrollView()
-        var containerView: UIScrollView = scrollView
         
         //IMAGE
         var image = UIView(frame: CGRect(x: margin, y: margin, width: maxWidth, height: maxWidth/2))
-        image.backgroundColor = UIColor.blueColor()
+        image.backgroundColor = medBlue
         containerView.addSubview(image)
         
         //EVENT NAME
@@ -73,7 +93,7 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         ticketButton.setTitle("\(price)", forState: UIControlState.Normal)
         ticketButton.titleLabel?.font = UIFont.systemFontOfSize(12)
         ticketButton.addTarget(self, action: "openWeb", forControlEvents: UIControlEvents.TouchUpInside)
-        ticketButton.backgroundColor = UIColor.blueColor()
+        ticketButton.backgroundColor = medBlue
         
         //PROGRAM INFO
         var programInfo = UITextView(frame: CGRect(x: margin, y: venueNameLabel.frame.maxY+margin, width: maxWidth, height: bodyTextHeight*5))
@@ -84,8 +104,24 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         programInfo.sizeToFit()
         
         
-        //TAGS CONTAINER
-        var tagsContainer = UIView(frame: CGRect(x: margin, y: programInfo.frame.maxY+margin, width: maxWidth, height: 300))
+        //TAGS
+        let origin = CGPointMake(margin, programInfo.frame.maxY+margin)
+        let size = CGSizeMake(maxWidth, 200)
+        var tagsContainer = TagListView(frame: CGRect(origin: origin, size: size))
+        
+        containerView.addSubview(tagsContainer)
+        tagsContainer.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1.0)
+        TagView.color1 = Configuration.tagUIColorB
+        TagView.fontName = "HelveticaNeue"
+        TagView.cornerRadius = 5
+        TagView.textPadding  = CGPointMake(10, 5)
+        for tag in arrayOfTags {
+            tagsContainer.addTagView(TagView(tagName: tag)) { [weak self] TagView in
+                if let strongSelf = self {
+                }
+            }
+        }
+        tagsContainer.frame.size.height = tagsContainer.contentSize.height - 45
         
         
         //TABLE
@@ -94,16 +130,15 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         table.scrollEnabled = false
         table.delegate = self
         table.dataSource = self
-        table.backgroundColor = UIColor.grayColor()
+        table.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1.0)
         table.registerNib(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: cellReuseID)
         
         //SHARE BUTTON
-        var shareButton = UIButton(frame: CGRect(x: margin, y: table.frame.maxY+margin, width: maxWidth, height: 44))
+        shareButton.frame = CGRect(x: margin, y: table.frame.maxY+margin, width: maxWidth, height: 44)
         containerView.addSubview(shareButton)
-        shareButton.backgroundColor = UIColor(red: 0.247, green: 0.341, blue: 0.396, alpha: 1.0)
+        shareButton.backgroundColor = medBlue
         shareButton.setTitle("Share", forState: UIControlState.Normal)
         shareButton.addTarget(self, action: "openShare", forControlEvents: UIControlEvents.TouchUpInside)
-        
     }
     
     //CONFIGURE TABLE
@@ -150,20 +185,13 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
     
     //WEBVIEW
     func openWeb() {
-        
         if let url = NSURL(string: ticketLink) {
+            //performSegueWithIdentifier("openTicketingWeb", sender: url)
             var webVC = WebViewController()
             webVC.request = NSURLRequest(URL: url)
             showViewController(webVC, sender: nil)
         }
     }
-    
-    override func performSegueWithIdentifier(identifier: String?, sender: AnyObject?) {
-        if identifier == "openTicketingWeb" {
-            println("opening ticketing site")
-        }
-    }
-
     
     
     //SHARE
@@ -176,11 +204,29 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
+    
     //CONFIGURE SCROLLVIEW
     func addScrollView() {
-        scrollView.backgroundColor = UIColor(red: 0.741, green: 0.831, blue: 0.871, alpha: 1.0)
-        scrollView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.bounds.height)
         self.view.addSubview(scrollView)
+        scrollView.backgroundColor = UIColor.whiteColor()
+        scrollView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        
+        //scrollView.contentSize = CGSize(width: containerView.bounds.width, height: containerView.bounds.height + margin)
+        //println("\(containerView.bounds.width), \(containerView.bounds.height)")
+    }
+    
+    
+    override func viewDidLayoutSubviews() {
+        scrollView.contentSize = CGSize(width: containerView.bounds.width, height: containerView.bounds.height + margin)
+        println("\(containerView.bounds.width), \(containerView.bounds.height)")
+    }
+    
+    //CONFIGURE CONTAINER VIEW
+    func addContainerView() {
+        scrollView.addSubview(containerView)
+        containerView.backgroundColor = lightBlue
+        //containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 850) //shareButton.frame.maxY + margin)
+        scrollView.layoutIfNeeded()
     }
     
 }
