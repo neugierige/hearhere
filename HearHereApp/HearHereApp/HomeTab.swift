@@ -61,7 +61,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         // Create background image
         let backgroundView = UIImageView()
         backgroundView.contentMode = .ScaleToFill
-//        backgroundView.image = UIImage(named: event.image)
+        backgroundView.image = event.venue[0].photo
         cell.backgroundView = backgroundView
         
         // Tint background image
@@ -81,7 +81,8 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         cell.textLabel?.text = "\(event.title)"
         cell.textLabel?.textColor = cellColors.txtColor
         
-//        cell.detailTextLabel?.text = "\(dateTime)\n\(event.venue)"
+        cell.detailTextLabel?.text = "Wed, Apr 5, 6PM\n\(event.venue[0])"
+///        cell.detailTextLabel?.text = "\(dateTime)\n\(event.venue[0])"
         cell.detailTextLabel?.textColor = cellColors.txtColor
         
         return cell

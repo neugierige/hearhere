@@ -76,7 +76,7 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate 
 //        let eventTime = formatDateTime(event.dateTime, type: "time")
 //        timeLabel.text = "\(eventTime)"
         cell.textLabel?.text = "\(event.title)"
-        cell.detailTextLabel?.text = "\(event.venue.name)"
+        cell.detailTextLabel?.text = "\(event.venue[0].name)"
         
         return cell
     }
