@@ -35,8 +35,6 @@
 		4693CDD71AB7D6B800DCBA29 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4693CDD21AB7D6B800DCBA29 /* User.swift */; };
 		4693CDD91AB7D71500DCBA29 /* UserRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4693CDD81AB7D71500DCBA29 /* UserRouter.swift */; };
 		4693CDDB1AB7D7B300DCBA29 /* ClassRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4693CDDA1AB7D7B300DCBA29 /* ClassRouter.swift */; };
-		4693CDDD1AB7D7FA00DCBA29 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4693CDDC1AB7D7FA00DCBA29 /* CustomCell.swift */; };
-		4693CDDF1AB7D81400DCBA29 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4693CDDE1AB7D81400DCBA29 /* CustomCell.xib */; };
 		4693CDE21AB7D85300DCBA29 /* FilterPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4693CDE01AB7D85300DCBA29 /* FilterPopoverViewController.swift */; };
 		4693CDE31AB7D85300DCBA29 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4693CDE11AB7D85300DCBA29 /* FriendsTableViewController.swift */; };
 		4693CDE51AB7D88E00DCBA29 /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4693CDE41AB7D88E00DCBA29 /* EventDetailView.swift */; };
@@ -103,8 +101,6 @@
 		4693CDD21AB7D6B800DCBA29 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4693CDD81AB7D71500DCBA29 /* UserRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRouter.swift; sourceTree = "<group>"; };
 		4693CDDA1AB7D7B300DCBA29 /* ClassRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassRouter.swift; sourceTree = "<group>"; };
-		4693CDDC1AB7D7FA00DCBA29 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
-		4693CDDE1AB7D81400DCBA29 /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
 		4693CDE01AB7D85300DCBA29 /* FilterPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterPopoverViewController.swift; sourceTree = "<group>"; };
 		4693CDE11AB7D85300DCBA29 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		4693CDE41AB7D88E00DCBA29 /* EventDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
@@ -249,7 +245,6 @@
 		4609CC551AA979B500D2E70D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4693CDDC1AB7D7FA00DCBA29 /* CustomCell.swift */,
 				466A278A1AAA851200AB6BB5 /* SearchView.swift */,
 				466A27721AAA163700AB6BB5 /* TagView.swift */,
 				466A27711AAA163700AB6BB5 /* TagListView.swift */,
@@ -298,7 +293,6 @@
 				4693CDE81AB7D8E000DCBA29 /* HearHereApp-Bridging-Header.h */,
 				4609CC391AA974E200D2E70D /* Configuration.swift */,
 				F987BA161AA7C720008FDD56 /* AppDelegate.swift */,
-				4693CDDE1AB7D81400DCBA29 /* CustomCell.xib */,
 				F987BA1F1AA7C720008FDD56 /* LaunchScreen.xib */,
 				F987BA1D1AA7C720008FDD56 /* Images.xcassets */,
 				F987BA151AA7C720008FDD56 /* Info.plist */,
@@ -406,7 +400,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4693CDDF1AB7D81400DCBA29 /* CustomCell.xib in Resources */,
 				F987BA1C1AA7C720008FDD56 /* Main.storyboard in Resources */,
 				F987BA211AA7C720008FDD56 /* LaunchScreen.xib in Resources */,
 				F987BA1E1AA7C720008FDD56 /* Images.xcassets in Resources */,
@@ -488,7 +481,6 @@
 				4693CDD71AB7D6B800DCBA29 /* User.swift in Sources */,
 				DBD31EB41AB3663900B03CAA /* CalendarTableViewCell.swift in Sources */,
 				4693CDD41AB7D6B800DCBA29 /* Category.swift in Sources */,
-				4693CDDD1AB7D7FA00DCBA29 /* CustomCell.swift in Sources */,
 				4693CDD51AB7D6B800DCBA29 /* Event.swift in Sources */,
 				F987BA191AA7C720008FDD56 /* HomeTab.swift in Sources */,
 				DBD31EB21AB35CAA00B03CAA /* HomeTableViewCell.swift in Sources */,
