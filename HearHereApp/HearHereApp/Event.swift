@@ -54,14 +54,15 @@ class Event: Model {
         if let a = json["dateTime"] as? NSDictionary {
             if let date = a["iso"] as? String {
                 var formatter = NSDateFormatter()
-                formatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'"
-                formatter.timeZone = NSTimeZone.systemTimeZone()
-                formatter.locale = NSLocale.currentLocale()
-                formatter.formatterBehavior = NSDateFormatterBehavior.BehaviorDefault
-                formatter.dateStyle = .MediumStyle
-                formatter.timeStyle = .ShortStyle
+                formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                
+//                formatter.timeZone = NSTimeZone.systemTimeZone()
+//                formatter.locale = NSLocale.currentLocale()
+//                formatter.formatterBehavior = NSDateFormatterBehavior.BehaviorDefault
+//                formatter.dateStyle = .MediumStyle
+//                formatter.timeStyle = .ShortStyle
                 if let nsdate = formatter.dateFromString(date) {
-                    println(nsdate)
+                    self.dateTime = nsdate
                 }
             }
         }

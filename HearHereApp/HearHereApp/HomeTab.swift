@@ -24,11 +24,6 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
                 theTableView.reloadData()
             }
         }
-//        var event1 = Event(eventID: "AAAA", name: "Beethoven, Berlioz, and Adès Tiramisu bear claw topping tiramisu", dateTime: NSDate(), venue: "Pastry donut chocolate. Cupcake croissant jujubes danish jelly-o apple pie jelly beans danish wafer.", image: "avery-fisher-hall.jpg")
-        
-//        for index in 0...20 {
-//            eventsArray.append(event1)
-//        }
         
         tableView = UITableView(frame: CGRect(x: 0, y: tableY, width: self.view.frame.width, height: self.view.frame.height - tableY - 49.0), style: UITableViewStyle.Plain)
         
@@ -76,13 +71,14 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
         
         // Populate text labels
-//        let dateTime = formatDateTime(event.dateTime)
         
         cell.textLabel?.text = "\(event.title)"
         cell.textLabel?.textColor = cellColors.txtColor
-        
-        cell.detailTextLabel?.text = "Wed, Apr 5, 6PM\n\(event.venue[0])"
-///        cell.detailTextLabel?.text = "\(dateTime)\n\(event.venue[0])"
+
+        if event.dateTime != nil {
+            var date = formatDateTime(event.dateTime)
+            cell.detailTextLabel?.text = "\(date)\n\(event.venue[0])"
+        }
         cell.detailTextLabel?.textColor = cellColors.txtColor
         
         return cell
