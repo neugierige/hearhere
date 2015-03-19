@@ -20,43 +20,15 @@ import CoreLocation
 
 class MapTab: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
-    var map = MKMapView()
+    let map = MKMapView()
     let locationManager = CLLocationManager()
     
-    //***** DUMMY DATA TO BE REPLACED
-    var center = CLLocationCoordinate2DMake(40.7543065, -73.9733295)
-    
-    var mapItemTitle = "What Happens If You Have A Really Long Title That Just Goes On Forever"
-    var mapItemSubTitle = "8:00 PM General Assembly"
-    
+    //***** PARSE DATA
+    var eventsArray = [Event]()
+    var mapItemTitle = String()
+    var mapItemSubTitle = String()
     var arrayOfCoordinates = [CLLocationCoordinate2D]()
-    var parseObjects: [[String: AnyObject]] = [
-        [
-            "name": "Miller Theater",
-            "subtitle": "Tonight at 9PM",
-            "coordinate": CLLocation(latitude: 40.808078, longitude: -73.963373)
-        ],
-        [
-            "name": "Trinity Church",
-            "subtitle": "Tonight at 9PM",
-            "coordinate": CLLocation(latitude: 40.708062, longitude: -74.012185)
-        ],
-        [
-            "name": "Carnegie Hall",
-            "subtitle": "Tonight at 9PM",
-            "coordinate": CLLocation(latitude: 40.765126, longitude: -73.979924)
-        ],
-        [
-            "name": "BAM",
-            "subtitle": "Tonight at 9PM",
-            "coordinate": CLLocation(latitude: 40.686456, longitude: -73.977676)
-        ],
-        [
-            "name": "SubCulture",
-            "subtitle": "Tonight at 9PM",
-            "coordinate": CLLocation(latitude: 40.725863, longitude: -73.994291)
-        ]
-    ]
+    var arrayOfAnnotations = [MKPointAnnotation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +39,7 @@ class MapTab: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         
         
         //**** REQUEST USER LOCATION
-        self.locationManager.requestAlwaysAuthorization()
+        //self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -77,46 +49,98 @@ class MapTab: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         map.showsUserLocation = true
         
         
-        for parseObject in parseObjects {
-            var location = parseObject["coordinate"] as CLLocation  //CLLocationCoordinate2DMake(40.808078, -73.963373) // TODO: REPLACE WITH PARSE DATA
-            var title = parseObject["name"] as String  //"some title here"   // TODO: REPLACE WITH PARSE DATA
-            var subTitle = parseObject["subtitle"] as String  //"some subtitle here"     // TODO: REPLACE WITH PARSE DATA
-            
-            
-            var anno: MKPointAnnotation = MKPointAnnotation()
-            anno.coordinate = location.coordinate
-            anno.title = title
-            anno.subtitle = subTitle
-            
-            self.map.addAnnotation(anno)
+        if eventsArray.isEmpty {
+            DataManager.retrieveAllEvents { events in
+                self.eventsArray = events
+                println("there are \(self.eventsArray.count) events in the array")
+                self.addAnnotations()
+            }
+        } else {
+            self.addAnnotations()
         }
         
-        let point = MKMapPointForCoordinate(center)
-        let width = MKMapPointsPerMeterAtLatitude(center.latitude) * 7000
-        self.map.visibleMapRect = MKMapRectMake(point.x - width/2.0, point.y - width/2.0, width, width)
+    }
+    
+    
+    func addAnnotations() {
         
+        for event in eventsArray {
+            println("in the for loop now")
+            var address = event.venue[0].address
+            println(address)
+            mapItemTitle = event.title as String
+            var subTitle1 = formatDateTime(event.dateTime, type: "time")
+            var subTitle2 = event.venue[0].name
+            mapItemSubTitle = subTitle1 + " " + subTitle2
+            
+            var anno: MKPointAnnotation = MKPointAnnotation()
+            convertAddressToCoordiantes(address) { location in
+                anno.coordinate = location
+                self.map.showAnnotations(self.arrayOfAnnotations, animated: true)
+            }
+            anno.title = mapItemTitle
+            anno.subtitle = mapItemSubTitle
+            
+            arrayOfAnnotations.append(anno)
+            self.map.addAnnotation(anno)
+        }
+    }
+    
+    func convertAddressToCoordiantes (address: String, completion: CLLocationCoordinate2D -> Void) {
+        var location = CLLocation()
+        
+        var searchRequest = MKLocalSearchRequest()
+        searchRequest.naturalLanguageQuery = address
+        var search = MKLocalSearch(request: searchRequest)
+        
+        search.startWithCompletionHandler { (response, error) -> Void in
+            if let mapItem = response.mapItems.first as? MKMapItem {
+                location = mapItem.placemark.location
+                completion(location.coordinate)
+            }
+        }
+    }
+    
+
+    func formatDateTime(dt: NSDate, type: String) -> String {
+        let dateFormatter = NSDateFormatter()
+        
+        switch type {
+        case "date":
+            dateFormatter.dateStyle = .FullStyle
+            dateFormatter.timeStyle = .NoStyle
+        case "time":
+            dateFormatter.dateStyle = .NoStyle
+            dateFormatter.timeStyle = .ShortStyle
+        default:
+            dateFormatter.dateStyle = .ShortStyle
+            dateFormatter.timeStyle = .ShortStyle
+        }
+        
+        let dtString = dateFormatter.stringFromDate(dt)
+        return dtString
     }
 
     
     
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        var v : MKAnnotationView! = nil
-        if annotation.title == mapItemTitle {
-            let ident = "droppedPin"
-            v = mapView.dequeueReusableAnnotationViewWithIdentifier(ident)
-            if v == nil {
-                v = MKPinAnnotationView(annotation:annotation, reuseIdentifier:ident)
-                v.canShowCallout = true
-                
-                let button: UIButton = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as UIButton
-                
-                button.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
-                v.rightCalloutAccessoryView = button
-            }
-            v.annotation = annotation
-        }
-        return v
-    }
+//    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+//        var v : MKAnnotationView! = nil
+//        if annotation.title == mapItemTitle {
+//            let ident = "droppedPin"
+//            v = mapView.dequeueReusableAnnotationViewWithIdentifier(ident)
+//            if v == nil {
+//                v = MKPinAnnotationView(annotation:annotation, reuseIdentifier:ident)
+//                v.canShowCallout = true
+//                
+//                let button: UIButton = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as UIButton
+//                
+//                button.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
+//                v.rightCalloutAccessoryView = button
+//            }
+//            v.annotation = annotation
+//        }
+//        return v
+//    }
     
     func buttonClicked(sender: UIButton!) {
         showViewController(EventDetailViewController(), sender: nil)
