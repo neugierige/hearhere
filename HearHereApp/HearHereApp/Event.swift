@@ -22,11 +22,12 @@ class Event: Model {
     var ticketMethod: String!
     var priceMin: Double!
     var priceMax: Double!
+    var photo: UIImage!
     
     required init(id: String) {
         super.init(id: id)
     }
-    
+
     convenience required init(object: PFObject) {
         self.init(id: object["objectId"]  as String!)
         if let n = object["title"]        as? String { title = n }
@@ -36,7 +37,15 @@ class Event: Model {
         if let u = object["ticketMethod"] as? String { ticketMethod = u }
         if let u = object["priceMin"]     as? Double { priceMin = u }
         if let u = object["priceMax"]     as? Double { priceMax = u }
-        
+        if let f = object["photo"] as? PFFile {
+
+            f.getDataInBackgroundWithBlock({ (data, error) -> Void in
+                var d = NSData(data: data)
+                if let image = UIImage(data: d) {
+                    self.photo = image
+                }
+            })
+        }
         if let v = object.objectForKey("venue") as? PFObject {
             venue.append(Venue(object: v as PFObject))
         }
@@ -55,23 +64,23 @@ class Event: Model {
             if let date = a["iso"] as? String {
                 var formatter = NSDateFormatter()
                 formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-                
-//                formatter.timeZone = NSTimeZone.systemTimeZone()
-//                formatter.locale = NSLocale.currentLocale()
-//                formatter.formatterBehavior = NSDateFormatterBehavior.BehaviorDefault
-//                formatter.dateStyle = .MediumStyle
-//                formatter.timeStyle = .ShortStyle
                 if let nsdate = formatter.dateFromString(date) {
                     self.dateTime = nsdate
                 }
             }
         }
         if let p = json["program"]      as? String { program = p }
-        if let u = json["ticketURL"]   as? String { ticketURL = u }
+        if let u = json["ticketURL"]    as? String { ticketURL = u }
         if let u = json["ticketMethod"] as? String { ticketMethod = u }
         if let u = json["priceMin"]     as? Double { priceMin = u }
         if let u = json["priceMax"]     as? Double { priceMax = u }
-        
+        if let f = json["photo"] as? NSDictionary {
+            DataManager.downloadImageWithURL(f["url"] as String) { success, image in
+                if success {
+                    self.photo = image
+                }
+            }
+        }
 //        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
             if let v = json["venue"] as? NSArray {
                 println(v)

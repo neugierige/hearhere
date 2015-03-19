@@ -19,7 +19,16 @@ class DataManager {
 extension DataManager {
     
     class func signUpUser(user: User, completion: String? -> Void) {
+//        encodeParam
+        let userString = NSString(format: "%@", user.username)
+        let passString = NSString(format: "%@", user.password)
+        let userData: NSData = userString.dataUsingEncoding(NSUTF8StringEncoding)!
+        let passData: NSData = passString.dataUsingEncoding(NSUTF8StringEncoding)!
+        let base64UserString = userData.base64EncodedStringWithOptions(nil)
+        let base64PassString = passData.base64EncodedStringWithOptions(nil)
+        
         var parameters = ["username": user.username, "email": user.email, "password": user.password]
+        
         let request: URLRequestConvertible = UserRouter.SignUpUser(parameters)
         Alamofire.request(request).responseJSON { request, response, data, error in
             var errorString: String!
@@ -281,6 +290,19 @@ extension DataManager {
         }
     }
     
+    class func downloadImageWithURL(url: String, completion: (Bool, UIImage?) -> Void) {
+        // Make request
+        Alamofire.request(.GET, url, parameters: nil, encoding: .URL).response { (request, response, data, error) -> Void in
+            if error == nil {
+                var imageData = NSData(data: data as NSData)
+                var image = UIImage(data: imageData)
+                completion(true, image)
+            } else {
+                completion(false, nil)
+            }
+        }
+        
+    }
     // Category
     class func retrieveCategoriesWithNames(names: [String], completion: ([Category]? -> Void)) {
         if names.isEmpty {
