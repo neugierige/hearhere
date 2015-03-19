@@ -56,7 +56,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         // Create background image
         let backgroundView = UIImageView()
         backgroundView.contentMode = .ScaleToFill
-        backgroundView.image = event.venue[0].photo
+        backgroundView.image = event.photo
         cell.backgroundView = backgroundView
         
         // Tint background image

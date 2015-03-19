@@ -363,6 +363,7 @@ extension DataManager {
         makeEventHTTPRequest(request) { events in
             completion(events!)
         }
+        
     }
     
     class func makeEventHTTPRequest(request: URLRequestConvertible, completion: [Event]? -> Void) {
@@ -384,7 +385,6 @@ extension DataManager {
                     }
                 }
             }
-
         }
     }
  

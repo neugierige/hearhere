@@ -21,16 +21,42 @@ import CoreLocation
 class MapTab: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     var map = MKMapView()
-    var arrayOfMapItems = [MKPointAnnotation]()
     let locationManager = CLLocationManager()
     
     //***** DUMMY DATA TO BE REPLACED
-    var userLocation = CLLocationCoordinate2DMake(40.74106,-73.989699)
+    var center = CLLocationCoordinate2DMake(40.7543065, -73.9733295)
+    
     var mapItemTitle = "What Happens If You Have A Really Long Title That Just Goes On Forever"
-    var mapItemSubTitle = "8:00 PM"
-    var testButton = UIButton()
+    var mapItemSubTitle = "8:00 PM General Assembly"
     
-    
+    var arrayOfCoordinates = [CLLocationCoordinate2D]()
+    var parseObjects: [[String: AnyObject]] = [
+        [
+            "name": "Miller Theater",
+            "subtitle": "Tonight at 9PM",
+            "coordinate": CLLocation(latitude: 40.808078, longitude: -73.963373)
+        ],
+        [
+            "name": "Trinity Church",
+            "subtitle": "Tonight at 9PM",
+            "coordinate": CLLocation(latitude: 40.708062, longitude: -74.012185)
+        ],
+        [
+            "name": "Carnegie Hall",
+            "subtitle": "Tonight at 9PM",
+            "coordinate": CLLocation(latitude: 40.765126, longitude: -73.979924)
+        ],
+        [
+            "name": "BAM",
+            "subtitle": "Tonight at 9PM",
+            "coordinate": CLLocation(latitude: 40.686456, longitude: -73.977676)
+        ],
+        [
+            "name": "SubCulture",
+            "subtitle": "Tonight at 9PM",
+            "coordinate": CLLocation(latitude: 40.725863, longitude: -73.994291)
+        ]
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,36 +65,39 @@ class MapTab: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         map.frame = self.view.frame
         self.view.addSubview(map)
         
+        
         //**** REQUEST USER LOCATION
+        self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
-        if (CLLocationManager.locationServicesEnabled()) {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.startUpdatingLocation()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        //*****
+        
+        map.showsUserLocation = true
+        
+        
+        for parseObject in parseObjects {
+            var location = parseObject["coordinate"] as CLLocation  //CLLocationCoordinate2DMake(40.808078, -73.963373) // TODO: REPLACE WITH PARSE DATA
+            var title = parseObject["name"] as String  //"some title here"   // TODO: REPLACE WITH PARSE DATA
+            var subTitle = parseObject["subtitle"] as String  //"some subtitle here"     // TODO: REPLACE WITH PARSE DATA
+            
+            
+            var anno: MKPointAnnotation = MKPointAnnotation()
+            anno.coordinate = location.coordinate
+            anno.title = title
+            anno.subtitle = subTitle
+            
+            self.map.addAnnotation(anno)
         }
         
-        
-        //**** TEST BUTTON
-        testButton.frame = CGRect(x: 10, y: 0, width: 10, height: 10)
-        testButton.backgroundColor = UIColor.blueColor()
-        
-        
-        let annotation1 = MKPointAnnotation()
-        annotation1.coordinate = self.userLocation
-        annotation1.title = mapItemTitle
-        annotation1.subtitle = mapItemSubTitle
-        
-        let pt = MKMapPointForCoordinate(annotation1.coordinate)
-        let w = MKMapPointsPerMeterAtLatitude(annotation1.coordinate.latitude) * 1200
-        self.map.visibleMapRect = MKMapRectMake(pt.x - w/2.0, pt.y - w/2.0, w, w)
-        self.map.addAnnotation(annotation1)
+        let point = MKMapPointForCoordinate(center)
+        let width = MKMapPointsPerMeterAtLatitude(center.latitude) * 7000
+        self.map.visibleMapRect = MKMapRectMake(point.x - width/2.0, point.y - width/2.0, width, width)
         
     }
+
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        var currentLocation: CLLocationCoordinate2D = manager.location.coordinate
-        println("coordinates are: \(currentLocation.latitude), \(currentLocation.longitude)")
-    }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         var v : MKAnnotationView! = nil
@@ -94,9 +123,12 @@ class MapTab: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     }
     
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func supportedInterfaceOrientations() -> Int {
+        return UIInterfaceOrientation.Portrait.rawValue
     }
     
     

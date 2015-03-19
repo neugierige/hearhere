@@ -73,14 +73,7 @@
                             <constraint firstItem="cBB-jG-BIt" firstAttribute="top" secondItem="a1N-hW-9h0" secondAttribute="bottom" constant="8" symbolic="YES" id="nVt-H4-bWH"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Calendar" id="7Du-kd-kxW">
-                        <barButtonItem key="leftBarButtonItem" image="search" id="kIU-zK-t9U" userLabel="SearchButton">
-                            <connections>
-                                <segue destination="ROP-1e-api" kind="show" identifier="CalendarShowSearch" id="6j9-9R-kjq"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="filter" id="QmW-3x-3NI" userLabel="FilterButton"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Calendar" id="7Du-kd-kxW"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tnv-zi-7K8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -166,8 +159,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="JQ1-Lt-mOr">
-                        <barButtonItem key="leftBarButtonItem" image="search" id="Qcm-6D-AOE" userLabel="SearchButton"/>
-                        <barButtonItem key="rightBarButtonItem" image="tag-1" id="s6Z-8k-RPQ" userLabel="TagButton">
+                        <barButtonItem key="rightBarButtonItem" image="cog" id="s6Z-8k-RPQ" userLabel="TagButton">
                             <connections>
                                 <segue destination="GKQ-YE-Rt8" kind="show" identifier="HomeShowTags" id="K0t-gz-Uyt"/>
                             </connections>
@@ -176,7 +168,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AaY-w0-Zez" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1371" y="420"/>
+            <point key="canvasLocation" x="1371" y="445"/>
         </scene>
         <!--Tags View Controller-->
         <scene sceneID="Ifd-Fa-iXJ">
@@ -343,15 +335,13 @@
     </scenes>
     <resources>
         <image name="calendar" width="32" height="32"/>
-        <image name="filter" width="22" height="22"/>
+        <image name="cog" width="22" height="22"/>
         <image name="home" width="32" height="32"/>
         <image name="map_pin" width="32" height="32"/>
-        <image name="search" width="22" height="22"/>
-        <image name="tag-1" width="22" height="22"/>
         <image name="user_2" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="HzI-45-Db6"/>
-        <segue reference="1Am-PR-EzD"/>
+        <segue reference="K0t-gz-Uyt"/>
     </inferredMetricsTieBreakers>
 </document>

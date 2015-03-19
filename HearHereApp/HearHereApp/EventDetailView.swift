@@ -222,4 +222,12 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         scrollView.layoutIfNeeded()
     }
     
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func supportedInterfaceOrientations() -> Int {
+        return UIInterfaceOrientation.Portrait.rawValue
+    }
+    
 }
