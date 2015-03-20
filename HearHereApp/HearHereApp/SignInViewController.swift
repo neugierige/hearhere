@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MapKit
 
-class SignInViewController: UIViewController, UITextFieldDelegate {
+class SignInViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     
     // MARK: Views
     var spinner: UIActivityIndicatorView!
@@ -16,7 +17,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     var password: UITextField!
     var loginSuccessErrorLabel: UILabel!
     var scrollView: UIScrollView!
-    
+    var locationManager = CLLocationManager()
+    var user = User(id: "")
     // MARK: Customizable view properties
     let paddingX:CGFloat     = 30
     let paddingY:CGFloat     = 10
@@ -94,7 +96,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         var signInButton = UIButton(frame: CGRectMake(paddingX*2, password.frame.maxY+paddingY, screenBounds.width-paddingX*4, 50))
         signInButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signInButton.setTitle("Sign In", forState: .Normal)
-        signInButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        signInButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         signInButton.layer.cornerRadius = cornerRadius
         signInButton.backgroundColor = Configuration.lightGreyUIColor
         signInButton.addTarget(self, action: "signInPressed:", forControlEvents: .TouchUpInside)
@@ -104,16 +106,25 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         signUpButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signUpButton.addTarget(self, action: "signUpTouched:", forControlEvents: .TouchUpInside)
         signUpButton.setTitle("Don't have an account? Sign up here.", forState: .Normal)
-        signUpButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        signUpButton.setTitleColor(Configuration.tagFontUIColor, forState: .Normal)
         scrollView.addSubview(signUpButton)
         
         var signInNowButton = UIButton(frame: CGRectMake(paddingX, signUpButton.frame.maxY+paddingY, screenBounds.width-paddingX*2, 30))
         signInNowButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signInNowButton.addTarget(self, action: "skipToAppTouched:", forControlEvents: .TouchUpInside)
         signInNowButton.setTitle("Skip for now.", forState: .Normal)
-        signInNowButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        signInNowButton.setTitleColor(Configuration.tagFontUIColor, forState: .Normal)
         scrollView.addSubview(signInNowButton)
         
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+    }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        manager.stopUpdatingLocation()
+        var location = locations[0] as CLLocation
+        user.location = location
     }
     
     // MARK: Button Target methods

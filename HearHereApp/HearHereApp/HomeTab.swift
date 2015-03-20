@@ -14,6 +14,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
     let rowHeight:CGFloat = 140.0
     let tableY:CGFloat = 108.0
     var eventsArray = [Event]()
+    //    var popoverController = HomeTabPopoverViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,25 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
             }
         }
         
-        tableView = UITableView(frame: CGRect(x: 0, y: tableY, width: self.view.frame.width, height: self.view.frame.height - tableY - 49.0), style: UITableViewStyle.Plain)
+        var segTitles = ["Feed", "Distance", "Going"]
+        var control = UISegmentedControl(items: segTitles)
+        control.frame = CGRectMake(0, tableY, view.bounds.width, 30)
+        control.addTarget(self, action: "segmentedControlAction:", forControlEvents: .ValueChanged)
+        control.selectedSegmentIndex = 0
+        control.tintColor = Configuration.lightGreyUIColor
+        view.addSubview(control)
+        //        if let filterImg = UIImage(named: "filter") {
+        //            var filterButton = UIButton(frame: CGRectMake(0, 0, 22, 22))
+        //            filterButton.setBackgroundImage(filterImg, forState: .Normal)
+        //            filterButton.addTarget(self, action: "filterPressed:", forControlEvents: .TouchUpInside)
+        //            filterButton.showsTouchWhenHighlighted = true
+        ////            var navB = UIBarButtonItem(title: "filter", style: UIBarButtonItemStyle.Plain, target: self, action: "filterPressed:")
+        ////            var navButton = UIBarButtonItem(customView: filterButton)
+        //            navigationController?.navigationBar.addSubview(filterButton)
+        ////            navigationController?.navigationItem.leftBarButtonItem = navB
+        //        }
+        
+        tableView = UITableView(frame: CGRect(x: 0, y: control.frame.maxY, width: self.view.frame.width, height: self.view.frame.height - control.frame.maxY - 49.0), style: UITableViewStyle.Plain)
         
         if let theTableView = tableView {
             theTableView.registerClass(HomeTableViewCell.self, forCellReuseIdentifier: "homeCell")
@@ -36,9 +55,101 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
             theTableView.separatorStyle = UITableViewCellSeparatorStyle.None
             view.addSubview(theTableView)
         }
-
+        
     }
-    
+    func segmentedControlAction(sender: UISegmentedControl) {
+        var user = User(id: "")
+        DataManager.getCurrentUserModel() { currentUser in
+            if let currentUser = currentUser {
+                user = currentUser
+                println(user.location)
+            } else {
+                self.signInAlert() { currentUser in
+                    if let currentUser = currentUser {
+                        user = currentUser
+                        var u = Data.currentUser
+                        println(u)
+                    }
+                }
+            }
+        }
+//        while user?.location == nil { }
+//        switch sender.selectedSegmentIndex {
+//        case 0:
+//            DataManager.sortUserEventsByTag { events in
+//                if let events = events {
+//                    self.eventsArray = events
+//                    self.tableView?.reloadData()
+//                } else {
+//                    // add tags in user preferences to get suggestions
+//                }
+//            }
+//        case 1:
+//            DataManager.sortEventsByDistance(user!.location, events: self.eventsArray) { events in
+//                if let events = events {
+//                    self.eventsArray = events
+//                    self.tableView?.reloadData()
+//                }
+//            }
+//        case 2:
+//            println("c")
+//        default:
+//            println("d")
+//        }
+    }
+    func signInAlert(completion: User? -> Void) {
+        let alertController = UIAlertController(title: "Login", message: "to continue", preferredStyle: .Alert)
+        let loginAction = UIAlertAction(title: "Login", style: .Default) { (_) in
+            let loginTextField = alertController.textFields![0] as UITextField
+            let passwordTextField = alertController.textFields![1] as UITextField
+            var u = User(username: loginTextField.text, password: passwordTextField.text)
+            
+            func signInUser(completion: (User -> Void)!) {
+                DataManager.signInUser(u) { success in
+//                    dispatch_async(dispatch_get_main_queue()) {
+                        completion(u)
+//                    }
+                }
+            }
+            
+            signInUser() { user in
+                completion(user)
+            }
+
+        }
+        loginAction.enabled = false
+        
+        let forgotPasswordAction = UIAlertAction(title: "Forgot Password", style: .Destructive) { (_) in }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
+        
+        alertController.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = "Login"
+            
+            NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { (notification) in
+                loginAction.enabled = textField.text != ""
+            }
+        }
+        
+        alertController.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = "Password"
+            textField.secureTextEntry = true
+        }
+        
+        alertController.addAction(loginAction)
+        alertController.addAction(forgotPasswordAction)
+        alertController.addAction(cancelAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    //    func filterPressed(sender: UIButton) {
+    //        popoverController = HomeTabPopoverViewController()
+    //        popoverController.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+    //        popoverController.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
+    //        popoverController.filterDelegate = self
+    //        presentViewController(popoverController, animated: true, completion: nil)
+    //    }
+    //    func filterTypeChosen(type: TagView) {
+    //        println("you")
+    //    }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -74,7 +185,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         
         cell.textLabel?.text = "\(event.title)"
         cell.textLabel?.textColor = cellColors.txtColor
-
+        
         if event.dateTime != nil {
             var date = formatDateTime(event.dateTime)
             cell.detailTextLabel?.text = "\(date)\n\(event.venue[0])"

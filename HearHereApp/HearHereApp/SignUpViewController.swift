@@ -102,7 +102,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         var signUpButton = UIButton(frame: CGRectMake(paddingX*2, password.frame.maxY+paddingY, screenBounds.width-paddingX*4, 50))
         signUpButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signUpButton.setTitle("Sign Up", forState: .Normal)
-        signUpButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        signUpButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         signUpButton.layer.cornerRadius = cornerRadius
         signUpButton.backgroundColor = Configuration.lightGreyUIColor
         signUpButton.addTarget(self, action: "signUpPressed:", forControlEvents: .TouchUpInside)
@@ -113,7 +113,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         signInButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signInButton.addTarget(self, action: "signInTouched:", forControlEvents: .TouchUpInside)
         signInButton.setTitle("Already have an account? Log in here.", forState: .Normal)
-        signInButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        signInButton.setTitleColor(Configuration.tagFontUIColor, forState: .Normal)
         scrollView.addSubview(signInButton)
         
         // Sign in now -> main app
@@ -121,7 +121,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         signInNowButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signInNowButton.addTarget(self, action: "skipToAppTouched:", forControlEvents: .TouchUpInside)
         signInNowButton.setTitle("Skip for now.", forState: .Normal)
-        signInNowButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        signInNowButton.setTitleColor(Configuration.tagFontUIColor, forState: .Normal)
         scrollView.addSubview(signInNowButton)
         
     }

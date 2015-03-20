@@ -72,6 +72,9 @@ extension DataManager {
                 if data["sessionToken"] != nil {
                     Data.currentUser = user
                     UserRouter.sessionToken = data["sessionToken"] as? String
+                    if let objectId = data["objectId"] as? String {
+                        Data.currentUser.objectId = objectId
+                    }
                     let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
                     dispatch_async(backgroundQueue) {
                         PFUser.become(data["sessionToken"] as? String)
@@ -99,21 +102,25 @@ extension DataManager {
                 if data["sessionToken"] != nil {
                     Data.currentUser = user
                     UserRouter.sessionToken = data["sessionToken"] as? String
+//                    if let objectId = data["objectId"] as? String {
+                        var user = User(json: data)
+                        Data.currentUser = user
+//                    }
                     let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
                     dispatch_async(backgroundQueue) {
-                        PFUser.become(data["sessionToken"] as? String)
-                        return
+                        PFUser.become(data["sessionToken"] as? String); return
                     }
+                    completion(nil)
                 } else {
                     errorString = data["error"] as String
                 }
             }
-            completion(errorString)
+//            completion(errorString)
         }
     }
     
     class func getCurrentUserModel(completion: User? -> Void) {
-        if UserRouter.sessionToken == nil {
+        if Data.currentUser.objectId == "" {
             var user: User?
             let request = UserRouter.GetUser()
             Alamofire.request(request).responseJSON { _,_, data, error in
@@ -456,7 +463,7 @@ extension DataManager {
     // Sorts an array of events by distance (ascending) 
     // from an origin location and return events with distance 
     // in meters within a completion closure
-    class func sortEventsByDistance(location: CLLocation, events: [Event], completion: [Event] -> Void) {
+    class func sortEventsByDistance(location: CLLocation, events: [Event], completion: [Event]? -> Void) {
         func getEventsCoordinates(events: [Event], completion: [Event] -> Void) {
             let request = MKLocalSearchRequest()
             for (i, e) in enumerate(events) {
@@ -470,11 +477,10 @@ extension DataManager {
                 }
             }
         }
-        
         getEventsCoordinates(events) { es in
-//            dispatch_async(dispatch_get_main_queue()) {
-                completion(es.sorted { $0.0.distance < $0.1.distance })
-//            }
+    //            dispatch_async(dispatch_get_main_queue()) {
+            completion(es.sorted { $0.0.distance < $0.1.distance })
+    //            }
         }
     }
     
