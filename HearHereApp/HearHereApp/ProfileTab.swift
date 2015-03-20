@@ -11,6 +11,7 @@ import UIKit
 class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var tableView: UITableView?
+    let rowHeight:CGFloat = 44.0
     let tableY:CGFloat = 64.0
     var sectionNames = ["Preferences", "Location", "Account Information", "Feedback"]
     var profileData = [["Update Preferences"], ["Zip Code"], ["Email Address", "Update Password"], ["Contact Us"]]
@@ -21,7 +22,7 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         tableView = UITableView(frame: CGRect(x: 0, y: tableY, width: self.view.frame.width, height: self.view.frame.height - tableY - 49.0), style: UITableViewStyle.Grouped)
         
         if let theTableView = tableView {
-            theTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "profileCell")
+            theTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "defaultCell")
             theTableView.registerClass(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "profileHeader")
             theTableView.dataSource = self
             theTableView.delegate = self
@@ -39,15 +40,54 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("profileCell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("defaultCell", forIndexPath: indexPath) as UITableViewCell
+        
+        cell.selectionStyle = .None
         
         let s = self.profileData[indexPath.section][indexPath.row] as String
+        cell.textLabel?.font = UIFont(name: "HelveticaNeue", size: 14.0)
         cell.textLabel?.text = s
+        
+        if cell.viewWithTag(1) == nil {
+            
+            let tf = UITextField(frame: CGRect(x: self.view.frame.width / 2 - 15, y: 0, width: self.view.frame.width / 2, height: self.rowHeight))
+            tf.tag = 1
+            tf.textColor = UIColor.lightGrayColor()
+            tf.font = UIFont(name: "HelveticaNeue", size: 14.0)
+            tf.textAlignment = .Right
+            
+            let accessory = UILabel(frame: CGRect(x: self.view.frame.width / 2 - 15, y: 0, width: self.view.frame.width / 2, height: self.rowHeight))
+            accessory.tag = 2
+            accessory.textColor = UIColor.lightGrayColor()
+            accessory.font = UIFont(name: "HelveticaNeue", size: 14.0)
+            accessory.textAlignment = .Right
+            //accessory.text = ">"
+            
+            switch self.sectionNames[indexPath.section] {
+            case "Preferences":
+                cell.contentView.addSubview(accessory)
+            case "Feedback":
+                cell.contentView.addSubview(accessory)
+            default:
+                cell.contentView.addSubview(tf)
+            }
+            
+        }
+        
         return cell
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sectionNames[section]
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if sectionNames[indexPath.section] == "Preferences" {
+            performSegueWithIdentifier("profileSegue", sender: self)
+        } else {
+            println("No segue")
+        }
+        
     }
     
     override func shouldAutorotate() -> Bool {
