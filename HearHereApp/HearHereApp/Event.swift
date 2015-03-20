@@ -23,11 +23,13 @@ class Event: Model {
     var priceMin: Double!
     var priceMax: Double!
     var photo: UIImage!
+    var numAttendees: Int!
+    var distance: Double!
     
     required init(id: String) {
         super.init(id: id)
     }
-
+    
     convenience required init(object: PFObject) {
         self.init(id: object["objectId"]  as String!)
         if let n = object["title"]        as? String { title = n }
@@ -35,10 +37,11 @@ class Event: Model {
         if let p = object["program"]      as? String { program = p }
         if let u = object["ticketURL"]   as? String { ticketURL = u }
         if let u = object["ticketMethod"] as? String { ticketMethod = u }
-        if let u = object["priceMin"]     as? Double { priceMin = u }
-        if let u = object["priceMax"]     as? Double { priceMax = u }
+        if let u = object["minTicketPrice"]     as? Double { priceMin = u }
+        if let u = object["maxTicketPrice"]     as? Double { priceMax = u }
+        if let u = object["numAttendees"] as? Int { numAttendees = u }
         if let f = object["photo"] as? PFFile {
-
+            
             f.getDataInBackgroundWithBlock({ (data, error) -> Void in
                 var d = NSData(data: data)
                 if let image = UIImage(data: d) {
@@ -69,62 +72,81 @@ class Event: Model {
                 }
             }
         }
-        if let p = json["program"]      as? String { program = p }
-        if let u = json["ticketURL"]    as? String { ticketURL = u }
-        if let u = json["ticketMethod"] as? String { ticketMethod = u }
-        if let u = json["priceMin"]     as? Double { priceMin = u }
-        if let u = json["priceMax"]     as? Double { priceMax = u }
-        if let f = json["photo"] as? NSDictionary {
+        if let p = json["program"]        as? String { program = p }
+        if let u = json["ticketURL"]      as? String { ticketURL = u }
+        if let u = json["ticketMethod"]   as? String { ticketMethod = u }
+        if let u = json["minTicketPrice"] as? Double { priceMin = u }
+        if let u = json["maxTicketPrice"] as? Double { priceMax = u }
+        if let u = json["numAttendees"]   as? Int { numAttendees = u }
+        if let f = json["photo"]          as? NSDictionary {
             DataManager.downloadImageWithURL(f["url"] as String) { success, image in
-                if success {
-                    self.photo = image
-                }
+                if success { self.photo = image }
             }
         }
-//        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
-            if let v = json["venue"] as? NSArray {
-                println(v)
-                var id = v[0].objectForKey("objectId") as String
-                //            var q = PFQuery(className: "Venue").whereKey(<#key: String!#>, containsString: <#String!#>)
-                var query = PFQuery(className: "Venue")
-                query.whereKey("objectId", equalTo: id)
-                var objects = query.findObjects() //InBackgroundWithBlock { objects, error in
-                if let o = objects as? [PFObject] {
-                    var ven = Venue(object: o[0] as PFObject)
-                    self.venue.append(ven)
-                }
+        if let v = json["venue"] as? NSArray {
+            getVenue(v){ venue in
+                self.venue.append(venue)
             }
-            
-            if let a = json["artists"] as? NSArray {
-                var ids = [String]()
-                for i in a {
-                    ids.append(i.objectForKey("objectId") as String)
-                }
-                var query = PFQuery(className: "Artist").whereKey("objectId", containedIn: ids)
-                var objects = query.findObjects() //InBackgroundWithBlock { objects, error in
-                if let o = objects as? [PFObject] {
-                    for artist in o {
-                        var ven = Artist(object: artist as PFObject)
-                        self.artists.append(ven)
-                    }
-                }
+        }
+        if let a = json["artists"] as? NSArray {
+            getArtists(a) { artists in
+                self.artists = artists
             }
-            if let a = json["categories"] as? NSArray {
-                var ids = [String]()
-                for i in a {
-                    ids.append(i.objectForKey("objectId") as String)
-                }
-                var query = PFQuery(className: "Category").whereKey("objectId", containedIn: ids)
-                var objects = query.findObjects() ///InBackgroundWithBlock { objects, error in
-                if let o = objects as? [PFObject] {
-                    for category in o {
-                        var ven = Category(object: category as PFObject)
-                        self.categories.append(ven)
-                    }
-                }
+        }
+        if let a = json["categories"] as? NSArray {
+            getCategories(a) { categories in
+                self.categories = categories
             }
-        //}
+        }
         
     }
     
+    func getVenue(venues: NSArray, completion: Venue -> Void) {
+        var id = venues[0].objectForKey("objectId") as String
+        var query = PFQuery(className: "Venue")
+        query.whereKey("objectId", equalTo: id)
+        var objects = query.findObjects()//InBackgroundWithBlock { objects, error in
+            if let o = objects as? [PFObject] {
+                var ven = Venue(object: o[0] as PFObject)
+                completion(ven)
+            }
+//        }
+    }
+    
+    func getArtists(artists: NSArray, completion: [Artist] -> Void) {
+        var ids = [String]()
+        var artistArray = [Artist]()
+        for i in artists {
+            ids.append(i.objectForKey("objectId") as String)
+        }
+        var query = PFQuery(className: "Artist").whereKey("objectId", containedIn: ids)
+        query.findObjectsInBackgroundWithBlock { objects, error in
+            if let o = objects as? [PFObject] {
+                for artist in o {
+                    var ven = Artist(object: artist as PFObject)
+                    artistArray.append(ven)
+                }
+                completion(artistArray)
+            }
+        }
+    }
+    
+    
+    func getCategories(categories: NSArray, completion: [Category] -> Void) {
+        var ids = [String]()
+        var categoriesArray = [Category]()
+        for i in categories {
+            ids.append(i.objectForKey("objectId") as String)
+        }
+        var query = PFQuery(className: "Category").whereKey("objectId", containedIn: ids)
+        query.findObjectsInBackgroundWithBlock { objects, error in
+            if let o = objects as? [PFObject] {
+                for category in o {
+                    var ven = Category(object: category as PFObject)
+                    categoriesArray.append(ven)
+                }
+                completion(categoriesArray)
+            }
+        }
+    }
 }
