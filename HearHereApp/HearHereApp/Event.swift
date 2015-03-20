@@ -101,16 +101,19 @@ class Event: Model {
         
     }
     
+    // TODO: THis is where the long running thread comes from.
+    // It is not getting executed fast enough befor home page starts
     func getVenue(venues: NSArray, completion: Venue -> Void) {
         var id = venues[0].objectForKey("objectId") as String
         var query = PFQuery(className: "Venue")
         query.whereKey("objectId", equalTo: id)
-        var objects = query.findObjects()//InBackgroundWithBlock { objects, error in
+//        query.findObjectsInBackgroundWithBlock { objects, error in
+        var objects = query.findObjects()
             if let o = objects as? [PFObject] {
                 var ven = Venue(object: o[0] as PFObject)
                 completion(ven)
             }
-//        }
+//       } 
     }
     
     func getArtists(artists: NSArray, completion: [Artist] -> Void) {

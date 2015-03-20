@@ -22,6 +22,7 @@
 		4609CC521AA9761100D2E70D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4609CC471AA9761100D2E70D /* Security.framework */; };
 		4609CC531AA9761100D2E70D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4609CC481AA9761100D2E70D /* StoreKit.framework */; };
 		4609CC541AA9761100D2E70D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4609CC491AA9761100D2E70D /* SystemConfiguration.framework */; };
+		46151AEF1ABC9AF600FC4A5E /* HomeTabPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46151AEE1ABC9AF600FC4A5E /* HomeTabPopoverViewController.swift */; };
 		466A27731AAA163700AB6BB5 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466A27711AAA163700AB6BB5 /* TagListView.swift */; };
 		466A27741AAA163700AB6BB5 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466A27721AAA163700AB6BB5 /* TagView.swift */; };
 		466A27761AAA20AE00AB6BB5 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466A27751AAA20AE00AB6BB5 /* TagsViewController.swift */; };
@@ -88,6 +89,7 @@
 		4609CC471AA9761100D2E70D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		4609CC481AA9761100D2E70D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		4609CC491AA9761100D2E70D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		46151AEE1ABC9AF600FC4A5E /* HomeTabPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabPopoverViewController.swift; sourceTree = "<group>"; };
 		466A27711AAA163700AB6BB5 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
 		466A27721AAA163700AB6BB5 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		466A27751AAA20AE00AB6BB5 /* TagsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 			children = (
 				F987BA181AA7C720008FDD56 /* HomeTab.swift */,
 				4693CDE01AB7D85300DCBA29 /* FilterPopoverViewController.swift */,
+				46151AEE1ABC9AF600FC4A5E /* HomeTabPopoverViewController.swift */,
 				4693CDE11AB7D85300DCBA29 /* FriendsTableViewController.swift */,
 				F9CF09711AA7E179005E28F7 /* CalendarTab.swift */,
 				F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */,
@@ -471,6 +474,7 @@
 				4693CDE51AB7D88E00DCBA29 /* EventDetailView.swift in Sources */,
 				F995C3EC1AA91DA200F6EC88 /* SearchViewController.swift in Sources */,
 				4693CDCD1AB7D69100DCBA29 /* Venue.swift in Sources */,
+				46151AEF1ABC9AF600FC4A5E /* HomeTabPopoverViewController.swift in Sources */,
 				4693CDE71AB7D8CB00DCBA29 /* FriendsTableViewCell.swift in Sources */,
 				F93A26D11AAB6D9C00ED3BD8 /* WebViewController.swift in Sources */,
 				F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */,

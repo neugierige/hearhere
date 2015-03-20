@@ -48,7 +48,9 @@ class DataManager {
 
 // MARK: User data methods
 extension DataManager {
-    
+    class func loadCriticalData(completion: Void -> Void) {
+        retrieveAllEvents() { events in println("hi") }
+    }
     class func signUpUser(user: User, completion: String? -> Void) {
 //        encodeParam
         let userString = NSString(format: "%@", user.username)
@@ -82,7 +84,9 @@ extension DataManager {
             completion(errorString)
         }
     }
+    
     class func signInUser(user: User, completion: String? -> Void) {
+//        loadCriticalData()
         var parameters = ["username": user.username, "password": user.password]
         let request: URLRequestConvertible = UserRouter.SignInUser(parameters)
         Alamofire.request(request).responseJSON { _, _, data, error in

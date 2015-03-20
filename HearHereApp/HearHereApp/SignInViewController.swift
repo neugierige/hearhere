@@ -19,8 +19,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Customizable view properties
     let paddingX:CGFloat     = 30
-    let paddingY:CGFloat     = 20
-    let cornerRadius:CGFloat = 10
+    let paddingY:CGFloat     = 10
+    let cornerRadius:CGFloat = 5
     
     // MARK: VC Methods
     override func viewDidLoad() {
@@ -57,21 +57,19 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(scrollView)
         
         // spinner
-        spinner = UIActivityIndicatorView()//frame: CGRectMake(screenBounds.width/2, screenBounds.height/2, 50, 50))
+        spinner = UIActivityIndicatorView()
         spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
         spinner.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin | .FlexibleTopMargin
         scrollView.addSubview(spinner)
         
-        // title. replace with logo
-        let titleLabel = UILabel(frame: CGRectMake(paddingX,topLayoutGuide.length+paddingY*3, screenBounds.width-paddingX*2, 50))
-        titleLabel.text = "HearHere"
-        titleLabel.textAlignment = NSTextAlignment.Center
-        titleLabel.font = UIFont(name: "HelveticaNeue-Light", size: 50.0)
-        titleLabel.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin | .FlexibleWidth
-        scrollView.addSubview(titleLabel)
+        let logoView = UIImageView(image: UIImage(named: "hear-hear-splash"))
+        logoView.frame = CGRectMake(paddingX*2,topLayoutGuide.length+paddingY*3, screenBounds.width-paddingX*4, (screenBounds.width-paddingX*4)*0.77)
+        logoView.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin | .FlexibleWidth
+        
+        scrollView.addSubview(logoView)
         
         // Error/Success label
-        loginSuccessErrorLabel = UILabel(frame: CGRectMake(paddingX, titleLabel.frame.maxY+paddingY, screenBounds.width-paddingX*2, 20))
+        loginSuccessErrorLabel = UILabel(frame: CGRectMake(paddingX, logoView.frame.maxY, screenBounds.width-paddingX*2, 20))
         loginSuccessErrorLabel.textAlignment = NSTextAlignment.Center
         scrollView.addSubview(loginSuccessErrorLabel)
         
@@ -158,7 +156,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         if textField == username {
             password.becomeFirstResponder()
         } else {
-            // TODO: Change this to LoginPressed
             textField.resignFirstResponder()
             signInPressed(nil)
         }
