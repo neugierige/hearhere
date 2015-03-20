@@ -43,6 +43,8 @@ class User: Model, Printable {
         self.init(id: json["objectId"] as String!)
         if let u = json["username"] as? String { username = u }
         if let e = json["email"] as? String { email = e }
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
+        
         if let categoryArray = json["categories"] as? NSArray {
             if let objects = DataManager.makeArrayOfObjects(categoryArray) {
                 if let c = objects as? [Category] {
@@ -77,6 +79,7 @@ class User: Model, Printable {
                     self.users = u
                 }
             }
+        }
         }
 
 //        if let categoryArray = json["categories"] as? NSArray {

@@ -83,13 +83,19 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
         TagView.color2 = Configuration.tagFontUIColor
         DataManager.retrieveAllArtists { artists in
             self.setupMode = true
-            artists.map { self.loadTags($0.name, tagType: "Artist") }; return
+            if let artists = artists {
+                artists.map { self.loadTags($0.name, tagType: "Artist") }; return
+            }
         }
         DataManager.retrieveAllVenues { venues in
-            venues.map { self.loadTags($0.name, tagType: "Venue") }; return
+            if let venues = venues {
+                venues.map { self.loadTags($0.name, tagType: "Venue") }; return
+            }
         }
         DataManager.retrieveAllCategories { categories in
-            categories.map { self.loadTags($0.name, tagType: "Category") }; return
+            if let categories = categories {
+                categories.map { self.loadTags($0.name, tagType: "Category") }; return
+            }
         }
     }
     

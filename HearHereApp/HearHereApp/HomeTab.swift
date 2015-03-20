@@ -93,10 +93,10 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         var bkgColor = UIColor()
         var txtColor = UIColor.whiteColor()
         
-        switch index % 4 {
+        switch index % 3 {
         case 0:
             bkgColor = UIColor(red: 0.247, green: 0.341, blue: 0.396, alpha: 0.75) // med blue
-        case 1, 3:
+        case 1:
             bkgColor = UIColor(red: 0.741, green: 0.831, blue: 0.871, alpha: 0.85) // light blue
             txtColor = UIColor(red: 0.168, green: 0.227, blue: 0.258, alpha: 1.0) // dark blue
         case 2:

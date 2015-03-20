@@ -10,6 +10,37 @@
 import UIKit
 import Parse
 import Alamofire
+import MapKit
+
+class Data {
+    private struct Cache {
+        static var events = [Event]()
+        static var currentUser = User(id: "")
+        static var venues = [Venue]()
+        static var artists = [Artist]()
+        static var categories = [Category]()
+    }
+    class var events: [Event] {
+        get { return Cache.events }
+        set { Cache.events = newValue }
+    }
+    class var currentUser: User {
+        get { return Cache.currentUser }
+        set { Cache.currentUser = newValue }
+    }
+    class var venues: [Venue] {
+        get { return Cache.venues }
+        set { Cache.venues = newValue }
+    }
+    class var artists: [Artist] {
+        get { return Cache.artists }
+        set { Cache.artists = newValue }
+    }
+    class var categories: [Category] {
+        get { return Cache.categories }
+        set { Cache.categories = newValue }
+    }
+}
 
 class DataManager {
     init() { }
@@ -37,6 +68,7 @@ extension DataManager {
             }
             if let data = data as? NSDictionary {
                 if data["sessionToken"] != nil {
+                    Data.currentUser = user
                     UserRouter.sessionToken = data["sessionToken"] as? String
                     let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
                     dispatch_async(backgroundQueue) {
@@ -61,6 +93,7 @@ extension DataManager {
             }
             if let data = data as? NSDictionary {
                 if data["sessionToken"] != nil {
+                    Data.currentUser = user
                     UserRouter.sessionToken = data["sessionToken"] as? String
                     let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
                     dispatch_async(backgroundQueue) {
@@ -76,13 +109,22 @@ extension DataManager {
     }
     
     class func getCurrentUserModel(completion: User? -> Void) {
-        var user: User?
-        let request = UserRouter.GetUser()
-        Alamofire.request(request).responseJSON { _,_, data, error in
-            if let data = data as? NSDictionary {
-                user = User(json: data)
+        if UserRouter.sessionToken == nil {
+            var user: User?
+            let request = UserRouter.GetUser()
+            Alamofire.request(request).responseJSON { _,_, data, error in
+                if let data = data as? NSDictionary {
+                    user = User(json: data)
+                    if let user = user {
+                        Data.currentUser = user
+                    }
+                }
+                dispatch_async(dispatch_get_main_queue()) {
+                    completion(user)
+                }
             }
-            completion(user)
+        } else {
+            completion(Data.currentUser)
         }
     }
     
@@ -114,7 +156,6 @@ extension DataManager {
                     .filter { !(($0 as PFObject).objectId == currentUserId) }
                     .filter { !contains(ids, ($0 as PFObject).objectId as String) }
                     .map { users.append(User(object: $0 as PFObject)) }
-                println(users)
                 
                 dispatch_async(dispatch_get_main_queue()) {
                     completion(users)
@@ -211,18 +252,31 @@ extension DataManager {
         if names.isEmpty {
             completion(nil)
         } else {
-        var parameters = ["where": ["name":["$in":names]]]
-        var request = ClassRouter.GetArtists(parameters)
-        makeArtistHTTPRequest(request) { artists in
-            completion(artists!)
-        }
+            var parameters = ["where": ["name":["$in":names]]]
+            var request = ClassRouter.GetArtists(parameters)
+            makeArtistHTTPRequest(request) { artists in
+                dispatch_async(dispatch_get_main_queue()) {
+                    completion(artists!)
+                }
+            }
         }
     }
     
-    class func retrieveAllArtists(completion: [Artist] -> Void) {
-        var request = ClassRouter.GetArtists(nil)
-        makeArtistHTTPRequest(request) { artists in
-            completion(artists!)
+    class func retrieveAllArtists(completion: [Artist]? -> Void) {
+        if Data.artists.isEmpty {
+            var request = ClassRouter.GetArtists(nil)
+            makeArtistHTTPRequest(request) { artists in
+                dispatch_async(dispatch_get_main_queue()) {
+                    if let artists = artists {
+                        Data.artists = artists
+                        completion(artists)
+                    } else {
+                        completion(nil)
+                    }
+                }
+            }
+        } else {
+            completion(Data.artists)
         }
     }
     
@@ -256,15 +310,28 @@ extension DataManager {
             var parameters = ["where": ["name":["$in":names]]]
             var request = ClassRouter.GetVenues(parameters)
             makeVenueHTTPRequest(request) { venues in
-                completion(venues!)
+                dispatch_async(dispatch_get_main_queue()) {
+                    completion(venues!)
+                }
             }
         }
     }
     
-    class func retrieveAllVenues(completion: [Venue] -> Void) {
-        var request = ClassRouter.GetVenues(nil)
-        makeVenueHTTPRequest(request) { venues in
-            completion(venues!)
+    class func retrieveAllVenues(completion: [Venue]? -> Void) {
+        if Data.venues.isEmpty {
+            var request = ClassRouter.GetVenues(nil)
+            makeVenueHTTPRequest(request) { venues in
+                dispatch_async(dispatch_get_main_queue()) {
+                    if let venues = venues {
+                        Data.venues = venues
+                        completion(venues)
+                    } else {
+                        completion(nil)
+                    }
+                }
+            }
+        } else {
+            completion(Data.venues)
         }
     }
     
@@ -311,15 +378,27 @@ extension DataManager {
             var parameters = ["where": ["name":["$in":names]]]
             var request = ClassRouter.GetCategories(parameters)
             makeCategoryHTTPRequest(request) { categories in
-                completion(categories!)
+                dispatch_async(dispatch_get_main_queue()) {
+                    completion(categories!)
+                }
             }
         }
+
     }
     
-    class func retrieveAllCategories(completion: [Category] -> Void) {
-        var request = ClassRouter.GetCategories(nil)
-        makeCategoryHTTPRequest(request) { categories in
-            completion(categories!)
+    class func retrieveAllCategories(completion: [Category]? -> Void) {
+        if Data.categories.isEmpty {
+            var request = ClassRouter.GetCategories(nil)
+            makeCategoryHTTPRequest(request) { categories in
+                if let categories = categories {
+                    Data.categories = categories
+                    completion(categories)
+                } else {
+                    completion(nil)
+                }
+            }
+        } else {
+            completion(Data.categories)
         }
     }
     
@@ -353,17 +432,119 @@ extension DataManager {
             var parameters = ["where": ["title":["$in":titles]]]
             var request = ClassRouter.GetVenues(parameters)
             makeEventHTTPRequest(request) { events in
-                completion(events!)
+                dispatch_async(dispatch_get_main_queue()) {
+                    completion(events!)
+                }
             }
         }
     }
     
-    class func retrieveAllEvents(completion: [Event] -> Void) {
-        var request = ClassRouter.GetEvents(nil)
-        makeEventHTTPRequest(request) { events in
-            completion(events!)
+    class func sortEventsByTime(events: [Event]) -> [Event] {
+        return events.sorted { $0.dateTime.compare($1.dateTime) == NSComparisonResult.OrderedAscending }
+    }
+    class func sortEventsByPriceMin(events: [Event]) -> [Event] {
+        return events.sorted { $0.priceMin < $1.priceMin }
+    }
+    class func sortEventsByNumAttendees(events: [Event]) -> [Event] {
+        return events.sorted { $0.numAttendees > $1.numAttendees }
+    }
+    
+    // Sorts an array of events by distance (ascending) 
+    // from an origin location and return events with distance 
+    // in meters within a completion closure
+    class func sortEventsByDistance(location: CLLocation, events: [Event], completion: [Event] -> Void) {
+        func getEventsCoordinates(events: [Event], completion: [Event] -> Void) {
+            let request = MKLocalSearchRequest()
+            for (i, e) in enumerate(events) {
+                request.naturalLanguageQuery = e.venue[0].address;
+                MKLocalSearch(request: request).startWithCompletionHandler { response, error in
+                    var item = response.mapItems[0] as MKMapItem
+                    e.distance = location.distanceFromLocation(item.placemark.location)
+                    if i == events.count - 1 {
+                        completion(events)
+                    }
+                }
+            }
         }
         
+        getEventsCoordinates(events) { es in
+//            dispatch_async(dispatch_get_main_queue()) {
+                completion(es.sorted { $0.0.distance < $0.1.distance })
+//            }
+        }
+    }
+    
+    // Get locations by distance (how to use code above)
+    //        var location = CLLocation(latitude: coord.latitude, longitude: coord.longitude)
+    //        DataManager.retrieveAllEvents { events in
+    //            DataManager.sortEventsByDistance(location, events: events) { sortedEvents in
+    //                sortedEvents.map { println($0.distance) }; return
+    //            }
+    //        }
+    
+    class func sortUserEventsByTag(completion: [Event]? -> Void) {
+        var userEvents = [Event]()
+        retrieveAllEvents { events in
+            self.getCurrentUserModel { user in
+                if let u = user {
+                    var artists = events.map { $0.artists.map { a in u.artists.filter { $0.objectId == a.objectId } } }.map { $0.filter { $0.isEmpty }.isEmpty }
+                    var categories = events.map { $0.categories.map { a in u.categories.filter { $0.objectId == a.objectId } } }.map { $0.filter { $0.isEmpty }.isEmpty }
+                    var venues = events.map { $0.venue.map { a in u.venues.filter { $0.objectId == a.objectId } } }.map { $0.filter { $0.isEmpty }.isEmpty }
+                    var e = [Event]()
+                    for (i, tf) in enumerate(events) {
+                        if artists[i]    { e.append(tf) }
+                        if categories[i] { e.append(tf) }
+                        if venues[i]     { e.append(tf) }
+                    }
+                    userEvents = self.findUniqueEvents(e)
+                    dispatch_async(dispatch_get_main_queue()) {
+                        completion(self.sortEventsByTime(userEvents))
+                    }
+                } else {
+                    println("no user logged in")
+                }
+            }
+        }
+    }
+    
+            // How to call above method
+    //        DataManager.sortUserEventsByTag() { events in
+    //            if let e = events {
+    //                self.eventsArray = e
+    //            }
+    //        }
+    
+    class func findUniqueEvents(events: [Event]) -> [Event] {
+        var uniqueEvents = [Event]()
+        for event in events {
+            var unique = true
+            for u in uniqueEvents {
+                if event.objectId == u.objectId {
+                    unique = false
+                    break
+                }
+            }
+            if unique {
+                uniqueEvents.append(event)
+            }
+        }
+        return uniqueEvents
+    }
+    
+    class func retrieveAllEvents(completion: [Event] -> Void) {
+        if Data.events.isEmpty {
+            var request = ClassRouter.GetEvents(nil)
+            makeEventHTTPRequest(request) { events in
+                if let events = events {
+                    Data.events = events
+                    dispatch_async(dispatch_get_main_queue()) {
+                        completion(events)
+                    }
+                }
+            }
+        } else {
+            completion(Data.events)
+        }
     }
     
     class func makeEventHTTPRequest(request: URLRequestConvertible, completion: [Event]? -> Void) {
@@ -392,7 +573,6 @@ extension DataManager {
         var objects = [AnyObject]()
         
         if objectInfo.count > 0 {
-//            dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
                 var ids = [String]()
                 var className = String()
                 for c in objectInfo {
@@ -402,6 +582,8 @@ extension DataManager {
                     }
                 }
                 var query = PFQuery(className: className).whereKey("objectId", containedIn: ids)
+            //            dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
+            
                 if let cm = classMap[className] {
                     objects = query.findObjects().map { cm(object: $0 as PFObject) }
                 }

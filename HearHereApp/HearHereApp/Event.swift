@@ -23,6 +23,8 @@ class Event: Model {
     var priceMin: Double!
     var priceMax: Double!
     var photo: UIImage!
+    var numAttendees: Int!
+    var distance: Double!
     
     required init(id: String) {
         super.init(id: id)
@@ -35,8 +37,9 @@ class Event: Model {
         if let p = object["program"]      as? String { program = p }
         if let u = object["ticketURL"]   as? String { ticketURL = u }
         if let u = object["ticketMethod"] as? String { ticketMethod = u }
-        if let u = object["priceMin"]     as? Double { priceMin = u }
-        if let u = object["priceMax"]     as? Double { priceMax = u }
+        if let u = object["minTicketPrice"]     as? Double { priceMin = u }
+        if let u = object["maxTicketPrice"]     as? Double { priceMax = u }
+        if let u = object["numAttendees"] as? Int { numAttendees = u }
         if let f = object["photo"] as? PFFile {
 
             f.getDataInBackgroundWithBlock({ (data, error) -> Void in
@@ -72,8 +75,9 @@ class Event: Model {
         if let p = json["program"]      as? String { program = p }
         if let u = json["ticketURL"]    as? String { ticketURL = u }
         if let u = json["ticketMethod"] as? String { ticketMethod = u }
-        if let u = json["priceMin"]     as? Double { priceMin = u }
-        if let u = json["priceMax"]     as? Double { priceMax = u }
+        if let u = json["minTicketPrice"]     as? Double { priceMin = u }
+        if let u = json["maxTicketPrice"]     as? Double { priceMax = u }
+        if let u = json["numAttendees"] as? Int { numAttendees = u }
         if let f = json["photo"] as? NSDictionary {
             DataManager.downloadImageWithURL(f["url"] as String) { success, image in
                 if success {
@@ -85,7 +89,6 @@ class Event: Model {
             if let v = json["venue"] as? NSArray {
                 println(v)
                 var id = v[0].objectForKey("objectId") as String
-                //            var q = PFQuery(className: "Venue").whereKey(<#key: String!#>, containsString: <#String!#>)
                 var query = PFQuery(className: "Venue")
                 query.whereKey("objectId", equalTo: id)
                 var objects = query.findObjects() //InBackgroundWithBlock { objects, error in
