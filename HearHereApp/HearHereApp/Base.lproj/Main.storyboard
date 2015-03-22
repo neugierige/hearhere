@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hU5-bJ-asy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hU5-bJ-asy">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
@@ -39,9 +39,12 @@
                             <constraint firstItem="VzL-8w-D9u" firstAttribute="centerX" secondItem="ZrC-OK-WEg" secondAttribute="centerX" id="Rt5-Rz-TwQ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Profile" id="M9Y-Yd-97u"/>
+                    <navigationItem key="navigationItem" title="Profile" id="M9Y-Yd-97u">
+                        <barButtonItem key="rightBarButtonItem" image="checkmark" id="x4B-ea-xCC"/>
+                    </navigationItem>
                     <connections>
-                        <segue destination="GKQ-YE-Rt8" kind="show" identifier="ProfileShowTags" id="1Am-PR-EzD"/>
+                        <segue destination="GKQ-YE-Rt8" kind="presentation" identifier="ProfileShowTags" id="1Am-PR-EzD"/>
+                        <segue destination="vEm-HM-kqR" kind="presentation" identifier="signup" id="BJz-d7-gjT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AIy-f9-ril" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -114,24 +117,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAV-6l-PGu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1371" y="-290"/>
-        </scene>
-        <!--Search View Controller-->
-        <scene sceneID="1OE-6y-fnr">
-            <objects>
-                <viewController id="ROP-1e-api" userLabel="Search View Controller" customClass="SearchViewController" customModule="HearHereApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="lUB-8W-nHb"/>
-                        <viewControllerLayoutGuide type="bottom" id="ng8-cV-Xhh"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Lcp-ar-uON">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="e09-Xn-kXj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2100" y="1107"/>
         </scene>
         <!--HomeTab-->
         <scene sceneID="6je-yf-Ij9">
@@ -215,7 +200,7 @@
         <!--Profile-->
         <scene sceneID="uIt-7J-HU9">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rGV-Xh-akZ" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="rGV-Xh-akZ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="user_2" id="kKF-MU-RC0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="C4q-Cl-DeG">
@@ -223,6 +208,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="sLf-8Y-88J">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="2gt-dz-wfO" kind="relationship" relationship="rootViewController" id="a0w-0B-pc2"/>
                     </connections>
@@ -335,6 +323,7 @@
     </scenes>
     <resources>
         <image name="calendar" width="32" height="32"/>
+        <image name="checkmark" width="22" height="22"/>
         <image name="cog" width="22" height="22"/>
         <image name="home" width="32" height="32"/>
         <image name="map_pin" width="32" height="32"/>
@@ -342,6 +331,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ni5-Q7-n1G"/>
-        <segue reference="K0t-gz-Uyt"/>
+        <segue reference="BJz-d7-gjT"/>
+        <segue reference="1Am-PR-EzD"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -20,7 +20,7 @@ import CoreLocation
 
 class MapTab: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
-    let map = MKMapView()
+    var map: MKMapView!
     let locationManager = CLLocationManager()
     
     //***** PARSE DATA
@@ -33,6 +33,7 @@ class MapTab: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        map = MKMapView()
         map.delegate = self
         map.frame = self.view.frame
         self.view.addSubview(map)
@@ -48,7 +49,6 @@ class MapTab: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         
         map.showsUserLocation = true
         
-        
         if eventsArray.isEmpty {
             DataManager.retrieveAllEvents { events in
                 self.eventsArray = events
@@ -58,12 +58,9 @@ class MapTab: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         } else {
             self.addAnnotations()
         }
-        
     }
     
-    
     func addAnnotations() {
-        
         for event in eventsArray {
             println("in the for loop now")
             var address = event.venue[0].address

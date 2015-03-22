@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class SignInViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
+class SignInViewController: UIViewController, UITextFieldDelegate {//, CLLocationManagerDelegate {
     
     // MARK: Views
     var spinner: UIActivityIndicatorView!
@@ -17,7 +17,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate, CLLocationMan
     var password: UITextField!
     var loginSuccessErrorLabel: UILabel!
     var scrollView: UIScrollView!
-    var locationManager = CLLocationManager()
+//    var locationManager = CLLocationManager()
     var user = User(id: "")
     // MARK: Customizable view properties
     let paddingX:CGFloat     = 30
@@ -27,6 +27,10 @@ class SignInViewController: UIViewController, UITextFieldDelegate, CLLocationMan
     // MARK: VC Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        DataManager.loadCriticalData {
+//            println("all loaded")
+        }
         
         view.backgroundColor = Configuration.lightBlueUIColor
 
@@ -59,9 +63,10 @@ class SignInViewController: UIViewController, UITextFieldDelegate, CLLocationMan
         view.addSubview(scrollView)
         
         // spinner
-        spinner = UIActivityIndicatorView()
-        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
-        spinner.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin | .FlexibleTopMargin
+        spinner = UIActivityIndicatorView(frame: CGRectMake(0, 0, 50, 50))
+        spinner.center = view.center
+        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+//        spinner.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin | .FlexibleTopMargin
         scrollView.addSubview(spinner)
         
         let logoView = UIImageView(image: UIImage(named: "hear-hear-splash"))
@@ -76,14 +81,14 @@ class SignInViewController: UIViewController, UITextFieldDelegate, CLLocationMan
         scrollView.addSubview(loginSuccessErrorLabel)
         
         // text fields
-        username = UITextField(frame: CGRectMake(paddingX*2, loginSuccessErrorLabel.frame.maxY+paddingY, screenBounds.width-paddingX*4, 50))
+        username = UITextField(frame: CGRectMake(paddingX*2, loginSuccessErrorLabel.frame.maxY+paddingY, screenBounds.width-paddingX*4, 35))
         username.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         username.backgroundColor = UIColor.whiteColor()
         username.placeholder = "Username"
         username.textAlignment = NSTextAlignment.Center
         username.layer.cornerRadius = cornerRadius
         scrollView.addSubview(username)
-        password = UITextField(frame: CGRectMake(paddingX*2, username.frame.maxY+paddingY, screenBounds.width-paddingX*4, 50))
+        password = UITextField(frame: CGRectMake(paddingX*2, username.frame.maxY+paddingY, screenBounds.width-paddingX*4, 35))
         password.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         password.backgroundColor = UIColor.whiteColor()
         password.placeholder = "Password"
@@ -93,7 +98,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate, CLLocationMan
         scrollView.addSubview(password)
         
         // Buttons
-        var signInButton = UIButton(frame: CGRectMake(paddingX*2, password.frame.maxY+paddingY, screenBounds.width-paddingX*4, 50))
+        var signInButton = UIButton(frame: CGRectMake(paddingX*2, password.frame.maxY+paddingY, screenBounds.width-paddingX*4, 35))
         signInButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signInButton.setTitle("Sign In", forState: .Normal)
         signInButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
@@ -116,16 +121,16 @@ class SignInViewController: UIViewController, UITextFieldDelegate, CLLocationMan
         signInNowButton.setTitleColor(Configuration.tagFontUIColor, forState: .Normal)
         scrollView.addSubview(signInNowButton)
         
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
+//        locationManager.delegate = self
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.startUpdatingLocation()
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        manager.stopUpdatingLocation()
-        var location = locations[0] as CLLocation
-        user.location = location
-    }
+//    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+//        manager.stopUpdatingLocation()
+//        var location = locations[0] as CLLocation
+//        user.location = location
+//    }
     
     // MARK: Button Target methods
     func skipToAppTouched(sender: UIButton) {
@@ -142,7 +147,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate, CLLocationMan
         spinner.startAnimating()
         if username.text != "" && password.text != "" {
             var user = User(username: username.text, password: password.text)
-            DataManager.signInUser(user) { error in
+            DataManager.signInUser(user) { error, _ in
                 if let e = error {
                     self.spinner.stopAnimating()
                     self.displaySuccessErrorLabel(e, valid: false)

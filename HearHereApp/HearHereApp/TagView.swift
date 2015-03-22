@@ -12,11 +12,11 @@ class TagView: UIView, UIGestureRecognizerDelegate {
 
     // MARK: Customizable tag attributes
     private struct Attributes {
-        static var textPadding  = CGPointMake(20, 10)
+        static var textPadding  = CGPointMake(8, 5)
         static var borderWidth  = 0.5 as CGFloat
-        static var cornerRadius = 18 as CGFloat
-        static var fontSize     = 15 as CGFloat
-        static var fontName     = "STHeitiSC-Light"
+        static var cornerRadius = 4 as CGFloat
+        static var fontSize     = 14 as CGFloat
+        static var fontName     = "HelveticaNeue"
         static var color1       = UIColor.whiteColor()
         static var color2       = UIColor(red:0.4, green:0.5, blue:0.62, alpha:1)
     }

@@ -48,7 +48,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     */
     func loadUI() {
         let screenBounds = UIScreen.mainScreen().bounds
-        
+        if let nav = navigationController {
+            nav.navigationBarHidden = true
+        }
         // scrollView
         scrollView = UIScrollView(frame: CGRectMake(0, 0, screenBounds.width, screenBounds.height))
         scrollView.contentSize = CGSize(width: screenBounds.width, height: screenBounds.height + 500)
@@ -75,21 +77,21 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         scrollView.addSubview(signUpSuccessError)
         
         // Text fields
-        username = UITextField(frame: CGRectMake(paddingX*2, signUpSuccessError.frame.maxY+paddingY, screenBounds.width-paddingX*4, 50))
+        username = UITextField(frame: CGRectMake(paddingX*2, signUpSuccessError.frame.maxY+paddingY, screenBounds.width-paddingX*4, 35))
         username.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         username.backgroundColor = UIColor.whiteColor()
         username.placeholder = "Username"
         username.textAlignment = NSTextAlignment.Center
         username.layer.cornerRadius = cornerRadius
         scrollView.addSubview(username)
-        email = UITextField(frame: CGRectMake(paddingX*2, username.frame.maxY+paddingY, screenBounds.width-paddingX*4, 50))
+        email = UITextField(frame: CGRectMake(paddingX*2, username.frame.maxY+paddingY, screenBounds.width-paddingX*4, 35))
         email.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         email.backgroundColor = UIColor.whiteColor()
         email.placeholder = "Email"
         email.textAlignment = NSTextAlignment.Center
         email.layer.cornerRadius = cornerRadius
         scrollView.addSubview(email)
-        password = UITextField(frame: CGRectMake(paddingX*2, email.frame.maxY+paddingY, screenBounds.width-paddingX*4, 50))
+        password = UITextField(frame: CGRectMake(paddingX*2, email.frame.maxY+paddingY, screenBounds.width-paddingX*4, 35))
         password.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         password.backgroundColor = UIColor.whiteColor()
         password.placeholder = "Password"
@@ -99,7 +101,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         scrollView.addSubview(password)
         
         // Sign up button
-        var signUpButton = UIButton(frame: CGRectMake(paddingX*2, password.frame.maxY+paddingY, screenBounds.width-paddingX*4, 50))
+        var signUpButton = UIButton(frame: CGRectMake(paddingX*2, password.frame.maxY+paddingY, screenBounds.width-paddingX*4, 35))
         signUpButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signUpButton.setTitle("Sign Up", forState: .Normal)
         signUpButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)

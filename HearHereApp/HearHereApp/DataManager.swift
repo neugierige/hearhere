@@ -10,37 +10,7 @@
 import UIKit
 import Parse
 import Alamofire
-import MapKit
-
-class Data {
-    private struct Cache {
-        static var events = [Event]()
-        static var currentUser = User(id: "")
-        static var venues = [Venue]()
-        static var artists = [Artist]()
-        static var categories = [Category]()
-    }
-    class var events: [Event] {
-        get { return Cache.events }
-        set { Cache.events = newValue }
-    }
-    class var currentUser: User {
-        get { return Cache.currentUser }
-        set { Cache.currentUser = newValue }
-    }
-    class var venues: [Venue] {
-        get { return Cache.venues }
-        set { Cache.venues = newValue }
-    }
-    class var artists: [Artist] {
-        get { return Cache.artists }
-        set { Cache.artists = newValue }
-    }
-    class var categories: [Category] {
-        get { return Cache.categories }
-        set { Cache.categories = newValue }
-    }
-}
+import MapKit   
 
 class DataManager {
     init() { }
@@ -48,8 +18,29 @@ class DataManager {
 
 // MARK: User data methods
 extension DataManager {
-    class func loadCriticalData(completion: Void -> Void) {
-        retrieveAllEvents() { events in println("hi") }
+    class func loadCriticalData(completion: () -> ()) {
+        
+        // Should probably separate these and have a completion for each, but it works for now
+        func retrieveACV(completion: () -> ()) {
+            retrieveAllArtists { artists in
+                if let a = artists { Cache.artists = a }
+            }
+            retrieveAllCategories { categories in
+                if let c = categories { Cache.categories = c }
+            }
+            retrieveAllVenues { venues in
+                if let v = venues { Cache.venues = v }
+                completion()
+            }
+            
+        }
+        
+        retrieveACV {
+            self.retrieveAllEvents() { events in
+                Cache.events = events
+                completion()
+            }
+        }
     }
     class func signUpUser(user: User, completion: String? -> Void) {
 //        encodeParam
@@ -70,10 +61,10 @@ extension DataManager {
             }
             if let data = data as? NSDictionary {
                 if data["sessionToken"] != nil {
-                    Data.currentUser = user
+                    Cache.currentUser = user
                     UserRouter.sessionToken = data["sessionToken"] as? String
                     if let objectId = data["objectId"] as? String {
-                        Data.currentUser.objectId = objectId
+                        Cache.currentUser.objectId = objectId
                     }
                     let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
                     dispatch_async(backgroundQueue) {
@@ -88,7 +79,7 @@ extension DataManager {
         }
     }
     
-    class func signInUser(user: User, completion: String? -> Void) {
+    class func signInUser(user: User, completion: (String?, User?) -> Void) {
 //        loadCriticalData()
         var parameters = ["username": user.username, "password": user.password]
         let request: URLRequestConvertible = UserRouter.SignInUser(parameters)
@@ -100,17 +91,20 @@ extension DataManager {
             }
             if let data = data as? NSDictionary {
                 if data["sessionToken"] != nil {
-                    Data.currentUser = user
+                    Cache.currentUser = user
                     UserRouter.sessionToken = data["sessionToken"] as? String
 //                    if let objectId = data["objectId"] as? String {
                         var user = User(json: data)
-                        Data.currentUser = user
+                        Cache.currentUser = user
 //                    }
                     let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
                     dispatch_async(backgroundQueue) {
-                        PFUser.become(data["sessionToken"] as? String); return
+                        PFUser.become(data["sessionToken"] as? String)
+                        dispatch_async(dispatch_get_main_queue()){
+                            completion(nil, user)
+                        }
                     }
-                    completion(nil)
+//                    completion(nil)
                 } else {
                     errorString = data["error"] as String
                 }
@@ -120,22 +114,26 @@ extension DataManager {
     }
     
     class func getCurrentUserModel(completion: User? -> Void) {
-        if Data.currentUser.objectId == "" {
-            var user: User?
-            let request = UserRouter.GetUser()
-            Alamofire.request(request).responseJSON { _,_, data, error in
-                if let data = data as? NSDictionary {
-                    user = User(json: data)
-                    if let user = user {
-                        Data.currentUser = user
+        if UserRouter.sessionToken != nil {
+            if Cache.currentUser.objectId == "" {
+                var user: User?
+                let request = UserRouter.GetUser()
+                Alamofire.request(request).responseJSON { _,_, data, error in
+                    if let data = data as? NSDictionary {
+                        user = User(json: data)
+                        if let user = user {
+                            Cache.currentUser = user
+                        }
+                    }
+                    dispatch_async(dispatch_get_main_queue()) {
+                        completion(user)
                     }
                 }
-                dispatch_async(dispatch_get_main_queue()) {
-                    completion(user)
-                }
+            } else {
+                completion(Cache.currentUser)
             }
         } else {
-            completion(Data.currentUser)
+            completion(nil)
         }
     }
     
@@ -274,12 +272,12 @@ extension DataManager {
     }
     
     class func retrieveAllArtists(completion: [Artist]? -> Void) {
-        if Data.artists.isEmpty {
+        if Cache.artists.isEmpty {
             var request = ClassRouter.GetArtists(nil)
             makeArtistHTTPRequest(request) { artists in
                 dispatch_async(dispatch_get_main_queue()) {
                     if let artists = artists {
-                        Data.artists = artists
+                        Cache.artists = artists
                         completion(artists)
                     } else {
                         completion(nil)
@@ -287,7 +285,7 @@ extension DataManager {
                 }
             }
         } else {
-            completion(Data.artists)
+            completion(Cache.artists)
         }
     }
     
@@ -329,12 +327,12 @@ extension DataManager {
     }
     
     class func retrieveAllVenues(completion: [Venue]? -> Void) {
-        if Data.venues.isEmpty {
+        if Cache.venues.isEmpty {
             var request = ClassRouter.GetVenues(nil)
             makeVenueHTTPRequest(request) { venues in
                 dispatch_async(dispatch_get_main_queue()) {
                     if let venues = venues {
-                        Data.venues = venues
+                        Cache.venues = venues
                         completion(venues)
                     } else {
                         completion(nil)
@@ -342,7 +340,7 @@ extension DataManager {
                 }
             }
         } else {
-            completion(Data.venues)
+            completion(Cache.venues)
         }
     }
     
@@ -398,18 +396,18 @@ extension DataManager {
     }
     
     class func retrieveAllCategories(completion: [Category]? -> Void) {
-        if Data.categories.isEmpty {
+        if Cache.categories.isEmpty {
             var request = ClassRouter.GetCategories(nil)
             makeCategoryHTTPRequest(request) { categories in
                 if let categories = categories {
-                    Data.categories = categories
+                    Cache.categories = categories
                     completion(categories)
                 } else {
                     completion(nil)
                 }
             }
         } else {
-            completion(Data.categories)
+            completion(Cache.categories)
         }
     }
     
@@ -542,22 +540,24 @@ extension DataManager {
     }
     
     class func retrieveAllEvents(completion: [Event] -> Void) {
-        if Data.events.isEmpty {
+        if Cache.events.isEmpty {
             var request = ClassRouter.GetEvents(nil)
             makeEventHTTPRequest(request) { events in
                 if let events = events {
-                    Data.events = events
+                    Cache.events = events
                     dispatch_async(dispatch_get_main_queue()) {
                         completion(events)
                     }
                 }
             }
         } else {
-            completion(Data.events)
+            completion(Cache.events)
         }
     }
-    
+
     class func makeEventHTTPRequest(request: URLRequestConvertible, completion: [Event]? -> Void) {
+        //var cache = NSCache()
+        
         Alamofire.request(request).responseJSON { (request, response, data, error) in
             var events = [Event]()
             if let e = error {
@@ -568,6 +568,7 @@ extension DataManager {
                         for element in json as NSArray {
                             if let event = Event(json: element as NSDictionary) {
                                 events.append(event)
+                                //cache.setObject(event, forKey: event.objectId)
                             }
                         }
                         dispatch_async(dispatch_get_main_queue()) {

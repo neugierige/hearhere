@@ -13,42 +13,32 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var tableView: UITableView?
     let rowHeight:CGFloat = 140.0
     let tableY:CGFloat = 108.0
+    let paddingX: CGFloat = 10.0
     var eventsArray = [Event]()
-    //    var popoverController = HomeTabPopoverViewController()
-    
+    var spinner: UIActivityIndicatorView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        DataManager.retrieveAllEvents { events in
-            self.eventsArray = events
-            if let theTableView = self.tableView {
-                theTableView.dataSource = self
-                theTableView.reloadData()
-            }
-        }
+
+        loadData()
+        
+        
+        var segContainer = UIView(frame: CGRectMake(0, tableY, view.bounds.width, 30))
+        view.addSubview(segContainer)
         
         var segTitles = ["Feed", "Distance", "Going"]
         var control = UISegmentedControl(items: segTitles)
-        control.frame = CGRectMake(0, tableY, view.bounds.width, 30)
+        control.frame = CGRectMake(paddingX, 0, view.bounds.width-paddingX*2, 25)
         control.addTarget(self, action: "segmentedControlAction:", forControlEvents: .ValueChanged)
         control.selectedSegmentIndex = 0
-        control.tintColor = Configuration.lightGreyUIColor
-        view.addSubview(control)
-        //        if let filterImg = UIImage(named: "filter") {
-        //            var filterButton = UIButton(frame: CGRectMake(0, 0, 22, 22))
-        //            filterButton.setBackgroundImage(filterImg, forState: .Normal)
-        //            filterButton.addTarget(self, action: "filterPressed:", forControlEvents: .TouchUpInside)
-        //            filterButton.showsTouchWhenHighlighted = true
-        ////            var navB = UIBarButtonItem(title: "filter", style: UIBarButtonItemStyle.Plain, target: self, action: "filterPressed:")
-        ////            var navButton = UIBarButtonItem(customView: filterButton)
-        //            navigationController?.navigationBar.addSubview(filterButton)
-        ////            navigationController?.navigationItem.leftBarButtonItem = navB
-        //        }
+        control.tintColor = Configuration.darkBlueUIColor
+        segContainer.addSubview(control)
         
-        tableView = UITableView(frame: CGRect(x: 0, y: control.frame.maxY, width: self.view.frame.width, height: self.view.frame.height - control.frame.maxY - 49.0), style: UITableViewStyle.Plain)
+        tableView = UITableView(frame: CGRect(x: 0, y: segContainer.frame.maxY, width: self.view.frame.width, height: self.view.frame.height-segContainer.frame.maxY-49.0), style: UITableViewStyle.Plain)
         
         if let theTableView = tableView {
             theTableView.registerClass(HomeTableViewCell.self, forCellReuseIdentifier: "homeCell")
-            theTableView.dataSource = nil
+            theTableView.dataSource = self
             theTableView.delegate = self
             theTableView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
             theTableView.rowHeight = self.rowHeight
@@ -56,19 +46,48 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
             view.addSubview(theTableView)
         }
         
+        spinner = UIActivityIndicatorView(frame: CGRectMake(0, 0, 50, 50))
+        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        spinner.center.x = view.center.x
+        spinner.center.y = segContainer.center.y
+        spinner.hidesWhenStopped = true
+        spinner.startAnimating()
+        tableView?.addSubview(spinner)
+        
+    
+    }
+    
+    func loadData() {
+        if Cache.events.count == 0 {
+            DataManager.retrieveAllEvents { events in
+                self.eventsArray = events
+                if let theTableView = self.tableView {
+                    theTableView.dataSource = self
+                    theTableView.reloadData()
+                }
+            }
+        } else {
+            self.eventsArray = Cache.events
+            if let tableView = self.tableView {
+                tableView.dataSource = self
+                tableView.reloadData()
+            }
+//            self.spinner.stopAnimating()
+
+        }
     }
     func segmentedControlAction(sender: UISegmentedControl) {
         var user = User(id: "")
         DataManager.getCurrentUserModel() { currentUser in
             if let currentUser = currentUser {
                 user = currentUser
-                println(user.location)
+               // println(user.location)
             } else {
                 self.signInAlert() { currentUser in
                     if let currentUser = currentUser {
                         user = currentUser
-                        var u = Data.currentUser
-                        println(u)
+                        var u = Cache.currentUser
+                       // println(u)
                     }
                 }
             }
@@ -97,6 +116,8 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
 //            println("d")
 //        }
     }
+    
+    // TODO: Put this in its own class and call for this and profile tab
     func signInAlert(completion: User? -> Void) {
         let alertController = UIAlertController(title: "Login", message: "to continue", preferredStyle: .Alert)
         let loginAction = UIAlertAction(title: "Login", style: .Default) { (_) in
@@ -105,10 +126,10 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
             var u = User(username: loginTextField.text, password: passwordTextField.text)
             
             func signInUser(completion: (User -> Void)!) {
-                DataManager.signInUser(u) { success in
-//                    dispatch_async(dispatch_get_main_queue()) {
-                        completion(u)
-//                    }
+                DataManager.signInUser(u) { success, user in
+                    if let user = user {
+                        completion(user)
+                    }
                 }
             }
             
@@ -119,7 +140,9 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
         loginAction.enabled = false
         
-        let forgotPasswordAction = UIAlertAction(title: "Forgot Password", style: .Destructive) { (_) in }
+        let signUpAction = UIAlertAction(title: "Sign Up", style: .Destructive) { (_) in
+            self.performSegueWithIdentifier("signup", sender: self)
+        }
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
         
         alertController.addTextFieldWithConfigurationHandler { (textField) in
@@ -136,20 +159,11 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
         
         alertController.addAction(loginAction)
-        alertController.addAction(forgotPasswordAction)
+        alertController.addAction(signUpAction)
         alertController.addAction(cancelAction)
         self.presentViewController(alertController, animated: true, completion: nil)
     }
-    //    func filterPressed(sender: UIButton) {
-    //        popoverController = HomeTabPopoverViewController()
-    //        popoverController.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
-    //        popoverController.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
-    //        popoverController.filterDelegate = self
-    //        presentViewController(popoverController, animated: true, completion: nil)
-    //    }
-    //    func filterTypeChosen(type: TagView) {
-    //        println("you")
-    //    }
+
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -192,14 +206,19 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
         cell.detailTextLabel?.textColor = cellColors.txtColor
         
+        spinner.stopAnimating()
+        
         return cell
     }
-    
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         navigationController?.showViewController(EventDetailViewController(), sender: indexPath)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        loadData()
+        //println(self.eventsArray)
+    }
     func chooseColors(index: Int) -> (bkgColor: UIColor, txtColor: UIColor) {
         var bkgColor = UIColor()
         var txtColor = UIColor.whiteColor()
