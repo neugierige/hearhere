@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import MapKit
 
-class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
+var anonymousUser = User(id: "")
+
+class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
     
     var tableView: UITableView?
     let rowHeight:CGFloat = 140.0
@@ -16,13 +19,19 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
     let paddingX: CGFloat = 10.0
     var eventsArray = [Event]()
     var spinner: UIActivityIndicatorView!
-
+    let locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         loadData()
         
-        
+        //self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+
         var segContainer = UIView(frame: CGRectMake(0, tableY, view.bounds.width, 30))
         view.addSubview(segContainer)
         
@@ -54,7 +63,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         spinner.startAnimating()
         tableView?.addSubview(spinner)
         
-    
+        
     }
     
     func loadData() {
@@ -72,49 +81,52 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
                 tableView.dataSource = self
                 tableView.reloadData()
             }
-//            self.spinner.stopAnimating()
-
+            
         }
     }
     func segmentedControlAction(sender: UISegmentedControl) {
-        var user = User(id: "")
-        DataManager.getCurrentUserModel() { currentUser in
-            if let currentUser = currentUser {
-                user = currentUser
-               // println(user.location)
-            } else {
-                self.signInAlert() { currentUser in
-                    if let currentUser = currentUser {
-                        user = currentUser
-                        var u = Cache.currentUser
-                       // println(u)
+
+        var l: CLLocation!
+        if DataManager.userLoggedIn() {
+            l = Cache.currentUser.location
+        } else {
+            l = anonymousUser.location
+//            self.signInAlert() { currentUser in
+//                if let currentUser = currentUser {
+//                    user = currentUser
+//                    
+//                }
+//            }
+        }
+            switch sender.selectedSegmentIndex {
+            case 0:
+                if DataManager.userLoggedIn() {
+                    DataManager.sortUserEventsByTag { events in
+                        if let events = events {
+                            self.eventsArray = events
+                            self.tableView?.reloadData()
+                        } else {
+                            // add tags in user preferences to get suggestions
+                        }
+                    }
+                } else {
+                    // give option for signInAlert to login
+                }
+            case 1:
+                DataManager.sortEventsByDistance(l, events: self.eventsArray) { events in
+                    if let events = events {
+                        self.eventsArray = events
+                        self.tableView?.reloadData()
                     }
                 }
+            case 2:
+                if DataManager.userLoggedIn() {
+                    // return everything they are going to, or popular
+                }
+            default:
+                println("figaro")
             }
-        }
-//        while user?.location == nil { }
-//        switch sender.selectedSegmentIndex {
-//        case 0:
-//            DataManager.sortUserEventsByTag { events in
-//                if let events = events {
-//                    self.eventsArray = events
-//                    self.tableView?.reloadData()
-//                } else {
-//                    // add tags in user preferences to get suggestions
-//                }
-//            }
-//        case 1:
-//            DataManager.sortEventsByDistance(user!.location, events: self.eventsArray) { events in
-//                if let events = events {
-//                    self.eventsArray = events
-//                    self.tableView?.reloadData()
-//                }
-//            }
-//        case 2:
-//            println("c")
-//        default:
-//            println("d")
-//        }
+        
     }
     
     // TODO: Put this in its own class and call for this and profile tab
@@ -136,7 +148,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
             signInUser() { user in
                 completion(user)
             }
-
+            
         }
         loginAction.enabled = false
         
@@ -163,7 +175,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         alertController.addAction(cancelAction)
         self.presentViewController(alertController, animated: true, completion: nil)
     }
-
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -225,16 +237,24 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         
         switch index % 3 {
         case 0:
-            bkgColor = UIColor(red: 0.247, green: 0.341, blue: 0.396, alpha: 0.75) // med blue
+            bkgColor = Configuration.medBlueUIColor.colorWithAlphaComponent(0.75)
         case 1:
-            bkgColor = UIColor(red: 0.741, green: 0.831, blue: 0.871, alpha: 0.85) // light blue
-            txtColor = UIColor(red: 0.168, green: 0.227, blue: 0.258, alpha: 1.0) // dark blue
+            bkgColor = Configuration.lightBlueUIColor.colorWithAlphaComponent(0.75)
+            txtColor = Configuration.darkBlueUIColor.colorWithAlphaComponent(0.75)
         case 2:
-            bkgColor = UIColor(red: 0.906, green: 0.298, blue: 0.235, alpha: 0.75) // orange
+            bkgColor = Configuration.orangeUIColor.colorWithAlphaComponent(0.75)
         default:
-            bkgColor = UIColor(red: 0.247, green: 0.341, blue: 0.396, alpha: 0.75) // med blue
+            bkgColor = Configuration.medBlueUIColor.colorWithAlphaComponent(0.75)
         }
         return (bkgColor, txtColor)
+    }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        if DataManager.userLoggedIn() {
+            DataManager.saveUserLocation(locations[0] as CLLocation)
+        } else {
+            anonymousUser.location = locations[0] as CLLocation
+        }
     }
     
     func formatDateTime(dt: NSDate) -> String {

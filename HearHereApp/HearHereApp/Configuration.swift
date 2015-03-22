@@ -22,6 +22,7 @@ struct Configuration {
     static var tagUIColorB = UIColor(red: 137/255, green: 196/255, blue: 244/255, alpha: 1.0)
     static var tagUIColorC = UIColor(red: 244/255, green: 179/255, blue: 80/255, alpha: 1.0)
     
+    static var meterToMile = 0.000621371
     // Parse
     static var parseApplicationID = "c2rCBsaTy87zy20OyLmNgWubtIsvUUlM6YdXkLv6"
     static var parseClientKey = "ng4iMK7tUlbwRczOfQ4lUgvsdOGq1LEVDismykTq"

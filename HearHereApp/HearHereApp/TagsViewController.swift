@@ -255,7 +255,7 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
                             if let venues = venues {
                                 user.venues = venues
                             }
-                            DataManager.saveUser(user) { success in
+                            DataManager.saveUser(user) { success, error in
                                 dispatch_async(dispatch_get_main_queue()) {
                                    // self.presentViewController(FriendsTableViewController(), animated: true, completion: nil)
                                     if (self.appearedFromProfile != nil) {

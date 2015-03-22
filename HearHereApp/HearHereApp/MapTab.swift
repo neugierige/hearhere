@@ -18,10 +18,10 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapTab: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class MapTab: UIViewController, MKMapViewDelegate { //, CLLocationManagerDelegate {
     
     var map: MKMapView!
-    let locationManager = CLLocationManager()
+//    let locationManager = CLLocationManager()
     
     //***** PARSE DATA
     var eventsArray = [Event]()
@@ -39,12 +39,12 @@ class MapTab: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         self.view.addSubview(map)
         
         
-        //**** REQUEST USER LOCATION
-        //self.locationManager.requestAlwaysAuthorization()
-        self.locationManager.requestWhenInUseAuthorization()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
+//        //**** REQUEST USER LOCATION
+//        //self.locationManager.requestAlwaysAuthorization()
+//        self.locationManager.requestWhenInUseAuthorization()
+//        locationManager.delegate = self
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.startUpdatingLocation()
         //*****
         
         map.showsUserLocation = true
@@ -118,7 +118,9 @@ class MapTab: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         return dtString
     }
 
-    
+//    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+//        DataManager.saveUserLocation(locations[0] as CLLocation)
+//    }
     
 //    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
 //        var v : MKAnnotationView! = nil

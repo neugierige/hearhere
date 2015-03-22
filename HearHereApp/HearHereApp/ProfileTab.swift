@@ -130,7 +130,7 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         if tfs[1].text != "" { userData.username = tfs[1].text }
         if tfs[2].text != "" { userData.email = tfs[2].text }
         if tfs[3].text != "" { userData.password = tfs[3].text }
-        DataManager.saveUser(userData) { success in
+        DataManager.saveUser(userData) { success, error in
             var alertMessage: String!
             if (success != nil) {
                 alertMessage = "Saved"
@@ -139,7 +139,9 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
                 self.tfs[2].placeholder = self.userData.email
                 self.tfs[3].placeholder = self.userData.password
             } else {
-                alertMessage = "Error Saving"
+                if let e = error {
+                    alertMessage = e
+                }
             }
             var saveController = UIAlertController(title: "Preferences", message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
             var okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
@@ -176,6 +178,7 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
                     }
                 }
             } else {
+                
                 self.signInAlert() { currentUser in
                     if let currentUser = currentUser {
                         self.userData = currentUser
@@ -184,6 +187,8 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
                                 tableView.reloadData()
                             }
                         }
+                    } else {
+                        // unsuccessful print error to alert and try again
                     }
                 }
             }
@@ -200,14 +205,15 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
             var u = User(username: loginTextField.text, password: passwordTextField.text)
             
             func signInUser(completion: (User -> Void)!) {
-                DataManager.signInUser(u) { success, user in
+                DataManager.signInUser(u) { error, user in
                     if let user = user {
                         completion(user)
                     } else {
-                        // trying to do something lik http://possiblemobile.com/2014/08/uialertcontroller-ios-8/
-//                        if let weakSelf = weakSelf {
-//                            //
-                        //}
+                        // TODO: all this code is brittle, redo
+//                        dispatch_async(dispatch_get_main_queue()) {
+//                        alertController.dismissViewControllerAnimated(true) { _ in self.signInUserIfNecessary()}
+//                        }
+//                        completion(nil)
                     }
                 }
             }
@@ -247,7 +253,7 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     override func viewWillAppear(animated: Bool) {
         // TODO: This cause warning "Presenting view controllers on detached view controllers is discouraged "
         // but will crash if not here and coming back from SignUpVC without signing up
-        signInUserIfNecessary()
+//        signInUserIfNecessary()
         tableView?.reloadData()
     }
     
