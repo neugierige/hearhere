@@ -40,7 +40,7 @@
 		4693CDDB1AB7D7B300DCBA29 /* ClassRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4693CDDA1AB7D7B300DCBA29 /* ClassRouter.swift */; };
 		4693CDE21AB7D85300DCBA29 /* FilterPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4693CDE01AB7D85300DCBA29 /* FilterPopoverViewController.swift */; };
 		4693CDE31AB7D85300DCBA29 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4693CDE11AB7D85300DCBA29 /* FriendsTableViewController.swift */; };
-		4693CDE51AB7D88E00DCBA29 /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4693CDE41AB7D88E00DCBA29 /* EventDetailView.swift */; };
+		4693CDE51AB7D88E00DCBA29 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4693CDE41AB7D88E00DCBA29 /* EventDetailViewController.swift */; };
 		4693CDE71AB7D8CB00DCBA29 /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4693CDE61AB7D8CB00DCBA29 /* FriendsTableViewCell.swift */; };
 		4693CDEA1AB7DA8400DCBA29 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4693CDE91AB7DA8400DCBA29 /* Social.framework */; };
 		4693CDEC1AB7DAF100DCBA29 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4693CDEB1AB7DAF100DCBA29 /* Accounts.framework */; };
@@ -113,7 +113,7 @@
 		4693CDDA1AB7D7B300DCBA29 /* ClassRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassRouter.swift; sourceTree = "<group>"; };
 		4693CDE01AB7D85300DCBA29 /* FilterPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterPopoverViewController.swift; sourceTree = "<group>"; };
 		4693CDE11AB7D85300DCBA29 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
-		4693CDE41AB7D88E00DCBA29 /* EventDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
+		4693CDE41AB7D88E00DCBA29 /* EventDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		4693CDE61AB7D8CB00DCBA29 /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
 		4693CDE81AB7D8E000DCBA29 /* HearHereApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HearHereApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		4693CDE91AB7DA8400DCBA29 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -236,7 +236,7 @@
 				F995C3E91AA91D6500F6EC88 /* SignInViewController.swift */,
 				F995C3E71AA91D4D00F6EC88 /* SignUpViewController.swift */,
 				466A27751AAA20AE00AB6BB5 /* TagsViewController.swift */,
-				4693CDE41AB7D88E00DCBA29 /* EventDetailView.swift */,
+				4693CDE41AB7D88E00DCBA29 /* EventDetailViewController.swift */,
 				F983DA511AB8ADCF00A3B4E2 /* DetailViewController.swift */,
 				F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */,
 			);
@@ -489,7 +489,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4693CDE51AB7D88E00DCBA29 /* EventDetailView.swift in Sources */,
+				4693CDE51AB7D88E00DCBA29 /* EventDetailViewController.swift in Sources */,
 				4693CDCD1AB7D69100DCBA29 /* Venue.swift in Sources */,
 				4693CDE71AB7D8CB00DCBA29 /* FriendsTableViewCell.swift in Sources */,
 				466CB38A1ABDFDE600AB53C3 /* Cache.swift in Sources */,
