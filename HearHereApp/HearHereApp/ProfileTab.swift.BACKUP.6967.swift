@@ -61,13 +61,20 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         cell.textLabel?.text = s
         
         if cell.viewWithTag(1) == nil {
+<<<<<<< HEAD
+        
+=======
+            
+>>>>>>> c0645209fc190b74e645b99cbb1babc95c673b00
             let tf = UITextField(frame: CGRect(x: self.view.frame.width / 2 - 15, y: 0, width: self.view.frame.width / 2, height: self.rowHeight))
             tf.tag = 1
             tf.textColor = UIColor.lightGrayColor()
             tf.font = UIFont(name: "HelveticaNeue", size: 14.0)
             tf.textAlignment = .Right
+<<<<<<< HEAD
             tf.delegate = self
-
+=======
+>>>>>>> c0645209fc190b74e645b99cbb1babc95c673b00
             
             let accessory = UILabel(frame: CGRect(x: self.view.frame.width / 2 - 15, y: 0, width: self.view.frame.width / 2, height: self.rowHeight))
             accessory.tag = 2
@@ -83,6 +90,7 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
                 cell.contentView.addSubview(accessory)
             default:
                 cell.contentView.addSubview(tf)
+<<<<<<< HEAD
                 tfs.append(tf)
             }
             
@@ -103,6 +111,11 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
                 println("haha")
             }
         }
+=======
+            }
+            
+        }
+>>>>>>> c0645209fc190b74e645b99cbb1babc95c673b00
         
         return cell
     }
@@ -115,6 +128,7 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+<<<<<<< HEAD
         switch self.profileData[indexPath.section][indexPath.row] {
         case "Update Preferences":
             performSegueWithIdentifier("ProfileShowTags", sender: self)
@@ -157,7 +171,16 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
             tvc.appearedFromProfile = true
         }
     }
-
+=======
+        if sectionNames[indexPath.section] == "Preferences" {
+            performSegueWithIdentifier("profileSegue", sender: self)
+        } else {
+            println("No segue")
+        }
+        
+    }
+    
+>>>>>>> c0645209fc190b74e645b99cbb1babc95c673b00
     override func shouldAutorotate() -> Bool {
         return false
     }

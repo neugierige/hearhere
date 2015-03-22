@@ -87,6 +87,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {//, CLLocatio
         username.placeholder = "Username"
         username.textAlignment = NSTextAlignment.Center
         username.layer.cornerRadius = cornerRadius
+        username.autocorrectionType = UITextAutocorrectionType.No
+        username.autocapitalizationType = UITextAutocapitalizationType.None
         scrollView.addSubview(username)
         password = UITextField(frame: CGRectMake(paddingX*2, username.frame.maxY+paddingY, screenBounds.width-paddingX*4, 35))
         password.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
@@ -95,6 +97,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {//, CLLocatio
         password.secureTextEntry = true
         password.textAlignment = NSTextAlignment.Center
         password.layer.cornerRadius = cornerRadius
+        password.autocorrectionType = UITextAutocorrectionType.No
+        password.autocapitalizationType = UITextAutocapitalizationType.None
         scrollView.addSubview(password)
         
         // Buttons

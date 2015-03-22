@@ -61,13 +61,13 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         cell.textLabel?.text = s
         
         if cell.viewWithTag(1) == nil {
+        
             let tf = UITextField(frame: CGRect(x: self.view.frame.width / 2 - 15, y: 0, width: self.view.frame.width / 2, height: self.rowHeight))
             tf.tag = 1
             tf.textColor = UIColor.lightGrayColor()
             tf.font = UIFont(name: "HelveticaNeue", size: 14.0)
             tf.textAlignment = .Right
             tf.delegate = self
-
             
             let accessory = UILabel(frame: CGRect(x: self.view.frame.width / 2 - 15, y: 0, width: self.view.frame.width / 2, height: self.rowHeight))
             accessory.tag = 2
@@ -157,7 +157,6 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
             tvc.appearedFromProfile = true
         }
     }
-
     override func shouldAutorotate() -> Bool {
         return false
     }

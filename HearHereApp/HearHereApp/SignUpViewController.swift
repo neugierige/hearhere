@@ -83,6 +83,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         username.placeholder = "Username"
         username.textAlignment = NSTextAlignment.Center
         username.layer.cornerRadius = cornerRadius
+        username.autocorrectionType = UITextAutocorrectionType.No
+        username.autocapitalizationType = UITextAutocapitalizationType.None
         scrollView.addSubview(username)
         email = UITextField(frame: CGRectMake(paddingX*2, username.frame.maxY+paddingY, screenBounds.width-paddingX*4, 35))
         email.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
@@ -90,6 +92,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         email.placeholder = "Email"
         email.textAlignment = NSTextAlignment.Center
         email.layer.cornerRadius = cornerRadius
+        email.autocorrectionType = UITextAutocorrectionType.No
+        email.autocapitalizationType = UITextAutocapitalizationType.None
         scrollView.addSubview(email)
         password = UITextField(frame: CGRectMake(paddingX*2, email.frame.maxY+paddingY, screenBounds.width-paddingX*4, 35))
         password.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
@@ -98,6 +102,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         password.secureTextEntry = true
         password.textAlignment = NSTextAlignment.Center
         password.layer.cornerRadius = cornerRadius
+        password.autocorrectionType = UITextAutocorrectionType.No
+        password.autocapitalizationType = UITextAutocapitalizationType.None
         scrollView.addSubview(password)
         
         // Sign up button
