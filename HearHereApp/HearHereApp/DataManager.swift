@@ -10,7 +10,7 @@
 import UIKit
 import Parse
 import Alamofire
-import MapKit   
+import MapKit
 
 class DataManager {
     init() { }
@@ -43,7 +43,7 @@ extension DataManager {
         }
     }
     class func signUpUser(user: User, completion: String? -> Void) {
-//        encodeParam
+        //        encodeParam
         let userString = NSString(format: "%@", user.username)
         let passString = NSString(format: "%@", user.password)
         let userData: NSData = userString.dataUsingEncoding(NSUTF8StringEncoding)!
@@ -80,39 +80,35 @@ extension DataManager {
     }
     
     class func signInUser(user: User, completion: (String?, User?) -> Void) {
-//        loadCriticalData()
         var parameters = ["username": user.username, "password": user.password]
         let request: URLRequestConvertible = UserRouter.SignInUser(parameters)
         Alamofire.request(request).responseJSON { _, _, data, error in
             var errorString: String!
             if let e = error {
                 // e.userInfo!.debugDescription
-                errorString = e.localizedDescription
+                completion(e.localizedDescription, nil)
             }
             if let data = data as? NSDictionary {
                 if data["sessionToken"] != nil {
                     Cache.currentUser = user
                     UserRouter.sessionToken = data["sessionToken"] as? String
-//                    if let objectId = data["objectId"] as? String {
-                        var user = User(json: data)
-                        Cache.currentUser = user
-//                    }
-                    let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
-                    dispatch_async(backgroundQueue) {
+                    var user = User(json: data)
+                    Cache.currentUser = user
+                    dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
                         PFUser.become(data["sessionToken"] as? String)
                         dispatch_async(dispatch_get_main_queue()){
                             completion(nil, user)
                         }
                     }
-//                    completion(nil)
                 } else {
-                    errorString = data["error"] as String
+                    completion(data["error"] as? String, nil)
                 }
             }
-//            completion(errorString)
         }
     }
-    
+    class func userLoggedIn() -> Bool {
+        return(UserRouter.sessionToken != nil ? true : false)
+    }
     class func getCurrentUserModel(completion: User? -> Void) {
         if UserRouter.sessionToken != nil {
             if Cache.currentUser.objectId == "" {
@@ -177,21 +173,21 @@ extension DataManager {
         var isFriends: Bool!
         var pfCurrentUser = PFUser.currentUser()
         getCurrentUserModel() { currentUser in
-            if let cu = currentUser {                
+            if let cu = currentUser {
                 let friend = cu.users.map { $0.objectId == user.objectId }
                 if !friend.isEmpty {
                     isFriends = false
                     var query = PFUser.query().whereKey("objectId", equalTo: user.objectId)
-//                    var relation = pfCurrentUser.relationForKey("users")
-//                    (query.findObjects() as [PFObject]).map { pfCurrentUser.removeObject($0) }
+                    //                    var relation = pfCurrentUser.relationForKey("users")
+                    //                    (query.findObjects() as [PFObject]).map { pfCurrentUser.removeObject($0) }
                 } else {
                     isFriends = true
                     var query = PFUser.query().whereKey("objectId", equalTo: user.objectId)
                     let newFriend = (query.findObjects() as [PFObject])[0] // todo long running
                     pfCurrentUser.addUniqueObject(newFriend, forKey: "users")
-//                    pfCurrentUser
-//                        .relationForKey("users")
-//                        .addObject(newFriend)
+                    //                    pfCurrentUser
+                    //                        .relationForKey("users")
+                    //                        .addObject(newFriend)
                 }
             }
             pfCurrentUser.saveEventually(nil)
@@ -202,53 +198,66 @@ extension DataManager {
     class func getFriendsOfUser(completion: [User]? -> Void) {
         getCurrentUserModel() { currentUser in
             
-
+            
         }
         
     }
-
-    class func saveUser(user: User, completion: Bool? -> Void) {
+    
+    class func saveUserLocation(location: CLLocation) {
         if let currentUser = PFUser.currentUser() {
-        
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
-                
-                var ids = user.artists.map { $0.objectId }
-                var query = PFQuery(className: "Artist").whereKey("objectId", containedIn: ids)
-                var a = query.findObjects()
-                currentUser.addUniqueObjectsFromArray(a, forKey: "artists")
-                
-                ids = user.categories.map { $0.objectId }
-                query = PFQuery(className: "Category").whereKey("objectId", containedIn: ids)
-                var c = query.findObjects()
-                currentUser.addUniqueObjectsFromArray(c, forKey: "categories")
-                
-                ids = user.venues.map { $0.objectId }
-                query = PFQuery(className: "Venue").whereKey("objectId", containedIn: ids)
-                var v = query.findObjects()
-                currentUser.addUniqueObjectsFromArray(v, forKey: "venues")
-                
-                ids = user.events.map { $0.objectId }
-                query = PFQuery(className: "Event").whereKey("objectId", containedIn: ids)
-                var e = query.findObjects()
-                currentUser.addUniqueObjectsFromArray(e, forKey: "events")
-                
-                ids = user.users.map { $0.objectId }
-                query = PFQuery(className: "User").whereKey("objectId", containedIn: ids)
-                var u = query.findObjects()
-                currentUser.addUniqueObjectsFromArray(u, forKey: "users")
-
-                currentUser.saveEventually { _, _ in completion(true) }
-            }
+            currentUser["location"] = PFGeoPoint(location: location)
+            currentUser.saveEventually { success, error in }
+        }
+    }
+    class func saveUser(user: User, completion: (Bool?, String?) -> Void) {
+        if let currentUser = PFUser.currentUser() {
+            if let u = user.username { currentUser["username"] = u }
+            if let e = user.email    { currentUser["email"]    = e }
+            if let p = user.password { currentUser["password"] = p }
+            currentUser["location"] = PFGeoPoint(location: user.location)
+            var ids = user.artists.map { $0.objectId }
+            var query = PFQuery(className: "Artist").whereKey("objectId", containedIn: ids)
+            var a = query.findObjects()
+            currentUser.addUniqueObjectsFromArray(a, forKey: "artists")
+            
+            ids = user.categories.map { $0.objectId }
+            query = PFQuery(className: "Category").whereKey("objectId", containedIn: ids)
+            var c = query.findObjects()
+            currentUser.addUniqueObjectsFromArray(c, forKey: "categories")
+            
+            ids = user.venues.map { $0.objectId }
+            query = PFQuery(className: "Venue").whereKey("objectId", containedIn: ids)
+            var v = query.findObjects()
+            currentUser.addUniqueObjectsFromArray(v, forKey: "venues")
+            
+            ids = user.events.map { $0.objectId }
+            query = PFQuery(className: "Event").whereKey("objectId", containedIn: ids)
+            var e = query.findObjects()
+            currentUser.addUniqueObjectsFromArray(e, forKey: "events")
+            
+            ids = user.users.map { $0.objectId }
+            query = PFQuery(className: "User").whereKey("objectId", containedIn: ids)
+            var u = query.findObjects()
+            currentUser.addUniqueObjectsFromArray(u, forKey: "users")
+            
+            currentUser.saveEventually { success, error in
+                println(success)
+                if let e = error {
+                    if let ui = e.userInfo {
+                        completion(false, ui["error"] as? String)
+                    }
+                }
+                completion(true, nil) }
+            //            }
         } else {
-            println("no current user, cannot save")
-            completion(false)
+            completion(false, "no current user, cannot save")
         }
         
     }
 }
 
 var classMap: [String: Model.Type] =
-   ["Category": Category.self,
+["Category": Category.self,
     "Venue": Venue.self,
     "User": User.self,
     "Artist": Artist.self]
@@ -392,7 +401,7 @@ extension DataManager {
                 }
             }
         }
-
+        
     }
     
     class func retrieveAllCategories(completion: [Category]? -> Void) {
@@ -458,8 +467,8 @@ extension DataManager {
         return events.sorted { $0.numAttendees > $1.numAttendees }
     }
     
-    // Sorts an array of events by distance (ascending) 
-    // from an origin location and return events with distance 
+    // Sorts an array of events by distance (ascending)
+    // from an origin location and return events with distance
     // in meters within a completion closure
     class func sortEventsByDistance(location: CLLocation, events: [Event], completion: [Event]? -> Void) {
         func getEventsCoordinates(events: [Event], completion: [Event] -> Void) {
@@ -468,7 +477,7 @@ extension DataManager {
                 request.naturalLanguageQuery = e.venue[0].address;
                 MKLocalSearch(request: request).startWithCompletionHandler { response, error in
                     var item = response.mapItems[0] as MKMapItem
-                    e.distance = location.distanceFromLocation(item.placemark.location)
+                    e.distance = location.distanceFromLocation(item.placemark.location)*Configuration.meterToMile
                     if i == events.count - 1 {
                         completion(events)
                     }
@@ -476,9 +485,7 @@ extension DataManager {
             }
         }
         getEventsCoordinates(events) { es in
-    //            dispatch_async(dispatch_get_main_queue()) {
             completion(es.sorted { $0.0.distance < $0.1.distance })
-    //            }
         }
     }
     
@@ -515,7 +522,7 @@ extension DataManager {
         }
     }
     
-            // How to call above method
+    // How to call above method
     //        DataManager.sortUserEventsByTag() { events in
     //            if let e = events {
     //                self.eventsArray = e
@@ -554,7 +561,7 @@ extension DataManager {
             completion(Cache.events)
         }
     }
-
+    
     class func makeEventHTTPRequest(request: URLRequestConvertible, completion: [Event]? -> Void) {
         //var cache = NSCache()
         
@@ -579,27 +586,27 @@ extension DataManager {
             }
         }
     }
- 
+    
     class func makeArrayOfObjects(objectInfo: NSArray) -> [AnyObject]? {//, completion: ([AnyObject]? -> Void)?) {
         var objects = [AnyObject]()
         
         if objectInfo.count > 0 {
-                var ids = [String]()
-                var className = String()
-                for c in objectInfo {
-                    className = c["className"] as String
-                    if let id = c.objectForKey("objectId") as? String {
-                        ids.append(id)
-                    }
+            var ids = [String]()
+            var className = String()
+            for c in objectInfo {
+                className = c["className"] as String
+                if let id = c.objectForKey("objectId") as? String {
+                    ids.append(id)
                 }
-                var query = PFQuery(className: className).whereKey("objectId", containedIn: ids)
+            }
+            var query = PFQuery(className: className).whereKey("objectId", containedIn: ids)
             //            dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
             
-                if let cm = classMap[className] {
-                    objects = query.findObjects().map { cm(object: $0 as PFObject) }
-                }
-//                completion!(objects)
-//            }
+            if let cm = classMap[className] {
+                objects = query.findObjects().map { cm(object: $0 as PFObject) }
+            }
+            //                completion!(objects)
+            //            }
         }
         return objects
     }

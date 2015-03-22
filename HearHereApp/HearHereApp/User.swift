@@ -13,7 +13,7 @@ class User: Model, Printable {
     var username: String!
     var email: String!
     var password: String!
-    var location: CLLocation!
+    var location: CLLocation = CLLocation(latitude: 40.7356  , longitude: 73.9906)
     
     lazy var categories = [Category]()
     lazy var artists = [Artist]()
@@ -42,6 +42,7 @@ class User: Model, Printable {
         self.init(id: json["objectId"] as String!)
         if let u = json["username"] as? String { username = u }
         if let e = json["email"] as? String { email = e }
+        // add location
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
         
         if let categoryArray = json["categories"] as? NSArray {
@@ -122,6 +123,7 @@ class User: Model, Printable {
         self.init(id: object.objectId as String)
         username = object["username"] as String
         email = object["email"] as String
+        location = object["location"] as CLLocation
         let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
         dispatch_async(backgroundQueue) {
 
@@ -158,7 +160,6 @@ class User: Model, Printable {
         username = currentUser.username
         email = currentUser.email
         password = currentUser.password
-//        categories = currentUser.cat
     }
     
     var description: String {

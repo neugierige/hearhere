@@ -8,7 +8,7 @@
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" userLabel="MapTab" customClass="MapTab" customModule="HearHereApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" title="Map" id="fFZ-Gu-dMA"/>
+                    <navigationItem key="navigationItem" title="HearHere" id="fFZ-Gu-dMA"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
@@ -39,7 +39,7 @@
                             <constraint firstItem="VzL-8w-D9u" firstAttribute="centerX" secondItem="ZrC-OK-WEg" secondAttribute="centerX" id="Rt5-Rz-TwQ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Profile" id="M9Y-Yd-97u">
+                    <navigationItem key="navigationItem" title="HearHere" id="M9Y-Yd-97u">
                         <barButtonItem key="rightBarButtonItem" image="checkmark" id="x4B-ea-xCC"/>
                     </navigationItem>
                     <connections>
@@ -76,7 +76,7 @@
                             <constraint firstItem="cBB-jG-BIt" firstAttribute="top" secondItem="a1N-hW-9h0" secondAttribute="bottom" constant="8" symbolic="YES" id="nVt-H4-bWH"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Calendar" id="7Du-kd-kxW"/>
+                    <navigationItem key="navigationItem" title="HearHere" id="7Du-kd-kxW"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tnv-zi-7K8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -129,27 +129,9 @@
                     <view key="view" contentMode="scaleToFill" id="OAl-Bf-XyF">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2p-4t-HlI">
-                                <rect key="frame" x="277" y="72" width="46" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="w2p-4t-HlI" firstAttribute="top" secondItem="WdC-G8-aj8" secondAttribute="bottom" constant="8" symbolic="YES" id="5JS-v8-l3I"/>
-                            <constraint firstItem="w2p-4t-HlI" firstAttribute="centerX" secondItem="OAl-Bf-XyF" secondAttribute="centerX" id="TZ1-5Q-0eK"/>
-                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Home" id="JQ1-Lt-mOr">
-                        <barButtonItem key="rightBarButtonItem" image="cog" id="s6Z-8k-RPQ" userLabel="TagButton">
-                            <connections>
-                                <segue destination="GKQ-YE-Rt8" kind="show" identifier="HomeShowTags" id="K0t-gz-Uyt"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="HearHere" id="JQ1-Lt-mOr"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AaY-w0-Zez" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -324,14 +306,13 @@
     <resources>
         <image name="calendar" width="32" height="32"/>
         <image name="checkmark" width="22" height="22"/>
-        <image name="cog" width="22" height="22"/>
         <image name="home" width="32" height="32"/>
         <image name="map_pin" width="32" height="32"/>
         <image name="user_2" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ni5-Q7-n1G"/>
-        <segue reference="BJz-d7-gjT"/>
         <segue reference="1Am-PR-EzD"/>
+        <segue reference="BJz-d7-gjT"/>
     </inferredMetricsTieBreakers>
 </document>
