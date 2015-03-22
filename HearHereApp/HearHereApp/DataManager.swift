@@ -547,13 +547,20 @@ extension DataManager {
     }
     
     class func retrieveAllEvents(completion: [Event] -> Void) {
+        var today = NSDate(timeIntervalSinceNow: 0)
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        formatter.stringFromDate(today)
+        
         if Cache.events.isEmpty {
-            var request = ClassRouter.GetEvents(nil)
+            var parameters = ["where": ["dateTime":["$gte":["__type":"Date", "iso": formatter.stringFromDate(today)]]]]
+            var request = ClassRouter.GetEvents(parameters)
             makeEventHTTPRequest(request) { events in
                 if let events = events {
                     Cache.events = events
                     dispatch_async(dispatch_get_main_queue()) {
-                        completion(events)
+                        // sort first
+                        completion(self.sortEventsByTime(events))
                     }
                 }
             }
