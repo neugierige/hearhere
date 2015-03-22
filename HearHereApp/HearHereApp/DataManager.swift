@@ -465,10 +465,8 @@ extension DataManager {
     
     class func retrieveEventsForDateRange(start:NSDate, end:NSDate, completion: [Event] -> ()) {
         func compareDateRange(date: NSDate, start:NSDate, end:NSDate) -> Bool {
-            if date.compare(start) == NSComparisonResult.OrderedAscending {
-                return false
-            }
-            if date.compare(end) == NSComparisonResult.OrderedDescending {
+            if date.compare(start) == NSComparisonResult.OrderedAscending ||
+                date.compare(end) == NSComparisonResult.OrderedDescending {
                 return false
             }
             return true
