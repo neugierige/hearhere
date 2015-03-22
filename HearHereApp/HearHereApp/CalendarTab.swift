@@ -127,7 +127,11 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
         header.textLabel.text = sectionDate
     }
     
-    
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        var edvc = EventDetailViewController()
+        edvc.event = eventsArray[indexPath.row]
+        presentViewController(edvc, animated: true, completion: nil)
+    }
     func formatDateTime(dt: NSDate, type: String) -> String {
         let dateFormatter = NSDateFormatter()
         
@@ -183,8 +187,10 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
                 as UICollectionViewCell!
             
             let dt = getCurrItem(indexPath)
-            let dtFormatted = dc.formatDate(dt, type: "full")
-            println(dtFormatted)
+            DataManager.retrieveEventsForDate(dt) { events in
+                self.eventsArray = events
+                self.tableView?.reloadData()
+            }
     }
     
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
