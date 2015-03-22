@@ -13,32 +13,157 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var tableView: UITableView?
     let rowHeight:CGFloat = 140.0
     let tableY:CGFloat = 108.0
+    let paddingX: CGFloat = 10.0
     var eventsArray = [Event]()
-    
+    var spinner: UIActivityIndicatorView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        DataManager.retrieveAllEvents { events in
-            self.eventsArray = events
-            if let theTableView = self.tableView {
-                theTableView.dataSource = self
-                theTableView.reloadData()
-            }
-        }
+
+        loadData()
         
-        tableView = UITableView(frame: CGRect(x: 0, y: tableY, width: self.view.frame.width, height: self.view.frame.height - tableY - 49.0), style: UITableViewStyle.Plain)
+        
+        var segContainer = UIView(frame: CGRectMake(0, tableY, view.bounds.width, 30))
+        view.addSubview(segContainer)
+        
+        var segTitles = ["Feed", "Distance", "Going"]
+        var control = UISegmentedControl(items: segTitles)
+        control.frame = CGRectMake(paddingX, 0, view.bounds.width-paddingX*2, 25)
+        control.addTarget(self, action: "segmentedControlAction:", forControlEvents: .ValueChanged)
+        control.selectedSegmentIndex = 0
+        control.tintColor = Configuration.darkBlueUIColor
+        segContainer.addSubview(control)
+        
+        tableView = UITableView(frame: CGRect(x: 0, y: segContainer.frame.maxY, width: self.view.frame.width, height: self.view.frame.height-segContainer.frame.maxY-49.0), style: UITableViewStyle.Plain)
         
         if let theTableView = tableView {
             theTableView.registerClass(HomeTableViewCell.self, forCellReuseIdentifier: "homeCell")
-            theTableView.dataSource = nil
+            theTableView.dataSource = self
             theTableView.delegate = self
             theTableView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
             theTableView.rowHeight = self.rowHeight
             theTableView.separatorStyle = UITableViewCellSeparatorStyle.None
             view.addSubview(theTableView)
         }
-
+        
+        spinner = UIActivityIndicatorView(frame: CGRectMake(0, 0, 50, 50))
+        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        spinner.center.x = view.center.x
+        spinner.center.y = segContainer.center.y
+        spinner.hidesWhenStopped = true
+        spinner.startAnimating()
+        tableView?.addSubview(spinner)
+        
+    
     }
     
+    func loadData() {
+        if Cache.events.count == 0 {
+            DataManager.retrieveAllEvents { events in
+                self.eventsArray = events
+                if let theTableView = self.tableView {
+                    theTableView.dataSource = self
+                    theTableView.reloadData()
+                }
+            }
+        } else {
+            self.eventsArray = Cache.events
+            if let tableView = self.tableView {
+                tableView.dataSource = self
+                tableView.reloadData()
+            }
+//            self.spinner.stopAnimating()
+
+        }
+    }
+    func segmentedControlAction(sender: UISegmentedControl) {
+        var user = User(id: "")
+        DataManager.getCurrentUserModel() { currentUser in
+            if let currentUser = currentUser {
+                user = currentUser
+               // println(user.location)
+            } else {
+                self.signInAlert() { currentUser in
+                    if let currentUser = currentUser {
+                        user = currentUser
+                        var u = Cache.currentUser
+                       // println(u)
+                    }
+                }
+            }
+        }
+//        while user?.location == nil { }
+//        switch sender.selectedSegmentIndex {
+//        case 0:
+//            DataManager.sortUserEventsByTag { events in
+//                if let events = events {
+//                    self.eventsArray = events
+//                    self.tableView?.reloadData()
+//                } else {
+//                    // add tags in user preferences to get suggestions
+//                }
+//            }
+//        case 1:
+//            DataManager.sortEventsByDistance(user!.location, events: self.eventsArray) { events in
+//                if let events = events {
+//                    self.eventsArray = events
+//                    self.tableView?.reloadData()
+//                }
+//            }
+//        case 2:
+//            println("c")
+//        default:
+//            println("d")
+//        }
+    }
+    
+    // TODO: Put this in its own class and call for this and profile tab
+    func signInAlert(completion: User? -> Void) {
+        let alertController = UIAlertController(title: "Login", message: "to continue", preferredStyle: .Alert)
+        let loginAction = UIAlertAction(title: "Login", style: .Default) { (_) in
+            let loginTextField = alertController.textFields![0] as UITextField
+            let passwordTextField = alertController.textFields![1] as UITextField
+            var u = User(username: loginTextField.text, password: passwordTextField.text)
+            
+            func signInUser(completion: (User -> Void)!) {
+                DataManager.signInUser(u) { success, user in
+                    if let user = user {
+                        completion(user)
+                    }
+                }
+            }
+            
+            signInUser() { user in
+                completion(user)
+            }
+
+        }
+        loginAction.enabled = false
+        
+        let signUpAction = UIAlertAction(title: "Sign Up", style: .Destructive) { (_) in
+            self.performSegueWithIdentifier("signup", sender: self)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
+        
+        alertController.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = "Login"
+            
+            NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { (notification) in
+                loginAction.enabled = textField.text != ""
+            }
+        }
+        
+        alertController.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = "Password"
+            textField.secureTextEntry = true
+        }
+        
+        alertController.addAction(loginAction)
+        alertController.addAction(signUpAction)
+        alertController.addAction(cancelAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -74,21 +199,26 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
         
         cell.textLabel?.text = "\(event.title)"
         cell.textLabel?.textColor = cellColors.txtColor
-
+        
         if event.dateTime != nil {
             var date = formatDateTime(event.dateTime)
             cell.detailTextLabel?.text = "\(date)\n\(event.venue[0])"
         }
         cell.detailTextLabel?.textColor = cellColors.txtColor
         
+        spinner.stopAnimating()
+        
         return cell
     }
-    
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         navigationController?.showViewController(EventDetailViewController(), sender: indexPath)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        loadData()
+        //println(self.eventsArray)
+    }
     func chooseColors(index: Int) -> (bkgColor: UIColor, txtColor: UIColor) {
         var bkgColor = UIColor()
         var txtColor = UIColor.whiteColor()

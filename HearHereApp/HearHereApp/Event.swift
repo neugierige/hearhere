@@ -9,7 +9,7 @@
 import Foundation
 import Parse
 
-class Event: Model {
+class Event: Model, NSCoding {
     lazy var venue = [Venue]()
     lazy var artists = [Artist]()
     lazy var categories = [Category]()
@@ -26,6 +26,15 @@ class Event: Model {
     var numAttendees: Int!
     var distance: Double!
     
+    required init(coder aDecoder: NSCoder) {
+        println(aDecoder)
+        super.init(id: "")
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        
+        println(aCoder)
+    }
     required init(id: String) {
         super.init(id: id)
     }
@@ -101,16 +110,25 @@ class Event: Model {
         
     }
     
+    // TODO: THis is where the long running thread comes from.
+    // It is not getting executed fast enough befor home page starts
     func getVenue(venues: NSArray, completion: Venue -> Void) {
-        var id = venues[0].objectForKey("objectId") as String
-        var query = PFQuery(className: "Venue")
-        query.whereKey("objectId", equalTo: id)
-        var objects = query.findObjects()//InBackgroundWithBlock { objects, error in
+        if Cache.venues.count == 0 {
+//            println("event ven")
+            
+            var id = venues[0].objectForKey("objectId") as String
+            var query = PFQuery(className: "Venue")
+            query.whereKey("objectId", equalTo: id)
+            //        query.findObjectsInBackgroundWithBlock { objects, error in
+            var objects = query.findObjects()
             if let o = objects as? [PFObject] {
                 var ven = Venue(object: o[0] as PFObject)
                 completion(ven)
             }
-//        }
+            //       }
+        } else {
+            completion(Cache.venues.filter { $0.objectId == (venues[0].objectForKey("objectId") as String) }[0])
+        }
     }
     
     func getArtists(artists: NSArray, completion: [Artist] -> Void) {
@@ -119,15 +137,21 @@ class Event: Model {
         for i in artists {
             ids.append(i.objectForKey("objectId") as String)
         }
-        var query = PFQuery(className: "Artist").whereKey("objectId", containedIn: ids)
-        query.findObjectsInBackgroundWithBlock { objects, error in
-            if let o = objects as? [PFObject] {
-                for artist in o {
-                    var ven = Artist(object: artist as PFObject)
-                    artistArray.append(ven)
+        if Cache.artists.count == 0 {
+//            println("event art")
+            
+            var query = PFQuery(className: "Artist").whereKey("objectId", containedIn: ids)
+            query.findObjectsInBackgroundWithBlock { objects, error in
+                if let o = objects as? [PFObject] {
+                    for artist in o {
+                        var ven = Artist(object: artist as PFObject)
+                        artistArray.append(ven)
+                    }
+                    completion(artistArray)
                 }
-                completion(artistArray)
             }
+        } else {
+            completion(Cache.artists.filter { contains(ids, $0.objectId) })
         }
     }
     
@@ -138,15 +162,20 @@ class Event: Model {
         for i in categories {
             ids.append(i.objectForKey("objectId") as String)
         }
-        var query = PFQuery(className: "Category").whereKey("objectId", containedIn: ids)
-        query.findObjectsInBackgroundWithBlock { objects, error in
-            if let o = objects as? [PFObject] {
-                for category in o {
-                    var ven = Category(object: category as PFObject)
-                    categoriesArray.append(ven)
+        if Cache.categories.count == 0 {
+//            println("event cat")
+            var query = PFQuery(className: "Category").whereKey("objectId", containedIn: ids)
+            query.findObjectsInBackgroundWithBlock { objects, error in
+                if let o = objects as? [PFObject] {
+                    for category in o {
+                        var ven = Category(object: category as PFObject)
+                        categoriesArray.append(ven)
+                    }
+                    completion(categoriesArray)
                 }
-                completion(categoriesArray)
             }
+        } else {
+            completion(Cache.categories.filter { contains(ids, $0.objectId) })
         }
     }
 }

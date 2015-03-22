@@ -30,5 +30,12 @@ struct Configuration {
 //    static var parseApplicationID = "mTDskuO4PaaHfOKdqA2uvPyx8HqozJx8OUT9a3cL"
 //    static var parseClientKey = "j4fFLe93tqZ2A5ye14MxlWh7Ovnh0L6QP6WmP2Yg"
 //    static var parseRestAPIKey = "vdWPeFzyDJSfRrTVyCjqbzminfhRsczeTPCyqPso"
+    
+    static let queue : NSOperationQueue = {
+        let q = NSOperationQueue()
+        // ... further configurations can go here ...
+        return q
+    }()
+
 }
 

@@ -8,13 +8,12 @@
 
 import Foundation
 import Parse
-
+import MapKit
 class User: Model, Printable {
     var username: String!
     var email: String!
     var password: String!
-    var latitude: Float!
-    var longitude: Float!
+    var location: CLLocation!
     
     lazy var categories = [Category]()
     lazy var artists = [Artist]()

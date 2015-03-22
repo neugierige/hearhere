@@ -8,14 +8,13 @@
 
 import UIKit
 import Parse
-
 class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverViewControllerProtocol {
     
     // MARK: Tag Properties
     private var tagNames = [String]()
     private var tagNameAndColor = [String:UIColor]()
     var leftPopoverVC: FilterPopoverViewController!
-
+    
     let tagColors  = ["Artist":Configuration.tagUIColorA, "Category":Configuration.tagUIColorB, "Venue":Configuration.tagUIColorC]
     
     enum Tag {
@@ -49,6 +48,7 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
     private var searchField: UITextField!
     private var searchView: UIView!
     private var tagPoolListView: TagListView!, tagPickListView: TagListView!
+    var appearedFromProfile: Bool!
     
     // MARK: Customizable View properties
     // Proportional height ratios of the three views. MUST ADD UP TO 1.0!
@@ -109,7 +109,7 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
         let origin = CGPointMake(0, topLayoutGuide.length)
         let size = CGSizeMake(screenSize.width, screenSize.height*searchViewHeightRatio)
         let v = SearchView(frame: CGRect(origin: origin,size: size))
-        v.rightButton.setBackgroundImage(UIImage(named: "next"), forState: .Normal)
+        v.rightButton.setBackgroundImage(UIImage(named: "checkmark"), forState: .Normal)
         v.delegate = self
         return v
     }
@@ -258,7 +258,11 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
                             DataManager.saveUser(user) { success in
                                 dispatch_async(dispatch_get_main_queue()) {
                                    // self.presentViewController(FriendsTableViewController(), animated: true, completion: nil)
-                                    self.performSegueWithIdentifier("main", sender: self)
+                                    if (self.appearedFromProfile != nil) {
+                                        self.dismissViewControllerAnimated(true, completion: nil)
+                                    } else {
+                                        self.performSegueWithIdentifier("main", sender: self)
+                                    }
                                 }
                             }
                         }

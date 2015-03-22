@@ -22,8 +22,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     // MARK: Customizable properties.
     // MARK: NOTE globalize these?
     let paddingX:CGFloat     = 30
-    let paddingY:CGFloat     = 20
-    let cornerRadius:CGFloat = 10
+    let paddingY:CGFloat     = 10
+    let cornerRadius:CGFloat = 5
     
     // MARK: VC methods
     override func viewDidLoad() {
@@ -48,7 +48,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     */
     func loadUI() {
         let screenBounds = UIScreen.mainScreen().bounds
-        
+        if let nav = navigationController {
+            nav.navigationBarHidden = true
+        }
         // scrollView
         scrollView = UIScrollView(frame: CGRectMake(0, 0, screenBounds.width, screenBounds.height))
         scrollView.contentSize = CGSize(width: screenBounds.width, height: screenBounds.height + 500)
@@ -63,48 +65,52 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         spinner.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin | .FlexibleTopMargin
         scrollView.addSubview(spinner)
         
-        // Title  MARK: TODO will replace with branding
-        let titleLabel = UILabel(frame: CGRectMake(paddingX,topLayoutGuide.length+paddingY*3, screenBounds.width-paddingX*2, 50))
-        titleLabel.text = "HearHere"
-        titleLabel.textAlignment = NSTextAlignment.Center
-        titleLabel.font = UIFont(name: "HelveticaNeue-Light", size: 50.0)
-        titleLabel.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin | .FlexibleWidth
-        scrollView.addSubview(titleLabel)
+        let logoView = UIImageView(image: UIImage(named: "hear-hear-splash"))
+        logoView.frame = CGRectMake(paddingX*2,topLayoutGuide.length+paddingY*3, screenBounds.width-paddingX*4, (screenBounds.width-paddingX*4)*0.77)
+        logoView.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin | .FlexibleWidth
+
+        scrollView.addSubview(logoView)
         
         // sign in feedback label
-        signUpSuccessError = UILabel(frame: CGRectMake(paddingX, titleLabel.frame.maxY+paddingY, screenBounds.width-paddingX*2, 20))
+        signUpSuccessError = UILabel(frame: CGRectMake(paddingX, logoView.frame.maxY, screenBounds.width-paddingX*2, 20))
         signUpSuccessError.textAlignment = NSTextAlignment.Center
         scrollView.addSubview(signUpSuccessError)
         
         // Text fields
-        username = UITextField(frame: CGRectMake(paddingX*2, signUpSuccessError.frame.maxY+paddingY, screenBounds.width-paddingX*4, 50))
+        username = UITextField(frame: CGRectMake(paddingX*2, signUpSuccessError.frame.maxY+paddingY, screenBounds.width-paddingX*4, 35))
         username.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         username.backgroundColor = UIColor.whiteColor()
         username.placeholder = "Username"
         username.textAlignment = NSTextAlignment.Center
         username.layer.cornerRadius = cornerRadius
+        username.autocorrectionType = UITextAutocorrectionType.No
+        username.autocapitalizationType = UITextAutocapitalizationType.None
         scrollView.addSubview(username)
-        email = UITextField(frame: CGRectMake(paddingX*2, username.frame.maxY+paddingY, screenBounds.width-paddingX*4, 50))
+        email = UITextField(frame: CGRectMake(paddingX*2, username.frame.maxY+paddingY, screenBounds.width-paddingX*4, 35))
         email.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         email.backgroundColor = UIColor.whiteColor()
         email.placeholder = "Email"
         email.textAlignment = NSTextAlignment.Center
         email.layer.cornerRadius = cornerRadius
+        email.autocorrectionType = UITextAutocorrectionType.No
+        email.autocapitalizationType = UITextAutocapitalizationType.None
         scrollView.addSubview(email)
-        password = UITextField(frame: CGRectMake(paddingX*2, email.frame.maxY+paddingY, screenBounds.width-paddingX*4, 50))
+        password = UITextField(frame: CGRectMake(paddingX*2, email.frame.maxY+paddingY, screenBounds.width-paddingX*4, 35))
         password.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         password.backgroundColor = UIColor.whiteColor()
         password.placeholder = "Password"
         password.secureTextEntry = true
         password.textAlignment = NSTextAlignment.Center
         password.layer.cornerRadius = cornerRadius
+        password.autocorrectionType = UITextAutocorrectionType.No
+        password.autocapitalizationType = UITextAutocapitalizationType.None
         scrollView.addSubview(password)
         
         // Sign up button
-        var signUpButton = UIButton(frame: CGRectMake(paddingX*2, password.frame.maxY+paddingY, screenBounds.width-paddingX*4, 50))
+        var signUpButton = UIButton(frame: CGRectMake(paddingX*2, password.frame.maxY+paddingY, screenBounds.width-paddingX*4, 35))
         signUpButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signUpButton.setTitle("Sign Up", forState: .Normal)
-        signUpButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        signUpButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         signUpButton.layer.cornerRadius = cornerRadius
         signUpButton.backgroundColor = Configuration.lightGreyUIColor
         signUpButton.addTarget(self, action: "signUpPressed:", forControlEvents: .TouchUpInside)
@@ -115,7 +121,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         signInButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signInButton.addTarget(self, action: "signInTouched:", forControlEvents: .TouchUpInside)
         signInButton.setTitle("Already have an account? Log in here.", forState: .Normal)
-        signInButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        signInButton.setTitleColor(Configuration.tagFontUIColor, forState: .Normal)
         scrollView.addSubview(signInButton)
         
         // Sign in now -> main app
@@ -123,7 +129,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         signInNowButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signInNowButton.addTarget(self, action: "skipToAppTouched:", forControlEvents: .TouchUpInside)
         signInNowButton.setTitle("Skip for now.", forState: .Normal)
-        signInNowButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        signInNowButton.setTitleColor(Configuration.tagFontUIColor, forState: .Normal)
         scrollView.addSubview(signInNowButton)
         
     }

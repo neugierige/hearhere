@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MapKit
 
-class SignInViewController: UIViewController, UITextFieldDelegate {
+class SignInViewController: UIViewController, UITextFieldDelegate {//, CLLocationManagerDelegate {
     
     // MARK: Views
     var spinner: UIActivityIndicatorView!
@@ -16,15 +17,20 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     var password: UITextField!
     var loginSuccessErrorLabel: UILabel!
     var scrollView: UIScrollView!
-    
+//    var locationManager = CLLocationManager()
+    var user = User(id: "")
     // MARK: Customizable view properties
     let paddingX:CGFloat     = 30
-    let paddingY:CGFloat     = 20
-    let cornerRadius:CGFloat = 10
+    let paddingY:CGFloat     = 10
+    let cornerRadius:CGFloat = 5
     
     // MARK: VC Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        DataManager.loadCriticalData {
+//            println("all loaded")
+        }
         
         view.backgroundColor = Configuration.lightBlueUIColor
 
@@ -57,46 +63,49 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(scrollView)
         
         // spinner
-        spinner = UIActivityIndicatorView()//frame: CGRectMake(screenBounds.width/2, screenBounds.height/2, 50, 50))
-        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
-        spinner.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin | .FlexibleTopMargin
+        spinner = UIActivityIndicatorView(frame: CGRectMake(0, 0, 50, 50))
+        spinner.center = view.center
+        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+//        spinner.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin | .FlexibleTopMargin
         scrollView.addSubview(spinner)
         
-        // title. replace with logo
-        let titleLabel = UILabel(frame: CGRectMake(paddingX,topLayoutGuide.length+paddingY*3, screenBounds.width-paddingX*2, 50))
-        titleLabel.text = "HearHere"
-        titleLabel.textAlignment = NSTextAlignment.Center
-        titleLabel.font = UIFont(name: "HelveticaNeue-Light", size: 50.0)
-        titleLabel.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin | .FlexibleWidth
-        scrollView.addSubview(titleLabel)
+        let logoView = UIImageView(image: UIImage(named: "hear-hear-splash"))
+        logoView.frame = CGRectMake(paddingX*2,topLayoutGuide.length+paddingY*3, screenBounds.width-paddingX*4, (screenBounds.width-paddingX*4)*0.77)
+        logoView.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin | .FlexibleWidth
+        
+        scrollView.addSubview(logoView)
         
         // Error/Success label
-        loginSuccessErrorLabel = UILabel(frame: CGRectMake(paddingX, titleLabel.frame.maxY+paddingY, screenBounds.width-paddingX*2, 20))
+        loginSuccessErrorLabel = UILabel(frame: CGRectMake(paddingX, logoView.frame.maxY, screenBounds.width-paddingX*2, 20))
         loginSuccessErrorLabel.textAlignment = NSTextAlignment.Center
         scrollView.addSubview(loginSuccessErrorLabel)
         
         // text fields
-        username = UITextField(frame: CGRectMake(paddingX*2, loginSuccessErrorLabel.frame.maxY+paddingY, screenBounds.width-paddingX*4, 50))
+        username = UITextField(frame: CGRectMake(paddingX*2, loginSuccessErrorLabel.frame.maxY+paddingY, screenBounds.width-paddingX*4, 35))
         username.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         username.backgroundColor = UIColor.whiteColor()
         username.placeholder = "Username"
         username.textAlignment = NSTextAlignment.Center
         username.layer.cornerRadius = cornerRadius
+        username.autocorrectionType = UITextAutocorrectionType.No
+        username.autocapitalizationType = UITextAutocapitalizationType.None
         scrollView.addSubview(username)
-        password = UITextField(frame: CGRectMake(paddingX*2, username.frame.maxY+paddingY, screenBounds.width-paddingX*4, 50))
+        password = UITextField(frame: CGRectMake(paddingX*2, username.frame.maxY+paddingY, screenBounds.width-paddingX*4, 35))
         password.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         password.backgroundColor = UIColor.whiteColor()
         password.placeholder = "Password"
         password.secureTextEntry = true
         password.textAlignment = NSTextAlignment.Center
         password.layer.cornerRadius = cornerRadius
+        password.autocorrectionType = UITextAutocorrectionType.No
+        password.autocapitalizationType = UITextAutocapitalizationType.None
         scrollView.addSubview(password)
         
         // Buttons
-        var signInButton = UIButton(frame: CGRectMake(paddingX*2, password.frame.maxY+paddingY, screenBounds.width-paddingX*4, 50))
+        var signInButton = UIButton(frame: CGRectMake(paddingX*2, password.frame.maxY+paddingY, screenBounds.width-paddingX*4, 35))
         signInButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signInButton.setTitle("Sign In", forState: .Normal)
-        signInButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        signInButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         signInButton.layer.cornerRadius = cornerRadius
         signInButton.backgroundColor = Configuration.lightGreyUIColor
         signInButton.addTarget(self, action: "signInPressed:", forControlEvents: .TouchUpInside)
@@ -106,17 +115,26 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         signUpButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signUpButton.addTarget(self, action: "signUpTouched:", forControlEvents: .TouchUpInside)
         signUpButton.setTitle("Don't have an account? Sign up here.", forState: .Normal)
-        signUpButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        signUpButton.setTitleColor(Configuration.tagFontUIColor, forState: .Normal)
         scrollView.addSubview(signUpButton)
         
         var signInNowButton = UIButton(frame: CGRectMake(paddingX, signUpButton.frame.maxY+paddingY, screenBounds.width-paddingX*2, 30))
         signInNowButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signInNowButton.addTarget(self, action: "skipToAppTouched:", forControlEvents: .TouchUpInside)
         signInNowButton.setTitle("Skip for now.", forState: .Normal)
-        signInNowButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        signInNowButton.setTitleColor(Configuration.tagFontUIColor, forState: .Normal)
         scrollView.addSubview(signInNowButton)
         
+//        locationManager.delegate = self
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.startUpdatingLocation()
     }
+    
+//    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+//        manager.stopUpdatingLocation()
+//        var location = locations[0] as CLLocation
+//        user.location = location
+//    }
     
     // MARK: Button Target methods
     func skipToAppTouched(sender: UIButton) {
@@ -133,7 +151,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         spinner.startAnimating()
         if username.text != "" && password.text != "" {
             var user = User(username: username.text, password: password.text)
-            DataManager.signInUser(user) { error in
+            DataManager.signInUser(user) { error, _ in
                 if let e = error {
                     self.spinner.stopAnimating()
                     self.displaySuccessErrorLabel(e, valid: false)
@@ -158,7 +176,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         if textField == username {
             password.becomeFirstResponder()
         } else {
-            // TODO: Change this to LoginPressed
             textField.resignFirstResponder()
             signInPressed(nil)
         }
