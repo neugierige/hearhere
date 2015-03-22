@@ -224,7 +224,9 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        navigationController?.showViewController(EventDetailViewController(), sender: indexPath)
+        var evdc = EventDetailViewController()
+        evdc.event = eventsArray[indexPath.row]
+        navigationController?.showViewController(evdc, sender: indexPath)
     }
     
     override func viewWillAppear(animated: Bool) {

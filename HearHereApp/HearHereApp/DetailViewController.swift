@@ -18,16 +18,18 @@ class DetailViewController: UIViewController {
     var textViewText: String?
     
     override func viewDidLoad() {
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = Configuration.lightGreyUIColor
         if let navBarHeight = navigationController?.navigationBar.frame.height {
             textView.frame = CGRect(x: margin, y: navBarHeight+margin, width: view.frame.width-2*margin, height: view.frame.height)
         }
+        tabBarController?.tabBar.hidden = true
+        hidesBottomBarWhenPushed = true
         textView.editable = false
         textView.text = textViewText
-        self.view.addSubview(textView)
+        view.addSubview(textView)
         
-        scrollView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.bounds.height)
-        self.view.addSubview(scrollView)
+        scrollView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.bounds.height)
+        view.addSubview(scrollView)
     }
     
 }
