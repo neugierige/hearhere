@@ -21,7 +21,6 @@ import CoreLocation
 class MapTab: UIViewController, MKMapViewDelegate { //, CLLocationManagerDelegate {
     
     var map: MKMapView!
-//    let locationManager = CLLocationManager()
     
     //***** PARSE DATA
     var eventsArray = [Event]()
@@ -37,15 +36,7 @@ class MapTab: UIViewController, MKMapViewDelegate { //, CLLocationManagerDelegat
         map.delegate = self
         map.frame = self.view.frame
         self.view.addSubview(map)
-        
-        
-//        //**** REQUEST USER LOCATION
-//        //self.locationManager.requestAlwaysAuthorization()
-//        self.locationManager.requestWhenInUseAuthorization()
-//        locationManager.delegate = self
-//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//        locationManager.startUpdatingLocation()
-        //*****
+
         
         map.showsUserLocation = true
         

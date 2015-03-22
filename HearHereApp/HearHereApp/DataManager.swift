@@ -457,6 +457,29 @@ extension DataManager {
         }
     }
     
+    class func retrieveEventsForDate(date: NSDate, completion: [Event] -> ()) {
+        retrieveEventsForDateRange(date, end: date) { events in
+            completion(events)
+        }
+    }
+    
+    class func retrieveEventsForDateRange(start:NSDate, end:NSDate, completion: [Event] -> ()) {
+        func compareDateRange(date: NSDate, start:NSDate, end:NSDate) -> Bool {
+            if date.compare(start) == NSComparisonResult.OrderedAscending ||
+                date.compare(end) == NSComparisonResult.OrderedDescending {
+                return false
+            }
+            return true
+        }
+        if Cache.events.count > 0 {
+            completion(Cache.events.filter { compareDateRange($0.dateTime, start, end) })
+        } else {
+            retrieveAllEvents { events in
+                completion(events.filter { compareDateRange($0.dateTime, start, end) })
+            }
+        }
+    }
+
     class func sortEventsByTime(events: [Event]) -> [Event] {
         return events.sorted { $0.dateTime.compare($1.dateTime) == NSComparisonResult.OrderedAscending }
     }

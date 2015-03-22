@@ -15,7 +15,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
     
     var tableView: UITableView?
     let rowHeight:CGFloat = 140.0
-    let tableY:CGFloat = 108.0
+    var tableY:CGFloat = 108.0
     let paddingX: CGFloat = 10.0
     var eventsArray = [Event]()
     var spinner: UIActivityIndicatorView!
@@ -31,13 +31,13 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
-
-        var segContainer = UIView(frame: CGRectMake(0, tableY, view.bounds.width, 30))
+        var navBottom = navigationController?.navigationBar.frame.maxY
+        var segContainer = UIView(frame: CGRectMake(0, navBottom!, view.bounds.width, 41))
         view.addSubview(segContainer)
         
         var segTitles = ["Feed", "Distance", "Going"]
         var control = UISegmentedControl(items: segTitles)
-        control.frame = CGRectMake(paddingX, 0, view.bounds.width-paddingX*2, 25)
+        control.frame = CGRectMake(paddingX, 8, view.bounds.width-paddingX*2, 25)
         control.addTarget(self, action: "segmentedControlAction:", forControlEvents: .ValueChanged)
         control.selectedSegmentIndex = 0
         control.tintColor = Configuration.darkBlueUIColor
