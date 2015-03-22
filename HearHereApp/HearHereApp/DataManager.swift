@@ -588,7 +588,9 @@ extension DataManager {
                 }
             }
         } else {
-            completion(Cache.events)
+            dispatch_async(dispatch_get_main_queue()) {
+                completion(Cache.events)
+            }
         }
     }
     
