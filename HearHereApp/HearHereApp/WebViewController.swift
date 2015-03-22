@@ -22,7 +22,10 @@ class WebViewController: UIViewController {
         if let request = self.request {
             self.webView.loadRequest(request)
         }
-        
+        var arrow = UIImage(named: "next")
+        var backImage = UIImage(CGImage: arrow?.CGImage , scale: 1.0, orientation: UIImageOrientation.LeftMirrored)
+    
+        navigationController?.navigationItem.backBarButtonItem?.setBackButtonBackgroundImage(backImage, forState: .Normal, barMetrics: UIBarMetrics.Default)
     }
     
 }
