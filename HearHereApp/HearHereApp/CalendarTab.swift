@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     
     var tableView: UITableView?
     let rowHeight:CGFloat = 80.0
@@ -17,8 +17,16 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate 
     var sectionNames = ["Date One", "Date Two", "Date Three", "Date Four"]
     var datesArray = [NSDate]()
     
+    typealias MonthsIndex = (month: String, dates: [NSDate])
+    let dg = DateGenerator()
+    let dc = DateConverter()
+    let calHeight:CGFloat = 50.0
+    var dataArray = [MonthsIndex]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        generateData()
         
         DataManager.retrieveAllEvents { events in
             self.eventsArray = events
@@ -32,6 +40,8 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate 
             datesArray.append(NSDate())
         }
         
+        // ******************  UITableView ********************* //
+
         tableView = UITableView(frame: CGRect(x: 0, y: tableY, width: self.view.frame.width, height: self.view.frame.height - tableY - 49.0), style: UITableViewStyle.Plain)
         
         if let theTableView = tableView {
@@ -43,6 +53,29 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate 
             theTableView.rowHeight = self.rowHeight
             view.addSubview(theTableView)
         }
+        // ******************  /UITableView ********************* //
+        
+        // ******************  UICollectionView ********************* //
+        
+        var flowLayout:UICollectionViewFlowLayout = StickyHeaderFlowLayout()
+        flowLayout.minimumLineSpacing = 1
+        flowLayout.minimumInteritemSpacing = 1
+        flowLayout.itemSize = CGSize(width: 50, height: 50)
+        flowLayout.scrollDirection = .Horizontal
+        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        flowLayout.headerReferenceSize = CGSize(width: 50, height: 50)
+        
+        var __collectionView:UICollectionView? = UICollectionView(frame: CGRectMake(0, tableY - 50.0, self.view.frame.width, 51), collectionViewLayout: flowLayout)
+        __collectionView?.registerClass(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: "calendarCollectionCell")
+        __collectionView?.registerClass(CalendarHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "calendarCollectionHeader")
+        __collectionView?.delegate = self
+        __collectionView?.dataSource = self
+        __collectionView?.backgroundColor = UIColor.blackColor()
+        
+        self.view.addSubview(__collectionView!)
+        
+        // ******************  /UICollectionView ********************* //
+        
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -113,6 +146,83 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate 
         let dtString = dateFormatter.stringFromDate(dt)
         return dtString
     }
+    
+    // ******************  UICollectionView ********************* //
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return dataArray.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        return dataArray[section].dates.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    {
+        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(
+            "calendarCollectionCell",
+            forIndexPath: indexPath) as CalendarCollectionViewCell
+        
+        let dt = getCurrItem(indexPath)
+        let dayString = dc.getCalendarString(dt, type: "dayofweek", abbv: true)
+        let dateInt = dc.getCalendarString(dt, type: "date", abbv: false)
+        
+        cell.dayLabel.text = dayString
+        cell.dateLabel.text = dateInt
+        
+        return cell
+    }
+    
+    
+    func collectionView(collectionView: UICollectionView,
+        didSelectItemAtIndexPath indexPath: NSIndexPath){
+            
+            let selectedCell = collectionView.cellForItemAtIndexPath(indexPath)
+                as UICollectionViewCell!
+            
+            let dt = getCurrItem(indexPath)
+            let dtFormatted = dc.formatDate(dt, type: "full")
+            println(dtFormatted)
+    }
+    
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        let selectedCell = collectionView.cellForItemAtIndexPath(indexPath)
+            as UICollectionViewCell!
+        
+    }
+    
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
+        var identifier = "calendarCollectionHeader"
+        
+        let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
+            withReuseIdentifier: identifier,
+            forIndexPath: indexPath) as UICollectionReusableView
+        
+        if kind == UICollectionElementKindSectionHeader{
+            if let header = view as? CalendarHeaderReusableView {
+                header.monthLabel.text = "\(dataArray[indexPath.section].month)"
+            }
+        }
+        return view
+    }
+    
+    func generateData() {
+        let datesArray = dg.makeDays(180)
+        self.dataArray += dg.buildIndex(datesArray)
+    }
+    
+    func getCurrItem(indexPath: NSIndexPath) -> NSDate {
+        let currDate = dataArray[indexPath.section].dates[indexPath.row]
+        return currDate
+    }
+    
+    
+    
+    
+    // ******************  UICollectionView ********************* //
     
     override func shouldAutorotate() -> Bool {
         return false
