@@ -13,7 +13,7 @@ class User: Model, Printable {
     var username: String!
     var email: String!
     var password: String!
-    var location: CLLocation = CLLocation(latitude: 40.7356  , longitude: 73.9906)
+    var location: CLLocation = CLLocation(latitude: 40.7356  , longitude: -73.9906)
     
     lazy var categories = [Category]()
     lazy var artists = [Artist]()

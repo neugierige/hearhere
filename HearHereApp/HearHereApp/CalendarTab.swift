@@ -127,11 +127,13 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
         header.textLabel.text = sectionDate
     }
     
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var edvc = EventDetailViewController()
         edvc.event = eventsArray[indexPath.row]
-        presentViewController(edvc, animated: true, completion: nil)
+        navigationController?.showViewController(edvc, sender: indexPath)
+//        presentViewController(edvc, animated: true, completion: nil)
     }
+    
     func formatDateTime(dt: NSDate, type: String) -> String {
         let dateFormatter = NSDateFormatter()
         

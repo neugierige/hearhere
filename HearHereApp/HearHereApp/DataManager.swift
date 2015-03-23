@@ -471,11 +471,33 @@ extension DataManager {
             }
             return true
         }
+        
+        let calendar = NSCalendar.currentCalendar()
+        let am = calendar.startOfDayForDate(start)
+        let components = NSDateComponents()
+        components.day = 7
+        let pm = calendar.dateByAddingComponents(components, toDate: start, options: NSCalendarOptions.allZeros)!
+//        var amc = calendar.components(.YearCalendarUnit | .MonthCalendarUnit | .DayCalendarUnit, fromDate: start)
+//        let timeZone = NSTimeZone.systemTimeZone()
+//        var timeZoneOffset = timeZone.secondsFromGMTForDate(start) / 3600
+//        amc.setValue(timeZoneOffset, forComponent: .HourCalendarUnit)
+//        amc.setValue(0, forComponent: .MinuteCalendarUnit)
+//        amc.setValue(0, forComponent: .SecondCalendarUnit)
+//        let am = calendar.dateFromComponents(amc)!
+        
+//        var pmc = calendar.components(.YearCalendarUnit | .MonthCalendarUnit, fromDate: end)
+//        timeZoneOffset = timeZone.secondsFromGMTForDate(end) / 3600
+//        pmc.setValue(6, forComponent: .DayCalendarUnit)
+//        pmc.setValue(timeZoneOffset + 23, forComponent: .HourCalendarUnit)
+//        pmc.setValue(59, forComponent: .MinuteCalendarUnit)
+//        pmc.setValue(59, forComponent: .SecondCalendarUnit)
+//        let pm = calendar.dateFromComponents(pmc)!
+        
         if Cache.events.count > 0 {
-            completion(Cache.events.filter { compareDateRange($0.dateTime, start, end) })
+            completion(Cache.events.filter { compareDateRange($0.dateTime, am, pm) })
         } else {
             retrieveAllEvents { events in
-                completion(events.filter { compareDateRange($0.dateTime, start, end) })
+                completion(events.filter { compareDateRange($0.dateTime, am, pm) })
             }
         }
     }
@@ -494,21 +516,24 @@ extension DataManager {
     // from an origin location and return events with distance
     // in meters within a completion closure
     class func sortEventsByDistance(location: CLLocation, events: [Event], completion: [Event]? -> Void) {
-        func getEventsCoordinates(events: [Event], completion: [Event] -> Void) {
-            let request = MKLocalSearchRequest()
-            for (i, e) in enumerate(events) {
-                request.naturalLanguageQuery = e.venue[0].address;
-                MKLocalSearch(request: request).startWithCompletionHandler { response, error in
-                    var item = response.mapItems[0] as MKMapItem
-                    e.distance = location.distanceFromLocation(item.placemark.location)*Configuration.meterToMile
-                    if i == events.count - 1 {
-                        completion(events)
+        updateUserToEventDistances(location, events: events) { es in
+            completion(es.sorted { $0.0.distance < $0.1.distance })
+        }
+    }
+    
+    class func updateUserToEventDistances(location: CLLocation, events: [Event], completion: ([Event] -> Void)?) {
+        let request = MKLocalSearchRequest()
+        for (i, e) in enumerate(events) {
+            request.naturalLanguageQuery = e.venue[0].address;
+            MKLocalSearch(request: request).startWithCompletionHandler { response, error in
+                var item = response.mapItems[0] as MKMapItem
+                e.distance = location.distanceFromLocation(item.placemark.location)*Configuration.meterToMile
+                if i == events.count - 1 {
+                    if let c = completion {
+                        c(events)
                     }
                 }
             }
-        }
-        getEventsCoordinates(events) { es in
-            completion(es.sorted { $0.0.distance < $0.1.distance })
         }
     }
     
@@ -588,7 +613,9 @@ extension DataManager {
                 }
             }
         } else {
-            completion(Cache.events)
+            dispatch_async(dispatch_get_main_queue()) {
+                completion(Cache.events)
+            }
         }
     }
     
@@ -617,7 +644,7 @@ extension DataManager {
         }
     }
     
-    class func makeArrayOfObjects(objectInfo: NSArray) -> [AnyObject]? {//, completion: ([AnyObject]? -> Void)?) {
+    class func makeArrayOfObjects(objectInfo: NSArray) -> [AnyObject]? {
         var objects = [AnyObject]()
         
         if objectInfo.count > 0 {
@@ -630,13 +657,9 @@ extension DataManager {
                 }
             }
             var query = PFQuery(className: className).whereKey("objectId", containedIn: ids)
-            //            dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
-            
             if let cm = classMap[className] {
                 objects = query.findObjects().map { cm(object: $0 as PFObject) }
             }
-            //                completion!(objects)
-            //            }
         }
         return objects
     }
