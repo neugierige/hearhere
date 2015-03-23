@@ -464,6 +464,7 @@ extension DataManager {
     }
     
     class func retrieveEventsForDateRange(start:NSDate, end:NSDate, completion: [Event] -> ()) {
+        
         func compareDateRange(date: NSDate, start:NSDate, end:NSDate) -> Bool {
             if date.compare(start) == NSComparisonResult.OrderedAscending ||
                 date.compare(end) == NSComparisonResult.OrderedDescending {
@@ -477,21 +478,6 @@ extension DataManager {
         let components = NSDateComponents()
         components.day = 7
         let pm = calendar.dateByAddingComponents(components, toDate: start, options: NSCalendarOptions.allZeros)!
-//        var amc = calendar.components(.YearCalendarUnit | .MonthCalendarUnit | .DayCalendarUnit, fromDate: start)
-//        let timeZone = NSTimeZone.systemTimeZone()
-//        var timeZoneOffset = timeZone.secondsFromGMTForDate(start) / 3600
-//        amc.setValue(timeZoneOffset, forComponent: .HourCalendarUnit)
-//        amc.setValue(0, forComponent: .MinuteCalendarUnit)
-//        amc.setValue(0, forComponent: .SecondCalendarUnit)
-//        let am = calendar.dateFromComponents(amc)!
-        
-//        var pmc = calendar.components(.YearCalendarUnit | .MonthCalendarUnit, fromDate: end)
-//        timeZoneOffset = timeZone.secondsFromGMTForDate(end) / 3600
-//        pmc.setValue(6, forComponent: .DayCalendarUnit)
-//        pmc.setValue(timeZoneOffset + 23, forComponent: .HourCalendarUnit)
-//        pmc.setValue(59, forComponent: .MinuteCalendarUnit)
-//        pmc.setValue(59, forComponent: .SecondCalendarUnit)
-//        let pm = calendar.dateFromComponents(pmc)!
         
         if Cache.events.count > 0 {
             completion(Cache.events.filter { compareDateRange($0.dateTime, am, pm) })
@@ -537,28 +523,49 @@ extension DataManager {
         }
     }
     
-    // Get locations by distance (how to use code above)
-    //        var location = CLLocation(latitude: coord.latitude, longitude: coord.longitude)
-    //        DataManager.retrieveAllEvents { events in
-    //            DataManager.sortEventsByDistance(location, events: events) { sortedEvents in
-    //                sortedEvents.map { println($0.distance) }; return
-    //            }
-    //        }
-    
     class func sortUserEventsByTag(completion: [Event]? -> Void) {
         var userEvents = [Event]()
         retrieveAllEvents { events in
             self.getCurrentUserModel { user in
                 if let u = user {
-                    var artists = events.map { $0.artists.map { a in u.artists.filter { $0.objectId == a.objectId } } }.map { $0.filter { $0.isEmpty }.isEmpty }
-                    var categories = events.map { $0.categories.map { a in u.categories.filter { $0.objectId == a.objectId } } }.map { $0.filter { $0.isEmpty }.isEmpty }
-                    var venues = events.map { $0.venue.map { a in u.venues.filter { $0.objectId == a.objectId } } }.map { $0.filter { $0.isEmpty }.isEmpty }
+                    var categories = events                     // For each in events {}
+                        .map    { $0.categories                 // for each in a relation {{}}
+                        .map    { c in u.categories             // find each of the users relations {{[]}}
+                        .filter { $0.objectId == c.objectId }}} // that have matching event objectIds {{{[[]]}}}
+                        .map    { $0                            // for each in events {}
+                        .map    { !$0.isEmpty }}                // for each in a relation, is there a match {{[[match?]]}}
+                        .map    { $0                            // for each event
+                        .filter { $0 }}                         // find matches
+                        .map    { !$0.isEmpty }                 // return t/f for each event
+                    
+                    var artists = events
+                        .map { $0.artists
+                        .map { c in u.artists
+                        .filter { $0.objectId == c.objectId }}}
+                        .map { $0
+                        .map { !$0.isEmpty }}
+                        .map { $0
+                        .filter { $0 } }
+                        .map { !$0.isEmpty }
+                    
+                    var venues = events
+                        .map { $0.venue
+                        .map { c in u.venues
+                        .filter { $0.objectId == c.objectId }}}
+                        .map { $0
+                        .map { !$0.isEmpty }}
+                        .map { $0
+                        .filter { $0 } }
+                        .map { !$0.isEmpty }
+
+                    // add each event for every match to array
                     var e = [Event]()
-                    for (i, tf) in enumerate(events) {
-                        if artists[i]    { e.append(tf) }
-                        if categories[i] { e.append(tf) }
-                        if venues[i]     { e.append(tf) }
+                    for (i, event) in enumerate(events) {
+                        if artists[i]    { e.append(event) }
+                        if categories[i] { e.append(event) }
+                        if venues[i]     { e.append(event) }
                     }
+                    // return only unique entries sorted by time
                     userEvents = self.findUniqueEvents(e)
                     dispatch_async(dispatch_get_main_queue()) {
                         completion(self.sortEventsByTime(userEvents))
@@ -569,7 +576,7 @@ extension DataManager {
             }
         }
     }
-    
+
     // How to call above method
     //        DataManager.sortUserEventsByTag() { events in
     //            if let e = events {
