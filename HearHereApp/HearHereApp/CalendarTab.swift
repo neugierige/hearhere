@@ -12,15 +12,19 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
     
     var tableView: UITableView?
     let rowHeight:CGFloat = 60.0
+    let rangeInclusive = 0...4
     
     var eventsArray = [Event]()
-    var sectionNames = ["Date One", "Date Two", "Date Three", "Date Four"]
     var datesArray = [NSDate]()
     
     typealias MonthsIndex = (month: String, dates: [NSDate])
+    typealias EventsIndex = (date: String, events: [Event])
+    
     let dg = DateGenerator()
     let dc = DateConverter()
-    var dataArray = [MonthsIndex]()
+    
+    var monthsArray = [MonthsIndex]()
+    var eventsByDateArray = [EventsIndex]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +33,20 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
         generateData()
         
         DataManager.retrieveAllEvents { events in
-            self.eventsArray = events
+            //self.eventsArray = events
+            var allEvents = self.dg.buildEventsIndex(events)
+            
+            if allEvents.count > 5 {
+                self.eventsByDateArray += allEvents[self.rangeInclusive]
+            } else {
+                self.eventsByDateArray += allEvents
+            }
+            
             if let theTableView = self.tableView {
                 theTableView.dataSource = self
                 theTableView.reloadData()
             }
+
         }
         
         for index in 0...5 {
@@ -81,17 +94,18 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return self.sectionNames.count
+        return eventsByDateArray.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return eventsArray.count
+        return eventsByDateArray[section].events.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("calendarCell", forIndexPath: indexPath) as UITableViewCell
         
-        let event = eventsArray[indexPath.row]
+        //let event = eventsArray[indexPath.row]
+        let event = getEvent(indexPath)
         let timeWidth = self.view.frame.width * 0.18
         
         if cell.viewWithTag(1) == nil {
@@ -124,7 +138,7 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
         header.contentView.backgroundColor = Configuration.medBlueUIColor
         header.textLabel.textColor = Configuration.lightBlueUIColor
         header.textLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 14.0)
-        let sectionDate = dc.formatDate(self.datesArray[section], type: "full")
+        let sectionDate = self.eventsByDateArray[section].date
         header.textLabel.text = sectionDate
     }
     
@@ -138,12 +152,12 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
     // ******************  UICollectionView ********************* //
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return dataArray.count
+        return monthsArray.count
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return dataArray[section].dates.count
+        return monthsArray[section].dates.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
@@ -153,7 +167,7 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
             "calendarCollectionCell",
             forIndexPath: indexPath) as CalendarCollectionViewCell
         
-        let dt = getCurrItem(indexPath)
+        let dt = getCalendarDate(indexPath)
         let dayString = dc.getCalendarString(dt, type: "dayofweek", abbv: true)
         let dateInt = dc.getCalendarString(dt, type: "date", abbv: false)
         
@@ -170,9 +184,18 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
             let selectedCell = collectionView.cellForItemAtIndexPath(indexPath)
                 as CalendarCollectionViewCell!
             
-            let dt = getCurrItem(indexPath)
+            let dt = getCalendarDate(indexPath)
             DataManager.retrieveEventsForDate(dt) { events in
-                self.eventsArray = events
+                //self.eventsByDateArray += self.dg.buildEventsIndex(self.eventsArray)
+                var allEvents = self.dg.buildEventsIndex(events)
+                self.eventsByDateArray.removeAll(keepCapacity: false)
+                
+                if allEvents.count > 5 {
+                    self.eventsByDateArray += allEvents[self.rangeInclusive]
+                } else {
+                    self.eventsByDateArray += allEvents
+                }
+                    
                 self.tableView?.reloadData()
             }
     }
@@ -192,23 +215,26 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
         
         if kind == UICollectionElementKindSectionHeader{
             if let header = view as? CalendarHeaderReusableView {
-                header.monthLabel.text = "\(dataArray[indexPath.section].month)"
+                header.monthLabel.text = "\(monthsArray[indexPath.section].month)"
             }
         }
         return view
     }
     
     func generateData() {
-        let datesArray = dg.makeDays(180)
-        self.dataArray += dg.buildIndex(datesArray)
+        let daysArray = dg.makeDays(180)
+        self.monthsArray += dg.buildIndex(daysArray)
     }
     
-    func getCurrItem(indexPath: NSIndexPath) -> NSDate {
-        let currDate = dataArray[indexPath.section].dates[indexPath.row]
+    func getCalendarDate(indexPath: NSIndexPath) -> NSDate {
+        let currDate = monthsArray[indexPath.section].dates[indexPath.row]
         return currDate
     }
     
-    
+    func getEvent(indexPath: NSIndexPath) -> Event {
+        let currEvent = eventsByDateArray[indexPath.section].events[indexPath.row]
+        return currEvent
+    }
     
     
     // ******************  UICollectionView ********************* //
