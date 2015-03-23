@@ -178,9 +178,11 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         
         var detailVC = DetailViewController()
         if indexPath.row == 0 {
-            detailVC.textViewText = "artist information"
+            println(event.artists[0].detail)
+            detailVC.textViewText = "About this artist..."
+            
         }
-        showViewController(detailVC, sender: indexPath)
+        showViewController(detailVC, sender: nil)
     }
     
     
