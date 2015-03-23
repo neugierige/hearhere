@@ -126,31 +126,35 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         }
     }
     func savePreferences(sender: UIBarButtonItem) {
-        navigationItem.rightBarButtonItem?.enabled = false
-        if tfs[1].text != "" { userData.username = tfs[1].text }
-        if tfs[2].text != "" { userData.email = tfs[2].text }
-        if tfs[3].text != "" { userData.password = tfs[3].text }
-        DataManager.saveUser(userData) { success, error in
-            var alertMessage: String!
-            if (success != nil) {
-                alertMessage = "Saved"
-                self.tfs.map { $0.text = "" }
-                self.tfs[1].placeholder = self.userData.username
-                self.tfs[2].placeholder = self.userData.email
-                self.tfs[3].placeholder = self.userData.password
-            } else {
-                if let e = error {
-                    alertMessage = e
+        if UserRouter.sessionToken != nil {
+            navigationItem.rightBarButtonItem?.enabled = false
+            if tfs[1].text != "" { userData.username = tfs[1].text }
+            if tfs[2].text != "" { userData.email = tfs[2].text }
+            if tfs[3].text != "" { userData.password = tfs[3].text }
+            DataManager.saveUser(userData) { success, error in
+                var alertMessage: String!
+                if (success != nil) {
+                    alertMessage = "Saved"
+                    self.tfs.map { $0.text = "" }
+                    self.tfs[1].placeholder = self.userData.username
+                    self.tfs[2].placeholder = self.userData.email
+                    self.tfs[3].placeholder = self.userData.password
+                } else {
+                    if let e = error {
+                        alertMessage = e
+                    }
+                }
+                var saveController = UIAlertController(title: "Preferences", message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+                var okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+                saveController.addAction(okAction)
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.presentViewController(saveController, animated: true) { _ in
+                        self.textFieldDidEndEditing(self.tfs[0])
+                    }
                 }
             }
-            var saveController = UIAlertController(title: "Preferences", message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-            var okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-            saveController.addAction(okAction)
-            dispatch_async(dispatch_get_main_queue()) {
-                self.presentViewController(saveController, animated: true) { _ in
-                    self.textFieldDidEndEditing(self.tfs[0])
-                }
-            }
+        } else {
+            signInUserIfNecessary()
         }
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
