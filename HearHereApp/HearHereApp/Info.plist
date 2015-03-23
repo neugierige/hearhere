@@ -15,7 +15,7 @@
 		<string>HHicon@58</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>com.lxing.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>2LNC46DTX4.com.lxing.$(PRODUCT_NAME:rfc1034identifier)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

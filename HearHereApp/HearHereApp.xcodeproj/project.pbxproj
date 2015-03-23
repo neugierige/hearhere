@@ -405,6 +405,7 @@
 				TargetAttributes = {
 					F987BA101AA7C720008FDD56 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 2LNC46DTX4;
 					};
 					F987BA251AA7C721008FDD56 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -680,6 +681,7 @@
 			baseConfigurationReference = B8B9356BC75010A63BEC81EA /* Pods-HearHereApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -695,6 +697,7 @@
 			baseConfigurationReference = BAAAE57C5227C7DA602ECC76 /* Pods-HearHereApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
