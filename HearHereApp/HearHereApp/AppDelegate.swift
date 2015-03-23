@@ -8,6 +8,8 @@
 
 import UIKit
 import Parse
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initialize Parse
         Parse.enableLocalDatastore()
         Parse.setApplicationId(Configuration.parseApplicationID, clientKey: Configuration.parseClientKey)
+        Fabric.with([Crashlytics()])
         return true
     }
 
