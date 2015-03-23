@@ -83,21 +83,22 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
             }
             
         }
-    }
-    func segmentedControlAction(sender: UISegmentedControl) {
-
-        var l: CLLocation!
-        if DataManager.userLoggedIn() {
-            l = Cache.currentUser.location
-        } else {
-            l = anonymousUser.location
-//            self.signInAlert() { currentUser in
-//                if let currentUser = currentUser {
-//                    user = currentUser
-//                    
-//                }
-//            }
+        if let location = getUserLocation() {
+            DataManager.updateUserToEventDistances(location, events: eventsArray, completion: nil)
         }
+    }
+    
+    func getUserLocation() -> CLLocation? {
+        if DataManager.userLoggedIn() {
+            return(Cache.currentUser.location)
+        } else {
+            return(anonymousUser.location)
+        }
+    }
+    
+    func segmentedControlAction(sender: UISegmentedControl) {
+        var l: CLLocation!
+        l = getUserLocation()
             switch sender.selectedSegmentIndex {
             case 0:
                 if DataManager.userLoggedIn() {
@@ -198,7 +199,6 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
         
         // Tint background image
         let colorOverlay = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.rowHeight))
-        colorOverlay.autoresizingMask = .FlexibleWidth
         colorOverlay.backgroundColor = cellColors.bkgColor
         if let background = cell.backgroundView {
             for view in background.subviews {
@@ -218,6 +218,13 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
         }
         cell.detailTextLabel?.textColor = cellColors.txtColor
         
+        // Distance
+        let distanceLabel = UILabel(frame: CGRectMake(0, 0, 50, 15))
+        distanceLabel.text = String(format: "%.1f mi", event.distance ?? "-")
+        distanceLabel.font = UIFont.systemFontOfSize(12)
+        distanceLabel.textColor = cellColors.txtColor
+        distanceLabel.autoresizingMask = .FlexibleRightMargin | .FlexibleBottomMargin
+        cell.accessoryView = distanceLabel
         spinner.stopAnimating()
         
         return cell
