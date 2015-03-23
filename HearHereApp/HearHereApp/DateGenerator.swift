@@ -11,6 +11,8 @@ import Foundation
 class DateGenerator {
     
     typealias MonthsIndex = (String, [NSDate])
+    typealias EventsIndex = (String, [Event])
+    
     let dc = DateConverter()
     let now = NSDate()
     
@@ -38,6 +40,30 @@ class DateGenerator {
         return month
     }
     
+    // Day is Tuesday, March 24, 2015
+    func getEventDate(event: Event) -> String {
+        let eventDate = dc.formatDate(event.dateTime, type: "full")
+        return eventDate
+    }
+    
+    func buildEventsIndex(events: [Event]) -> [EventsIndex] {
+        let eventDates = events.map {
+            (event) -> String in
+            self.getEventDate(event)
+        }
+        
+        let uniqueEventDates = distinct(eventDates)
+        
+        return uniqueEventDates.map {
+            (evDate) -> EventsIndex in
+            return (evDate, events.filter {
+                (event) -> Bool in
+                self.getEventDate(event) == evDate
+                })
+        }
+    } // end buildEventsIndex
+
+        
     func buildIndex(dates: [NSDate]) -> [MonthsIndex] {
         let months = dates.map {
             (day) -> String in
