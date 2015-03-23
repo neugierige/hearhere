@@ -11,8 +11,8 @@ import UIKit
 class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     
     var tableView: UITableView?
-    let rowHeight:CGFloat = 80.0
-    let tableY:CGFloat = 108.0
+    let rowHeight:CGFloat = 60.0
+    
     var eventsArray = [Event]()
     var sectionNames = ["Date One", "Date Two", "Date Three", "Date Four"]
     var datesArray = [NSDate]()
@@ -20,11 +20,11 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
     typealias MonthsIndex = (month: String, dates: [NSDate])
     let dg = DateGenerator()
     let dc = DateConverter()
-    let calHeight:CGFloat = 50.0
     var dataArray = [MonthsIndex]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let tableY:CGFloat = 125.5
         
         generateData()
         
@@ -57,20 +57,22 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
         
         // ******************  UICollectionView ********************* //
         
+        let calUnit:CGFloat = 67.5
+        
         var flowLayout:UICollectionViewFlowLayout = StickyHeaderFlowLayout()
         flowLayout.minimumLineSpacing = 1
         flowLayout.minimumInteritemSpacing = 1
-        flowLayout.itemSize = CGSize(width: 50, height: 50)
+        flowLayout.itemSize = CGSize(width: calUnit, height: calUnit)
         flowLayout.scrollDirection = .Horizontal
         flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        flowLayout.headerReferenceSize = CGSize(width: 50, height: 50)
+        flowLayout.headerReferenceSize = CGSize(width: calUnit, height: calUnit)
         
-        var __collectionView:UICollectionView? = UICollectionView(frame: CGRectMake(0, tableY - 50.0, self.view.frame.width, 51), collectionViewLayout: flowLayout)
+        var __collectionView:UICollectionView? = UICollectionView(frame: CGRectMake(0, tableY - calUnit, self.view.frame.width, calUnit), collectionViewLayout: flowLayout)
         __collectionView?.registerClass(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: "calendarCollectionCell")
         __collectionView?.registerClass(CalendarHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "calendarCollectionHeader")
         __collectionView?.delegate = self
         __collectionView?.dataSource = self
-        __collectionView?.backgroundColor = UIColor.blackColor()
+        __collectionView?.backgroundColor = Configuration.darkBlueUIColor
         
         self.view.addSubview(__collectionView!)
         
@@ -90,13 +92,13 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
         let cell = tableView.dequeueReusableCellWithIdentifier("calendarCell", forIndexPath: indexPath) as UITableViewCell
         
         let event = eventsArray[indexPath.row]
+        let timeWidth = self.view.frame.width * 0.18
         
         if cell.viewWithTag(1) == nil {
-            let timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.width / 5, height: self.rowHeight))
+            let timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: timeWidth, height: self.rowHeight))
             timeLabel.tag = 1
-            // med blue
-            timeLabel.textColor = UIColor(red: 0.247, green: 0.341, blue: 0.396, alpha: 1.0)
-            timeLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 14.0)
+            timeLabel.textColor = Configuration.medBlueUIColor
+            timeLabel.font = UIFont(name: "HelveticaNeue-Light", size: 13.0)
             timeLabel.textAlignment = .Center
             cell.contentView.addSubview(timeLabel)
         }
@@ -104,7 +106,7 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
         let timeLabel = cell.viewWithTag(1) as UILabel
         
         // Populate text labels
-        let eventTime = formatDateTime(event.dateTime, type: "time")
+        let eventTime = dc.formatTime(event.dateTime)
         timeLabel.text = "\(eventTime)"
         cell.textLabel?.text = "\(event.title)"
         cell.detailTextLabel?.text = "\(event.venue[0].name)"
@@ -113,17 +115,16 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 44.0
+        return 30.0
     }
     
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header: UITableViewHeaderFooterView = view as UITableViewHeaderFooterView
         
-        // med blue
-        header.contentView.backgroundColor = UIColor(red: 0.247, green: 0.341, blue: 0.396, alpha: 1.0)
-        // light blue
-        header.textLabel.textColor = UIColor(red: 0.741, green: 0.831, blue: 0.871, alpha: 1.0)
-        let sectionDate = formatDateTime(self.datesArray[section], type: "date")
+        header.contentView.backgroundColor = Configuration.medBlueUIColor
+        header.textLabel.textColor = Configuration.lightBlueUIColor
+        header.textLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 14.0)
+        let sectionDate = dc.formatDate(self.datesArray[section], type: "full")
         header.textLabel.text = sectionDate
     }
     
@@ -132,25 +133,6 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
         edvc.event = eventsArray[indexPath.row]
         navigationController?.showViewController(edvc, sender: indexPath)
 //        presentViewController(edvc, animated: true, completion: nil)
-    }
-    
-    func formatDateTime(dt: NSDate, type: String) -> String {
-        let dateFormatter = NSDateFormatter()
-        
-        switch type {
-        case "date":
-            dateFormatter.dateStyle = .FullStyle
-            dateFormatter.timeStyle = .NoStyle
-        case "time":
-            dateFormatter.dateStyle = .NoStyle
-            dateFormatter.timeStyle = .ShortStyle
-        default:
-            dateFormatter.dateStyle = .ShortStyle
-            dateFormatter.timeStyle = .ShortStyle
-        }
-        
-        let dtString = dateFormatter.stringFromDate(dt)
-        return dtString
     }
     
     // ******************  UICollectionView ********************* //
@@ -186,7 +168,7 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
         didSelectItemAtIndexPath indexPath: NSIndexPath){
             
             let selectedCell = collectionView.cellForItemAtIndexPath(indexPath)
-                as UICollectionViewCell!
+                as CalendarCollectionViewCell!
             
             let dt = getCurrItem(indexPath)
             DataManager.retrieveEventsForDate(dt) { events in
@@ -197,8 +179,7 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
 
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         let selectedCell = collectionView.cellForItemAtIndexPath(indexPath)
-            as UICollectionViewCell!
-        
+            as CalendarCollectionViewCell!
     }
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {

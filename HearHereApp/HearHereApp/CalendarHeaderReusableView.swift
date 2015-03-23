@@ -14,10 +14,10 @@ class CalendarHeaderReusableView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         // med blue
-        backgroundColor = Configuration.lightBlueUIColor.colorWithAlphaComponent(1.0)
+        backgroundColor = Configuration.orangeUIColor
         
         monthLabel.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height)
-        monthLabel.textColor = Configuration.medBlueUIColor.colorWithAlphaComponent(1.0)
+        monthLabel.textColor = UIColor.whiteColor()
         monthLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 14.0)
         monthLabel.textAlignment = .Center
         self.addSubview(monthLabel)

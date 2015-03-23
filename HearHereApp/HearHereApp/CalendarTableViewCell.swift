@@ -21,14 +21,14 @@ class CalendarTableViewCell: UITableViewCell {
     }
     
     func styleCell() {
-        //light grey
-        self.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1.0)
         
-        self.textLabel?.textColor = UIColor.darkGrayColor()
+        self.backgroundColor = Configuration.lightGreyUIColor
+        
+        self.textLabel?.textColor = Configuration.medBlueUIColor
         self.textLabel?.font = UIFont(name: "HelveticaNeue-Medium", size: 14.0)
         self.textLabel?.numberOfLines = 2
         
-        self.detailTextLabel?.textColor = UIColor.darkGrayColor()
+        self.detailTextLabel?.textColor = Configuration.medBlueUIColor
         self.detailTextLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 14.0)
         self.detailTextLabel?.numberOfLines = 1
         
@@ -42,9 +42,11 @@ class CalendarTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        let timeWidth = self.frame.width * 0.18
+        
         //Size and position labels
         let labelWidth = self.frame.width * 0.76
-        let labelX = self.frame.width / 5 + 10
+        let labelX = timeWidth + 10
         
         self.textLabel?.frame.size.width = labelWidth
         self.textLabel?.frame.origin = CGPoint(x: labelX, y: 5)
@@ -52,8 +54,8 @@ class CalendarTableViewCell: UITableViewCell {
         self.detailTextLabel?.frame.size.width = labelWidth
         self.detailTextLabel?.frame.origin = CGPoint(x: labelX, y: self.frame.height - 20)
         
-        let border = UIView(frame: CGRect(x: self.frame.width / 5, y: 2.0, width: 2.0, height: 76.0))
-        border.backgroundColor = UIColor.orangeColor()
+        let border = UIView(frame: CGRect(x: timeWidth, y: 4.0, width: 0.5, height: 54.0))
+        border.backgroundColor = Configuration.medBlueUIColor
         self.contentView.addSubview(border)
     }
     
