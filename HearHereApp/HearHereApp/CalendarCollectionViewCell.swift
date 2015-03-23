@@ -15,24 +15,24 @@ class CalendarCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = Configuration.lightGreyUIColor
         
-        dayLabel = UILabel(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height / 2))
-        dayLabel.backgroundColor = UIColor(red: 0.906, green: 0.298, blue: 0.235, alpha: 1.0)
-        dayLabel.textColor = UIColor.whiteColor()
+        dayLabel = UILabel(frame: CGRect(x: 0, y: 5, width: frame.size.width, height: frame.size.height / 2))
+        dayLabel.backgroundColor = UIColor.clearColor()
+        dayLabel.textColor = Configuration.medBlueUIColor
         dayLabel.font = UIFont(name: "HelveticaNeue-Light", size: 12.0)
         dayLabel.textAlignment = .Center
         contentView.addSubview(dayLabel)
         
-        dateLabel = UILabel(frame: CGRect(x: 0, y: frame.size.height / 2, width: frame.size.width, height: frame.size.height / 2))
+        dateLabel = UILabel(frame: CGRect(x: 0, y: frame.size.height / 2 - 5, width: frame.size.width, height: frame.size.height / 2))
         dateLabel.backgroundColor = UIColor.clearColor()
-        dateLabel.textColor = UIColor.blackColor()
-        dateLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 16.0)
+        dateLabel.textColor = Configuration.medBlueUIColor
+        dateLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 20.0)
         dateLabel.textAlignment = .Center
         contentView.addSubview(dateLabel)
         
         selectedBackgroundView = UIView(frame: bounds)
-        selectedBackgroundView.backgroundColor = UIColor(red: 0.741, green: 0.831, blue: 0.871, alpha: 0.85)
+        selectedBackgroundView.backgroundColor = Configuration.lightBlueUIColor
     }
 
     required init(coder aDecoder: NSCoder) {
