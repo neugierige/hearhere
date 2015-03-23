@@ -40,7 +40,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
         control.frame = CGRectMake(paddingX, 8, view.bounds.width-paddingX*2, 25)
         control.addTarget(self, action: "segmentedControlAction:", forControlEvents: .ValueChanged)
         control.selectedSegmentIndex = 0
-        control.tintColor = Configuration.darkBlueUIColor
+        control.tintColor = Configuration.orangeUIColor
         segContainer.addSubview(control)
         
         tableView = UITableView(frame: CGRect(x: 0, y: segContainer.frame.maxY, width: self.view.frame.width, height: self.view.frame.height-segContainer.frame.maxY-49.0), style: UITableViewStyle.Plain)
@@ -244,14 +244,12 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
         var bkgColor = UIColor()
         var txtColor = UIColor.whiteColor()
         
-        switch index % 3 {
+        switch index % 2 {
         case 0:
             bkgColor = Configuration.medBlueUIColor.colorWithAlphaComponent(0.75)
         case 1:
-            bkgColor = Configuration.lightBlueUIColor.colorWithAlphaComponent(0.75)
-            txtColor = Configuration.darkBlueUIColor.colorWithAlphaComponent(0.75)
-        case 2:
-            bkgColor = Configuration.orangeUIColor.colorWithAlphaComponent(0.75)
+            bkgColor = Configuration.lightBlueUIColor.colorWithAlphaComponent(0.8)
+            txtColor = Configuration.darkBlueUIColor.colorWithAlphaComponent(1.0)
         default:
             bkgColor = Configuration.medBlueUIColor.colorWithAlphaComponent(0.75)
         }
