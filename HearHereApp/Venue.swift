@@ -19,7 +19,7 @@ class Venue: Model, Printable {
     required init(id: String) {
         super.init(id: id)
         name = ""
-        address = ""
+        address = "New York, NY 10013"
         phone = ""
         url = ""
     }

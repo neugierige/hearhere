@@ -114,7 +114,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
                     // give option for signInAlert to login
                 }
             case 1:
-                DataManager.sortEventsByDistance(l, events: self.eventsArray) { events in
+                DataManager.sortEventsByDistance(l, events: Cache.events) { events in
                     if let events = events {
                         self.eventsArray = events
                         self.tableView?.reloadData()
