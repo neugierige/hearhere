@@ -152,8 +152,6 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
     
     //CONFIGURE TABLE
     var tableCellContent = ["Artist Information"]
-    var selectedIndex = NSNotFound
-    
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

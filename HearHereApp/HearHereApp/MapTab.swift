@@ -26,12 +26,13 @@ class MapTab: UIViewController, MKMapViewDelegate {
         
         map = MKMapView()
         map.delegate = self
-        var navBarHeight = navigationController?.navigationBar.frame.height
-        map.frame = CGRect(x: 0, y: navBarHeight!, width: self.view.frame.width, height: self.view.frame.height - 44)
+        var navBarHeight = navigationController?.navigationBar.frame.maxY
+        var tabBarHeight = tabBarController?.tabBar.bounds.size.height
+        println("tabBarHeight is \(tabBarHeight)")
+        map.frame = CGRect(x: 0, y: navBarHeight!, width: self.view.frame.width, height: self.view.frame.height-tabBarHeight!)//-navBarHeight!) --> turns TAB BAR into a weird grey gradient color...
         self.view.addSubview(map)
-
         
-        map.showsUserLocation = true
+        //map.showsUserLocation = true
         
         if eventsArray.isEmpty {
             DataManager.retrieveAllEvents { events in
@@ -144,8 +145,6 @@ class MapTab: UIViewController, MKMapViewDelegate {
 //            }
 //        }
 //    }
-
-    
     
     override func shouldAutorotate() -> Bool {
         return false
