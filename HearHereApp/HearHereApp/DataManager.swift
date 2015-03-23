@@ -215,6 +215,8 @@ extension DataManager {
             if let e = user.email    { currentUser["email"]    = e }
             if let p = user.password { currentUser["password"] = p }
             currentUser["location"] = PFGeoPoint(location: user.location)
+            
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
             var ids = user.artists.map { $0.objectId }
             var query = PFQuery(className: "Artist").whereKey("objectId", containedIn: ids)
             var a = query.findObjects()
@@ -239,7 +241,7 @@ extension DataManager {
             query = PFQuery(className: "User").whereKey("objectId", containedIn: ids)
             var u = query.findObjects()
             currentUser.addUniqueObjectsFromArray(u, forKey: "users")
-            
+            }
             currentUser.saveEventually { success, error in
                 println(success)
                 if let e = error {
