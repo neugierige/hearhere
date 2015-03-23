@@ -32,10 +32,13 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewWillAppear(animated: Bool) {
         containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: shareButton.frame.maxY + margin)
         containerView.layoutIfNeeded()
+        tabBarController?.tabBar.hidden = false
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         addContainerView()
         addScrollView()
@@ -89,8 +92,10 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
             ticketButton.setTitle("Free", forState: .Normal)
         } else if event.priceMax == nil {
             ticketButton.setTitle("$\(Int(event.priceMin))", forState: .Normal)
+        } else if event.priceMin == event.priceMax {
+            ticketButton.setTitle("$\(Int(event.priceMin))", forState: .Normal)
         } else {
-            ticketButton.setTitle("$\(Int(event.priceMin))-$\(Int(event.priceMax))", forState: UIControlState.Normal)
+            ticketButton.setTitle("$\(Int(event.priceMin))-$\(Int(event.priceMax))", forState: .Normal)
         }
         
         ticketButton.titleLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
@@ -178,11 +183,10 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         
         var detailVC = DetailViewController()
         if indexPath.row == 0 {
-            println(event.artists[0].detail)
+            //println(event.artists[0].detail)
             detailVC.textViewText = "About this artist..."
-            
         }
-        showViewController(detailVC, sender: nil)
+        navigationController?.showViewController(detailVC, sender: nil)
     }
     
     
@@ -202,7 +206,7 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
     func openShare() {
         let textToShare = "\(event.title) on HearHere: \(event.ticketURL)"
         if let myWebsite = NSURL(string: event.ticketURL) {
-            let objectsToShare = [textToShare, myWebsite]
+            let objectsToShare = [textToShare]
             let shareVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
             self.presentViewController(shareVC, animated: true, completion: nil)
         }

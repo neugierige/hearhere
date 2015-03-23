@@ -144,7 +144,7 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var edvc = EventDetailViewController()
-        edvc.event = eventsArray[indexPath.row]
+        edvc.event = getEvent(indexPath)
         navigationController?.showViewController(edvc, sender: indexPath)
 //        presentViewController(edvc, animated: true, completion: nil)
     }
