@@ -32,7 +32,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {//, CLLocatio
 //            println("all loaded")
         }
         
-        view.backgroundColor = Configuration.lightBlueUIColor
+        view.backgroundColor = Configuration.lightGreyUIColor
 
         loadUI()
         
@@ -105,9 +105,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate {//, CLLocatio
         var signInButton = UIButton(frame: CGRectMake(paddingX*2, password.frame.maxY+paddingY, screenBounds.width-paddingX*4, 35))
         signInButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signInButton.setTitle("Sign In", forState: .Normal)
-        signInButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
+        signInButton.setTitleColor(Configuration.lightGreyUIColor, forState: .Normal)
         signInButton.layer.cornerRadius = cornerRadius
-        signInButton.backgroundColor = Configuration.lightGreyUIColor
+        signInButton.backgroundColor = Configuration.darkBlueUIColor
         signInButton.addTarget(self, action: "signInPressed:", forControlEvents: .TouchUpInside)
         scrollView.addSubview(signInButton)
         
@@ -115,14 +115,14 @@ class SignInViewController: UIViewController, UITextFieldDelegate {//, CLLocatio
         signUpButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signUpButton.addTarget(self, action: "signUpTouched:", forControlEvents: .TouchUpInside)
         signUpButton.setTitle("Don't have an account? Sign up here.", forState: .Normal)
-        signUpButton.setTitleColor(Configuration.tagFontUIColor, forState: .Normal)
+        signUpButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         scrollView.addSubview(signUpButton)
         
         var signInNowButton = UIButton(frame: CGRectMake(paddingX, signUpButton.frame.maxY+paddingY, screenBounds.width-paddingX*2, 30))
         signInNowButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signInNowButton.addTarget(self, action: "skipToAppTouched:", forControlEvents: .TouchUpInside)
         signInNowButton.setTitle("Skip for now.", forState: .Normal)
-        signInNowButton.setTitleColor(Configuration.tagFontUIColor, forState: .Normal)
+        signInNowButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         scrollView.addSubview(signInNowButton)
         
 //        locationManager.delegate = self

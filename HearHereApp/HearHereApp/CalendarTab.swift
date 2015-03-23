@@ -194,7 +194,7 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
                 self.tableView?.reloadData()
             }
     }
-    
+
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         let selectedCell = collectionView.cellForItemAtIndexPath(indexPath)
             as UICollectionViewCell!

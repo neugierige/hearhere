@@ -25,7 +25,7 @@ class SearchView: UIView, UITextFieldDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = Configuration.lightBlueUIColor
+        backgroundColor = Configuration.lightGreyUIColor
         loadUI()
     }
     
