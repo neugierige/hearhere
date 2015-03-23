@@ -6,19 +6,11 @@
 //  Copyright (c) 2015 LXing. All rights reserved.
 //
 
-//
-//  ViewController.swift
-//  MapPractice
-//
-//  Created by Luyuan Xing on 3/16/15.
-//  Copyright (c) 2015 LXing. All rights reserved.
-//
-
 import UIKit
 import MapKit
 import CoreLocation
 
-class MapTab: UIViewController, MKMapViewDelegate { //, CLLocationManagerDelegate {
+class MapTab: UIViewController, MKMapViewDelegate {
     
     var map: MKMapView!
     
@@ -34,7 +26,8 @@ class MapTab: UIViewController, MKMapViewDelegate { //, CLLocationManagerDelegat
         
         map = MKMapView()
         map.delegate = self
-        map.frame = self.view.frame
+        var navBarHeight = navigationController?.navigationBar.frame.height
+        map.frame = CGRect(x: 0, y: navBarHeight!, width: self.view.frame.width, height: self.view.frame.height - 44)
         self.view.addSubview(map)
 
         
@@ -43,7 +36,6 @@ class MapTab: UIViewController, MKMapViewDelegate { //, CLLocationManagerDelegat
         if eventsArray.isEmpty {
             DataManager.retrieveAllEvents { events in
                 self.eventsArray = events
-                println("there are \(self.eventsArray.count) events in the array")
                 self.addAnnotations()
             }
         } else {
@@ -53,7 +45,6 @@ class MapTab: UIViewController, MKMapViewDelegate { //, CLLocationManagerDelegat
     
     func addAnnotations() {
         for event in eventsArray {
-            println("in the for loop now")
             var address = event.venue[0].address
             println(address)
             mapItemTitle = event.title as String
@@ -61,7 +52,8 @@ class MapTab: UIViewController, MKMapViewDelegate { //, CLLocationManagerDelegat
             var subTitle2 = event.venue[0].name
             mapItemSubTitle = subTitle1 + " " + subTitle2
             
-            var anno: MKPointAnnotation = MKPointAnnotation()
+            var anno: MapAnnotation = MapAnnotation()
+            anno.event = event
             convertAddressToCoordiantes(address) { location in
                 anno.coordinate = location
                 self.map.showAnnotations(self.arrayOfAnnotations, animated: true)
@@ -109,32 +101,50 @@ class MapTab: UIViewController, MKMapViewDelegate { //, CLLocationManagerDelegat
         return dtString
     }
 
-//    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-//        DataManager.saveUserLocation(locations[0] as CLLocation)
-//    }
-    
-//    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-//        var v : MKAnnotationView! = nil
-//        if annotation.title == mapItemTitle {
-//            let ident = "droppedPin"
-//            v = mapView.dequeueReusableAnnotationViewWithIdentifier(ident)
-//            if v == nil {
-//                v = MKPinAnnotationView(annotation:annotation, reuseIdentifier:ident)
-//                v.canShowCallout = true
-//                
-//                let button: UIButton = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as UIButton
-//                
-//                button.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
-//                v.rightCalloutAccessoryView = button
-//            }
-//            v.annotation = annotation
-//        }
-//        return v
-//    }
-    
-    func buttonClicked(sender: UIButton!) {
-        showViewController(EventDetailViewController(), sender: nil)
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        DataManager.saveUserLocation(locations[0] as CLLocation)
     }
+    
+    
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        var v : MKAnnotationView! = nil
+            let ident = "droppedPin"
+            v = mapView.dequeueReusableAnnotationViewWithIdentifier(ident)
+            if v == nil {
+                v = MKPinAnnotationView(annotation:annotation, reuseIdentifier:ident)
+//                var gestureRecognizer = UITapGestureRecognizer(target: self, action: "calloutTapped:")
+//                v.addGestureRecognizer(gestureRecognizer)
+                v.canShowCallout = true
+                
+                if let button = MapButton.buttonWithType(UIButtonType.DetailDisclosure) as? MapButton {
+                    button.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
+                    if let a = annotation as? MapAnnotation {
+                        button.event = a.event
+                    }
+                    v.rightCalloutAccessoryView = button
+                }
+            }
+            v.annotation = annotation
+        return v
+    }
+    
+    func buttonClicked(sender: MapButton) {
+        if let event = sender.event {
+            var edvc = EventDetailViewController()
+            edvc.event = event
+            navigationController?.showViewController(edvc, sender: event)
+        }
+    }
+    
+//    func calloutTapped(sender: UITapGestureRecognizer) {
+//        if let view = sender.view as? MKAnnotationView {
+//            if let annotation = view.annotation as? MapAnnotation {
+//                let event = annotation.event
+//                println(event?.title)
+//            }
+//        }
+//    }
+
     
     
     override func shouldAutorotate() -> Bool {
