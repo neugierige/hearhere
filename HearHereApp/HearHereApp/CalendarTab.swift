@@ -53,6 +53,7 @@ class CalendarTab: UIViewController, UITableViewDelegate, UICollectionViewDataSo
             
             if let theTableView = self.tableView {
                 theTableView.dataSource = self.dataSource
+                theTableView.delegate = self.dataSource
                 theTableView.reloadData()
             }
             
@@ -68,7 +69,7 @@ class CalendarTab: UIViewController, UITableViewDelegate, UICollectionViewDataSo
             theTableView.registerClass(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "calendarHeader")
             
             theTableView.dataSource = self.dataSource
-            theTableView.delegate = self
+            theTableView.delegate = self.dataSource
             theTableView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
             theTableView.rowHeight = self.rowHeight
             view.addSubview(theTableView)
@@ -99,42 +100,6 @@ class CalendarTab: UIViewController, UITableViewDelegate, UICollectionViewDataSo
         // ******************  /UICollectionView ********************* //
         
     }
-    
-    //UITableViewDataSource
-    //
-    //    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    //        return eventsByDateArray.count
-    //    }
-    //
-    //    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    //        return eventsByDateArray[section].events.count
-    //    }
-    //
-    //    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    //        let cell = tableView.dequeueReusableCellWithIdentifier("calendarCell", forIndexPath: indexPath) as UITableViewCell
-    //
-    //        let event = getEvent(indexPath)
-    //        let timeWidth = self.view.frame.width * 0.18
-    //
-    //        if cell.viewWithTag(1) == nil {
-    //            let timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: timeWidth, height: self.rowHeight))
-    //            timeLabel.tag = 1
-    //            timeLabel.textColor = Configuration.medBlueUIColor
-    //            timeLabel.font = UIFont(name: "HelveticaNeue-Light", size: 13.0)
-    //            timeLabel.textAlignment = .Center
-    //            cell.contentView.addSubview(timeLabel)
-    //        }
-    //
-    //        let timeLabel = cell.viewWithTag(1) as UILabel
-    //
-    //        // Populate text labels
-    //        let eventTime = dc.formatTime(event.dateTime)
-    //        timeLabel.text = "\(eventTime)"
-    //        cell.textLabel?.text = "\(event.title)"
-    //        cell.detailTextLabel?.text = "\(event.venue[0].name)"
-    //
-    //        return cell
-    //    }
     
     
     //UITableViewDelegate
@@ -216,6 +181,7 @@ class CalendarTab: UIViewController, UITableViewDelegate, UICollectionViewDataSo
                 })
                 
                 self.tableView?.dataSource = self.dataSource
+                self.tableView?.delegate = self.dataSource
                 self.tableView?.reloadData()
             }
     }

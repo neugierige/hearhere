@@ -10,7 +10,7 @@ import UIKit
 
 typealias TableViewCellConfigureBlock = (cell: UITableViewCell, item: AnyObject?) -> ()
 
-class CalendarTableDataSource: NSObject, UITableViewDataSource {
+class CalendarTableDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     
     typealias EventsIndex = (date: String, events: [Event])
     var itemsArray = [EventsIndex]()
@@ -44,6 +44,20 @@ class CalendarTableDataSource: NSObject, UITableViewDataSource {
         }
         
         return cell
+    }
+    
+    // **** UITableViewDelegate **** //
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30.0
+    }
+    
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header: UITableViewHeaderFooterView = view as UITableViewHeaderFooterView
+        header.contentView.backgroundColor = Configuration.medBlueUIColor
+        header.textLabel.textColor = Configuration.lightBlueUIColor
+        header.textLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 14.0)
+        header.textLabel.text = self.itemsArray[section].date
     }
     
 }
