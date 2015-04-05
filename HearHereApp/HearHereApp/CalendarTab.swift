@@ -22,6 +22,7 @@ class CalendarTab: UIViewController, UICollectionViewDataSource, UICollectionVie
     
     var monthsArray = [MonthsIndex]()
     var eventsByDateArray = [EventsIndex]()
+    var eventsArray = [Event]()
     
     //***** dataSource *****//
     var dataSource: CalendarTableDataSource?
@@ -33,13 +34,14 @@ class CalendarTab: UIViewController, UICollectionViewDataSource, UICollectionVie
         generateData()
         
         DataManager.retrieveAllEvents { events in
-            var allEvents = self.dg.buildEventsIndex(events)
-            
-            if allEvents.count > 5 {
-                self.eventsByDateArray += allEvents[self.rangeInclusive]
-            } else {
-                self.eventsByDateArray += allEvents
-            }
+            self.eventsArray = events
+//            var allEvents = self.dg.buildEventsIndex(events)
+//            
+//            if allEvents.count > 5 {
+//                self.eventsByDateArray += allEvents[self.rangeInclusive]
+//            } else {
+//                self.eventsByDateArray += allEvents
+//            }
             
             //***** dataSource *****//
             self.dataSource = CalendarTableDataSource(items: self.eventsByDateArray, cellIdentifier: "calendarCell", navigationController: self.navigationController!, configureBlock: {
@@ -182,11 +184,6 @@ class CalendarTab: UIViewController, UICollectionViewDataSource, UICollectionVie
     func getCalendarDate(indexPath: NSIndexPath) -> NSDate {
         let currDate = monthsArray[indexPath.section].dates[indexPath.row]
         return currDate
-    }
-    
-    func getEvent(indexPath: NSIndexPath) -> Event {
-        let currEvent = eventsByDateArray[indexPath.section].events[indexPath.row]
-        return currEvent
     }
     
     

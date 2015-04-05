@@ -13,6 +13,9 @@ typealias TableViewCellConfigureBlock = (cell: UITableViewCell, item: AnyObject?
 class CalendarTableDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     
     typealias EventsIndex = (date: String, events: [Event])
+    let dg = DateGenerator()
+    var eventsByDateArray = [EventsIndex]()
+    
     var itemsArray = [EventsIndex]()
     var itemIdentifier: String?
     var configureCellBlock: TableViewCellConfigureBlock?
@@ -24,6 +27,17 @@ class CalendarTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         self.navigationController = navigationController
         self.configureCellBlock = configureBlock
         super.init()
+    }
+    
+    func buildItemsArray(events: [Event]) {
+        var allEvents = self.dg.buildEventsIndex(events)
+        
+        if allEvents.count > 5 {
+            self.eventsByDateArray += allEvents[0...4]
+        } else {
+            self.eventsByDateArray += allEvents
+        }
+
     }
     
     // **** UITableViewDataSource **** //
