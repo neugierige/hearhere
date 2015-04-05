@@ -514,9 +514,15 @@ extension DataManager {
         for (i, e) in enumerate(events) {
             request.naturalLanguageQuery = e.venue[0].address;
             MKLocalSearch(request: request).startWithCompletionHandler { response, error in
-                var item = response.mapItems[0] as MKMapItem
-                e.distance = location.distanceFromLocation(item.placemark.location)*Configuration.meterToMile
-                if i == events.count - 1 {
+                if let response = response {
+                    var item = response.mapItems[0] as MKMapItem
+                    e.distance = location.distanceFromLocation(item.placemark.location)*Configuration.meterToMile
+                    if i == events.count - 1 {
+                        if let c = completion {
+                            c(events)
+                        }
+                    }
+                } else {
                     if let c = completion {
                         c(events)
                     }
@@ -653,8 +659,8 @@ extension DataManager {
         }
     }
     
-    class func makeArrayOfObjects(objectInfo: NSArray) -> [AnyObject]? {
-        var objects = [AnyObject]()
+    class func makeArrayOfObjects(objectInfo: NSArray) -> [Model]? {
+        var objects = [Model]()
         
         if objectInfo.count > 0 {
             var ids = [String]()

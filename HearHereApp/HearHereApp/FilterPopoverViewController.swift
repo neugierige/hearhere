@@ -24,7 +24,6 @@ class FilterPopoverViewController: UIViewController, UIPopoverPresentationContro
     }
     
     func loadUI() {
-//        view.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         var startY = view.bounds.height*0.125+6
         containerView = UIView(frame: CGRectMake(6, startY, 120, 126))
         containerView.layer.cornerRadius = 5
