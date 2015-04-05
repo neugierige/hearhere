@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout {
     
     var tableView: UITableView?
     let rowHeight:CGFloat = 60.0
@@ -90,9 +90,8 @@ class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, UIColle
             }
         })
         
-        collectionView?.delegate = self
         collectionView?.dataSource = self.collectionDataSource
-        
+        collectionView?.delegate = self.collectionDataSource
         
         self.view.addSubview(collectionView!)
         
@@ -104,31 +103,31 @@ class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, UIColle
     // ******************  UICollectionView ********************* //
     
     
-    func collectionView(collectionView: UICollectionView,
-        didSelectItemAtIndexPath indexPath: NSIndexPath){
-            
-            let selectedCell = collectionView.cellForItemAtIndexPath(indexPath)
-                as CalendarCollectionViewCell!
-            
-            let dt = getCalendarDate(indexPath)
-            
-            DataManager.retrieveEventsForDate(dt) { events in
-                self.eventsArray = events
-                self.dataSource?.loadEvents(self.eventsArray)
-                self.tableView?.reloadData()
-            }
-    }
+//    func collectionView(collectionView: UICollectionView,
+//        didSelectItemAtIndexPath indexPath: NSIndexPath){
+//            
+//            let selectedCell = collectionView.cellForItemAtIndexPath(indexPath)
+//                as CalendarCollectionViewCell!
+//            
+//            let dt = getCalendarDate(indexPath)
+//            
+//            DataManager.retrieveEventsForDate(dt) { events in
+//                self.eventsArray = events
+//                self.dataSource?.loadEvents(self.eventsArray)
+//                self.tableView?.reloadData()
+//            }
+//    }
+//    
+//    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+//        let selectedCell = collectionView.cellForItemAtIndexPath(indexPath)
+//            as CalendarCollectionViewCell!
+//    }
     
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        let selectedCell = collectionView.cellForItemAtIndexPath(indexPath)
-            as CalendarCollectionViewCell!
-    }
     
-    
-    func getCalendarDate(indexPath: NSIndexPath) -> NSDate {
-        let currDate = monthsArray[indexPath.section].dates[indexPath.row]
-        return currDate
-    }
+//    func getCalendarDate(indexPath: NSIndexPath) -> NSDate {
+//        let currDate = monthsArray[indexPath.section].dates[indexPath.row]
+//        return currDate
+//    }
     
     
     // ******************  UICollectionView ********************* //

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CalendarCollectionDataSource: NSObject, UICollectionViewDataSource {
+class CalendarCollectionDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
     
     typealias CollectionViewCellBlock = (cell: UICollectionViewCell, item: AnyObject?) -> ()
     typealias MonthsIndex = (month: String, dates: [NSDate])
@@ -32,6 +32,8 @@ class CalendarCollectionDataSource: NSObject, UICollectionViewDataSource {
         let daysArray = dg.makeDays(numDays)
         self.monthsArray += dg.buildIndex(daysArray)
     }
+    
+    // **** UICollectionViewDataSource **** //
 
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return monthsArray.count
@@ -59,15 +61,29 @@ class CalendarCollectionDataSource: NSObject, UICollectionViewDataSource {
         
         var identifier = "calendarCollectionHeader"
 
-        let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
-                withReuseIdentifier: identifier,
-                forIndexPath: indexPath) as UICollectionReusableView
+        let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: identifier, forIndexPath: indexPath) as UICollectionReusableView
     
-        if kind == UICollectionElementKindSectionHeader{
+        if kind == UICollectionElementKindSectionHeader {
             if let header = view as? CalendarHeaderReusableView {
-                    header.monthLabel.text = "\(monthsArray[indexPath.section].month)"
-                }
+                header.monthLabel.text = "\(monthsArray[indexPath.section].month)"
             }
-            return view
         }
+        return view
+    }
+    
+    // **** UICollectionViewDelegate **** //
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let selectedCell = collectionView.cellForItemAtIndexPath(indexPath) as CalendarCollectionViewCell!
+        let dt = monthsArray[indexPath.section].dates[indexPath.row]
+        
+        let calString = dc.getCalendarString(dt, type: "dayofweek", abbv: true)
+        println("calString: \(calString)")
+//            DataManager.retrieveEventsForDate(dt) { events in
+//                self.eventsArray = events
+//                self.dataSource?.loadEvents(self.eventsArray)
+//                self.tableView?.reloadData()
+//            }
+    }
+    
 }
