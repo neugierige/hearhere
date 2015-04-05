@@ -12,16 +12,13 @@ class CalendarTab: UIViewController, UICollectionViewDataSource, UICollectionVie
     
     var tableView: UITableView?
     let rowHeight:CGFloat = 60.0
-    let rangeInclusive = 0...4
     
     typealias MonthsIndex = (month: String, dates: [NSDate])
-    typealias EventsIndex = (date: String, events: [Event])
-    
+
     let dg = DateGenerator()
     let dc = DateConverter()
     
     var monthsArray = [MonthsIndex]()
-    var eventsByDateArray = [EventsIndex]()
     var eventsArray = [Event]()
     
     //***** dataSource *****//
@@ -35,16 +32,8 @@ class CalendarTab: UIViewController, UICollectionViewDataSource, UICollectionVie
         
         DataManager.retrieveAllEvents { events in
             self.eventsArray = events
-//            var allEvents = self.dg.buildEventsIndex(events)
-//            
-//            if allEvents.count > 5 {
-//                self.eventsByDateArray += allEvents[self.rangeInclusive]
-//            } else {
-//                self.eventsByDateArray += allEvents
-//            }
             
-            //***** dataSource *****//
-            self.dataSource = CalendarTableDataSource(items: self.eventsByDateArray, cellIdentifier: "calendarCell", navigationController: self.navigationController!, configureBlock: {
+            self.dataSource = CalendarTableDataSource(eventsArray: self.eventsArray, cellIdentifier: "calendarCell", navigationController: self.navigationController!, configureBlock: {
                 (cell, item) -> () in
                 if let actualCell = cell as? CalendarTableViewCell {
                     if let actualItem: AnyObject = item {
@@ -140,17 +129,10 @@ class CalendarTab: UIViewController, UICollectionViewDataSource, UICollectionVie
                 as CalendarCollectionViewCell!
             
             let dt = getCalendarDate(indexPath)
+            
             DataManager.retrieveEventsForDate(dt) { events in
-                var allEvents = self.dg.buildEventsIndex(events)
-                self.eventsByDateArray.removeAll(keepCapacity: false)
-                
-                if allEvents.count > 5 {
-                    self.eventsByDateArray += allEvents[self.rangeInclusive]
-                } else {
-                    self.eventsByDateArray += allEvents
-                }
-
-                self.dataSource?.itemsArray = self.eventsByDateArray
+                self.eventsArray = events
+                self.dataSource?.loadEvents(self.eventsArray)
                 self.tableView?.reloadData()
             }
     }

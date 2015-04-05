@@ -14,30 +14,29 @@ class CalendarTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     
     typealias EventsIndex = (date: String, events: [Event])
     let dg = DateGenerator()
-    var eventsByDateArray = [EventsIndex]()
     
     var itemsArray = [EventsIndex]()
     var itemIdentifier: String?
     var configureCellBlock: TableViewCellConfigureBlock?
     let navigationController: UINavigationController?
     
-    init(items: [EventsIndex], cellIdentifier: String, navigationController: UINavigationController, configureBlock: TableViewCellConfigureBlock) {
-        self.itemsArray = items
+    init(eventsArray: [Event], cellIdentifier: String, navigationController: UINavigationController, configureBlock: TableViewCellConfigureBlock) {
         self.itemIdentifier = cellIdentifier
         self.navigationController = navigationController
         self.configureCellBlock = configureBlock
         super.init()
+        loadEvents(eventsArray)
     }
     
-    func buildItemsArray(events: [Event]) {
-        var allEvents = self.dg.buildEventsIndex(events)
+    func loadEvents(events: [Event]) {
+        var eventsIndexArray = dg.buildEventsIndex(events)
+        itemsArray.removeAll(keepCapacity: false)
         
-        if allEvents.count > 5 {
-            self.eventsByDateArray += allEvents[0...4]
+        if eventsIndexArray.count > 5 {
+            itemsArray += eventsIndexArray[0...4]
         } else {
-            self.eventsByDateArray += allEvents
+            itemsArray += eventsIndexArray
         }
-
     }
     
     // **** UITableViewDataSource **** //
