@@ -8,54 +8,53 @@
 
 import UIKit
 
-typealias TableViewCellConfigureBlock = (cell: UITableViewCell, item: AnyObject?) -> ()
-
 class CalendarTableDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     
+    typealias TableViewCellBlock = (cell: UITableViewCell, item: AnyObject?) -> ()
     typealias EventsIndex = (date: String, events: [Event])
+
+    var tableArray = [EventsIndex]()
+    let cellIdentifier: String?
+    let cellBlock: TableViewCellBlock?
+    let navController: UINavigationController?
     let dg = DateGenerator()
     
-    var itemsArray = [EventsIndex]()
-    var itemIdentifier: String?
-    var configureCellBlock: TableViewCellConfigureBlock?
-    let navigationController: UINavigationController?
-    
-    init(eventsArray: [Event], cellIdentifier: String, navigationController: UINavigationController, configureBlock: TableViewCellConfigureBlock) {
-        self.itemIdentifier = cellIdentifier
-        self.navigationController = navigationController
-        self.configureCellBlock = configureBlock
+    init(eventsArray: [Event], cellIdentifier: String, navController: UINavigationController, cellBlock: TableViewCellBlock) {
+        self.cellIdentifier = cellIdentifier
+        self.navController = navController
+        self.cellBlock = cellBlock
         super.init()
         loadEvents(eventsArray)
     }
     
-    func loadEvents(events: [Event]) {
-        var eventsIndexArray = dg.buildEventsIndex(events)
-        itemsArray.removeAll(keepCapacity: false)
+    func loadEvents(eventsArray: [Event]) {
+        var eventsIndexArray = dg.buildEventsIndex(eventsArray)
+        tableArray.removeAll(keepCapacity: false)
         
         if eventsIndexArray.count > 5 {
-            itemsArray += eventsIndexArray[0...4]
+            tableArray += eventsIndexArray[0...4]
         } else {
-            itemsArray += eventsIndexArray
+            tableArray += eventsIndexArray
         }
     }
     
     // **** UITableViewDataSource **** //
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return itemsArray.count
+        return tableArray.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemsArray[section].events.count
+        return tableArray[section].events.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(self.itemIdentifier!, forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier!, forIndexPath: indexPath) as UITableViewCell
         
-        let item: AnyObject = self.itemsArray[indexPath.section].events[indexPath.row]
+        let item: AnyObject = self.tableArray[indexPath.section].events[indexPath.row]
         
-        if (self.configureCellBlock != nil) {
-            self.configureCellBlock!(cell: cell, item: item)
+        if (self.cellBlock != nil) {
+            self.cellBlock!(cell: cell, item: item)
         }
         
         return cell
@@ -72,13 +71,13 @@ class CalendarTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         header.contentView.backgroundColor = Configuration.medBlueUIColor
         header.textLabel.textColor = Configuration.lightBlueUIColor
         header.textLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 14.0)
-        header.textLabel.text = self.itemsArray[section].date
+        header.textLabel.text = self.tableArray[section].date
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var edvc = EventDetailViewController()
-        edvc.event = self.itemsArray[indexPath.section].events[indexPath.row]
-        self.navigationController?.showViewController(edvc, sender: indexPath)
+        edvc.event = self.tableArray[indexPath.section].events[indexPath.row]
+        self.navController?.showViewController(edvc, sender: indexPath)
     }
     
 }

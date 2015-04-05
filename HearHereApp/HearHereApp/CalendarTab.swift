@@ -21,7 +21,6 @@ class CalendarTab: UIViewController, UICollectionViewDataSource, UICollectionVie
     var monthsArray = [MonthsIndex]()
     var eventsArray = [Event]()
     
-    //***** dataSource *****//
     var dataSource: CalendarTableDataSource?
     
     override func viewDidLoad() {
@@ -33,7 +32,7 @@ class CalendarTab: UIViewController, UICollectionViewDataSource, UICollectionVie
         DataManager.retrieveAllEvents { events in
             self.eventsArray = events
             
-            self.dataSource = CalendarTableDataSource(eventsArray: self.eventsArray, cellIdentifier: "calendarCell", navigationController: self.navigationController!, configureBlock: {
+            self.dataSource = CalendarTableDataSource(eventsArray: self.eventsArray, cellIdentifier: "calendarCell", navController: self.navigationController!, cellBlock: {
                 (cell, item) -> () in
                 if let actualCell = cell as? CalendarTableViewCell {
                     if let actualItem: AnyObject = item {
