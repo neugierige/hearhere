@@ -45,6 +45,7 @@
 		4693CDEA1AB7DA8400DCBA29 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4693CDE91AB7DA8400DCBA29 /* Social.framework */; };
 		4693CDEC1AB7DAF100DCBA29 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4693CDEB1AB7DAF100DCBA29 /* Accounts.framework */; };
 		D01156F0B0CE6B18EB1296D8 /* Pods_HearHereApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8AD432332D880D7D80C003 /* Pods_HearHereApp.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		DB00D61D1AD1D8D0002BA99D /* CalendarCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB00D61C1AD1D8D0002BA99D /* CalendarCollectionDataSource.swift */; };
 		DB695B0B1ABF303D00B53713 /* CalendarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB695B0A1ABF303D00B53713 /* CalendarCollectionViewCell.swift */; };
 		DB695B0D1ABF304700B53713 /* CalendarHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB695B0C1ABF304700B53713 /* CalendarHeaderReusableView.swift */; };
 		DB695B101ABF305600B53713 /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB695B0E1ABF305600B53713 /* DateConverter.swift */; };
@@ -126,6 +127,7 @@
 		8C8AD432332D880D7D80C003 /* Pods_HearHereApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HearHereApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8B9356BC75010A63BEC81EA /* Pods-HearHereApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HearHereApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HearHereApp/Pods-HearHereApp.debug.xcconfig"; sourceTree = "<group>"; };
 		BAAAE57C5227C7DA602ECC76 /* Pods-HearHereApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HearHereApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-HearHereApp/Pods-HearHereApp.release.xcconfig"; sourceTree = "<group>"; };
+		DB00D61C1AD1D8D0002BA99D /* CalendarCollectionDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCollectionDataSource.swift; sourceTree = "<group>"; };
 		DB695B0A1ABF303D00B53713 /* CalendarCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB695B0C1ABF304700B53713 /* CalendarHeaderReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarHeaderReusableView.swift; sourceTree = "<group>"; };
 		DB695B0E1ABF305600B53713 /* DateConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				4693CDE11AB7D85300DCBA29 /* FriendsTableViewController.swift */,
 				F9CF09711AA7E179005E28F7 /* CalendarTab.swift */,
 				DBB5E0001AD0EC6500EC88FB /* CalendarTableDataSource.swift */,
+				DB00D61C1AD1D8D0002BA99D /* CalendarCollectionDataSource.swift */,
 				F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */,
 				F995C3E31AA91CA300F6EC88 /* TabBarController.swift */,
 				DB695B121ABF30EE00B53713 /* StickyHeaderFlowLayout.swift */,
@@ -543,6 +546,7 @@
 				DBD31EB21AB35CAA00B03CAA /* HomeTableViewCell.swift in Sources */,
 				F93271A21ABF63EE00B1F0DE /* MapButton.swift in Sources */,
 				4693CDDB1AB7D7B300DCBA29 /* ClassRouter.swift in Sources */,
+				DB00D61D1AD1D8D0002BA99D /* CalendarCollectionDataSource.swift in Sources */,
 				DB695B101ABF305600B53713 /* DateConverter.swift in Sources */,
 				F995C3E41AA91CA300F6EC88 /* TabBarController.swift in Sources */,
 				4609CC3A1AA974E200D2E70D /* Configuration.swift in Sources */,

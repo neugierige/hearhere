@@ -9,6 +9,8 @@
 import UIKit
 
 class CalendarCollectionViewCell: UICollectionViewCell {
+    
+    let dc = DateConverter()
     let dayLabel = UILabel()
     let dateLabel = UILabel()
     
@@ -38,5 +40,12 @@ class CalendarCollectionViewCell: UICollectionViewCell {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureCellData(item: AnyObject) {
+        if let dt = item as? NSDate {
+            dayLabel.text = dc.getCalendarString(dt, type: "dayofweek", abbv: true)
+            dateLabel.text = dc.getCalendarString(dt, type: "date", abbv: false)
+        }
     }
 }
