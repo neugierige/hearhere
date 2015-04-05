@@ -13,6 +13,7 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
     // MARK: Tag Properties
     private var tagNames = [String]()
     private var tagNameAndColor = [String:UIColor]()
+    
     var leftPopoverVC: FilterPopoverViewController!
     
     let tagColors  = ["Artist":Configuration.tagUIColorA, "Category":Configuration.tagUIColorB, "Venue":Configuration.tagUIColorC]
@@ -70,7 +71,7 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
         // Search View Section
         searchView = makeSearchView()
         view.addSubview(searchView)
-
+        
         // All Tag Scroll View Section
         tagPoolListView = makePoolListView()
         view.addSubview(tagPoolListView)
@@ -81,26 +82,34 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
         
         // Get data (names) and create tags, set colors
         TagView.color2 = Configuration.tagFontUIColor
-        DataManager.retrieveAllArtists { artists in
-            self.setupMode = true
-            if let artists = artists {
-                artists.map { self.loadTags($0.name, tagType: "Artist") }; return
-            }
-        }
-        DataManager.retrieveAllVenues { venues in
-            if let venues = venues {
-                venues.map { self.loadTags($0.name, tagType: "Venue") }; return
-            }
-        }
+        //        DataManager.retrieveAllArtists { artists in
+        //            self.setupMode = true
+        //            if let artists = artists {
+        //                artists.map { self.loadTags($0.name, tagType: "Artist") }; return
+        //            }
+        //        }
+        //        DataManager.retrieveAllVenues { venues in
+        //            if let venues = venues {
+        //                venues.map { self.loadTags($0.name, tagType: "Venue") }; return
+        //            }
+        //        }
+        loadCategories()
+    }
+    
+    func loadCategories() {
         DataManager.retrieveAllCategories { categories in
+            self.setupMode = true
             if let categories = categories {
-                categories.map { self.loadTags($0.name, tagType: "Category") }; return
+                categories.map { self.loadTags($0.name, tagType: "Category") }
+                self.toggleUserTags()
             }
         }
     }
     
     override func viewWillAppear(animated: Bool) {
         self.setupMode = false
+        self.toggleUserTags()
+
     }
     
     // MARK: Create View Methods
@@ -159,6 +168,40 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
                 strongSelf.tagPickListView.toggleTag(TagView)
             }
         }
+        
+    }
+    
+    func toggleUserTags() {
+        
+        var matchingCategories = [TagView]()
+        DataManager.getCurrentUserModel() { [weak self] user in
+            if let strongSelf = self {
+                if let user = user {
+                    if user.categories.count > 0 {
+                        // matchingCategories = user.categories.filter { contains(strongSelf.tagNames, $0.name) }
+                        for t in strongSelf.tagPoolListView.getAllTagViews() {
+                            println(t.name)
+                        }
+                        for u in user.categories {
+                            println("User")
+                            println(u.name)
+                        }
+                        let tagViews = strongSelf.tagPoolListView.getAllTagViews()
+                        for tag in tagViews {
+                            for category in user.categories {
+                                if category.name == tag.name {
+                                    matchingCategories.append(tag)
+                                }
+                            }
+                        }
+                        for tag in matchingCategories {
+                            strongSelf.tagPoolListView.toggleTag(tag)
+                            strongSelf.tagPickListView.toggleTag(tag)
+                        }
+                    }
+                }
+            }
+        }
     }
     
     // MARK: SearchView delegate method implementations
@@ -208,8 +251,8 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
     
     func filterTypeChosen(type: TagView) {
         tagPoolListView.removeAllTagViews()
-//        var mode = FilterMode.Artist
-//        mode.mode
+        //        var mode = FilterMode.Artist
+        //        mode.mode
         for (name, color) in tagNameAndColor {
             if color == tagColors[type.name] {
                 loadTags(name, tagType: type.name)
@@ -231,7 +274,7 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
                 let emptyTag = TagView(tagName: "")
                 var matchedPicks = [String]()
                 currentPicks.map { matchedPicks.append(emptyTag.splitTagName($0).0) }
-                self.tagNames.filter { contains(matchedPicks, $0) }.map { name -> Void in
+                self.tagNames.filter { contains(matchedPicks, $0) }.map { name -> Void in //////////////////
                     switch self.tagNameAndColor[name]! {
                     case Configuration.tagUIColorA:
                         artists.append(name)
@@ -243,31 +286,31 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
                         println("None")
                     }
                 }
-                DataManager.retrieveArtistsWithNames(artists) { artists in
-                    if let artists = artists {
-                        user.artists = artists
+                //                DataManager.retrieveArtistsWithNames(artists) { artists in
+                //                    if let artists = artists {
+                //                        user.artists = artists
+                //                    }
+                DataManager.retrieveCategoriesWithNames(categories) { categories in
+                    if let categories = categories {
+                        user.categories = categories
                     }
-                    DataManager.retrieveCategoriesWithNames(categories) { categories in
-                        if let categories = categories {
-                            user.categories = categories
-                        }
-                        DataManager.retrieveVenuesWithNames(venues) { venues in
-                            if let venues = venues {
-                                user.venues = venues
-                            }
-                            DataManager.saveUser(user) { success, error in
-                                dispatch_async(dispatch_get_main_queue()) {
-                                   // self.presentViewController(FriendsTableViewController(), animated: true, completion: nil)
-                                    if (self.appearedFromProfile != nil) {
-                                        self.dismissViewControllerAnimated(true, completion: nil)
-                                    } else {
-                                        self.performSegueWithIdentifier("main", sender: self)
-                                    }
-                                }
+                    //                        DataManager.retrieveVenuesWithNames(venues) { venues in
+                    //                            if let venues = venues {
+                    //                                user.venues = venues
+                    //                            }
+                    DataManager.saveUser(user) { success, error in
+                        dispatch_async(dispatch_get_main_queue()) {
+                            // self.presentViewController(FriendsTableViewController(), animated: true, completion: nil)
+                            if (self.appearedFromProfile != nil) {
+                                self.dismissViewControllerAnimated(true, completion: nil)
+                            } else {
+                                self.performSegueWithIdentifier("main", sender: self)
                             }
                         }
                     }
+                    //                        }
                 }
+                //                }
                 
                 
             } else {

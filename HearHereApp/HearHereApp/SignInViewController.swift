@@ -61,14 +61,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {//, CLLocatio
         scrollView.scrollEnabled = false
         scrollView.userInteractionEnabled = true
         view.addSubview(scrollView)
-        
-        // spinner
-        spinner = UIActivityIndicatorView(frame: CGRectMake(0, 0, 50, 50))
-        spinner.center = view.center
-        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-//        spinner.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin | .FlexibleTopMargin
-        scrollView.addSubview(spinner)
-        
+
         let logoView = UIImageView(image: UIImage(named: "hear-hear-splash"))
         logoView.frame = CGRectMake(paddingX*2,topLayoutGuide.length+paddingY*3, screenBounds.width-paddingX*4, (screenBounds.width-paddingX*4)*0.77)
         logoView.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin | .FlexibleWidth
@@ -124,6 +117,13 @@ class SignInViewController: UIViewController, UITextFieldDelegate {//, CLLocatio
         signInNowButton.setTitle("Skip for now.", forState: .Normal)
         signInNowButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         scrollView.addSubview(signInNowButton)
+        
+        // spinner
+        spinner = UIActivityIndicatorView(frame: CGRectMake(0, 0, 50, 50))
+        spinner.center = view.center
+        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        //        spinner.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin | .FlexibleTopMargin
+        scrollView.addSubview(spinner)
         
 //        locationManager.delegate = self
 //        locationManager.desiredAccuracy = kCLLocationAccuracyBest

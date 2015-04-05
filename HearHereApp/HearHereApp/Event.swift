@@ -24,7 +24,7 @@ class Event: Model, NSCoding {
     var priceMax: Double!
     var photo: UIImage!
     var numAttendees: Int!
-    var distance: Double!
+    var distance = 0.0
     
     required init(coder aDecoder: NSCoder) {
         println(aDecoder)
