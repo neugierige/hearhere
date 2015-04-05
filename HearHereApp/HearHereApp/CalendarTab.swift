@@ -8,14 +8,11 @@
 
 import UIKit
 
-class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+class CalendarTab: UIViewController, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     
     var tableView: UITableView?
     let rowHeight:CGFloat = 60.0
     let rangeInclusive = 0...4
-    
-    var eventsArray = [Event]()
-    var datesArray = [NSDate]()
     
     typealias MonthsIndex = (month: String, dates: [NSDate])
     typealias EventsIndex = (date: String, events: [Event])
@@ -26,6 +23,9 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
     var monthsArray = [MonthsIndex]()
     var eventsByDateArray = [EventsIndex]()
     
+    //***** dataSource *****//
+    var dataSource: CalendarTableDataSource?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let tableY:CGFloat = 125.5
@@ -33,7 +33,6 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
         generateData()
         
         DataManager.retrieveAllEvents { events in
-            //self.eventsArray = events
             var allEvents = self.dg.buildEventsIndex(events)
             
             if allEvents.count > 5 {
@@ -42,25 +41,33 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
                 self.eventsByDateArray += allEvents
             }
             
+            //***** dataSource *****//
+            self.dataSource = CalendarTableDataSource(items: self.eventsByDateArray, cellIdentifier: "calendarCell", configureBlock: {
+                (cell, item) -> () in
+                if let actualCell = cell as? CalendarTableViewCell {
+                    if let actualItem: AnyObject = item {
+                        actualCell.configureCellData(actualItem)
+                    }
+                }
+            })
+            
             if let theTableView = self.tableView {
-                theTableView.dataSource = self
+                theTableView.dataSource = self.dataSource
                 theTableView.reloadData()
             }
-
-        }
-        
-        for index in 0...5 {
-            datesArray.append(NSDate())
+            
         }
         
         // ******************  UITableView ********************* //
-
+        
         tableView = UITableView(frame: CGRect(x: 0, y: tableY, width: self.view.frame.width, height: self.view.frame.height - tableY - 49.0), style: UITableViewStyle.Plain)
         
         if let theTableView = tableView {
+            
             theTableView.registerClass(CalendarTableViewCell.self, forCellReuseIdentifier: "calendarCell")
             theTableView.registerClass(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "calendarHeader")
-            theTableView.dataSource = self
+            
+            theTableView.dataSource = self.dataSource
             theTableView.delegate = self
             theTableView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
             theTableView.rowHeight = self.rowHeight
@@ -93,61 +100,64 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
         
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return eventsByDateArray.count
-    }
+    //UITableViewDataSource
+    //
+    //    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    //        return eventsByDateArray.count
+    //    }
+    //
+    //    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    //        return eventsByDateArray[section].events.count
+    //    }
+    //
+    //    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    //        let cell = tableView.dequeueReusableCellWithIdentifier("calendarCell", forIndexPath: indexPath) as UITableViewCell
+    //
+    //        let event = getEvent(indexPath)
+    //        let timeWidth = self.view.frame.width * 0.18
+    //
+    //        if cell.viewWithTag(1) == nil {
+    //            let timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: timeWidth, height: self.rowHeight))
+    //            timeLabel.tag = 1
+    //            timeLabel.textColor = Configuration.medBlueUIColor
+    //            timeLabel.font = UIFont(name: "HelveticaNeue-Light", size: 13.0)
+    //            timeLabel.textAlignment = .Center
+    //            cell.contentView.addSubview(timeLabel)
+    //        }
+    //
+    //        let timeLabel = cell.viewWithTag(1) as UILabel
+    //
+    //        // Populate text labels
+    //        let eventTime = dc.formatTime(event.dateTime)
+    //        timeLabel.text = "\(eventTime)"
+    //        cell.textLabel?.text = "\(event.title)"
+    //        cell.detailTextLabel?.text = "\(event.venue[0].name)"
+    //
+    //        return cell
+    //    }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return eventsByDateArray[section].events.count
-    }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("calendarCell", forIndexPath: indexPath) as UITableViewCell
-        
-        //let event = eventsArray[indexPath.row]
-        let event = getEvent(indexPath)
-        let timeWidth = self.view.frame.width * 0.18
-        
-        if cell.viewWithTag(1) == nil {
-            let timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: timeWidth, height: self.rowHeight))
-            timeLabel.tag = 1
-            timeLabel.textColor = Configuration.medBlueUIColor
-            timeLabel.font = UIFont(name: "HelveticaNeue-Light", size: 13.0)
-            timeLabel.textAlignment = .Center
-            cell.contentView.addSubview(timeLabel)
-        }
-        
-        let timeLabel = cell.viewWithTag(1) as UILabel
-        
-        // Populate text labels
-        let eventTime = dc.formatTime(event.dateTime)
-        timeLabel.text = "\(eventTime)"
-        cell.textLabel?.text = "\(event.title)"
-        cell.detailTextLabel?.text = "\(event.venue[0].name)"
-        
-        return cell
-    }
+    //UITableViewDelegate
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30.0
-    }
-    
-    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let header: UITableViewHeaderFooterView = view as UITableViewHeaderFooterView
-        
-        header.contentView.backgroundColor = Configuration.medBlueUIColor
-        header.textLabel.textColor = Configuration.lightBlueUIColor
-        header.textLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 14.0)
-        let sectionDate = self.eventsByDateArray[section].date
-        header.textLabel.text = sectionDate
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var edvc = EventDetailViewController()
-        edvc.event = getEvent(indexPath)
-        navigationController?.showViewController(edvc, sender: indexPath)
-//        presentViewController(edvc, animated: true, completion: nil)
-    }
+    //    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    //        return 30.0
+    //    }
+    //
+    //    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    //        let header: UITableViewHeaderFooterView = view as UITableViewHeaderFooterView
+    //
+    //        header.contentView.backgroundColor = Configuration.medBlueUIColor
+    //        header.textLabel.textColor = Configuration.lightBlueUIColor
+    //        header.textLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 14.0)
+    //        let sectionDate = self.eventsByDateArray[section].date
+    //        header.textLabel.text = sectionDate
+    //    }
+    //
+    //    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    //        var edvc = EventDetailViewController()
+    //        edvc.event = getEvent(indexPath)
+    //        navigationController?.showViewController(edvc, sender: indexPath)
+    //    }
     
     // ******************  UICollectionView ********************* //
     
@@ -186,7 +196,6 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
             
             let dt = getCalendarDate(indexPath)
             DataManager.retrieveEventsForDate(dt) { events in
-                //self.eventsByDateArray += self.dg.buildEventsIndex(self.eventsArray)
                 var allEvents = self.dg.buildEventsIndex(events)
                 self.eventsByDateArray.removeAll(keepCapacity: false)
                 
@@ -195,11 +204,22 @@ class CalendarTab: UIViewController, UITableViewDataSource, UITableViewDelegate,
                 } else {
                     self.eventsByDateArray += allEvents
                 }
-                    
+                
+                //***** dataSource *****//
+                self.dataSource = CalendarTableDataSource(items: self.eventsByDateArray, cellIdentifier: "calendarCell", configureBlock: {
+                    (cell, item) -> () in
+                    if let actualCell = cell as? CalendarTableViewCell {
+                        if let actualItem: AnyObject = item {
+                            actualCell.configureCellData(actualItem)
+                        }
+                    }
+                })
+                
+                self.tableView?.dataSource = self.dataSource
                 self.tableView?.reloadData()
             }
     }
-
+    
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         let selectedCell = collectionView.cellForItemAtIndexPath(indexPath)
             as CalendarCollectionViewCell!

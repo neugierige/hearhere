@@ -10,6 +10,9 @@ import UIKit
 
 class CalendarTableViewCell: UITableViewCell {
     
+    let dc = DateConverter()
+    let rowHeight:CGFloat = 60.0
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -18,6 +21,10 @@ class CalendarTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: UITableViewCellStyle.Subtitle, reuseIdentifier: reuseIdentifier)
         styleCell()
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func styleCell() {
@@ -33,10 +40,6 @@ class CalendarTableViewCell: UITableViewCell {
         self.detailTextLabel?.numberOfLines = 1
         
         self.selectionStyle = UITableViewCellSelectionStyle.None
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func layoutSubviews() {
@@ -57,6 +60,27 @@ class CalendarTableViewCell: UITableViewCell {
         let border = UIView(frame: CGRect(x: timeWidth, y: 4.0, width: 0.5, height: 54.0))
         border.backgroundColor = Configuration.medBlueUIColor
         self.contentView.addSubview(border)
+    }
+    
+    func configureCellData(item: AnyObject) {
+        let timeWidth = self.frame.width * 0.18
+        
+        if self.viewWithTag(1) == nil {
+            let timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: timeWidth, height: self.rowHeight))
+            timeLabel.tag = 1
+            timeLabel.textColor = Configuration.medBlueUIColor
+            timeLabel.font = UIFont(name: "HelveticaNeue-Light", size: 13.0)
+            timeLabel.textAlignment = .Center
+            self.contentView.addSubview(timeLabel)
+        }
+        
+        let timeLabel = self.viewWithTag(1) as UILabel
+        
+        if let event = item as? Event {
+            timeLabel.text = dc.formatTime(event.dateTime)
+            self.textLabel?.text = event.title
+            self.detailTextLabel?.text = event.venue[0].name
+        }
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

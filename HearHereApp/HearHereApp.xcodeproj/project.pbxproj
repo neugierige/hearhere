@@ -50,6 +50,7 @@
 		DB695B101ABF305600B53713 /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB695B0E1ABF305600B53713 /* DateConverter.swift */; };
 		DB695B111ABF305600B53713 /* DateGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB695B0F1ABF305600B53713 /* DateGenerator.swift */; };
 		DB695B131ABF30EE00B53713 /* StickyHeaderFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB695B121ABF30EE00B53713 /* StickyHeaderFlowLayout.swift */; };
+		DBB5E0011AD0EC6500EC88FB /* CalendarTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5E0001AD0EC6500EC88FB /* CalendarTableDataSource.swift */; };
 		DBD31EB21AB35CAA00B03CAA /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD31EB11AB35CAA00B03CAA /* HomeTableViewCell.swift */; };
 		DBD31EB41AB3663900B03CAA /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD31EB31AB3663900B03CAA /* CalendarTableViewCell.swift */; };
 		F93271A21ABF63EE00B1F0DE /* MapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93271A11ABF63EE00B1F0DE /* MapButton.swift */; };
@@ -130,6 +131,7 @@
 		DB695B0E1ABF305600B53713 /* DateConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
 		DB695B0F1ABF305600B53713 /* DateGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateGenerator.swift; sourceTree = "<group>"; };
 		DB695B121ABF30EE00B53713 /* StickyHeaderFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickyHeaderFlowLayout.swift; sourceTree = "<group>"; };
+		DBB5E0001AD0EC6500EC88FB /* CalendarTableDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarTableDataSource.swift; sourceTree = "<group>"; };
 		DBD31EB11AB35CAA00B03CAA /* HomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		DBD31EB31AB3663900B03CAA /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
 		F93271A11ABF63EE00B1F0DE /* MapButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapButton.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				4693CDE41AB7D88E00DCBA29 /* EventDetailViewController.swift */,
 				F983DA511AB8ADCF00A3B4E2 /* DetailViewController.swift */,
 				F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */,
+				DBB5E0001AD0EC6500EC88FB /* CalendarTableDataSource.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -543,6 +546,7 @@
 				DB695B101ABF305600B53713 /* DateConverter.swift in Sources */,
 				F995C3E41AA91CA300F6EC88 /* TabBarController.swift in Sources */,
 				4609CC3A1AA974E200D2E70D /* Configuration.swift in Sources */,
+				DBB5E0011AD0EC6500EC88FB /* CalendarTableDataSource.swift in Sources */,
 				4693CDE31AB7D85300DCBA29 /* FriendsTableViewController.swift in Sources */,
 				DB695B0B1ABF303D00B53713 /* CalendarCollectionViewCell.swift in Sources */,
 				466CC8931AB8C640002FE4F0 /* MapTab.swift in Sources */,
