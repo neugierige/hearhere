@@ -147,19 +147,8 @@ class CalendarTab: UIViewController, UICollectionViewDataSource, UICollectionVie
                 } else {
                     self.eventsByDateArray += allEvents
                 }
-                
-                //***** dataSource *****//
-                self.dataSource = CalendarTableDataSource(items: self.eventsByDateArray, cellIdentifier: "calendarCell", navigationController: self.navigationController!, configureBlock: {
-                    (cell, item) -> () in
-                    if let actualCell = cell as? CalendarTableViewCell {
-                        if let actualItem: AnyObject = item {
-                            actualCell.configureCellData(actualItem)
-                        }
-                    }
-                })
-                
-                self.tableView?.dataSource = self.dataSource
-                self.tableView?.delegate = self.dataSource
+
+                self.dataSource?.itemsArray = self.eventsByDateArray
                 self.tableView?.reloadData()
             }
     }

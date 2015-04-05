@@ -9,7 +9,7 @@
 import UIKit
 
 class CalendarTableViewCell: UITableViewCell {
-    
+
     let dc = DateConverter()
     let rowHeight:CGFloat = 60.0
     
@@ -43,11 +43,10 @@ class CalendarTableViewCell: UITableViewCell {
     }
     
     override func layoutSubviews() {
+        
         super.layoutSubviews()
         
         let timeWidth = self.frame.width * 0.18
-        
-        //Size and position labels
         let labelWidth = self.frame.width * 0.76
         let labelX = timeWidth + 10
         
@@ -59,10 +58,12 @@ class CalendarTableViewCell: UITableViewCell {
         
         let border = UIView(frame: CGRect(x: timeWidth, y: 4.0, width: 0.5, height: 54.0))
         border.backgroundColor = Configuration.medBlueUIColor
+        
         self.contentView.addSubview(border)
     }
     
     func configureCellData(item: AnyObject) {
+        
         let timeWidth = self.frame.width * 0.18
         
         if self.viewWithTag(1) == nil {
@@ -81,12 +82,6 @@ class CalendarTableViewCell: UITableViewCell {
             self.textLabel?.text = event.title
             self.detailTextLabel?.text = event.venue[0].name
         }
-    }
-    
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
 }
