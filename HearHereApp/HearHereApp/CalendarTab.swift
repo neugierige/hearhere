@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CalendarTab: UIViewController, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+class CalendarTab: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     
     var tableView: UITableView?
     let rowHeight:CGFloat = 60.0
@@ -42,7 +42,7 @@ class CalendarTab: UIViewController, UITableViewDelegate, UICollectionViewDataSo
             }
             
             //***** dataSource *****//
-            self.dataSource = CalendarTableDataSource(items: self.eventsByDateArray, cellIdentifier: "calendarCell", configureBlock: {
+            self.dataSource = CalendarTableDataSource(items: self.eventsByDateArray, cellIdentifier: "calendarCell", navigationController: self.navigationController!, configureBlock: {
                 (cell, item) -> () in
                 if let actualCell = cell as? CalendarTableViewCell {
                     if let actualItem: AnyObject = item {
@@ -102,28 +102,6 @@ class CalendarTab: UIViewController, UITableViewDelegate, UICollectionViewDataSo
     }
     
     
-    //UITableViewDelegate
-    
-    //    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    //        return 30.0
-    //    }
-    //
-    //    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-    //        let header: UITableViewHeaderFooterView = view as UITableViewHeaderFooterView
-    //
-    //        header.contentView.backgroundColor = Configuration.medBlueUIColor
-    //        header.textLabel.textColor = Configuration.lightBlueUIColor
-    //        header.textLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 14.0)
-    //        let sectionDate = self.eventsByDateArray[section].date
-    //        header.textLabel.text = sectionDate
-    //    }
-    //
-    //    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    //        var edvc = EventDetailViewController()
-    //        edvc.event = getEvent(indexPath)
-    //        navigationController?.showViewController(edvc, sender: indexPath)
-    //    }
-    
     // ******************  UICollectionView ********************* //
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -171,7 +149,7 @@ class CalendarTab: UIViewController, UITableViewDelegate, UICollectionViewDataSo
                 }
                 
                 //***** dataSource *****//
-                self.dataSource = CalendarTableDataSource(items: self.eventsByDateArray, cellIdentifier: "calendarCell", configureBlock: {
+                self.dataSource = CalendarTableDataSource(items: self.eventsByDateArray, cellIdentifier: "calendarCell", navigationController: self.navigationController!, configureBlock: {
                     (cell, item) -> () in
                     if let actualCell = cell as? CalendarTableViewCell {
                         if let actualItem: AnyObject = item {

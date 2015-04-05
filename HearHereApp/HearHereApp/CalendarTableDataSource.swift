@@ -16,10 +16,12 @@ class CalendarTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     var itemsArray = [EventsIndex]()
     var itemIdentifier: String?
     var configureCellBlock: TableViewCellConfigureBlock?
+    let navigationController: UINavigationController?
     
-    init(items: [EventsIndex], cellIdentifier: String, configureBlock: TableViewCellConfigureBlock) {
+    init(items: [EventsIndex], cellIdentifier: String, navigationController: UINavigationController, configureBlock: TableViewCellConfigureBlock) {
         self.itemsArray = items
         self.itemIdentifier = cellIdentifier
+        self.navigationController = navigationController
         self.configureCellBlock = configureBlock
         super.init()
     }
@@ -58,6 +60,12 @@ class CalendarTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         header.textLabel.textColor = Configuration.lightBlueUIColor
         header.textLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 14.0)
         header.textLabel.text = self.itemsArray[section].date
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var edvc = EventDetailViewController()
+        edvc.event = self.itemsArray[indexPath.section].events[indexPath.row]
+        self.navigationController?.showViewController(edvc, sender: indexPath)
     }
     
 }

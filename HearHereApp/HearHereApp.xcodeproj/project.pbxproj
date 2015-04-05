@@ -241,6 +241,7 @@
 				4693CDE01AB7D85300DCBA29 /* FilterPopoverViewController.swift */,
 				4693CDE11AB7D85300DCBA29 /* FriendsTableViewController.swift */,
 				F9CF09711AA7E179005E28F7 /* CalendarTab.swift */,
+				DBB5E0001AD0EC6500EC88FB /* CalendarTableDataSource.swift */,
 				F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */,
 				F995C3E31AA91CA300F6EC88 /* TabBarController.swift */,
 				DB695B121ABF30EE00B53713 /* StickyHeaderFlowLayout.swift */,
@@ -255,7 +256,6 @@
 				4693CDE41AB7D88E00DCBA29 /* EventDetailViewController.swift */,
 				F983DA511AB8ADCF00A3B4E2 /* DetailViewController.swift */,
 				F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */,
-				DBB5E0001AD0EC6500EC88FB /* CalendarTableDataSource.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
