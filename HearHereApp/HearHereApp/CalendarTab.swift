@@ -28,8 +28,6 @@ class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, UIColle
         super.viewDidLoad()
         let tableY:CGFloat = 125.5
         
-        generateData()
-        
         DataManager.retrieveAllEvents { events in
             self.eventsArray = events
             
@@ -79,11 +77,12 @@ class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, UIColle
         flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         flowLayout.headerReferenceSize = CGSize(width: calUnit, height: calUnit)
         
-        var __collectionView:UICollectionView? = UICollectionView(frame: CGRectMake(0, tableY - calUnit, self.view.frame.width, calUnit), collectionViewLayout: flowLayout)
-        __collectionView?.registerClass(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: "calendarCollectionCell")
-        __collectionView?.registerClass(CalendarHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "calendarCollectionHeader")
+        var collectionView:UICollectionView? = UICollectionView(frame: CGRectMake(0, tableY - calUnit, self.view.frame.width, calUnit), collectionViewLayout: flowLayout)
+        collectionView?.backgroundColor = Configuration.darkBlueUIColor
+        collectionView?.registerClass(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: "calendarCollectionCell")
+        collectionView?.registerClass(CalendarHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "calendarCollectionHeader")
         
-        self.collectionDataSource = CalendarCollectionDataSource(cellIdentifier: "calendarCollectionCell", cellBlock: { (cell, item) -> () in
+        self.collectionDataSource = CalendarCollectionDataSource(numDays: 180, cellIdentifier: "calendarCollectionCell", cellBlock: { (cell, item) -> () in
             if let actualCell = cell as? CalendarCollectionViewCell {
                 if let actualItem: AnyObject = item {
                     actualCell.configureCellData(actualItem)
@@ -91,11 +90,11 @@ class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, UIColle
             }
         })
         
-        __collectionView?.delegate = self
-        __collectionView?.dataSource = self.collectionDataSource
-        __collectionView?.backgroundColor = Configuration.darkBlueUIColor
+        collectionView?.delegate = self
+        collectionView?.dataSource = self.collectionDataSource
         
-        self.view.addSubview(__collectionView!)
+        
+        self.view.addSubview(collectionView!)
         
         // ******************  /UICollectionView ********************* //
         
@@ -103,32 +102,6 @@ class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, UIColle
     
     
     // ******************  UICollectionView ********************* //
-    
-//    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-//        return monthsArray.count
-//    }
-//    
-//    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
-//    {
-//        return monthsArray[section].dates.count
-//    }
-//    
-//    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
-//    {
-//        
-//        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(
-//            "calendarCollectionCell",
-//            forIndexPath: indexPath) as CalendarCollectionViewCell
-//        
-//        let dt = getCalendarDate(indexPath)
-//        let dayString = dc.getCalendarString(dt, type: "dayofweek", abbv: true)
-//        let dateInt = dc.getCalendarString(dt, type: "date", abbv: false)
-//        
-//        cell.dayLabel.text = dayString
-//        cell.dateLabel.text = dateInt
-//        
-//        return cell
-//    }
     
     
     func collectionView(collectionView: UICollectionView,
@@ -151,26 +124,6 @@ class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, UIColle
             as CalendarCollectionViewCell!
     }
     
-//    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-//        
-//        var identifier = "calendarCollectionHeader"
-//        
-//        let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
-//            withReuseIdentifier: identifier,
-//            forIndexPath: indexPath) as UICollectionReusableView
-//        
-//        if kind == UICollectionElementKindSectionHeader{
-//            if let header = view as? CalendarHeaderReusableView {
-//                header.monthLabel.text = "\(monthsArray[indexPath.section].month)"
-//            }
-//        }
-//        return view
-//    }
-    
-    func generateData() {
-        let daysArray = dg.makeDays(180)
-        self.monthsArray += dg.buildIndex(daysArray)
-    }
     
     func getCalendarDate(indexPath: NSIndexPath) -> NSDate {
         let currDate = monthsArray[indexPath.section].dates[indexPath.row]

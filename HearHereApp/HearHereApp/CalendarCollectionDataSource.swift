@@ -21,15 +21,15 @@ class CalendarCollectionDataSource: NSObject, UICollectionViewDataSource {
     let cellIdentifier: String?
     let cellBlock: CollectionViewCellBlock?
     
-    init(cellIdentifier: String, cellBlock: CollectionViewCellBlock) {
+    init(numDays: Int, cellIdentifier: String, cellBlock: CollectionViewCellBlock) {
         self.cellIdentifier = cellIdentifier
         self.cellBlock = cellBlock
         super.init()
-        generateData()
+        generateData(numDays)
     }
     
-    func generateData() {
-        let daysArray = dg.makeDays(180)
+    func generateData(numDays: Int) {
+        let daysArray = dg.makeDays(numDays)
         self.monthsArray += dg.buildIndex(daysArray)
     }
 
@@ -51,14 +51,23 @@ class CalendarCollectionDataSource: NSObject, UICollectionViewDataSource {
         if (self.cellBlock != nil) {
             self.cellBlock!(cell: cell, item: item)
         }
-        
-//        let dt = monthsArray[indexPath.section].dates[indexPath.row]
-//        let dayString = dc.getCalendarString(dt, type: "dayofweek", abbv: true)
-//        let dateInt = dc.getCalendarString(dt, type: "date", abbv: false)
-//        
-//        cell.dayLabel.text = dayString
-//        cell.dateLabel.text = dateInt
-        
+                
         return cell
     }
+    
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
+        var identifier = "calendarCollectionHeader"
+
+        let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
+                withReuseIdentifier: identifier,
+                forIndexPath: indexPath) as UICollectionReusableView
+    
+        if kind == UICollectionElementKindSectionHeader{
+            if let header = view as? CalendarHeaderReusableView {
+                    header.monthLabel.text = "\(monthsArray[indexPath.section].month)"
+                }
+            }
+            return view
+        }
 }
