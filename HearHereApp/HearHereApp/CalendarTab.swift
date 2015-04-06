@@ -8,9 +8,10 @@
 
 import UIKit
 
-class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, ScrollCalendarDelegate {
+class CalendarTab: UIViewController, ScrollCalendarDelegate {
     
     var tableView: UITableView?
+    var collectionView: UICollectionView?
     let rowHeight:CGFloat = 60.0
     
     var eventsArray = [Event]()
@@ -62,8 +63,8 @@ class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, ScrollC
         // ******************  UICollectionView ********************* //
         
         let calUnit:CGFloat = 67.5
-        
         var flowLayout:UICollectionViewFlowLayout = StickyHeaderFlowLayout()
+        
         flowLayout.minimumLineSpacing = 1
         flowLayout.minimumInteritemSpacing = 1
         flowLayout.itemSize = CGSize(width: calUnit, height: calUnit)
@@ -71,10 +72,7 @@ class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, ScrollC
         flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         flowLayout.headerReferenceSize = CGSize(width: calUnit, height: calUnit)
         
-        var collectionView:UICollectionView? = UICollectionView(frame: CGRectMake(0, tableY - calUnit, self.view.frame.width, calUnit), collectionViewLayout: flowLayout)
-        collectionView?.backgroundColor = Configuration.darkBlueUIColor
-        collectionView?.registerClass(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: "calendarCollectionCell")
-        collectionView?.registerClass(CalendarHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "calendarCollectionHeader")
+        collectionView = UICollectionView(frame: CGRectMake(0, tableY - calUnit, self.view.frame.width, calUnit), collectionViewLayout: flowLayout)
         
         self.collectionDataSource = CalendarCollectionDataSource(numDays: 180, cellIdentifier: "calendarCollectionCell", cellBlock: { (cell, item) -> () in
             if let actualCell = cell as? CalendarCollectionViewCell {
@@ -83,12 +81,17 @@ class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, ScrollC
                 }
             }
         })
-        
-        collectionView?.dataSource = self.collectionDataSource
-        collectionView?.delegate = self.collectionDataSource
-        
         self.collectionDataSource?.delegate = self
-        self.view.addSubview(collectionView!)
+        
+        if let theCollectionView = collectionView {
+            theCollectionView.registerClass(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: "calendarCollectionCell")
+            theCollectionView.registerClass(CalendarHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "calendarCollectionHeader")
+            
+            theCollectionView.backgroundColor = Configuration.darkBlueUIColor
+            theCollectionView.dataSource = self.collectionDataSource
+            theCollectionView.delegate = self.collectionDataSource
+            view.addSubview(theCollectionView)
+        }
         
     }
     
