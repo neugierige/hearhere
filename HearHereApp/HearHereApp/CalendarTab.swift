@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout {
+class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, ScrollCalendarDelegate {
     
     var tableView: UITableView?
     let rowHeight:CGFloat = 60.0
@@ -63,7 +63,7 @@ class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout {
             theTableView.rowHeight = self.rowHeight
             view.addSubview(theTableView)
         }
-        // ******************  /UITableView ********************* //
+        
         
         // ******************  UICollectionView ********************* //
         
@@ -93,44 +93,18 @@ class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout {
         collectionView?.dataSource = self.collectionDataSource
         collectionView?.delegate = self.collectionDataSource
         
+        self.collectionDataSource?.delegate = self
         self.view.addSubview(collectionView!)
-        
-        // ******************  /UICollectionView ********************* //
         
     }
     
-    
-    // ******************  UICollectionView ********************* //
-    
-    
-//    func collectionView(collectionView: UICollectionView,
-//        didSelectItemAtIndexPath indexPath: NSIndexPath){
-//            
-//            let selectedCell = collectionView.cellForItemAtIndexPath(indexPath)
-//                as CalendarCollectionViewCell!
-//            
-//            let dt = getCalendarDate(indexPath)
-//            
-//            DataManager.retrieveEventsForDate(dt) { events in
-//                self.eventsArray = events
-//                self.dataSource?.loadEvents(self.eventsArray)
-//                self.tableView?.reloadData()
-//            }
-//    }
-//    
-//    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-//        let selectedCell = collectionView.cellForItemAtIndexPath(indexPath)
-//            as CalendarCollectionViewCell!
-//    }
-    
-    
-//    func getCalendarDate(indexPath: NSIndexPath) -> NSDate {
-//        let currDate = monthsArray[indexPath.section].dates[indexPath.row]
-//        return currDate
-//    }
-    
-    
-    // ******************  UICollectionView ********************* //
+    func updateList(dt: NSDate) {
+        DataManager.retrieveEventsForDate(dt) { events in
+            self.eventsArray = events
+            self.dataSource?.loadEvents(self.eventsArray)
+            self.tableView?.reloadData()
+        }
+    }
     
     override func shouldAutorotate() -> Bool {
         return false

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ScrollCalendarDelegate {
+    func updateList(dt: NSDate)
+}
+
 class CalendarCollectionDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
     
     typealias CollectionViewCellBlock = (cell: UICollectionViewCell, item: AnyObject?) -> ()
@@ -20,6 +24,7 @@ class CalendarCollectionDataSource: NSObject, UICollectionViewDataSource, UIColl
     
     let cellIdentifier: String?
     let cellBlock: CollectionViewCellBlock?
+    var delegate: ScrollCalendarDelegate?
     
     init(numDays: Int, cellIdentifier: String, cellBlock: CollectionViewCellBlock) {
         self.cellIdentifier = cellIdentifier
@@ -75,15 +80,9 @@ class CalendarCollectionDataSource: NSObject, UICollectionViewDataSource, UIColl
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let selectedCell = collectionView.cellForItemAtIndexPath(indexPath) as CalendarCollectionViewCell!
-        let dt = monthsArray[indexPath.section].dates[indexPath.row]
         
-        let calString = dc.getCalendarString(dt, type: "dayofweek", abbv: true)
-        println("calString: \(calString)")
-//            DataManager.retrieveEventsForDate(dt) { events in
-//                self.eventsArray = events
-//                self.dataSource?.loadEvents(self.eventsArray)
-//                self.tableView?.reloadData()
-//            }
+        let dt = monthsArray[indexPath.section].dates[indexPath.row]
+        self.delegate?.updateList(dt)
     }
     
 }
