@@ -12,12 +12,13 @@ class CalendarTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     
     typealias TableViewCellBlock = (cell: UITableViewCell, item: AnyObject?) -> ()
     typealias EventsIndex = (date: String, events: [Event])
+    
+    let dg = DateGenerator()
 
     var tableArray = [EventsIndex]()
     let cellIdentifier: String?
     let cellBlock: TableViewCellBlock?
     let navController: UINavigationController?
-    let dg = DateGenerator()
     
     init(eventsArray: [Event], cellIdentifier: String, navController: UINavigationController, cellBlock: TableViewCellBlock) {
         self.cellIdentifier = cellIdentifier
@@ -28,8 +29,9 @@ class CalendarTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     }
     
     func loadEvents(eventsArray: [Event]) {
-        var eventsIndexArray = dg.buildEventsIndex(eventsArray)
         tableArray.removeAll(keepCapacity: false)
+        
+        var eventsIndexArray = dg.buildEventsIndex(eventsArray)
         
         if eventsIndexArray.count > 5 {
             tableArray += eventsIndexArray[0...4]

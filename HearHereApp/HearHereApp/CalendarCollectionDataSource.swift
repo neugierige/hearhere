@@ -15,13 +15,12 @@ protocol ScrollCalendarDelegate {
 class CalendarCollectionDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
     
     typealias CollectionViewCellBlock = (cell: UICollectionViewCell, item: AnyObject?) -> ()
-    typealias MonthsIndex = (month: String, dates: [NSDate])
+    typealias CalendarIndex = (month: String, dates: [NSDate])
     
     let dg = DateGenerator()
     let dc = DateConverter()
     
-    var monthsArray = [MonthsIndex]()
-    
+    var collectionArray = [CalendarIndex]()
     let cellIdentifier: String?
     let cellBlock: CollectionViewCellBlock?
     var delegate: ScrollCalendarDelegate?
@@ -35,17 +34,17 @@ class CalendarCollectionDataSource: NSObject, UICollectionViewDataSource, UIColl
     
     func generateData(numDays: Int) {
         let daysArray = dg.makeDays(numDays)
-        self.monthsArray += dg.buildIndex(daysArray)
+        self.collectionArray += dg.buildIndex(daysArray)
     }
     
     // **** UICollectionViewDataSource **** //
 
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return monthsArray.count
+        return collectionArray.count
     }
    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return monthsArray[section].dates.count
+        return collectionArray[section].dates.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -53,7 +52,7 @@ class CalendarCollectionDataSource: NSObject, UICollectionViewDataSource, UIColl
             self.cellIdentifier!,
             forIndexPath: indexPath) as CalendarCollectionViewCell
         
-        let item: AnyObject = self.monthsArray[indexPath.section].dates[indexPath.row]
+        let item: AnyObject = self.collectionArray[indexPath.section].dates[indexPath.row]
         
         if (self.cellBlock != nil) {
             self.cellBlock!(cell: cell, item: item)
@@ -70,7 +69,7 @@ class CalendarCollectionDataSource: NSObject, UICollectionViewDataSource, UIColl
     
         if kind == UICollectionElementKindSectionHeader {
             if let header = view as? CalendarHeaderReusableView {
-                header.monthLabel.text = "\(monthsArray[indexPath.section].month)"
+                header.monthLabel.text = "\(collectionArray[indexPath.section].month)"
             }
         }
         return view
@@ -79,9 +78,8 @@ class CalendarCollectionDataSource: NSObject, UICollectionViewDataSource, UIColl
     // **** UICollectionViewDelegate **** //
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let selectedCell = collectionView.cellForItemAtIndexPath(indexPath) as CalendarCollectionViewCell!
         
-        let dt = monthsArray[indexPath.section].dates[indexPath.row]
+        let dt = collectionArray[indexPath.section].dates[indexPath.row]
         self.delegate?.updateList(dt)
     }
     

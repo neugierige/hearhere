@@ -12,7 +12,10 @@ class CalendarTab: UIViewController, ScrollCalendarDelegate {
     
     var tableView: UITableView?
     var collectionView: UICollectionView?
+    
     let rowHeight:CGFloat = 60.0
+    let tableY:CGFloat = 125.5
+    let calUnit:CGFloat = 67.5
     
     var eventsArray = [Event]()
     
@@ -21,7 +24,6 @@ class CalendarTab: UIViewController, ScrollCalendarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tableY:CGFloat = 125.5
         
         DataManager.retrieveAllEvents { events in
             self.eventsArray = events
@@ -62,7 +64,6 @@ class CalendarTab: UIViewController, ScrollCalendarDelegate {
         
         // ******************  UICollectionView ********************* //
         
-        let calUnit:CGFloat = 67.5
         var flowLayout:UICollectionViewFlowLayout = StickyHeaderFlowLayout()
         
         flowLayout.minimumLineSpacing = 1
@@ -81,6 +82,8 @@ class CalendarTab: UIViewController, ScrollCalendarDelegate {
                 }
             }
         })
+        
+        // delegate to pass collectionview data back to tableview
         self.collectionDataSource?.delegate = self
         
         if let theCollectionView = collectionView {

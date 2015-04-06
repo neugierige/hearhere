@@ -10,7 +10,7 @@ import Foundation
 
 class DateGenerator {
     
-    typealias MonthsIndex = (String, [NSDate])
+    typealias CalendarIndex = (String, [NSDate])
     typealias EventsIndex = (String, [Event])
     
     let dc = DateConverter()
@@ -64,7 +64,7 @@ class DateGenerator {
     } // end buildEventsIndex
 
         
-    func buildIndex(dates: [NSDate]) -> [MonthsIndex] {
+    func buildIndex(dates: [NSDate]) -> [CalendarIndex] {
         let months = dates.map {
             (day) -> String in
             self.getMonth(day)
@@ -73,7 +73,7 @@ class DateGenerator {
         let uniqueMonths = distinct(months)
         
         return uniqueMonths.map {
-            (month) -> MonthsIndex in
+            (month) -> CalendarIndex in
             return (month, dates.filter {
                 (day) -> Bool in
                 self.getMonth(day) == month
