@@ -13,15 +13,9 @@ class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, ScrollC
     var tableView: UITableView?
     let rowHeight:CGFloat = 60.0
     
-    typealias MonthsIndex = (month: String, dates: [NSDate])
-
-    let dg = DateGenerator()
-    let dc = DateConverter()
-    
-    var monthsArray = [MonthsIndex]()
     var eventsArray = [Event]()
     
-    var dataSource: CalendarTableDataSource?
+    var tableDataSource: CalendarTableDataSource?
     var collectionDataSource: CalendarCollectionDataSource?
     
     override func viewDidLoad() {
@@ -31,7 +25,7 @@ class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, ScrollC
         DataManager.retrieveAllEvents { events in
             self.eventsArray = events
             
-            self.dataSource = CalendarTableDataSource(eventsArray: self.eventsArray, cellIdentifier: "calendarCell", navController: self.navigationController!, cellBlock: {
+            self.tableDataSource = CalendarTableDataSource(eventsArray: self.eventsArray, cellIdentifier: "calendarCell", navController: self.navigationController!, cellBlock: {
                 (cell, item) -> () in
                 if let actualCell = cell as? CalendarTableViewCell {
                     if let actualItem: AnyObject = item {
@@ -41,8 +35,8 @@ class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, ScrollC
             })
             
             if let theTableView = self.tableView {
-                theTableView.dataSource = self.dataSource
-                theTableView.delegate = self.dataSource
+                theTableView.dataSource = self.tableDataSource
+                theTableView.delegate = self.tableDataSource
                 theTableView.reloadData()
             }
             
@@ -57,8 +51,8 @@ class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, ScrollC
             theTableView.registerClass(CalendarTableViewCell.self, forCellReuseIdentifier: "calendarCell")
             theTableView.registerClass(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "calendarHeader")
             
-            theTableView.dataSource = self.dataSource
-            theTableView.delegate = self.dataSource
+            theTableView.dataSource = self.tableDataSource
+            theTableView.delegate = self.tableDataSource
             theTableView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
             theTableView.rowHeight = self.rowHeight
             view.addSubview(theTableView)
@@ -101,7 +95,7 @@ class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, ScrollC
     func updateList(dt: NSDate) {
         DataManager.retrieveEventsForDate(dt) { events in
             self.eventsArray = events
-            self.dataSource?.loadEvents(self.eventsArray)
+            self.tableDataSource?.loadEvents(self.eventsArray)
             self.tableView?.reloadData()
         }
     }
@@ -118,16 +112,5 @@ class CalendarTab: UIViewController, UICollectionViewDelegateFlowLayout, ScrollC
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
     
 }
