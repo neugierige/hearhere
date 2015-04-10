@@ -20,7 +20,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         self.view.backgroundColor = Configuration.lightGreyUIColor
         if let navBarHeight = navigationController?.navigationBar.frame.height {
-            textView.frame = CGRect(x: margin, y: navBarHeight+margin, width: view.frame.width-2*margin, height: view.frame.height)
+            textView.frame = CGRect(x: margin/2, y: navBarHeight+margin/2, width: view.frame.width-2*margin, height: view.frame.height)
         }
         tabBarController?.tabBar.hidden = true
         hidesBottomBarWhenPushed = true
