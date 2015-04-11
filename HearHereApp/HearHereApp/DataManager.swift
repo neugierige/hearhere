@@ -546,32 +546,32 @@ extension DataManager {
                         .filter { $0 }}                         // find matches
                         .map    { !$0.isEmpty }                 // return t/f for each event
                     
-                    var artists = events
-                        .map { $0.artists
-                        .map { c in u.artists
-                        .filter { $0.objectId == c.objectId }}}
-                        .map { $0
-                        .map { !$0.isEmpty }}
-                        .map { $0
-                        .filter { $0 } }
-                        .map { !$0.isEmpty }
-                    
-                    var venues = events
-                        .map { $0.venue
-                        .map { c in u.venues
-                        .filter { $0.objectId == c.objectId }}}
-                        .map { $0
-                        .map { !$0.isEmpty }}
-                        .map { $0
-                        .filter { $0 } }
-                        .map { !$0.isEmpty }
+//                    var artists = events
+//                        .map { $0.artists
+//                        .map { c in u.artists
+//                        .filter { $0.objectId == c.objectId }}}
+//                        .map { $0
+//                        .map { !$0.isEmpty }}
+//                        .map { $0
+//                        .filter { $0 } }
+//                        .map { !$0.isEmpty }
+//                    
+//                    var venues = events
+//                        .map { $0.venue
+//                        .map { c in u.venues
+//                        .filter { $0.objectId == c.objectId }}}
+//                        .map { $0
+//                        .map { !$0.isEmpty }}
+//                        .map { $0
+//                        .filter { $0 } }
+//                        .map { !$0.isEmpty }
 
                     // add each event for every match to array
                     var e = [Event]()
                     for (i, event) in enumerate(events) {
-                        if artists[i]    { e.append(event) }
+//                        if artists[i]    { e.append(event) }
                         if categories[i] { e.append(event) }
-                        if venues[i]     { e.append(event) }
+//                        if venues[i]     { e.append(event) }
                     }
                     // return only unique entries sorted by time
                     userEvents = self.findUniqueEvents(e)

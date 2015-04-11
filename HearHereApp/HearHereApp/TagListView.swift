@@ -29,7 +29,6 @@ class TagListView: UIScrollView {
     private var tagsPerRowArray = [Int]()
     private var leftoverPerTagArray = [CGFloat]()
     private var numRows = 0
-    private var isSingleton = false
     
     override init(frame:CGRect) {
         super.init(frame: frame)
@@ -79,7 +78,7 @@ class TagListView: UIScrollView {
     func getAllTagViews() -> [TagView] {
         return tagViewArray
     }
-
+    var isSingleton = false
     private func rearrange() {
         
         // Container coordinates
@@ -103,28 +102,17 @@ class TagListView: UIScrollView {
             
             // If a new tag cannot fit in the view, go to a new line and reset maxX
             if (tvW + maxX) > (frame.size.width - Attributes.marginX * 2) || tagViewArray.count == index+1 {
-            
-                // special single tag case
-//                if tagsPerRowCount == 0 && tagViewArray.count == index+1 {
-//                    isSingleton = true
-//                    maxX = tvW + Attributes.marginX
-//                    maxY = Attributes.marginY
-//                    leftover = (frame.size.width-maxX) / CGFloat(2)
-//                    tagView.frame = CGRectMake(tagView.frame.origin.x + leftover, maxY, tvW, tvH)
-//                    contentSize = CGSize(width: frame.size.width, height: maxY + tvH + 50)
-//                    //                    tagView.setNeedsDisplay()
-//                    //                    addSubview(tagView)
-//                    tagsPerRowCount++
-//                } else {
+
                 
                 // Find tag x offset to center
-                if tagsPerRowCount == 1 || tagsPerRowCount == 0 {
-                    tagsPerRowCount = tagsPerRowCount == 0 ? 1 : 0
-                    leftoverPerTagArray.append((frame.size.width-maxX) / CGFloat(tagsPerRowCount+1))
-                    isSingleton = true
+                if tagsPerRowCount == 1 || tagsPerRowCount == 0 { //&& tagViewArray.count == index+1 {
+//                    tagsPerRowCount = tagsPerRowCount == 0 ? 1 : 0
+                    leftoverPerTagArray.append((frame.size.width-tvW + Attributes.marginX) / CGFloat(tagsPerRowCount+1))
+                    maxY = maxY - tvH - Attributes.marginY
                 } else {
                     leftoverPerTagArray.append((frame.size.width-maxX) / CGFloat(tagsPerRowCount))
                 }
+
                 tagsPerRowArray.append(tagsPerRowCount)
                 tagsPerRowCount = 1
                 numRows++
@@ -137,12 +125,8 @@ class TagListView: UIScrollView {
                 tagsPerRowCount++
             }
             
-            if !isSingleton {
-                // set tag frame, redraw and add to the container
-                tagView.frame = CGRectMake(maxX - tvW, maxY, tvW, tvH)
-            }
-            
-            isSingleton = false
+            // set tag frame, redraw and add to the container
+            tagView.frame = CGRectMake(maxX - tvW, maxY, tvW, tvH)
         }
         // Increase contentSize if necessary
         contentSize = CGSize(width: frame.size.width, height: maxY + tvH + 50)
