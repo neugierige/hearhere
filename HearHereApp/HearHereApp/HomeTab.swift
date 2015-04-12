@@ -67,7 +67,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
     }
     
     func loadData() {
-        if Cache.events.count == 0 {
+        if LocalCache.events.count == 0 {
             DataManager.retrieveAllEvents { events in
                 self.eventsArray = events
                 if let theTableView = self.tableView {
@@ -76,7 +76,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
                 }
             }
         } else {
-            self.eventsArray = Cache.events
+            self.eventsArray = LocalCache.events
             if let tableView = self.tableView {
                 tableView.dataSource = self
                 tableView.reloadData()
@@ -90,7 +90,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
     
     func getUserLocation() -> CLLocation? {
         if DataManager.userLoggedIn() {
-            return(Cache.currentUser.location)
+            return(LocalCache.currentUser.location)
         } else {
             return(anonymousUser.location)
         }
@@ -114,7 +114,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
                     // give option for signInAlert to login
                 }
             case 1:
-                DataManager.sortEventsByDistance(l, events: Cache.events) { events in
+                DataManager.sortEventsByDistance(l, events: LocalCache.events) { events in
                     if let events = events {
                         self.eventsArray = events
                         self.tableView?.reloadData()
