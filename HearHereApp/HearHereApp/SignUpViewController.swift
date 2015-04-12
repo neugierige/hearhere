@@ -126,8 +126,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         // Sign in now -> main app
         var signInNowButton = UIButton(frame: CGRectMake(paddingX, signInButton.frame.maxY+paddingY, screenBounds.width-paddingX*2, 30))
-        signInNowButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
+        signInNowButton.autoresizingMask = .FlexibleTopMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signInNowButton.addTarget(self, action: "skipToAppTouched:", forControlEvents: .TouchUpInside)
+        signInNowButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 12.0)
         signInNowButton.setTitle("Skip for now.", forState: .Normal)
         signInNowButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         scrollView.addSubview(signInNowButton)
@@ -211,7 +212,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Button target methods for redirect
     func signInTouched(button: UIButton) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+//        self.dismissViewControllerAnimated(true, completion: nil)
+        self.performSegueWithIdentifier("signin", sender: self)
+        
     }
     func skipToAppTouched(sender: UIButton) {
         self.performSegueWithIdentifier("main", sender: self)
