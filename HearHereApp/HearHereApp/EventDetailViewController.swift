@@ -12,6 +12,7 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
     
     var event: Event!
     let cornerRadius:CGFloat = 5
+    var previousTabName: String = "HearHere"
     
     //*****CONSTANTS
     let scrollView = UIScrollView()
@@ -19,7 +20,7 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
     let table = UITableView()
     let margin: CGFloat = 10
     let cellReuseID = "cell"
-    let shareButton = UIButton()
+    let bottomButton = UIButton()
     
     //*****COLORS
     var darkBlue = Configuration.darkBlueUIColor
@@ -27,28 +28,31 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
     var lightBlue = Configuration.lightBlueUIColor
     var lightGrey = Configuration.lightGreyUIColor
     var orange = Configuration.orangeUIColor
-    
+    var borderColor = Configuration.darkBlueUIColor.colorWithAlphaComponent(0.2).CGColor
     
     override func viewWillAppear(animated: Bool) {
-        containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: shareButton.frame.maxY + margin)
+        containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: bottomButton.frame.maxY + margin)
         containerView.layoutIfNeeded()
         tabBarController?.tabBar.hidden = false
-        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         addContainerView()
         addScrollView()
+        
+        self.title = "\(previousTabName)"
+        
+        //SHARE
+        var shareButton = UINavigationItem(title: "share")
+        
         
         //CONSTANTS
         var navBarHeight = self.navigationController?.navigationBar.frame.maxY ?? view.frame.minY
         var maxWidth: CGFloat = view.frame.width-2*margin
         var titleTextHeight: CGFloat = 30
         var bodyTextHeight: CGFloat = 18
-        
         
         //IMAGE
         var image = UIImageView(image: event.photo)
@@ -122,6 +126,8 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         let origin = CGPointMake(margin, programInfo.frame.maxY+margin)
         let size = CGSizeMake(maxWidth, 50)
         var tagsContainer = TagListView(frame: CGRect(origin: origin, size: size))
+        tagsContainer.layer.borderColor = borderColor
+        tagsContainer.layer.borderWidth = 1
         tagsContainer.scrollEnabled = false
         
         containerView.addSubview(tagsContainer)
@@ -136,7 +142,7 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
                 }
             }
         }
-        tagsContainer.frame.size.height = tagsContainer.contentSize.height - 45
+        tagsContainer.frame.size.height = tagsContainer.contentSize.height - 50 - 26.31
         
         //TABLE
         table.frame = CGRect(x: 0, y: tagsContainer.frame.maxY+margin, width: view.frame.width, height: 44)
@@ -144,15 +150,17 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         table.scrollEnabled = false
         table.delegate = self
         table.dataSource = self
+        table.layer.borderColor = borderColor
+        table.layer.borderWidth = 1
         table.backgroundColor = lightGrey
         
         //SHARE BUTTON
-        shareButton.frame = CGRect(x: margin, y: table.frame.maxY+margin, width: maxWidth, height: 44)
-        containerView.addSubview(shareButton)
-        shareButton.backgroundColor = medBlue
-        shareButton.layer.cornerRadius = cornerRadius
-        shareButton.setTitle("Share", forState: UIControlState.Normal)
-        shareButton.addTarget(self, action: "openShare", forControlEvents: UIControlEvents.TouchUpInside)
+        bottomButton.frame = CGRect(x: margin, y: table.frame.maxY+margin, width: maxWidth, height: 44)
+        containerView.addSubview(bottomButton)
+        bottomButton.backgroundColor = medBlue
+        bottomButton.layer.cornerRadius = cornerRadius
+        bottomButton.setTitle("Share", forState: UIControlState.Normal)
+        bottomButton.addTarget(self, action: "openShare", forControlEvents: UIControlEvents.TouchUpInside)
     }
     
     //CONFIGURE TABLE
@@ -227,7 +235,7 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
     //CONFIGURE CONTAINER VIEW
     func addContainerView() {
         scrollView.addSubview(containerView)
-        containerView.backgroundColor = lightBlue
+        containerView.backgroundColor = lightGrey
         scrollView.layoutIfNeeded()
     }
     

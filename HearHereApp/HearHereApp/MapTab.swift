@@ -14,12 +14,16 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
     
     var map = MKMapView()
     
+    
+    
     var collectionView: UICollectionView?
     let rowHeight: CGFloat = 60.0
     let tableY: CGFloat = 125.5
     let calUnit: CGFloat = 67.5
     
     var collectionDataSource: CalendarCollectionDataSource?
+    
+    var dateConverter = DateConverter()
     
     //***** PARSE DATA
     var eventsArray = [Event]()
@@ -100,14 +104,20 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
         DataManager.retrieveEventsForDate(dt) { events in
         println("date tapped: \(dt)")
             for event in events {
-                var dateConverter = DateConverter()
-                var dtConverted = dateConverter.formatDate(dt, type: "short")
-                if dateConverter.formatDate(event.dateTime, type: "short") == dtConverted {
+                var dtConverted = self.dateConverter.formatDate(dt, type: "short")
+                if self.dateConverter.formatDate(event.dateTime, type: "short") == dtConverted {
                     self.eventsArray.append(event)
                     self.addAnnotations()
                 }
+                
+                if self.eventsArray.isEmpty {
+                    var alert = UIAlertController(title: ":-(", message: "No events to show for \(dt)", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Try Again", style: .Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+                
+                println("events: \(event.dateTime)")
             }
-            println("eventsArray: \(self.eventsArray)")
         }
     }
     
@@ -115,7 +125,7 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
         for event in eventsArray {
             var address = event.venue[0].address
             mapItemTitle = event.title as String
-            var subTitle1 = formatDateTime(event.dateTime, type: "time")
+            var subTitle1 = self.dateConverter.formatDate(event.dateTime, type: "short")
             var subTitle2 = event.venue[0].name
             mapItemSubTitle = subTitle1 + " " + subTitle2
             
@@ -129,6 +139,7 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
             anno.subtitle = mapItemSubTitle
             
             arrayOfAnnotations.append(anno)
+            
             self.map.addAnnotation(anno)
         }
     }
@@ -149,31 +160,16 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
     }
     
 
-    func formatDateTime(dt: NSDate, type: String) -> String {
-        let dateFormatter = NSDateFormatter()
-        
-        switch type {
-        case "date":
-            dateFormatter.dateStyle = .FullStyle
-            dateFormatter.timeStyle = .NoStyle
-        case "time":
-            dateFormatter.dateStyle = .NoStyle
-            dateFormatter.timeStyle = .ShortStyle
-        default:
-            dateFormatter.dateStyle = .ShortStyle
-            dateFormatter.timeStyle = .ShortStyle
-        }
-        
-        let dtString = dateFormatter.stringFromDate(dt)
-        return dtString
-    }
-
 //    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
 //        DataManager.saveUserLocation(locations[0] as CLLocation)
 //    }
     
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        if annotation.title == "Current Location" {
+            return nil
+        }
+        
         var v : MKAnnotationView! = nil
             let ident = "droppedPin"
             v = mapView.dequeueReusableAnnotationViewWithIdentifier(ident)
@@ -199,6 +195,8 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
         if let event = sender.event {
             var edvc = EventDetailViewController()
             edvc.event = event
+            self.title = "Map"
+            //edvc.title = "Calendar"
             navigationController?.showViewController(edvc, sender: event)
         }
     }
