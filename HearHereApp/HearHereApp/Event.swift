@@ -113,7 +113,7 @@ class Event: Model, NSCoding {
     // TODO: THis is where the long running thread comes from.
     // It is not getting executed fast enough befor home page starts
     func getVenue(venues: NSArray, completion: Venue -> Void) {
-        if Cache.venues.count == 0 {
+        if LocalCache.venues.count == 0 {
 //            println("event ven")
             
             var id = venues[0].objectForKey("objectId") as String
@@ -127,7 +127,7 @@ class Event: Model, NSCoding {
             }
             //       }
         } else {
-            completion(Cache.venues.filter { $0.objectId == (venues[0].objectForKey("objectId") as String) }[0])
+            completion(LocalCache.venues.filter { $0.objectId == (venues[0].objectForKey("objectId") as String) }[0])
         }
     }
     
@@ -137,7 +137,7 @@ class Event: Model, NSCoding {
         for i in artists {
             ids.append(i.objectForKey("objectId") as String)
         }
-        if Cache.artists.count == 0 {
+        if LocalCache.artists.count == 0 {
 //            println("event art")
             
             var query = PFQuery(className: "Artist").whereKey("objectId", containedIn: ids)
@@ -151,7 +151,7 @@ class Event: Model, NSCoding {
                 }
             }
         } else {
-            completion(Cache.artists.filter { contains(ids, $0.objectId) })
+            completion(LocalCache.artists.filter { contains(ids, $0.objectId) })
         }
     }
     
@@ -162,7 +162,7 @@ class Event: Model, NSCoding {
         for i in categories {
             ids.append(i.objectForKey("objectId") as String)
         }
-        if Cache.categories.count == 0 {
+        if LocalCache.categories.count == 0 {
 //            println("event cat")
             var query = PFQuery(className: "Category").whereKey("objectId", containedIn: ids)
             query.findObjectsInBackgroundWithBlock { objects, error in
@@ -175,7 +175,7 @@ class Event: Model, NSCoding {
                 }
             }
         } else {
-            completion(Cache.categories.filter { contains(ids, $0.objectId) })
+            completion(LocalCache.categories.filter { contains(ids, $0.objectId) })
         }
     }
 }

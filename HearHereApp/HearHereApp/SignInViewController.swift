@@ -112,7 +112,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {//, CLLocatio
         scrollView.addSubview(signUpButton)
         
         var signInNowButton = UIButton(frame: CGRectMake(paddingX, signUpButton.frame.maxY+paddingY, screenBounds.width-paddingX*2, 30))
-        signInNowButton.autoresizingMask = .FlexibleBottomMargin | .FlexibleLeftMargin | .FlexibleRightMargin
+        signInNowButton.autoresizingMask = .FlexibleTopMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signInNowButton.addTarget(self, action: "skipToAppTouched:", forControlEvents: .TouchUpInside)
         signInNowButton.setTitle("Skip for now.", forState: .Normal)
         signInNowButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)

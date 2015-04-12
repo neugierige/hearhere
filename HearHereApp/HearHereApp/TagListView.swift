@@ -13,7 +13,7 @@ class TagListView: UIScrollView {
     struct Attributes {
         static var marginX:CGFloat = 5
         static var marginY:CGFloat = 5
-
+        static var extraY:CGFloat = 50
     }
     class var marginX:CGFloat {
         get { return Attributes.marginX }
@@ -23,13 +23,16 @@ class TagListView: UIScrollView {
         get { return Attributes.marginY }
         set { Attributes.marginY = newValue }
     }
+    class var extraY:CGFloat {
+        get { return Attributes.extraY }
+        set { Attributes.extraY = newValue }
+    }
     
     // Shared array to manage tagViews
     private var tagViewArray = [TagView]()
     private var tagsPerRowArray = [Int]()
     private var leftoverPerTagArray = [CGFloat]()
     private var numRows = 0
-    private var isSingleton = false
     
     override init(frame:CGRect) {
         super.init(frame: frame)
@@ -79,7 +82,7 @@ class TagListView: UIScrollView {
     func getAllTagViews() -> [TagView] {
         return tagViewArray
     }
-
+    var isSingleton = false
     private func rearrange() {
         
         // Container coordinates
@@ -102,29 +105,18 @@ class TagListView: UIScrollView {
             tvH = tagView.frame.size.height
             
             // If a new tag cannot fit in the view, go to a new line and reset maxX
-            if (tvW + maxX) > (frame.size.width - Attributes.marginX * 2) || tagViewArray.count == index+1 {
-            
-                // special single tag case
-//                if tagsPerRowCount == 0 && tagViewArray.count == index+1 {
-//                    isSingleton = true
-//                    maxX = tvW + Attributes.marginX
-//                    maxY = Attributes.marginY
-//                    leftover = (frame.size.width-maxX) / CGFloat(2)
-//                    tagView.frame = CGRectMake(tagView.frame.origin.x + leftover, maxY, tvW, tvH)
-//                    contentSize = CGSize(width: frame.size.width, height: maxY + tvH + 50)
-//                    //                    tagView.setNeedsDisplay()
-//                    //                    addSubview(tagView)
-//                    tagsPerRowCount++
-//                } else {
+            if (tvW + maxX) > (frame.size.width - Attributes.marginX * 2) { // || tagViewArray.count == index+1 {
+
                 
                 // Find tag x offset to center
-                if tagsPerRowCount == 1 || tagsPerRowCount == 0 {
-                    tagsPerRowCount = tagsPerRowCount == 0 ? 1 : 0
-                    leftoverPerTagArray.append((frame.size.width-maxX) / CGFloat(tagsPerRowCount+1))
-                    isSingleton = true
+                if tagsPerRowCount == 1 || tagsPerRowCount == 0 { //&& tagViewArray.count == index+1 {
+//                    tagsPerRowCount = tagsPerRowCount == 0 ? 1 : 0
+                    leftoverPerTagArray.append((frame.size.width-tvW + Attributes.marginX) / CGFloat(tagsPerRowCount+1))
+                    maxY = maxY - tvH - Attributes.marginY
                 } else {
                     leftoverPerTagArray.append((frame.size.width-maxX) / CGFloat(tagsPerRowCount))
                 }
+
                 tagsPerRowArray.append(tagsPerRowCount)
                 tagsPerRowCount = 1
                 numRows++
@@ -137,15 +129,17 @@ class TagListView: UIScrollView {
                 tagsPerRowCount++
             }
             
-            if !isSingleton {
-                // set tag frame, redraw and add to the container
-                tagView.frame = CGRectMake(maxX - tvW, maxY, tvW, tvH)
-            }
-            
-            isSingleton = false
+            // set tag frame, redraw and add to the container
+            tagView.frame = CGRectMake(maxX - tvW, maxY, tvW, tvH)
         }
         // Increase contentSize if necessary
-        contentSize = CGSize(width: frame.size.width, height: maxY + tvH + 50)
+        contentSize = CGSize(width: frame.size.width, height: maxY + tvH + Attributes.extraY)
+        
+        if numRows == 0 {
+            numRows = 1
+            tagsPerRowArray.append(tagViewArray.count)
+            leftoverPerTagArray.append((frame.size.width-maxX-Attributes.marginY) / (CGFloat(tagViewArray.count+1)) )
+        }
         
         centerFrameAndDisplay()
     }
