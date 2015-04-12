@@ -23,13 +23,13 @@ extension DataManager {
         // Should probably separate these and have a completion for each, but it works for now
         func retrieveACV(completion: () -> ()) {
             retrieveAllArtists { artists in
-                if let a = artists { Cache.artists = a }
+                if let a = artists { LocalCache.artists = a }
             }
             retrieveAllCategories { categories in
-                if let c = categories { Cache.categories = c }
+                if let c = categories { LocalCache.categories = c }
             }
             retrieveAllVenues { venues in
-                if let v = venues { Cache.venues = v }
+                if let v = venues { LocalCache.venues = v }
                 completion()
             }
             
@@ -37,7 +37,7 @@ extension DataManager {
         
         retrieveACV {
             self.retrieveAllEvents() { events in
-                Cache.events = events
+                LocalCache.events = events
                 completion()
             }
         }
@@ -61,10 +61,10 @@ extension DataManager {
             }
             if let data = data as? NSDictionary {
                 if data["sessionToken"] != nil {
-                    Cache.currentUser = user
+                    LocalCache.currentUser = user
                     UserRouter.sessionToken = data["sessionToken"] as? String
                     if let objectId = data["objectId"] as? String {
-                        Cache.currentUser.objectId = objectId
+                        LocalCache.currentUser.objectId = objectId
                     }
                     let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
                     dispatch_async(backgroundQueue) {
@@ -90,10 +90,10 @@ extension DataManager {
             }
             if let data = data as? NSDictionary {
                 if data["sessionToken"] != nil {
-                    Cache.currentUser = user
+                    LocalCache.currentUser = user
                     UserRouter.sessionToken = data["sessionToken"] as? String
                     var user = User(json: data)
-                    Cache.currentUser = user
+                    LocalCache.currentUser = user
                     dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
                         PFUser.become(data["sessionToken"] as? String)
                         dispatch_async(dispatch_get_main_queue()){
@@ -111,14 +111,14 @@ extension DataManager {
     }
     class func getCurrentUserModel(completion: User? -> Void) {
         if UserRouter.sessionToken != nil {
-            if Cache.currentUser.objectId == "" {
+            if LocalCache.currentUser.objectId == "" {
                 var user: User?
                 let request = UserRouter.GetUser()
                 Alamofire.request(request).responseJSON { _,_, data, error in
                     if let data = data as? NSDictionary {
                         user = User(json: data)
                         if let user = user {
-                            Cache.currentUser = user
+                            LocalCache.currentUser = user
                         }
                     }
                     dispatch_async(dispatch_get_main_queue()) {
@@ -126,7 +126,7 @@ extension DataManager {
                     }
                 }
             } else {
-                completion(Cache.currentUser)
+                completion(LocalCache.currentUser)
             }
         } else {
             completion(nil)
@@ -283,12 +283,12 @@ extension DataManager {
     }
     
     class func retrieveAllArtists(completion: [Artist]? -> Void) {
-        if Cache.artists.isEmpty {
+        if LocalCache.artists.isEmpty {
             var request = ClassRouter.GetArtists(nil)
             makeArtistHTTPRequest(request) { artists in
                 dispatch_async(dispatch_get_main_queue()) {
                     if let artists = artists {
-                        Cache.artists = artists
+                        LocalCache.artists = artists
                         completion(artists)
                     } else {
                         completion(nil)
@@ -296,7 +296,7 @@ extension DataManager {
                 }
             }
         } else {
-            completion(Cache.artists)
+            completion(LocalCache.artists)
         }
     }
     
@@ -338,12 +338,12 @@ extension DataManager {
     }
     
     class func retrieveAllVenues(completion: [Venue]? -> Void) {
-        if Cache.venues.isEmpty {
+        if LocalCache.venues.isEmpty {
             var request = ClassRouter.GetVenues(nil)
             makeVenueHTTPRequest(request) { venues in
                 dispatch_async(dispatch_get_main_queue()) {
                     if let venues = venues {
-                        Cache.venues = venues
+                        LocalCache.venues = venues
                         completion(venues)
                     } else {
                         completion(nil)
@@ -351,7 +351,7 @@ extension DataManager {
                 }
             }
         } else {
-            completion(Cache.venues)
+            completion(LocalCache.venues)
         }
     }
     
@@ -407,18 +407,18 @@ extension DataManager {
     }
     
     class func retrieveAllCategories(completion: [Category]? -> Void) {
-        if Cache.categories.isEmpty {
+        if LocalCache.categories.isEmpty {
             var request = ClassRouter.GetCategories(nil)
             makeCategoryHTTPRequest(request) { categories in
                 if let categories = categories {
-                    Cache.categories = categories
+                    LocalCache.categories = categories
                     completion(categories)
                 } else {
                     completion(nil)
                 }
             }
         } else {
-            completion(Cache.categories)
+            completion(LocalCache.categories)
         }
     }
     
@@ -481,8 +481,8 @@ extension DataManager {
         components.day = 7
         let pm = calendar.dateByAddingComponents(components, toDate: start, options: NSCalendarOptions.allZeros)!
         
-        if Cache.events.count > 0 {
-            completion(Cache.events.filter { compareDateRange($0.dateTime, am, pm) })
+        if LocalCache.events.count > 0 {
+            completion(LocalCache.events.filter { compareDateRange($0.dateTime, am, pm) })
         } else {
             retrieveAllEvents { events in
                 completion(events.filter { compareDateRange($0.dateTime, am, pm) })
@@ -546,32 +546,32 @@ extension DataManager {
                         .filter { $0 }}                         // find matches
                         .map    { !$0.isEmpty }                 // return t/f for each event
                     
-                    var artists = events
-                        .map { $0.artists
-                        .map { c in u.artists
-                        .filter { $0.objectId == c.objectId }}}
-                        .map { $0
-                        .map { !$0.isEmpty }}
-                        .map { $0
-                        .filter { $0 } }
-                        .map { !$0.isEmpty }
-                    
-                    var venues = events
-                        .map { $0.venue
-                        .map { c in u.venues
-                        .filter { $0.objectId == c.objectId }}}
-                        .map { $0
-                        .map { !$0.isEmpty }}
-                        .map { $0
-                        .filter { $0 } }
-                        .map { !$0.isEmpty }
+//                    var artists = events
+//                        .map { $0.artists
+//                        .map { c in u.artists
+//                        .filter { $0.objectId == c.objectId }}}
+//                        .map { $0
+//                        .map { !$0.isEmpty }}
+//                        .map { $0
+//                        .filter { $0 } }
+//                        .map { !$0.isEmpty }
+//                    
+//                    var venues = events
+//                        .map { $0.venue
+//                        .map { c in u.venues
+//                        .filter { $0.objectId == c.objectId }}}
+//                        .map { $0
+//                        .map { !$0.isEmpty }}
+//                        .map { $0
+//                        .filter { $0 } }
+//                        .map { !$0.isEmpty }
 
                     // add each event for every match to array
                     var e = [Event]()
                     for (i, event) in enumerate(events) {
-                        if artists[i]    { e.append(event) }
+//                        if artists[i]    { e.append(event) }
                         if categories[i] { e.append(event) }
-                        if venues[i]     { e.append(event) }
+//                        if venues[i]     { e.append(event) }
                     }
                     // return only unique entries sorted by time
                     userEvents = self.findUniqueEvents(e)
@@ -615,12 +615,12 @@ extension DataManager {
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         formatter.stringFromDate(today)
         
-        if Cache.events.isEmpty {
+        if LocalCache.events.isEmpty {
             var parameters = ["where": ["dateTime":["$gte":["__type":"Date", "iso": formatter.stringFromDate(today)]]]]
             var request = ClassRouter.GetEvents(parameters)
             makeEventHTTPRequest(request) { events in
                 if let events = events {
-                    Cache.events = events
+                    LocalCache.events = events
                     dispatch_async(dispatch_get_main_queue()) {
                         // sort first
                         completion(self.sortEventsByTime(events))
@@ -629,7 +629,7 @@ extension DataManager {
             }
         } else {
             dispatch_async(dispatch_get_main_queue()) {
-                completion(Cache.events)
+                completion(LocalCache.events)
             }
         }
     }
