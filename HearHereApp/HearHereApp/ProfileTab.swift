@@ -93,12 +93,12 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
             case "Zip Code":
                 tfs[0].placeholder = "10001"
             case "Username":
-                tfs[1].placeholder = Cache.currentUser.username
+                tfs[1].placeholder = LocalCache.currentUser.username
             case "Email Address":
-                tfs[2].placeholder = Cache.currentUser.email
+                tfs[2].placeholder = LocalCache.currentUser.email
             case "Update Password":
                 tfs[3].secureTextEntry = true
-                tfs[3].placeholder = Cache.currentUser.password
+                tfs[3].placeholder = LocalCache.currentUser.password
             default:
                 println("haha")
             }

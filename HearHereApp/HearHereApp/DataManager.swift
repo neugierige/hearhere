@@ -12,8 +12,10 @@ import Parse
 import Alamofire
 import MapKit
 
+var cache: Cache<NSData> = Shared.dataCache
+
 class DataManager {
-    init() { }
+    init() {  }
 }
 
 // MARK: User data methods
@@ -80,6 +82,7 @@ extension DataManager {
     }
     
     class func signInUser(user: User, completion: (String?, User?) -> Void) {
+//        cache.fetch(key: "sessionToken", formatName: "", failure: <#Failer?##(NSError?) -> ()#>, success: <#T -> ()?##T -> ()#>)
         var parameters = ["username": user.username, "password": user.password]
         let request: URLRequestConvertible = UserRouter.SignInUser(parameters)
         Alamofire.request(request).responseJSON { _, _, data, error in
@@ -92,6 +95,9 @@ extension DataManager {
                 if data["sessionToken"] != nil {
                     LocalCache.currentUser = user
                     UserRouter.sessionToken = data["sessionToken"] as? String
+                    if let token = NSData(base64EncodedString: UserRouter.sessionToken!, options: .allZeros) {
+                        cache.set(value: token, key: "sessionToken", formatName: "", success: nil)
+                    }
                     var user = User(json: data)
                     LocalCache.currentUser = user
                     dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
