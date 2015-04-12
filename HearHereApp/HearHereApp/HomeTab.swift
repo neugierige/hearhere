@@ -14,16 +14,16 @@ var anonymousUser = User(id: "")
 class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
     
     var tableView: UITableView?
-    let rowHeight:CGFloat = 140.0
-    var tableY:CGFloat = 108.0
+    let rowHeight:CGFloat = 192.0
+    let tablePadding:CGFloat = 5.0
     let paddingX: CGFloat = 10.0
+    let dc = DateConverter()
     var eventsArray = [Event]()
     var spinner: UIActivityIndicatorView!
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         loadData()
         
         //self.locationManager.requestAlwaysAuthorization()
@@ -41,9 +41,13 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
         control.addTarget(self, action: "segmentedControlAction:", forControlEvents: .ValueChanged)
         control.selectedSegmentIndex = 0
         control.tintColor = Configuration.orangeUIColor
-        segContainer.addSubview(control)
+        //segContainer.addSubview(control)
         
-        tableView = UITableView(frame: CGRect(x: 0, y: segContainer.frame.maxY, width: self.view.frame.width, height: self.view.frame.height-segContainer.frame.maxY-49.0), style: UITableViewStyle.Plain)
+        if let navMaxY = navigationController?.navigationBar.frame.maxY {
+            if let tabBarHeight = self.tabBarController?.tabBar.frame.height {
+                tableView = UITableView(frame: CGRect(x: tablePadding, y: navMaxY, width: self.view.frame.width - tablePadding * 2, height: self.view.frame.height - navMaxY - tabBarHeight), style: UITableViewStyle.Plain)
+            }
+        }
         
         if let theTableView = tableView {
             theTableView.registerClass(HomeTableViewCell.self, forCellReuseIdentifier: "homeCell")
@@ -189,42 +193,47 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
         let cell = tableView.dequeueReusableCellWithIdentifier("homeCell", forIndexPath: indexPath) as UITableViewCell
         
         let event = eventsArray[indexPath.row]
-        let cellColors = chooseColors(indexPath.row)
         
-        // Create background image
-        let backgroundView = UIImageView()
-        backgroundView.contentMode = .ScaleToFill
-        backgroundView.image = event.photo
+        let backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
         cell.backgroundView = backgroundView
         
-        // Tint background image
-        let colorOverlay = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.rowHeight))
-        colorOverlay.backgroundColor = cellColors.bkgColor
+        let backgroundPhoto = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 140))
+        backgroundPhoto.contentMode = .ScaleToFill
+        backgroundPhoto.image = event.photo
+        
+        let textBackground = UIView(frame: CGRect(x: 0, y: 140, width: self.view.frame.width, height: 47))
+        let bottomBorder = UIView(frame: CGRect(x: 0, y: self.rowHeight - tablePadding, width: self.view.frame.width, height: tablePadding))
+        
+        textBackground.backgroundColor = Configuration.medBlueUIColor
+        bottomBorder.backgroundColor = UIColor.whiteColor()
+        
         if let background = cell.backgroundView {
-            for view in background.subviews {
-                view.removeFromSuperview()
-            }
-            background.addSubview(colorOverlay)
+            background.addSubview(backgroundPhoto)
+            background.addSubview(textBackground)
+            background.addSubview(bottomBorder)
         }
         
         // Populate text labels
-        
+        cell.backgroundColor = UIColor.orangeColor()
         cell.textLabel?.text = "\(event.title)"
-        cell.textLabel?.textColor = cellColors.txtColor
+        cell.textLabel?.textColor = UIColor.whiteColor()
         
         if event.dateTime != nil {
-            var date = formatDateTime(event.dateTime)
-            cell.detailTextLabel?.text = "\(date)\n\(event.venue[0])"
+            var day = dc.getCalendarString(event.dateTime, type: "dayofweek", abbv: true)
+            var date = dc.formatDate(event.dateTime, type: "short")
+            var time = dc.formatTime(event.dateTime)
+
+            cell.detailTextLabel?.text = "\(day), \(date), \(time) | \(event.venue[0])"
         }
-        cell.detailTextLabel?.textColor = cellColors.txtColor
+        cell.detailTextLabel?.textColor = UIColor.whiteColor()
         
         // Distance
-        let distanceLabel = UILabel(frame: CGRectMake(0, 0, 50, 15))
-        distanceLabel.text = String(format: "%.1f mi", event.distance ?? "-")
-        distanceLabel.font = UIFont.systemFontOfSize(12)
-        distanceLabel.textColor = cellColors.txtColor
-        distanceLabel.autoresizingMask = .FlexibleRightMargin | .FlexibleBottomMargin
-        cell.accessoryView = distanceLabel
+//        let distanceLabel = UILabel(frame: CGRectMake(0, 0, 50, 15))
+//        distanceLabel.text = String(format: "%.1f mi", event.distance ?? "-")
+//        distanceLabel.font = UIFont.systemFontOfSize(12)
+//        distanceLabel.textColor = UIColor.whiteColor()
+//        distanceLabel.autoresizingMask = .FlexibleRightMargin | .FlexibleBottomMargin
+//        cell.accessoryView = distanceLabel
         spinner.stopAnimating()
         
         return cell
@@ -240,21 +249,6 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
         loadData()
         //println(self.eventsArray)
     }
-    func chooseColors(index: Int) -> (bkgColor: UIColor, txtColor: UIColor) {
-        var bkgColor = UIColor()
-        var txtColor = UIColor.whiteColor()
-        
-        switch index % 2 {
-        case 0:
-            bkgColor = Configuration.medBlueUIColor.colorWithAlphaComponent(0.75)
-        case 1:
-            bkgColor = Configuration.lightBlueUIColor.colorWithAlphaComponent(0.8)
-            txtColor = Configuration.darkBlueUIColor.colorWithAlphaComponent(1.0)
-        default:
-            bkgColor = Configuration.medBlueUIColor.colorWithAlphaComponent(0.75)
-        }
-        return (bkgColor, txtColor)
-    }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         if DataManager.userLoggedIn() {
@@ -262,15 +256,6 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
         } else {
             anonymousUser.location = locations[0] as CLLocation
         }
-    }
-    
-    func formatDateTime(dt: NSDate) -> String {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
-        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-        
-        let dtString = dateFormatter.stringFromDate(dt)
-        return dtString
     }
     
     override func shouldAutorotate() -> Bool {

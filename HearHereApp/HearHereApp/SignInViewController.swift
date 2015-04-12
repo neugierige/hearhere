@@ -114,6 +114,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {//, CLLocatio
         var signInNowButton = UIButton(frame: CGRectMake(paddingX, signUpButton.frame.maxY+paddingY, screenBounds.width-paddingX*2, 30))
         signInNowButton.autoresizingMask = .FlexibleTopMargin | .FlexibleLeftMargin | .FlexibleRightMargin
         signInNowButton.addTarget(self, action: "skipToAppTouched:", forControlEvents: .TouchUpInside)
+        signInNowButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 10.0)
         signInNowButton.setTitle("Skip for now.", forState: .Normal)
         signInNowButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         scrollView.addSubview(signInNowButton)
@@ -142,7 +143,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate {//, CLLocatio
     }
     
     func signUpTouched(sender: UIButton) {
-        self.performSegueWithIdentifier("signup", sender: self)
+//        self.performSegueWithIdentifier("signup", sender: self)
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
     }
 
     // Sign in user and send to main app upon success, otherwise give feedback

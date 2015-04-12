@@ -157,7 +157,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b9c-X3-Yw0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-293" y="420"/>
+            <point key="canvasLocation" x="-125" y="724"/>
         </scene>
         <!--TabBar Controller-->
         <scene sceneID="Ljp-yu-Exw">
@@ -178,7 +178,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mVc-rV-IAR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-293" y="1393"/>
+            <point key="canvasLocation" x="-213" y="2481"/>
         </scene>
         <!--Profile-->
         <scene sceneID="uIt-7J-HU9">
@@ -275,11 +275,12 @@
                     <connections>
                         <segue destination="Vxu-Wk-QyW" kind="show" identifier="main" id="HzI-45-Db6"/>
                         <segue destination="GKQ-YE-Rt8" kind="show" identifier="tags" id="abs-6A-sa7"/>
+                        <segue destination="hU5-bJ-asy" kind="show" identifier="signin" id="f1u-VL-sjP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9qR-qZ-Am0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1731" y="426"/>
+            <point key="canvasLocation" x="-133" y="-222"/>
         </scene>
         <!--SignIn View Controller-->
         <scene sceneID="kLx-Z9-niM">
@@ -295,13 +296,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="vEm-HM-kqR" kind="show" identifier="signup" id="Gt6-1N-rJG"/>
                         <segue destination="Vxu-Wk-QyW" kind="show" identifier="main" id="ni5-Q7-n1G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k2i-01-vrI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1025" y="426"/>
+            <point key="canvasLocation" x="-635" y="1608"/>
         </scene>
         <!--Event Detail Navigation Controller-->
         <scene sceneID="w52-L5-xy1">
@@ -331,7 +331,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="HzI-45-Db6"/>
-        <segue reference="Gt6-1N-rJG"/>
         <segue reference="abs-6A-sa7"/>
     </inferredMetricsTieBreakers>
 </document>
