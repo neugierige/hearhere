@@ -13,7 +13,7 @@ class TagListView: UIScrollView {
     struct Attributes {
         static var marginX:CGFloat = 5
         static var marginY:CGFloat = 5
-
+        static var extraY:CGFloat = 50
     }
     class var marginX:CGFloat {
         get { return Attributes.marginX }
@@ -22,6 +22,10 @@ class TagListView: UIScrollView {
     class var marginY:CGFloat {
         get { return Attributes.marginY }
         set { Attributes.marginY = newValue }
+    }
+    class var extraY:CGFloat {
+        get { return Attributes.extraY }
+        set { Attributes.extraY = newValue }
     }
     
     // Shared array to manage tagViews
@@ -101,7 +105,7 @@ class TagListView: UIScrollView {
             tvH = tagView.frame.size.height
             
             // If a new tag cannot fit in the view, go to a new line and reset maxX
-            if (tvW + maxX) > (frame.size.width - Attributes.marginX * 2) || tagViewArray.count == index+1 {
+            if (tvW + maxX) > (frame.size.width - Attributes.marginX * 2) { // || tagViewArray.count == index+1 {
 
                 
                 // Find tag x offset to center
@@ -129,7 +133,13 @@ class TagListView: UIScrollView {
             tagView.frame = CGRectMake(maxX - tvW, maxY, tvW, tvH)
         }
         // Increase contentSize if necessary
-        contentSize = CGSize(width: frame.size.width, height: maxY + tvH + 50)
+        contentSize = CGSize(width: frame.size.width, height: maxY + tvH + Attributes.extraY)
+        
+        if numRows == 0 {
+            numRows = 1
+            tagsPerRowArray.append(tagViewArray.count)
+            leftoverPerTagArray.append((frame.size.width-maxX-Attributes.marginY) / (CGFloat(tagViewArray.count+1)) )
+        }
         
         centerFrameAndDisplay()
     }

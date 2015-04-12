@@ -81,6 +81,7 @@ class CalendarCollectionDataSource: NSObject, UICollectionViewDataSource, UIColl
         
         let dt = collectionArray[indexPath.section].dates[indexPath.row]
         self.delegate?.updateList(dt)
+        //println("date is \(dt)")
     }
     
 }

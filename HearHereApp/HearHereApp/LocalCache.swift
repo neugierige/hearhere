@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Cache {
+class LocalCache {
 
     private struct Data {
 //        static var eventCache: Caches<Event> = Caches(name: "Event")
