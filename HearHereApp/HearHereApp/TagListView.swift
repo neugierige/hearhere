@@ -13,7 +13,7 @@ class TagListView: UIScrollView {
     struct Attributes {
         static var marginX:CGFloat = 5
         static var marginY:CGFloat = 5
-        static var extraY:CGFloat = 50
+        static var extraY:CGFloat = 10
     }
     class var marginX:CGFloat {
         get { return Attributes.marginX }
