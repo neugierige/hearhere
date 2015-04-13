@@ -79,6 +79,7 @@ class CalendarTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var edvc = EventDetailViewController()
         edvc.event = self.tableArray[indexPath.section].events[indexPath.row]
+        edvc.backView = "Calendar"
         CalendarTab().title = "Calendar"
         self.navController?.showViewController(edvc, sender: indexPath)
     }
