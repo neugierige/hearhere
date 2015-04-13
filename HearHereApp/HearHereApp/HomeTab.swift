@@ -242,6 +242,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var evdc = EventDetailViewController()
         evdc.event = eventsArray[indexPath.row]
+        evdc.backView = "Home"
         navigationController?.showViewController(evdc, sender: indexPath)
     }
     
