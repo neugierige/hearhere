@@ -13,6 +13,7 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
     // MARK: Tag Properties
     private var tagNames = [String]()
     private var tagNameAndColor = [String:UIColor]()
+    var firstToggle = true
     
     var leftPopoverVC: FilterPopoverViewController!
     
@@ -54,8 +55,8 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
     // MARK: Customizable View properties
     // Proportional height ratios of the three views. MUST ADD UP TO 1.0!
     var searchViewHeightRatio: CGFloat  = 0.125
-    var tagPoolListHeightRatio: CGFloat = 0.625
-    var tagPickListHeightRatio: CGFloat = 0.25
+    var tagPoolListHeightRatio: CGFloat = 0.755
+    var tagPickListHeightRatio: CGFloat = 0.12
     
     // MARK: App properties
     // App Info TODO: Should we add these to Config??
@@ -72,14 +73,18 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
         searchView = makeSearchView()
         view.addSubview(searchView)
         
-        // All Tag Scroll View Section
-        tagPoolListView = makePoolListView()
-        view.addSubview(tagPoolListView)
-        
         // Tag Choices Scroll View Section
         tagPickListView = makePickListView()
         view.addSubview(tagPickListView)
         
+        // All Tag Scroll View Section
+        tagPoolListView = makePoolListView()
+        view.addSubview(tagPoolListView)
+        
+//        // Tag Choices Scroll View Section
+//        tagPickListView = makePickListView()
+//        view.addSubview(tagPickListView)
+
         // Get data (names) and create tags, set colors
         TagView.color2 = Configuration.tagFontUIColor
         //        DataManager.retrieveAllArtists { artists in
@@ -109,7 +114,9 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
     override func viewWillAppear(animated: Bool) {
         self.setupMode = false
         self.toggleUserTags()
-
+        if (self.appearedFromProfile != nil) {
+            animatePickView()
+        }
     }
     
     // MARK: Create View Methods
@@ -125,15 +132,17 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
     
     private func makePoolListView() -> TagListView {
         // MARK NOTE: Added a poor man's border between the sections (+0.5).  May want to change later.
-        let origin = CGPointMake(0, searchView.frame.maxY + 0.5)
-        let size = CGSizeMake(screenSize.width, screenSize.height * tagPoolListHeightRatio)
+//        let origin = CGPointMake(0, searchView.frame.maxY + 0.5)
+        let origin = CGPointMake(0, tagPickListView.frame.maxY + 0.5)
+        let size = CGSizeMake(screenSize.width, screenSize.height * 0.875) // tagPoolListHeightRatio)
         let v = TagListView(frame: CGRect(origin: origin,size: size))
         return v
     }
     
     private func makePickListView() -> TagListView {
-        let origin = CGPointMake(0, tagPoolListView.frame.maxY + 0.5)
-        let size = CGSizeMake(screenSize.width, screenSize.height * tagPickListHeightRatio)
+        let origin = CGPointMake(0, searchView.frame.maxY + 0.5)
+//        let origin = CGPointMake(0, tagPoolListView.frame.maxY + 0.5)
+        let size = CGSizeMake(screenSize.width, 0) // screenSize.height * tagPickListHeightRatio)
         let v = TagListView(frame: CGRect(origin: origin,size: size))
         return v
     }
@@ -166,13 +175,26 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
             if let strongSelf = self {
                 strongSelf.tagPoolListView.toggleTag(TagView)
                 strongSelf.tagPickListView.toggleTag(TagView)
+                if strongSelf.firstToggle {
+                    strongSelf.animatePickView()
+                    strongSelf.firstToggle = false
+                }
+                let bottomOffset = CGPointMake(0, strongSelf.tagPickListView.contentSize.height - strongSelf.tagPickListView.bounds.size.height)
+                strongSelf.tagPickListView.setContentOffset(bottomOffset, animated: true)
             }
         }
         
     }
     
-    func toggleUserTags() {
+    func animatePickView() {
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.tagPickListView.frame.size.height = self.screenSize.height * self.tagPickListHeightRatio
+            self.tagPoolListView.frame.size.height = self.screenSize.height * self.tagPoolListHeightRatio
+            self.tagPoolListView.frame.origin.y = self.tagPickListView.frame.maxY + 0.5
+        })
         
+    }
+    func toggleUserTags() {
         var matchingCategories = [TagView]()
         DataManager.getCurrentUserModel() { [weak self] user in
             if let strongSelf = self {
@@ -293,6 +315,8 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
                 DataManager.retrieveCategoriesWithNames(categories) { categories in
                     if let categories = categories {
                         user.categories = categories
+                    } else {
+                        user.categories.removeAll(keepCapacity: false)
                     }
                     //                        DataManager.retrieveVenuesWithNames(venues) { venues in
                     //                            if let venues = venues {
@@ -325,14 +349,17 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
     :param: keyBoardFrame keyboard frame
     */
     func searchViewKeyboardWillShow(keyboardFrame: CGRect) {
-        tagPickListView.frame.origin.y = keyboardFrame.origin.y-45
+//        tagPickListView.frame.origin.y = keyboardFrame.origin.y-45
+        tagPoolListView.contentSize.height += keyboardFrame.size.height
     }
     
     /**
     Remove height from scroll content view when keyboard hides
     */
-    func searchViewKeyboardDidHide() {
-        tagPickListView.frame.origin.y = tagPoolListView.frame.maxY+0.5
+    func searchViewKeyboardDidHide(keyboardFrame: CGRect) {
+        tagPoolListView.contentSize.height -= keyboardFrame.size.height
+
+//        tagPickListView.frame.origin.y = tagPoolListView.frame.maxY+0.5
     }
     
     

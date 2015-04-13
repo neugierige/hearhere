@@ -89,7 +89,7 @@ class FriendsTableViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func searchViewKeyboardWillShow(keyboardEndFrame: CGRect){}
-    func searchViewKeyboardDidHide() {}
+    func searchViewKeyboardDidHide(keyboardEndFrame: CGRect) {}
     
     func followButtonPressed(button: UIButton) {
         if let isFriends = DataManager.toggleFriend(users[button.tag]) {
