@@ -54,8 +54,8 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
     // MARK: Customizable View properties
     // Proportional height ratios of the three views. MUST ADD UP TO 1.0!
     var searchViewHeightRatio: CGFloat  = 0.125
-    var tagPoolListHeightRatio: CGFloat = 0.625
-    var tagPickListHeightRatio: CGFloat = 0.25
+    var tagPoolListHeightRatio: CGFloat = 0.775
+    var tagPickListHeightRatio: CGFloat = 0.10
     
     // MARK: App properties
     // App Info TODO: Should we add these to Config??
@@ -79,7 +79,7 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
         // Tag Choices Scroll View Section
         tagPickListView = makePickListView()
         view.addSubview(tagPickListView)
-        
+
         // Get data (names) and create tags, set colors
         TagView.color2 = Configuration.tagFontUIColor
         //        DataManager.retrieveAllArtists { artists in
@@ -109,7 +109,6 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
     override func viewWillAppear(animated: Bool) {
         self.setupMode = false
         self.toggleUserTags()
-
     }
     
     // MARK: Create View Methods
@@ -126,12 +125,14 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
     private func makePoolListView() -> TagListView {
         // MARK NOTE: Added a poor man's border between the sections (+0.5).  May want to change later.
         let origin = CGPointMake(0, searchView.frame.maxY + 0.5)
+//        let origin = CGPointMake(0, tagPickListView.frame.maxY + 0.5)
         let size = CGSizeMake(screenSize.width, screenSize.height * tagPoolListHeightRatio)
         let v = TagListView(frame: CGRect(origin: origin,size: size))
         return v
     }
     
     private func makePickListView() -> TagListView {
+//        let origin = CGPointMake(0, searchView.frame.maxY + 0.5)
         let origin = CGPointMake(0, tagPoolListView.frame.maxY + 0.5)
         let size = CGSizeMake(screenSize.width, screenSize.height * tagPickListHeightRatio)
         let v = TagListView(frame: CGRect(origin: origin,size: size))
@@ -172,7 +173,6 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
     }
     
     func toggleUserTags() {
-        
         var matchingCategories = [TagView]()
         DataManager.getCurrentUserModel() { [weak self] user in
             if let strongSelf = self {
@@ -326,12 +326,15 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
     */
     func searchViewKeyboardWillShow(keyboardFrame: CGRect) {
         tagPickListView.frame.origin.y = keyboardFrame.origin.y-45
+//        tagPoolListView.contentSize.height += keyboardFrame.size.height
     }
     
     /**
     Remove height from scroll content view when keyboard hides
     */
-    func searchViewKeyboardDidHide() {
+    func searchViewKeyboardDidHide(keyboardFrame: CGRect) {
+//        tagPoolListView.contentSize.height -= keyboardFrame.size.height
+
         tagPickListView.frame.origin.y = tagPoolListView.frame.maxY+0.5
     }
     

@@ -89,6 +89,7 @@ class TagListView: UIScrollView {
         var maxX: CGFloat = Attributes.marginX, maxY: CGFloat = Attributes.marginY
         // Tag coordinates
         var tvW: CGFloat = 0.0, tvH: CGFloat = 0.0
+        var partialRow = false
         
         // Centering variables
         var tagsPerRowCount = 0
@@ -105,42 +106,37 @@ class TagListView: UIScrollView {
             tvH = tagView.frame.size.height
             
             // If a new tag cannot fit in the view, go to a new line and reset maxX
-            if (tvW + maxX) > (frame.size.width - Attributes.marginX * 2) { // || tagViewArray.count == index+1 {
-
-                
-                // Find tag x offset to center
-                if tagsPerRowCount == 1 || tagsPerRowCount == 0 { //&& tagViewArray.count == index+1 {
-//                    tagsPerRowCount = tagsPerRowCount == 0 ? 1 : 0
-                    leftoverPerTagArray.append((frame.size.width-tvW + Attributes.marginX) / CGFloat(tagsPerRowCount+1))
-                    maxY = maxY - tvH - Attributes.marginY
-                } else {
-                    leftoverPerTagArray.append((frame.size.width-maxX) / CGFloat(tagsPerRowCount))
-                }
-
+            if (tvW + maxX) > (frame.size.width - Attributes.marginX * 2) {
                 tagsPerRowArray.append(tagsPerRowCount)
+                if tagsPerRowCount == 1 { tagsPerRowCount++ }
+                leftoverPerTagArray.append((frame.size.width-maxX-2*Attributes.marginX) / CGFloat(tagsPerRowCount))
                 tagsPerRowCount = 1
-                numRows++
                 
                 maxX = tvW + Attributes.marginX
-                maxY = maxY + tvH + Attributes.marginY
+                maxY += tvH + Attributes.marginY
+                
+                partialRow = tagViewArray.count == index+1 ? true : false
+                numRows++
+                
             // otherwise increase maxX to last tag on line
             } else {
-                maxX = maxX + tvW + Attributes.marginX
+                maxX += tvW + Attributes.marginX
                 tagsPerRowCount++
+                partialRow = true
             }
             
             // set tag frame, redraw and add to the container
-            tagView.frame = CGRectMake(maxX - tvW, maxY, tvW, tvH)
+            tagView.frame = CGRectMake(maxX-tvW, maxY, tvW, tvH)
         }
         // Increase contentSize if necessary
-        contentSize = CGSize(width: frame.size.width, height: maxY + tvH + Attributes.extraY)
-        
-        if numRows == 0 {
-            numRows = 1
-            tagsPerRowArray.append(tagViewArray.count)
-            leftoverPerTagArray.append((frame.size.width-maxX-Attributes.marginY) / (CGFloat(tagViewArray.count+1)) )
+        contentSize = CGSize(width: frame.size.width, height: maxY+tvH+Attributes.extraY)
+
+        if partialRow {
+            tagsPerRowArray.append(tagsPerRowCount)
+            if tagsPerRowCount == 1 { tagsPerRowCount++ }
+            leftoverPerTagArray.append((frame.size.width-maxX-2*Attributes.marginX) / (CGFloat(tagsPerRowCount)) )
+            numRows++
         }
-        
         centerFrameAndDisplay()
     }
     

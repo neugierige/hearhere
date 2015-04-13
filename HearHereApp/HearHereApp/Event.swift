@@ -10,8 +10,8 @@ import Foundation
 import Parse
 
 class Event: Model, NSCoding {
-    lazy var venue = [Venue]()
-    lazy var artists = [Artist]()
+    lazy var venue      = [Venue]()
+    lazy var artists    = [Artist]()
     lazy var categories = [Category]()
     
     var title: String!
@@ -40,17 +40,16 @@ class Event: Model, NSCoding {
     }
     
     convenience required init(object: PFObject) {
-        self.init(id: object["objectId"]  as String!)
-        if let n = object["title"]        as? String { title = n }
-        if let a = object["dateTime"]     as? NSDate { dateTime = a }
-        if let p = object["program"]      as? String { program = p }
-        if let u = object["ticketURL"]   as? String { ticketURL = u }
-        if let u = object["ticketMethod"] as? String { ticketMethod = u }
-        if let u = object["minTicketPrice"]     as? Double { priceMin = u }
-        if let u = object["maxTicketPrice"]     as? Double { priceMax = u }
-        if let u = object["numAttendees"] as? Int { numAttendees = u }
+        self.init(id: object["objectId"] as String!)
+        if let n = object["title"]          as? String { title = n }
+        if let a = object["dateTime"]       as? NSDate { dateTime = a }
+        if let p = object["program"]        as? String { program = p }
+        if let u = object["ticketURL"]      as? String { ticketURL = u }
+        if let u = object["ticketMethod"]   as? String { ticketMethod = u }
+        if let u = object["minTicketPrice"] as? Double { priceMin = u }
+        if let u = object["maxTicketPrice"] as? Double { priceMax = u }
+        if let u = object["numAttendees"]   as? Int { numAttendees = u }
         if let f = object["photo"] as? PFFile {
-            
             f.getDataInBackgroundWithBlock({ (data, error) -> Void in
                 var d = NSData(data: data)
                 if let image = UIImage(data: d) {
@@ -70,8 +69,8 @@ class Event: Model, NSCoding {
     }
     
     convenience init?(json: NSDictionary) {
-        self.init(id: json["objectId"]  as String!)
-        if let n = json["title"]        as? String { title = n }
+        self.init(id: json["objectId"] as String!)
+        if let n = json["title"] as? String { title = n }
         if let a = json["dateTime"] as? NSDictionary {
             if let date = a["iso"] as? String {
                 var formatter = NSDateFormatter()
