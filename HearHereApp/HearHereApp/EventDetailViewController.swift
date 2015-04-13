@@ -47,6 +47,10 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         //SHARE
         var shareButton = UINavigationItem(title: "share")
         
+        var nav = self.navigationController?.navigationBar
+        var myCustomBackButtonItem:UIBarButtonItem = UIBarButtonItem(title: "Share", style: UIBarButtonItemStyle.Plain, target: self, action: "openShare")
+        self.navigationItem.rightBarButtonItem = myCustomBackButtonItem
+
         
         //CONSTANTS
         var navBarHeight = self.navigationController?.navigationBar.frame.maxY ?? view.frame.minY
@@ -162,7 +166,7 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         bottomButton.setTitle("Share", forState: UIControlState.Normal)
         bottomButton.addTarget(self, action: "openShare", forControlEvents: UIControlEvents.TouchUpInside)
     }
-    
+ 
     //CONFIGURE TABLE
     var tableCellContent = ["Artist Information"]
     
