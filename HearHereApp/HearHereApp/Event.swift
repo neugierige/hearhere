@@ -96,11 +96,11 @@ class Event: Model, NSCoding {
                 self.venue.append(venue)
             }
         }
-        if let a = json["artists"] as? NSArray {
-            getArtists(a) { artists in
-                self.artists = artists
-            }
-        }
+//        if let a = json["artists"] as? NSArray {
+//            getArtists(a) { artists in
+//                self.artists = artists
+//            }
+//        }
         if let a = json["categories"] as? NSArray {
             getCategories(a) { categories in
                 self.categories = categories
@@ -113,11 +113,11 @@ class Event: Model, NSCoding {
     // It is not getting executed fast enough befor home page starts
     func getVenue(venues: NSArray, completion: Venue -> Void) {
         if LocalCache.venues.count == 0 {
-//            println("event ven")
             
             var id = venues[0].objectForKey("objectId") as String
             var query = PFQuery(className: "Venue")
             query.whereKey("objectId", equalTo: id)
+            // TODO: fix. running on main thread
             //        query.findObjectsInBackgroundWithBlock { objects, error in
             var objects = query.findObjects()
             if let o = objects as? [PFObject] {

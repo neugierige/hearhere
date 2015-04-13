@@ -39,7 +39,7 @@ class SearchView: UIView, UITextFieldDelegate {
         leftButton.setBackgroundImage(UIImage(named: "filter"), forState: .Normal)
         leftButton.addTarget(self, action: "leftButtonTouched:", forControlEvents: UIControlEvents.TouchUpInside)
         leftButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        addSubview(leftButton)
+        // addSubview(leftButton)
         
         searchField = UITextField()
         searchField.backgroundColor = UIColor.whiteColor()
@@ -65,10 +65,11 @@ class SearchView: UIView, UITextFieldDelegate {
         viewBindingsDict.setValue(searchField, forKey: "searchField")
         viewBindingsDict.setValue(leftButton, forKey: "leftButton")
         viewBindingsDict.setValue(rightButton, forKey: "rightButton")
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(>=8)-[leftButton(22)]-10-|", options: nil, metrics: nil, views: viewBindingsDict))
+        //addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(>=8)-[leftButton(22)]-10-|", options: nil, metrics: nil, views: viewBindingsDict))
         addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(>=8)-[searchField(35)]-4-|", options: nil, metrics: nil, views: viewBindingsDict))
         addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(>=8)-[rightButton(22)]-10-|", options: nil, metrics: nil, views: viewBindingsDict))
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[leftButton(22)]-[searchField(>=200)]-[rightButton(22)]-|", options: nil, metrics: nil, views: viewBindingsDict))
+        // addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[leftButton(22)]-[searchField(>=200)]-[rightButton(22)]-|", options: nil, metrics: nil, views: viewBindingsDict))
+        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(22)-[searchField(>=200)]-[rightButton(22)]-|", options: nil, metrics: nil, views: viewBindingsDict))
         
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "searching:", name: "UITextFieldTextDidChangeNotification", object: searchField)
