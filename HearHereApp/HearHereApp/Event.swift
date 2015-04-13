@@ -10,8 +10,8 @@ import Foundation
 import Parse
 
 class Event: Model, NSCoding {
-    lazy var venue = [Venue]()
-    lazy var artists = [Artist]()
+    lazy var venue      = [Venue]()
+    lazy var artists    = [Artist]()
     lazy var categories = [Category]()
     
     var title: String!
@@ -40,17 +40,16 @@ class Event: Model, NSCoding {
     }
     
     convenience required init(object: PFObject) {
-        self.init(id: object["objectId"]  as String!)
-        if let n = object["title"]        as? String { title = n }
-        if let a = object["dateTime"]     as? NSDate { dateTime = a }
-        if let p = object["program"]      as? String { program = p }
-        if let u = object["ticketURL"]   as? String { ticketURL = u }
-        if let u = object["ticketMethod"] as? String { ticketMethod = u }
-        if let u = object["minTicketPrice"]     as? Double { priceMin = u }
-        if let u = object["maxTicketPrice"]     as? Double { priceMax = u }
-        if let u = object["numAttendees"] as? Int { numAttendees = u }
+        self.init(id: object["objectId"] as String!)
+        if let n = object["title"]          as? String { title = n }
+        if let a = object["dateTime"]       as? NSDate { dateTime = a }
+        if let p = object["program"]        as? String { program = p }
+        if let u = object["ticketURL"]      as? String { ticketURL = u }
+        if let u = object["ticketMethod"]   as? String { ticketMethod = u }
+        if let u = object["minTicketPrice"] as? Double { priceMin = u }
+        if let u = object["maxTicketPrice"] as? Double { priceMax = u }
+        if let u = object["numAttendees"]   as? Int { numAttendees = u }
         if let f = object["photo"] as? PFFile {
-            
             f.getDataInBackgroundWithBlock({ (data, error) -> Void in
                 var d = NSData(data: data)
                 if let image = UIImage(data: d) {
@@ -124,11 +123,11 @@ class Event: Model, NSCoding {
     // It is not getting executed fast enough befor home page starts
     func getVenue(venues: NSArray, completion: Venue -> Void) {
         if LocalCache.venues.count == 0 {
-//            println("event ven")
             
             var id = venues[0].objectForKey("objectId") as String
             var query = PFQuery(className: "Venue")
             query.whereKey("objectId", equalTo: id)
+            // TODO: fix. running on main thread
             //        query.findObjectsInBackgroundWithBlock { objects, error in
             var objects = query.findObjects()
             if let o = objects as? [PFObject] {
