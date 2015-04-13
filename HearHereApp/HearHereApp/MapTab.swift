@@ -14,8 +14,6 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
     
     var map = MKMapView()
     
-    
-    
     var collectionView: UICollectionView?
     let rowHeight: CGFloat = 60.0
     let tableY: CGFloat = 125.5
@@ -30,7 +28,7 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
     var mapItemTitle = String()
     var mapItemSubTitle = String()
     var arrayOfCoordinates = [CLLocationCoordinate2D]()
-    var arrayOfAnnotations: [MKPointAnnotation] = [] {
+    var arrayOfAnnotations: [AnyObject] = [] {
         didSet{
             self.map.removeAnnotations(self.map.annotations)
         }
@@ -111,11 +109,11 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
                 }
                 
                 if self.eventsArray.isEmpty {
-                    var alert = UIAlertController(title: ":-(", message: "No events to show for \(dt)", preferredStyle: UIAlertControllerStyle.Alert)
+                    var date = self.dateConverter.formatDate(dt, type: "short")
+                    var alert = UIAlertController(title: "Try Again", message: "No events to show for \(date)", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Try Again", style: .Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
-                
                 println("events: \(event.dateTime)")
             }
         }
@@ -133,6 +131,7 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
             anno.event = event
             convertAddressToCoordiantes(address) { location in
                 anno.coordinate = location
+                self.arrayOfAnnotations.append(self.map.userLocation)
                 self.map.showAnnotations(self.arrayOfAnnotations, animated: true)
             }
             anno.title = mapItemTitle
