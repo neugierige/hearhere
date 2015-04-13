@@ -71,21 +71,32 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
     }
     
     func loadData() {
-        if LocalCache.events.count == 0 {
-            DataManager.retrieveAllEvents { events in
-                self.eventsArray = events
-                if let theTableView = self.tableView {
-                    theTableView.dataSource = self
-                    theTableView.reloadData()
+        if DataManager.userLoggedIn() {
+            DataManager.sortUserEventsByTag { events in
+                if let events = events {
+                    self.eventsArray = events
+                    self.tableView?.reloadData()
+                } else {
+                    // add tags in user preferences to get suggestions
                 }
             }
         } else {
-            self.eventsArray = LocalCache.events
-            if let tableView = self.tableView {
-                tableView.dataSource = self
-                tableView.reloadData()
+            if LocalCache.events.count == 0 {
+                DataManager.retrieveAllEvents { events in
+                    self.eventsArray = events
+                    if let theTableView = self.tableView {
+                        theTableView.dataSource = self
+                        theTableView.reloadData()
+                    }
+                }
+            } else {
+                self.eventsArray = LocalCache.events
+                if let tableView = self.tableView {
+                    tableView.dataSource = self
+                    tableView.reloadData()
+                }
+                
             }
-            
         }
         if let location = getUserLocation() {
             DataManager.updateUserToEventDistances(location, events: eventsArray, completion: nil)
@@ -242,6 +253,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var evdc = EventDetailViewController()
         evdc.event = eventsArray[indexPath.row]
+        evdc.backView = "Home"
         navigationController?.showViewController(evdc, sender: indexPath)
     }
     
