@@ -135,6 +135,7 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         TagView.color1 = Configuration.tagUIColorB
         TagView.color2 = Configuration.tagFontUIColor
         var tagNames = event.categories.map { $0.name }
+        println("count of tags: \(event.categories.count)")
         for tag in tagNames {
             tagsContainer.addTagView(TagView(tagName: tag)) { [weak self] TagView in
                 if let strongSelf = self {
@@ -142,7 +143,7 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
                 }
             }
         }
-        tagsContainer.frame.size.height = tagsContainer.contentSize.height - 50 - 26.31
+        tagsContainer.frame.size.height = tagsContainer.contentSize.height // - 50 - 26.31
         
         //TABLE
         table.frame = CGRect(x: 0, y: tagsContainer.frame.maxY+margin, width: view.frame.width, height: 44)

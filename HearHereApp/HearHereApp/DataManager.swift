@@ -615,6 +615,35 @@ extension DataManager {
         return uniqueEvents
     }
     
+//    class func retrieveAllEvents(completion: [Event] -> Void) {
+//        var today = NSDate(timeIntervalSinceNow: 0)
+//        var formatter = NSDateFormatter()
+//        formatter.dateFormat = "M/d/yy HH:mm"
+//        var t = formatter.stringFromDate(today)
+//        println("today's date: \(t)")
+//        
+//        if LocalCache.events.isEmpty {
+//            var parameters = ["where": ["dateTime": ["$gte": today]]]
+//            var request = ClassRouter.GetEvents(parameters)
+//            makeEventHTTPRequest(request) { events in
+//                if let events = events {
+//                    LocalCache.events = events
+//                    dispatch_async(dispatch_get_main_queue()) {
+//                        // sort first
+//                        completion(self.sortEventsByTime(events))
+//                    }
+//                    for event in events {
+//                        println("event date: \(event.dateTime)")
+//                    }
+//                }
+//            }
+//        } else {
+//            dispatch_async(dispatch_get_main_queue()) {
+//                completion(LocalCache.events)
+//            }
+//        }
+//    }
+    
     class func retrieveAllEvents(completion: [Event] -> Void) {
         var today = NSDate(timeIntervalSinceNow: 0)
         var formatter = NSDateFormatter()

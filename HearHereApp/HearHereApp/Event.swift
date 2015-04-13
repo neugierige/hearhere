@@ -57,7 +57,7 @@ class Event: Model, NSCoding {
                     self.photo = image
                 }
             })
-        }
+        } 
         if let v = object.objectForKey("venue") as? PFObject {
             venue.append(Venue(object: v as PFObject))
         }
@@ -72,15 +72,25 @@ class Event: Model, NSCoding {
     convenience init?(json: NSDictionary) {
         self.init(id: json["objectId"]  as String!)
         if let n = json["title"]        as? String { title = n }
+        
         if let a = json["dateTime"] as? NSDictionary {
             if let date = a["iso"] as? String {
                 var formatter = NSDateFormatter()
                 formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                formatter.timeZone = NSTimeZone(name: "EDT")
                 if let nsdate = formatter.dateFromString(date) {
                     self.dateTime = nsdate
                 }
             }
         }
+//        if let a = json["dateTime"] as? String {
+//            var formatter = NSDateFormatter()
+//            formatter.dateFormat = "M/d/yy HH:mm"
+//            if let nsdate = formatter.dateFromString(a) {
+//                self.dateTime = nsdate
+//            }
+//        }
+        
         if let p = json["program"]        as? String { program = p }
         if let u = json["ticketURL"]      as? String { ticketURL = u }
         if let u = json["ticketMethod"]   as? String { ticketMethod = u }
