@@ -10,7 +10,7 @@ import UIKit
 
 protocol SearchViewProtocol {
     func searchViewKeyboardWillShow(keyboardEndFrame: CGRect)
-    func searchViewKeyboardDidHide()
+    func searchViewKeyboardDidHide(keyboardEndFrame: CGRect)
     func searchViewDidInputText(uppercaseString: String)
     func searchViewRightButtonPressed(sender: UIButton)
     func searchViewLeftButtonPressed(sender: UIButton)
@@ -123,7 +123,11 @@ class SearchView: UIView, UITextFieldDelegate {
     :param: notification hide notification set in viewDidLoad
     */
     func keyboardDidHide(notification: NSNotification) {
-        delegate!.searchViewKeyboardDidHide()
+        if let keyNotification = notification.userInfo {
+            if let keyboardEndFrame = keyNotification["UIKeyboardFrameEndUserInfoKey"] as? NSValue {
+                delegate!.searchViewKeyboardDidHide(keyboardEndFrame.CGRectValue())
+            }
+        }
     }
     
     /**
