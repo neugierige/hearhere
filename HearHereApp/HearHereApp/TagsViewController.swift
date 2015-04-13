@@ -13,7 +13,7 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
     // MARK: Tag Properties
     private var tagNames = [String]()
     private var tagNameAndColor = [String:UIColor]()
-    private var firstToggle = true
+    var firstToggle = true
     
     var leftPopoverVC: FilterPopoverViewController!
     
@@ -114,6 +114,9 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
     override func viewWillAppear(animated: Bool) {
         self.setupMode = false
         self.toggleUserTags()
+        if (self.appearedFromProfile != nil) {
+            animatePickView()
+        }
     }
     
     // MARK: Create View Methods
@@ -185,10 +188,6 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
     
     func animatePickView() {
         UIView.animateWithDuration(0.5, animations: { () -> Void in
-//            self.tagPickListView.frame.size.height += 75
-//            self.tagPoolListView.frame.size.height -= 75
-//            self.tagPoolListView.frame.origin.y += 75
-            
             self.tagPickListView.frame.size.height = self.screenSize.height * self.tagPickListHeightRatio
             self.tagPoolListView.frame.size.height = self.screenSize.height * self.tagPoolListHeightRatio
             self.tagPoolListView.frame.origin.y = self.tagPickListView.frame.maxY + 0.5
@@ -316,6 +315,8 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
                 DataManager.retrieveCategoriesWithNames(categories) { categories in
                     if let categories = categories {
                         user.categories = categories
+                    } else {
+                        user.categories.removeAll(keepCapacity: false)
                     }
                     //                        DataManager.retrieveVenuesWithNames(venues) { venues in
                     //                            if let venues = venues {
