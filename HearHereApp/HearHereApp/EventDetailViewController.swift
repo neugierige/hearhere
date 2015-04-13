@@ -11,6 +11,7 @@ import UIKit
 class EventDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var event: Event!
+    var backView: String?
     let cornerRadius:CGFloat = 5
     var previousTabName: String = "HearHere"
     
@@ -44,9 +45,18 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         
         self.title = "\(previousTabName)"
         
-        //SHARE
+        //NAV BACK BUTTON
+        if let backView = self.backView {
+            let backNavText = "< " + backView
+            let backNavButton:UIBarButtonItem = UIBarButtonItem(title: backNavText, style: UIBarButtonItemStyle.Plain, target: self, action: "backButtonClick")
+            self.navigationItem.leftBarButtonItem = backNavButton
+        }
+        
+        //NAV SHARE BUTTONS
         var shareButton = UINavigationItem(title: "share")
         
+        var shareNavButton:UIBarButtonItem = UIBarButtonItem(title: "Share", style: UIBarButtonItemStyle.Plain, target: self, action: "openShare")
+        self.navigationItem.rightBarButtonItem = shareNavButton
         
         //CONSTANTS
         var navBarHeight = self.navigationController?.navigationBar.frame.maxY ?? view.frame.minY
@@ -163,7 +173,7 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         bottomButton.setTitle("Share", forState: UIControlState.Normal)
         bottomButton.addTarget(self, action: "openShare", forControlEvents: UIControlEvents.TouchUpInside)
     }
-    
+ 
     //CONFIGURE TABLE
     var tableCellContent = ["Artist Information"]
     
@@ -231,6 +241,11 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
     
     override func viewDidLayoutSubviews() {
         scrollView.contentSize = CGSize(width: containerView.bounds.width, height: containerView.bounds.height + margin)
+    }
+    
+    //GO BACK TO PARENT VIEW
+    func backButtonClick() {
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     //CONFIGURE CONTAINER VIEW
