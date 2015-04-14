@@ -266,9 +266,9 @@ extension DataManager {
 
 var classMap: [String: Model.Type] =
 ["Category": Category.self,
-    "Venue": Venue.self,
-    "User": User.self,
-    "Artist": Artist.self]
+    "User": User.self]  //,
+                        //"Venue": Venue.self,
+                        //"Artist": Artist.self]
 
 // MARK: Model fetch methods
 extension DataManager {
@@ -291,6 +291,8 @@ extension DataManager {
     class func retrieveAllArtists(completion: [Artist]? -> Void) {
         if LocalCache.artists.isEmpty {
             var request = ClassRouter.GetArtists(nil)
+            
+            if let artists = [Artist]?() {
             makeArtistHTTPRequest(request) { artists in
                 dispatch_async(dispatch_get_main_queue()) {
                     if let artists = artists {
@@ -301,6 +303,10 @@ extension DataManager {
                     }
                 }
             }
+            } else {
+                //get "artistName" from Event class"
+            }
+            
         } else {
             completion(LocalCache.artists)
         }

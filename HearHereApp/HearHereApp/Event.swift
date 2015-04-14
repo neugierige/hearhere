@@ -71,9 +71,8 @@ class Event: Model, NSCoding {
     convenience init?(json: NSDictionary) {
         self.init(id: json["objectId"]  as String!)
         if let n = json["title"]        as? String { title = n }
-        
-        if let a = json["dateTime"] as? NSDictionary {
-            if let date = a["iso"] as? String {
+        if let a = json["dateTime"]     as? NSDictionary {
+            if let date = a["iso"]      as? String {
                 var formatter = NSDateFormatter()
                 formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                 formatter.timeZone = NSTimeZone(name: "EDT")
@@ -82,6 +81,7 @@ class Event: Model, NSCoding {
                 }
             }
         }
+        
 //        if let a = json["dateTime"] as? String {
 //            var formatter = NSDateFormatter()
 //            formatter.dateFormat = "M/d/yy HH:mm"
