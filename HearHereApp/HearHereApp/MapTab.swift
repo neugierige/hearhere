@@ -45,10 +45,6 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
         map.delegate = self
         map.showsUserLocation = true
         
-        //let locationManager = CLLocationManager()
-        //let locValue = locationManager.location.coordinate
-        
-        
         let nycCenter = CLLocationCoordinate2DMake(40.7770082, -73.9624465)
         let point = MKMapPointForCoordinate(nycCenter)
         let width = MKMapPointsPerMeterAtLatitude(nycCenter.latitude) * 5000
@@ -184,7 +180,7 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
         
         var v : MKAnnotationView! = nil
             let ident = "droppedPin"
-            v = mapView.dequeueReusableAnnotationViewWithIdentifier(ident)
+            //v = mapView.dequeueReusableAnnotationViewWithIdentifier(ident)
             if v == nil {
                 v = MKPinAnnotationView(annotation:annotation, reuseIdentifier:ident)
 //                var gestureRecognizer = UITapGestureRecognizer(target: self, action: "calloutTapped:")
