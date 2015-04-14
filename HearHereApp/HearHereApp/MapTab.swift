@@ -45,6 +45,17 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
         map.delegate = self
         map.showsUserLocation = true
         
+        //let locationManager = CLLocationManager()
+        //let locValue = locationManager.location.coordinate
+        
+        
+        let nycCenter = CLLocationCoordinate2DMake(40.7770082, -73.9624465)
+        let point = MKMapPointForCoordinate(nycCenter)
+        let width = MKMapPointsPerMeterAtLatitude(nycCenter.latitude) * 5000
+        self.map.visibleMapRect = MKMapRectMake(point.x - width/2.0, point.y - width/2.0, width, width)
+        map.setCenterCoordinate(nycCenter, animated: false)
+        
+        
         var navBarHeight = navigationController?.navigationBar.frame.maxY ?? self.view.frame.minY
         var tabBarHeight = tabBarController?.tabBar.bounds.size.height ?? self.view.frame.maxY
         
@@ -56,7 +67,7 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
         flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         flowLayout.headerReferenceSize = CGSize(width: calUnit, height: calUnit)
         
-        collectionView = UICollectionView(frame: CGRectMake(0, navBarHeight+2, self.view.frame.width, calUnit), collectionViewLayout: flowLayout)
+        collectionView = UICollectionView(frame: CGRectMake(0, navBarHeight, self.view.frame.width, calUnit), collectionViewLayout: flowLayout)
         collectionView?.backgroundColor = Configuration.medBlueUIColor
         self.view.addSubview(collectionView!)
         
@@ -121,15 +132,17 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
     
     func addAnnotations() {
         for event in eventsArray {
+            var name = event.venue[0].name
             var address = event.venue[0].address
+            var searchTerm = "\(name), \(address)"
             mapItemTitle = event.title as String
-            var subTitle1 = self.dateConverter.formatDate(event.dateTime, type: "short")
+            var subTitle1 = self.dateConverter.formatTime(event.dateTime)
             var subTitle2 = event.venue[0].name
             mapItemSubTitle = subTitle1 + " " + subTitle2
             
             var anno: MapAnnotation = MapAnnotation()
             anno.event = event
-            convertAddressToCoordiantes(address) { location in
+            convertAddressToCoordiantes(searchTerm) { location in
                 anno.coordinate = location
                 self.arrayOfAnnotations.append(self.map.userLocation)
                 self.map.showAnnotations(self.arrayOfAnnotations, animated: true)
@@ -143,11 +156,11 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
         }
     }
     
-    func convertAddressToCoordiantes (address: String, completion: CLLocationCoordinate2D -> Void) {
+    func convertAddressToCoordiantes (searchTerm: String, completion: CLLocationCoordinate2D -> Void) {
         var location = CLLocation()
         
         var searchRequest = MKLocalSearchRequest()
-        searchRequest.naturalLanguageQuery = address
+        searchRequest.naturalLanguageQuery = searchTerm
         var search = MKLocalSearch(request: searchRequest)
         
         search.startWithCompletionHandler { (response, error) -> Void in

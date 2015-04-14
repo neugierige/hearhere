@@ -25,6 +25,9 @@ class Event: Model, NSCoding {
     var photo: UIImage!
     var numAttendees: Int!
     var distance = 0.0
+    var artistName: String?
+    var artistDetail: String?
+    
     
     required init(coder aDecoder: NSCoder) {
         println(aDecoder)
