@@ -15,6 +15,8 @@ class Event: Model, NSCoding {
     lazy var categories = [Category]()
     
     var title: String!
+    var artistName: String!
+    var artistDetail: String!
     var dateTime: NSDate!
     var program: String!
     var photoURL: String!
@@ -25,8 +27,6 @@ class Event: Model, NSCoding {
     var photo: UIImage!
     var numAttendees: Int!
     var distance = 0.0
-    var artistName: String?
-    var artistDetail: String?
     var venueName: String?
     var venueAddress: String?
     var venueDetail: String?
@@ -48,6 +48,8 @@ class Event: Model, NSCoding {
     convenience required init(object: PFObject) {
         self.init(id: object["objectId"] as String!)
         if let n = object["title"]          as? String { title = n }
+        if let n = object["artistName"]     as? String { artistName = n }
+        if let d = object["artistDetail"]   as? String { artistDetail = d }
         if let a = object["dateTime"]       as? NSDate { dateTime = a }
         if let p = object["program"]        as? String { program = p }
         if let u = object["ticketURL"]      as? String { ticketURL = u }
@@ -76,10 +78,12 @@ class Event: Model, NSCoding {
     }
     
     convenience init?(json: NSDictionary) {
-        self.init(id: json["objectId"]  as String!)
-        if let n = json["title"]        as? String { title = n }
-        if let a = json["dateTime"]     as? NSDictionary {
-            if let date = a["iso"]      as? String {
+        self.init(id: json["objectId"] as String!)
+        if let n = json["title"] as? String { title = n }
+        if let n = json["artistName"] as? String { artistName = n }
+        if let d = json["artistDetail"] as? String { artistDetail = d }
+        if let a = json["dateTime"] as? NSDictionary {
+            if let date = a["iso"] as? String {
                 var formatter = NSDateFormatter()
                 formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                 formatter.timeZone = NSTimeZone(name: "EDT")
