@@ -156,9 +156,9 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
         }
     }
     
-    func mapView(mapView: MKMapView!, regionDidChangeAnimated animated: Bool) {
-        mapView.setCenterCoordinate(nycCenter, animated: false)
-    }
+//    func mapView(mapView: MKMapView!, regionDidChangeAnimated animated: Bool) {
+//        mapView.setCenterCoordinate(nycCenter, animated: false)
+//    }
     
     func convertAddressToCoordiantes (searchTerm: String, completion: CLLocationCoordinate2D -> Void) {
         var location = CLLocation()
