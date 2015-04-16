@@ -45,9 +45,27 @@ class CalendarTab: UIViewController, ScrollCalendarDelegate {
             
         }
         
+        // ******************  UICollectionView ********************* //
+        
+        var flowLayout:UICollectionViewFlowLayout = StickyHeaderFlowLayout()
+        
+        flowLayout.minimumLineSpacing = 1
+        flowLayout.minimumInteritemSpacing = 1
+        flowLayout.itemSize = CGSize(width: calUnit, height: calUnit)
+        flowLayout.scrollDirection = .Horizontal
+        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        flowLayout.headerReferenceSize = CGSize(width: calUnit, height: calUnit)
+        
+        var navBarHeight = navigationController?.navigationBar.frame.maxY ?? self.view.frame.minY
+        
+        collectionView = UICollectionView(frame: CGRectMake(0, navBarHeight, self.view.frame.width, calUnit), collectionViewLayout: flowLayout)
+        
+        
+        
         // ******************  UITableView ********************* //
         
-        tableView = UITableView(frame: CGRect(x: 0, y: tableY, width: self.view.frame.width, height: self.view.frame.height - tableY - 49.0), style: UITableViewStyle.Plain)
+        var tableMinY = navBarHeight + calUnit
+        tableView = UITableView(frame: CGRect(x: 0, y: tableMinY, width: self.view.frame.width, height: self.view.frame.height - tableY - 49.0), style: UITableViewStyle.Plain)
         
         if let theTableView = tableView {
             
@@ -62,19 +80,7 @@ class CalendarTab: UIViewController, ScrollCalendarDelegate {
         }
         
         
-        // ******************  UICollectionView ********************* //
-        
-        var flowLayout:UICollectionViewFlowLayout = StickyHeaderFlowLayout()
-        
-        flowLayout.minimumLineSpacing = 1
-        flowLayout.minimumInteritemSpacing = 1
-        flowLayout.itemSize = CGSize(width: calUnit, height: calUnit)
-        flowLayout.scrollDirection = .Horizontal
-        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        flowLayout.headerReferenceSize = CGSize(width: calUnit, height: calUnit)
-        
-        collectionView = UICollectionView(frame: CGRectMake(0, tableY - calUnit, self.view.frame.width, calUnit), collectionViewLayout: flowLayout)
-        
+
         self.collectionDataSource = CalendarCollectionDataSource(numDays: 180, cellIdentifier: "calendarCollectionCell", cellBlock: { (cell, item) -> () in
             if let actualCell = cell as? CalendarCollectionViewCell {
                 if let actualItem: AnyObject = item {

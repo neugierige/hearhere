@@ -13,6 +13,7 @@ import CoreLocation
 class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
     
     var map = MKMapView()
+    let nycCenter = CLLocationCoordinate2DMake(40.7770082, -73.9624465)
     
     var collectionView: UICollectionView?
     let rowHeight: CGFloat = 60.0
@@ -45,12 +46,14 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
         map.delegate = self
         map.showsUserLocation = true
         
-        let nycCenter = CLLocationCoordinate2DMake(40.7770082, -73.9624465)
-        let point = MKMapPointForCoordinate(nycCenter)
-        let width = MKMapPointsPerMeterAtLatitude(nycCenter.latitude) * 5000
-        self.map.visibleMapRect = MKMapRectMake(point.x - width/2.0, point.y - width/2.0, width, width)
-        map.setCenterCoordinate(nycCenter, animated: false)
+        let mapCoordinateSpan: MKCoordinateSpan = MKCoordinateSpanMake(0.001, 0.001)
+        let region: MKCoordinateRegion = MKCoordinateRegionMake(nycCenter, mapCoordinateSpan)
+        self.map.regionThatFits(region)
         
+        //let point = MKMapPointForCoordinate(nycCenter)
+        //let width = MKMapPointsPerMeterAtLatitude(nycCenter.latitude) * 5000
+        //self.map.visibleMapRect = MKMapRectMake(point.x - width/2.0, point.y - width/2.0, width, width)
+        map.setCenterCoordinate(nycCenter, animated: false)
         
         var navBarHeight = navigationController?.navigationBar.frame.maxY ?? self.view.frame.minY
         var tabBarHeight = tabBarController?.tabBar.bounds.size.height ?? self.view.frame.maxY
@@ -67,7 +70,7 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
         collectionView?.backgroundColor = Configuration.medBlueUIColor
         self.view.addSubview(collectionView!)
         
-        map.frame = CGRect(x: 0, y: navBarHeight+calUnit+3, width: self.view.frame.width, height: self.view.frame.height-tabBarHeight)
+        map.frame = CGRect(x: 0, y: navBarHeight+calUnit, width: self.view.frame.width, height: self.view.frame.height-tabBarHeight)
         //-navBarHeight!) --> turns TAB BAR into a weird grey gradient color...
         self.view.addSubview(map)
         
@@ -101,13 +104,14 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
 //        }
     }
     
+
     func updateList(dt: NSDate) {
         
         arrayOfAnnotations.removeAll(keepCapacity: false)
         eventsArray.removeAll(keepCapacity: false)
         
         DataManager.retrieveEventsForDate(dt) { events in
-        println("date tapped: \(dt)")
+        //println("date tapped: \(dt)")
             for event in events {
                 var dtConverted = self.dateConverter.formatDate(dt, type: "short")
                 if self.dateConverter.formatDate(event.dateTime, type: "short") == dtConverted {
@@ -121,7 +125,7 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
                     alert.addAction(UIAlertAction(title: "Try Again", style: .Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
-                println("events: \(event.dateTime)")
+                //println("events: \(event.dateTime)")
             }
         }
     }
@@ -150,6 +154,10 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
             
             self.map.addAnnotation(anno)
         }
+    }
+    
+    func mapView(mapView: MKMapView!, regionDidChangeAnimated animated: Bool) {
+        mapView.setCenterCoordinate(nycCenter, animated: false)
     }
     
     func convertAddressToCoordiantes (searchTerm: String, completion: CLLocationCoordinate2D -> Void) {
@@ -204,7 +212,6 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
             var edvc = EventDetailViewController()
             edvc.event = event
             self.title = "Map"
-            //edvc.title = "Calendar"
             navigationController?.showViewController(edvc, sender: event)
         }
     }

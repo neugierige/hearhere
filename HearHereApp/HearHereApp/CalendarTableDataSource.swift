@@ -71,7 +71,7 @@ class CalendarTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header: UITableViewHeaderFooterView = view as UITableViewHeaderFooterView
         header.contentView.backgroundColor = Configuration.medBlueUIColor
-        header.textLabel.textColor = Configuration.lightBlueUIColor
+        header.textLabel.textColor = UIColor.whiteColor()
         header.textLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 14.0)
         header.textLabel.text = self.tableArray[section].date
     }

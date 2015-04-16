@@ -11,7 +11,7 @@ import Parse
 
 class Venue: Model, Printable {
     var name: String!
-    var detail: String!
+    var detail: String?
     var address: String!
     var phone: String!
     var url: String!

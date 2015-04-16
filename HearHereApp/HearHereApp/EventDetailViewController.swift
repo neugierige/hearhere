@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EventKit
 
 class EventDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -54,8 +55,7 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         
         //NAV SHARE BUTTONS
         var shareButton = UINavigationItem(title: "share")
-        
-        var shareNavButton:UIBarButtonItem = UIBarButtonItem(title: "Share", style: UIBarButtonItemStyle.Plain, target: self, action: "openShare")
+        var shareNavButton:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: "openShare")
         self.navigationItem.rightBarButtonItem = shareNavButton
         
         //CONSTANTS
@@ -75,7 +75,7 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         //EVENT NAME
         var eventName = UILabel(frame: CGRect(x: margin, y: image.frame.maxY+margin, width: maxWidth, height: titleTextHeight*2))
         eventName.lineBreakMode = NSLineBreakMode.ByWordWrapping
-        eventName.numberOfLines = 2
+        eventName.numberOfLines = 0
         eventName.font = UIFont(name: "HelveticaNeue", size: 20)
         containerView.addSubview(eventName)
         eventName.text = event.title
@@ -124,7 +124,7 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         programInfo.editable = false
         programInfo.scrollEnabled = false
         programInfo.text = event.program
-        programInfo.backgroundColor = lightGrey
+        programInfo.backgroundColor = UIColor.clearColor()
         programInfo.sizeToFit()
         
         var programBackground = UIView(frame: CGRect(x: margin, y: programInfo.frame.minY, width: maxWidth, height: programInfo.frame.height))
@@ -141,11 +141,10 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         tagsContainer.scrollEnabled = false
         
         containerView.addSubview(tagsContainer)
-        tagsContainer.backgroundColor = lightGrey
+        //tagsContainer.backgroundColor = lightGrey
         TagView.color1 = Configuration.tagUIColorB
         TagView.color2 = Configuration.tagFontUIColor
         var tagNames = event.categories.map { $0.name }
-        println("count of tags: \(event.categories.count)")
         for tag in tagNames {
             tagsContainer.addTagView(TagView(tagName: tag)) { [weak self] TagView in
                 if let strongSelf = self {
@@ -165,20 +164,38 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         table.layer.borderWidth = 1
         table.backgroundColor = lightGrey
         
-        //SHARE BUTTON
+        //BOTTOM BUTTON
         bottomButton.frame = CGRect(x: margin, y: table.frame.maxY+margin, width: maxWidth, height: 44)
         containerView.addSubview(bottomButton)
         bottomButton.backgroundColor = medBlue
         bottomButton.layer.cornerRadius = cornerRadius
-        bottomButton.setTitle("Share", forState: UIControlState.Normal)
-        bottomButton.addTarget(self, action: "openShare", forControlEvents: UIControlEvents.TouchUpInside)
+        bottomButton.setTitle("GET TICKETS", forState: UIControlState.Normal)
+        bottomButton.addTarget(self, action: "openWeb", forControlEvents: UIControlEvents.TouchUpInside)
+        //bottomButton.addTarget(self, action: "openShare", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        if let artistInfo = event.artistDetail {
+            
+        }
     }
  
     //CONFIGURE TABLE
-    var tableCellContent = ["Artist Information"]
+    var tableCellContent = [String]()
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        
+        if event.artistDetail == nil {
+            if event.artists[0].detail != nil {
+                tableCellContent.append("Artist Information")
+            }
+        } else if event.artistDetail != nil  {
+            tableCellContent.append("Artist Information")
+        }
+        
+        if event.venue[0].detail != nil || event.venueAddress != nil {
+            tableCellContent.append("Venue Information")
+        }
+        
+        return tableCellContent.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -202,8 +219,8 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         
         var detailVC = DetailViewController()
         if indexPath.row == 0 {
-            //println(event.artists[0].detail)
-            detailVC.textViewText = "About this artist..."
+            detailVC.event = event
+            detailVC.textViewText = event.artistDetail ?? "About this artist..."
         }
         navigationController?.showViewController(detailVC, sender: nil)
     }

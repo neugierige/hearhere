@@ -27,6 +27,9 @@ class Event: Model, NSCoding {
     var distance = 0.0
     var artistName: String?
     var artistDetail: String?
+    var venueName: String?
+    var venueAddress: String?
+    var venueDetail: String?
     
     
     required init(coder aDecoder: NSCoder) {
@@ -51,7 +54,8 @@ class Event: Model, NSCoding {
         if let u = object["ticketMethod"]   as? String { ticketMethod = u }
         if let u = object["minTicketPrice"] as? Double { priceMin = u }
         if let u = object["maxTicketPrice"] as? Double { priceMax = u }
-        if let u = object["numAttendees"]   as? Int { numAttendees = u }
+        if let u = object["numAttendees"]   as? Int    { numAttendees = u }
+        if let u = object["artistDetail"]   as? String { artistDetail = u }
         if let f = object["photo"] as? PFFile {
             f.getDataInBackgroundWithBlock({ (data, error) -> Void in
                 var d = NSData(data: data)
@@ -99,6 +103,7 @@ class Event: Model, NSCoding {
         if let u = json["minTicketPrice"] as? Double { priceMin = u }
         if let u = json["maxTicketPrice"] as? Double { priceMax = u }
         if let u = json["numAttendees"]   as? Int { numAttendees = u }
+        if let u = json["artistDetail"] as? String { artistDetail = u }
         if let f = json["photo"]          as? NSDictionary {
             DataManager.downloadImageWithURL(f["url"] as String) { success, image in
                 if success { self.photo = image }
