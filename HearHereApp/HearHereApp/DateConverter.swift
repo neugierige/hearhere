@@ -79,6 +79,7 @@ class DateConverter {
     func formatTime(dt: NSDate) -> String {
         let timeFormatter = NSDateFormatter()
         timeFormatter.dateStyle = .NoStyle
+        timeFormatter.timeZone = NSTimeZone(name: "UTC")
         timeFormatter.timeStyle = .ShortStyle       // 3:30pm
         
         let timeString = timeFormatter.stringFromDate(dt)
@@ -87,6 +88,7 @@ class DateConverter {
     
     func formatDate(dt: NSDate, type: String) -> String {
         let dateFormatter = NSDateFormatter()
+        dateFormatter.timeZone = NSTimeZone(name: "UTC")
         dateFormatter.timeStyle = .NoStyle
         
         switch type {

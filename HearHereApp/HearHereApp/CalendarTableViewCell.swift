@@ -32,7 +32,7 @@ class CalendarTableViewCell: UITableViewCell {
         self.backgroundColor = Configuration.lightGreyUIColor
         
         self.textLabel?.textColor = Configuration.medBlueUIColor
-        self.textLabel?.font = UIFont(name: "HelveticaNeue-Medium", size: 14.0)
+        self.textLabel?.font = UIFont(name: "HelveticaNeue-Medium", size: 16.0)
         self.textLabel?.numberOfLines = 2
         
         self.detailTextLabel?.textColor = Configuration.medBlueUIColor

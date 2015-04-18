@@ -85,14 +85,16 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         var dateTimeLabel = UILabel(frame: CGRect(x: margin, y: eventName.frame.maxY+margin, width: maxWidth*3/4, height: bodyTextHeight))
         containerView.addSubview(dateTimeLabel)
         dateTimeLabel.font = UIFont(name: "HelveticaNeue-Light", size: 13)
-        var dateFormatted = NSDateFormatter()
-        dateFormatted.dateFormat = "h:mma EEE, MMM d"
-        dateTimeLabel.text = dateFormatted.stringFromDate(event.dateTime)
+        var dateConverter = DateConverter()
+        var time = dateConverter.formatTime(event.dateTime)
+        var date = dateConverter.formatDate(event.dateTime, type: "full")
+        dateTimeLabel.text = "\(time), \(date)" //dateConverter.formatDate(event.dateTime, type: "short") //"h:mma EEE, MMM d"
         dateTimeLabel.backgroundColor = eventName.backgroundColor
         
         //VENUE NAME
         var venueNameLabel = UILabel(frame: CGRect(x: margin, y: dateTimeLabel.frame.maxY, width: dateTimeLabel.frame.width, height: bodyTextHeight))
         containerView.addSubview(venueNameLabel)
+        venueNameLabel.numberOfLines = 0
         venueNameLabel.font = dateTimeLabel.font
         venueNameLabel.text = event.venue[0].name
         venueNameLabel.backgroundColor = eventName.backgroundColor
@@ -155,7 +157,7 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         tagsContainer.frame.size.height = tagsContainer.contentSize.height // - 50 - 26.31
         
         //TABLE
-        table.frame = CGRect(x: 0, y: tagsContainer.frame.maxY+margin, width: view.frame.width, height: 44)
+        table.frame = CGRect(x: 0, y: tagsContainer.frame.maxY+margin, width: view.frame.width, height: 88)
         containerView.addSubview(table)
         table.scrollEnabled = false
         table.delegate = self
@@ -182,6 +184,10 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
     var tableCellContent = [String]()
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if event.artistDetail == nil {
             if event.artists[0].detail != nil {
@@ -191,15 +197,17 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
             tableCellContent.append("Artist Information")
         }
         
-        if event.venue[0].detail != nil || event.venueAddress != nil {
+        if event.venue[0].address == nil {
+            if event.venueAddress != nil {
+                tableCellContent.append("Venue Information")
+            }
+        } else if event.venue[0].address != nil {
+            println(event.venue[0].address)
             tableCellContent.append("Venue Information")
         }
         
-        return tableCellContent.count
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        println(tableCellContent.count)
+        return 2 //tableCellContent.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -218,11 +226,23 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         var detailVC = DetailViewController()
-        if indexPath.row == 0 {
+        var venueVC = VenueDetailViewController()
+//        if indexPath.row == 0 {
+//            detailVC.event = event
+//            navigationController?.showViewController(detailVC, sender: nil)
+//        } else if indexPath.row == 1 {
+//            venueVC.event = event
+//            navigationController?.showViewController(venueVC, sender: nil)
+//        }
+        
+        if table.cellForRowAtIndexPath(indexPath)?.textLabel?.text == "Artist Information" {
             detailVC.event = event
-            detailVC.textViewText = event.artistDetail ?? "About this artist..."
+            navigationController?.showViewController(detailVC, sender: nil)
+        } else if table.cellForRowAtIndexPath(indexPath)?.textLabel?.text == "Venue Information" {
+            venueVC.event = event
+            navigationController?.showViewController(venueVC, sender: nil)
         }
-        navigationController?.showViewController(detailVC, sender: nil)
+        
     }
     
     

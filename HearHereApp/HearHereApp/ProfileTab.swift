@@ -13,7 +13,9 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     var tableView: UITableView?
     let rowHeight:CGFloat = 44.0
     let tableY:CGFloat = 64.0
-    var sectionNames = ["Preferences", "Location", "Account Information", "Feedback"]
+    //var sectionNames = ["Preferences", "Account Information", "Feedback"]
+    var sectionNames = ["What are you into?", "Location", "Account Information", "Feedback"]
+    //var profileData = [["Update Preferences"], ["Username", "Email Address", "Update Password"], ["Contact Us"]]
     var profileData = [["Update Preferences"], ["Zip Code"], ["Username", "Email Address", "Update Password"], ["Contact Us"]]
     var userData: User!
     var tfs = [UITextField]()

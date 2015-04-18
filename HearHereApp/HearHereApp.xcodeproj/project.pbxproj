@@ -76,6 +76,7 @@
 		F93271A21ABF63EE00B1F0DE /* MapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93271A11ABF63EE00B1F0DE /* MapButton.swift */; };
 		F93271A41ABF715800B1F0DE /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93271A31ABF715800B1F0DE /* MapAnnotation.swift */; };
 		F93A26D11AAB6D9C00ED3BD8 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */; };
+		F95049201AE173B900A829DC /* VenueDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F950491F1AE173B900A829DC /* VenueDetailViewController.swift */; };
 		F983DA521AB8ADCF00A3B4E2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F983DA511AB8ADCF00A3B4E2 /* DetailViewController.swift */; };
 		F987BA171AA7C720008FDD56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987BA161AA7C720008FDD56 /* AppDelegate.swift */; };
 		F987BA191AA7C720008FDD56 /* HomeTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987BA181AA7C720008FDD56 /* HomeTab.swift */; };
@@ -178,6 +179,7 @@
 		F93271A11ABF63EE00B1F0DE /* MapButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapButton.swift; sourceTree = "<group>"; };
 		F93271A31ABF715800B1F0DE /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		F950491F1AE173B900A829DC /* VenueDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueDetailViewController.swift; sourceTree = "<group>"; };
 		F983DA511AB8ADCF00A3B4E2 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F987BA111AA7C720008FDD56 /* HearHereApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HearHereApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F987BA151AA7C720008FDD56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				466A27751AAA20AE00AB6BB5 /* TagsViewController.swift */,
 				4693CDE41AB7D88E00DCBA29 /* EventDetailViewController.swift */,
 				F983DA511AB8ADCF00A3B4E2 /* DetailViewController.swift */,
+				F950491F1AE173B900A829DC /* VenueDetailViewController.swift */,
 				F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */,
 			);
 			name = Controllers;
@@ -601,6 +604,7 @@
 				4631EB811AD9C6C000F90BAC /* UIImageView+Haneke.swift in Sources */,
 				4631EB7F1AD9C6C000F90BAC /* UIButton+Haneke.swift in Sources */,
 				F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */,
+				F95049201AE173B900A829DC /* VenueDetailViewController.swift in Sources */,
 				DB695B0D1ABF304700B53713 /* CalendarHeaderReusableView.swift in Sources */,
 				F983DA521AB8ADCF00A3B4E2 /* DetailViewController.swift in Sources */,
 				4631EB751AD9C6C000F90BAC /* DiskFetcher.swift in Sources */,
