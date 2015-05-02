@@ -2,11 +2,11 @@
 platform :ios, '8.0'
 use_frameworks!
 
-target 'HearHereApp' do
-source 'https://github.com/CocoaPods/Specs.git'
-pod 'Alamofire', '~> 1.1'
+#source 'https://github.com/CocoaPods/Specs.git'
 
-pod 'OCMapper'
+target 'HearHereApp' do
+  pod 'Alamofire', '~> 1.2'
+  pod 'OCMapper'
 end
 
 target 'HearHereAppTests' do

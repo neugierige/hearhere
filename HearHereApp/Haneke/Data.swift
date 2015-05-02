@@ -12,7 +12,7 @@ import UIKit
 public protocol DataConvertible {
     typealias Result
     
-    class func convertFromData(data:NSData) -> Result?
+    static func convertFromData(data:NSData) -> Result?
 }
 
 public protocol DataRepresentable {

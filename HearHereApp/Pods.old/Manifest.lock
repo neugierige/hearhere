@@ -1,0 +1,13 @@
+PODS:
+  - Alamofire (1.2.1)
+  - OCMapper (1.6)
+
+DEPENDENCIES:
+  - Alamofire (~> 1.2)
+  - OCMapper
+
+SPEC CHECKSUMS:
+  Alamofire: 1acfdf179aff68b41a48dff70c1ac7fa263e2bcb
+  OCMapper: b085fc1d97eb6955540cb24c0b863a08a3112477
+
+COCOAPODS: 0.37.0.beta.1

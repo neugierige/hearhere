@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4609CC381AA974AF00D2E70D /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4609CC371AA974AF00D2E70D /* DataManager.swift */; };
 		4609CC3A1AA974E200D2E70D /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4609CC391AA974E200D2E70D /* Configuration.swift */; };
-		4609CC3C1AA9758A00D2E70D /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4609CC3B1AA9758A00D2E70D /* Parse.framework */; };
 		4609CC3E1AA9759600D2E70D /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4609CC3D1AA9759600D2E70D /* Bolts.framework */; };
 		4609CC4A1AA9761100D2E70D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4609CC3F1AA9761100D2E70D /* AudioToolbox.framework */; };
 		4609CC4B1AA9761100D2E70D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4609CC401AA9761100D2E70D /* CFNetwork.framework */; };
@@ -91,6 +90,7 @@
 		F995C3EA1AA91D6500F6EC88 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F995C3E91AA91D6500F6EC88 /* SignInViewController.swift */; };
 		F9A7B1011AC0A2A600B7FD4A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A7B0FF1AC0A2A600B7FD4A /* Crashlytics.framework */; };
 		F9A7B1021AC0A2A600B7FD4A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A7B1001AC0A2A600B7FD4A /* Fabric.framework */; };
+		F9B5260B1AEEF71C004E03ED /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9B5260A1AEEF71C004E03ED /* Parse.framework */; };
 		F9CF09721AA7E179005E28F7 /* CalendarTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09711AA7E179005E28F7 /* CalendarTab.swift */; };
 		F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */; };
 /* End PBXBuildFile section */
@@ -198,6 +198,7 @@
 		F995C3E91AA91D6500F6EC88 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		F9A7B0FF1AC0A2A600B7FD4A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		F9A7B1001AC0A2A600B7FD4A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		F9B5260A1AEEF71C004E03ED /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "../../../Downloads/parse-library-1.7.2/Parse.framework"; sourceTree = "<group>"; };
 		F9CF09711AA7E179005E28F7 /* CalendarTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarTab.swift; sourceTree = "<group>"; };
 		F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTab.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -207,6 +208,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9B5260B1AEEF71C004E03ED /* Parse.framework in Frameworks */,
 				4693CDEC1AB7DAF100DCBA29 /* Accounts.framework in Frameworks */,
 				4693CDEA1AB7DA8400DCBA29 /* Social.framework in Frameworks */,
 				F9A7B1011AC0A2A600B7FD4A /* Crashlytics.framework in Frameworks */,
@@ -223,7 +225,6 @@
 				4609CC531AA9761100D2E70D /* StoreKit.framework in Frameworks */,
 				4609CC541AA9761100D2E70D /* SystemConfiguration.framework in Frameworks */,
 				F987BA391AA7C7FD008FDD56 /* EventKit.framework in Frameworks */,
-				4609CC3C1AA9758A00D2E70D /* Parse.framework in Frameworks */,
 				F987BA371AA7C7F7008FDD56 /* MapKit.framework in Frameworks */,
 				4609CC3E1AA9759600D2E70D /* Bolts.framework in Frameworks */,
 				D01156F0B0CE6B18EB1296D8 /* Pods_HearHereApp.framework in Frameworks */,
@@ -252,6 +253,7 @@
 		4609CC301AA9716100D2E70D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F9B5260A1AEEF71C004E03ED /* Parse.framework */,
 				F9A7B0FF1AC0A2A600B7FD4A /* Crashlytics.framework */,
 				F9A7B1001AC0A2A600B7FD4A /* Fabric.framework */,
 				4693CDEB1AB7DAF100DCBA29 /* Accounts.framework */,
@@ -783,10 +785,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"/Users/luyuan/Downloads/parse-library-1.7.2",
 				);
 				INFOPLIST_FILE = HearHereApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 			};
 			name = Debug;
 		};
@@ -799,10 +803,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"/Users/luyuan/Downloads/parse-library-1.7.2",
 				);
 				INFOPLIST_FILE = HearHereApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 			};
 			name = Release;
 		};

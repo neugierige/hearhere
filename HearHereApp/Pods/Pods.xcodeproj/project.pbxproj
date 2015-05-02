@@ -7,359 +7,326 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0040D20B52DECB4997A9B788 /* Pods-HearHereApp-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D46BFFF3D306918C62144836 /* Pods-HearHereApp-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0061D22729D184A618ABDC95 /* ObjectMappingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F41CF7DC5909E1B34B08B41 /* ObjectMappingInfo.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		047EC449E77DA0B46D6B49A6 /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DE7A3204230EE312C62C44C /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		065B5256DDE3AB9DA3CB9E91 /* ObjectMappingInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = E968D7D96BA314246E1FD79E /* ObjectMappingInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0BF1B7B39B7D7BFE01BD3696 /* ObjectInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 806D0A8BE345A2BDE1802E00 /* ObjectInstanceProvider.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		0F5BCE99E840064DCA527F6F /* NSDictionary+ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FDD37F2A653A4B58E83555B /* NSDictionary+ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		11EDE320EB0FA90B27F01E82 /* InstanceProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = CA506880A232735BB90B8D10 /* InstanceProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		142193041675C4DB2E40CFA5 /* NSDictionary+ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B41128F623F3AC41FADD63 /* NSDictionary+ObjectMapper.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		1EBC13769F92AA1CAB4ED8DD /* NSObject+ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A0BC80A8756A76463FDC6F /* NSObject+ObjectMapper.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		204EB9A81482009DD2D507A1 /* ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3BDA21A70180E2E857959E /* ObjectMapper.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		3C92BD88FAB6F2A66FADBA68 /* Pods-HearHereApp-OCMapper-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 12018E0DDBBA10F93977EF26 /* Pods-HearHereApp-OCMapper-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49A64EC7E5F45E635CF832D1 /* MappingProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = EDADB8C46FF62DA22B8FD671 /* MappingProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4EA03C423F79CE6F5B74A4E6 /* Pods-HearHereApp-Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 09DE7097FC46438CDEA62ED9 /* Pods-HearHereApp-Alamofire-dummy.m */; };
-		4EDDEA836EA8C76A6062A701 /* NSObject+ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = DD0FC573E47344D2ADE30801 /* NSObject+ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		519A0BDEED5F38FC812E6A3A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 299AAC02694D3CEF424A5177 /* Foundation.framework */; };
-		5A7C8718D02C71E869E72295 /* PLISTMappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC0255736467AB2DEB8F05C /* PLISTMappingProvider.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		693AF255390780139C9BA41A /* ObjectInstanceProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 021A6DDA2109D9B1AF55C14B /* ObjectInstanceProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		75C176D47FF5090CAD4D8239 /* CommonLoggingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6BA36328218C956979951F /* CommonLoggingProvider.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		7DB33805251627E02ECD85A1 /* Pods-HearHereApp-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F8ABF8B123DDB19F214E2991 /* Pods-HearHereApp-dummy.m */; };
-		7E96272880A2992BD6BEAE9E /* InCodeMappingProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E2DE9EDFE8CE8256C2E6C9D /* InCodeMappingProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		80BE5A510981823C808FA912 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 299AAC02694D3CEF424A5177 /* Foundation.framework */; };
-		8BB2A577256F906C669FDC25 /* LoggingProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = FF585C3F3512D4F59893B679 /* LoggingProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		930B6FA2648C77EDD3A69700 /* ManagedObjectInstanceProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A2C0F20FA129F76AD830CF3 /* ManagedObjectInstanceProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9606EC2E6CCE2A7F106E1B0D /* ManagedObjectInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E2985B576233FBA0B5AA12 /* ManagedObjectInstanceProvider.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		AA7297F5DAE5E41EF5041A80 /* XMLMappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3C310461AD5E178B834E20 /* XMLMappingProvider.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		B4825E89EDBC4E9A061F0F77 /* PLISTMappingProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 000C6DBE44B06BEBE49F5555 /* PLISTMappingProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B8EC875D5F48BB56193E4720 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F865F3BABB40A11E4031B0 /* Alamofire.swift */; };
-		BF061BA416D73CAC429C5D01 /* InCodeMappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAF57CCE95935A75178ABA8 /* InCodeMappingProvider.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		E746B72E0D151943042AF564 /* XMLMappingProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = C329B4809CFE024230FFDD14 /* XMLMappingProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E93FCB667B3403F9DA76708A /* CommonLoggingProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 504FC38652B211F94E77424F /* CommonLoggingProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F41152E5CF5C7BD422EA489E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 299AAC02694D3CEF424A5177 /* Foundation.framework */; };
-		F567D79A59D3EB3A941CF237 /* Pods-HearHereApp-Alamofire-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CCCD1D7837CE844AB8ED1BA /* Pods-HearHereApp-Alamofire-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9364F6FCE11CD3F1AAA07E9 /* Pods-HearHereApp-OCMapper-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C83E36278CAC5E7E21366FFB /* Pods-HearHereApp-OCMapper-dummy.m */; };
-		FE447C969C62B6AE73FD9F97 /* OCMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B52592FAF03A8E48EA6E649 /* OCMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		007C9D50F8C04CABDD36DE93 /* Pods-HearHereApp-Alamofire-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B25D2BEDF27EF5F30B569939 /* Pods-HearHereApp-Alamofire-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05163BED703F83691E6610F5 /* Pods-HearHereApp-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 64375924D8A3AB49A0DF95EF /* Pods-HearHereApp-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C75764F45B48B0AA3906958 /* InCodeMappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A584E7A9AAF4903F0D1126D /* InCodeMappingProvider.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		21C77392DEB9197963975EF3 /* CommonLoggingProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = DDBB9282290E7974840ECB77 /* CommonLoggingProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		292366FE094A4F943E7AB5DA /* Pods-HearHereApp-OCMapper-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 85BFA3B925DCBD085D4958E0 /* Pods-HearHereApp-OCMapper-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2ADFB8B446B9BF36E0815EAF /* ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F01F8CF840980CF5B289BE6A /* ObjectMapper.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		2B9784B8AA5DDD13A58A7A47 /* ObjectInstanceProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4046AAF561DA39DE093C5C05 /* ObjectInstanceProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		326543E7E17C31629CF9E699 /* InstanceProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B16AB3CFFC369E77C8B94E2 /* InstanceProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		36B358F29E40C4165F2B992F /* NSObject+ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 76CEE694556757F59802B6C5 /* NSObject+ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4CEB7DDCE6AD1AE40B946AA5 /* LoggingProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = E77BD324A91583C413EC5F3B /* LoggingProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5F03B7F43DA01122EC728F31 /* ObjectInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D27A440593F1B683EA577 /* ObjectInstanceProvider.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		62229956C7986DBA32BBAF6C /* Pods-HearHereApp-OCMapper-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F031C23F19B34FFB2D3D20D2 /* Pods-HearHereApp-OCMapper-dummy.m */; };
+		6FC19F871634A5519CE460EC /* Pods-HearHereApp-Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 389486C0863F5A624282FC58 /* Pods-HearHereApp-Alamofire-dummy.m */; };
+		70AD247CB466231A926E0B8C /* MappingProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AE6365B49671AF7232D77B7 /* MappingProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		73261DC943F0CDB98D32C9B9 /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = D812A607EAC1DDDD7A9140E6 /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		740E3BD8FA78A8CF3C3DACB2 /* ObjectMappingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 184B9A2D2E3BD58080ED8DD5 /* ObjectMappingInfo.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		8B70B6AEF5A6843FE7380D64 /* NSDictionary+ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 18F6A1B0F76E6B034AD54E8A /* NSDictionary+ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		97CB63ABB3C42FA2FC34BFA8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1312356AFDA8D82F33645659 /* Foundation.framework */; };
+		AACC9E8D00C3339D78260B9C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1312356AFDA8D82F33645659 /* Foundation.framework */; };
+		AC6D3E1BC96586D5FA0F921E /* ManagedObjectInstanceProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 8ED85D0D5FD0557B91FF1323 /* ManagedObjectInstanceProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AFB8BAFEB4DE16BDBC2E7010 /* Pods-HearHereApp-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C24CF1B818798403E48632B /* Pods-HearHereApp-dummy.m */; };
+		B80573BA5B4D244E76771B81 /* ObjectMappingInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = E042B000A1EE89C4BAADEB9D /* ObjectMappingInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B9BA5BC05A640C39D321CAE6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1312356AFDA8D82F33645659 /* Foundation.framework */; };
+		BB95C16BBFEA12ED0EBF2B1D /* NSObject+ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F085E7DF263049FBD684606A /* NSObject+ObjectMapper.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		C0A6AA99184EB6144C9BDDC1 /* ManagedObjectInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9C30F413D569196F41EF9 /* ManagedObjectInstanceProvider.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		DAD4444010FF4818CA2BA3F9 /* OCMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = E89E74DB8FFA3124FC1FA672 /* OCMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ECE2D633719234D773D806D6 /* NSDictionary+ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F0CA9A1DBF96EA7A6042D776 /* NSDictionary+ObjectMapper.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		F0ECEEF7BCF79D6CBB8DBC81 /* CommonLoggingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC58CAB9579A36F122C6627 /* CommonLoggingProvider.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		F9C505610E385B941952A906 /* InCodeMappingProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B6C799B5C9E71B97582144E /* InCodeMappingProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FDE5CFA96DA28638437C4749 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1A6DE235FAF35B95E0D9E8 /* Alamofire.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3A4E21DB5026C38E6B3E4A6C /* PBXContainerItemProxy */ = {
+		59BD1DBAFE23601AC5907CB9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D6C449A000C74D2ECEF481E4 /* Project object */;
+			containerPortal = 47D12CA9300BE452ECA89C5F /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 49EE72ED519F8819EA796290;
+			remoteGlobalIDString = 342BBA13969996F441CB0421;
 			remoteInfo = "Pods-HearHereApp-Alamofire";
 		};
-		845D956727E7D38399894CB9 /* PBXContainerItemProxy */ = {
+		D75DAC7E30161111BFE7372D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D6C449A000C74D2ECEF481E4 /* Project object */;
+			containerPortal = 47D12CA9300BE452ECA89C5F /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 5DFD1CA1F976FB20B424B9DB;
+			remoteGlobalIDString = BF70C58F7ED057612357BB14;
 			remoteInfo = "Pods-HearHereApp-OCMapper";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		000C6DBE44B06BEBE49F5555 /* PLISTMappingProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PLISTMappingProvider.h; path = "OCMapper/Source/Mapping Provider/PLIST Mapping/PLISTMappingProvider.h"; sourceTree = "<group>"; };
-		021A6DDA2109D9B1AF55C14B /* ObjectInstanceProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ObjectInstanceProvider.h; path = "OCMapper/Source/Instance Provider/ObjectInstanceProvider.h"; sourceTree = "<group>"; };
-		0235C132DE33EBB8E0BC85CE /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		09DE7097FC46438CDEA62ED9 /* Pods-HearHereApp-Alamofire-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HearHereApp-Alamofire-dummy.m"; sourceTree = "<group>"; };
-		0D96FB20A6D5E985ED621D8E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0E3BDA21A70180E2E857959E /* ObjectMapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ObjectMapper.m; path = OCMapper/Source/ObjectMapper.m; sourceTree = "<group>"; };
-		12018E0DDBBA10F93977EF26 /* Pods-HearHereApp-OCMapper-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HearHereApp-OCMapper-umbrella.h"; sourceTree = "<group>"; };
-		17F865F3BABB40A11E4031B0 /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
-		1908E5EBEB30C222F43DB2E6 /* Pods-HearHereApp-OCMapper.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-HearHereApp-OCMapper.modulemap"; sourceTree = "<group>"; };
-		28739344A048247CD747D3C9 /* Pods-HearHereApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HearHereApp.release.xcconfig"; sourceTree = "<group>"; };
-		299AAC02694D3CEF424A5177 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		2A6BA36328218C956979951F /* CommonLoggingProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CommonLoggingProvider.m; path = "OCMapper/Source/Logging Provider/CommonLoggingProvider.m"; sourceTree = "<group>"; };
-		2D2D27B19A7BA00B3C56719B /* Pods-HearHereApp-OCMapper-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HearHereApp-OCMapper-prefix.pch"; sourceTree = "<group>"; };
-		2E2DE9EDFE8CE8256C2E6C9D /* InCodeMappingProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = InCodeMappingProvider.h; path = "OCMapper/Source/Mapping Provider/In Code Mapping/InCodeMappingProvider.h"; sourceTree = "<group>"; };
-		2FDD37F2A653A4B58E83555B /* NSDictionary+ObjectMapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+ObjectMapper.h"; path = "OCMapper/Source/Categories/NSDictionary+ObjectMapper.h"; sourceTree = "<group>"; };
-		342C53DBDC61AB70099C83F0 /* Pods-HearHereApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-HearHereApp-acknowledgements.markdown"; sourceTree = "<group>"; };
-		38BC9260AF8F07C04AC12521 /* OCMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OCMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3DC0255736467AB2DEB8F05C /* PLISTMappingProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PLISTMappingProvider.m; path = "OCMapper/Source/Mapping Provider/PLIST Mapping/PLISTMappingProvider.m"; sourceTree = "<group>"; };
-		3DE7A3204230EE312C62C44C /* ObjectMapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ObjectMapper.h; path = OCMapper/Source/ObjectMapper.h; sourceTree = "<group>"; };
-		44DC478D546715BFBDE65A85 /* Pods-HearHereApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HearHereApp-acknowledgements.plist"; sourceTree = "<group>"; };
-		4683714213C3BD5942A3F41A /* Pods-HearHereApp-OCMapper-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HearHereApp-OCMapper-Private.xcconfig"; sourceTree = "<group>"; };
-		49F9F210B316B81EA0198B46 /* Pods-HearHereApp-Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-HearHereApp-Alamofire.modulemap"; sourceTree = "<group>"; };
-		4A2C0F20FA129F76AD830CF3 /* ManagedObjectInstanceProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ManagedObjectInstanceProvider.h; path = "OCMapper/Source/Instance Provider/ManagedObjectInstanceProvider.h"; sourceTree = "<group>"; };
-		504FC38652B211F94E77424F /* CommonLoggingProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CommonLoggingProvider.h; path = "OCMapper/Source/Logging Provider/CommonLoggingProvider.h"; sourceTree = "<group>"; };
-		5B85F0C8BBF35B38FDADCF20 /* Pods-HearHereApp-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HearHereApp-environment.h"; sourceTree = "<group>"; };
-		5CCCD1D7837CE844AB8ED1BA /* Pods-HearHereApp-Alamofire-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HearHereApp-Alamofire-umbrella.h"; sourceTree = "<group>"; };
-		600B3D7FEEFDB32455262BE8 /* Pods-HearHereApp-Alamofire-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HearHereApp-Alamofire-Private.xcconfig"; sourceTree = "<group>"; };
-		60E2985B576233FBA0B5AA12 /* ManagedObjectInstanceProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ManagedObjectInstanceProvider.m; path = "OCMapper/Source/Instance Provider/ManagedObjectInstanceProvider.m"; sourceTree = "<group>"; };
-		6B52592FAF03A8E48EA6E649 /* OCMapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMapper.h; path = OCMapper/Source/OCMapper.h; sourceTree = "<group>"; };
-		71A0BC80A8756A76463FDC6F /* NSObject+ObjectMapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+ObjectMapper.m"; path = "OCMapper/Source/Categories/NSObject+ObjectMapper.m"; sourceTree = "<group>"; };
-		71E2252FB6162034567D4FAB /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		806D0A8BE345A2BDE1802E00 /* ObjectInstanceProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ObjectInstanceProvider.m; path = "OCMapper/Source/Instance Provider/ObjectInstanceProvider.m"; sourceTree = "<group>"; };
-		809F02B5904776A624B470F5 /* Pods-HearHereApp.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-HearHereApp.modulemap"; sourceTree = "<group>"; };
-		837E3BDED27DCB477A9391D1 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		8925291672BA7017155503DB /* Pods-HearHereApp-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HearHereApp-resources.sh"; sourceTree = "<group>"; };
-		96B41128F623F3AC41FADD63 /* NSDictionary+ObjectMapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+ObjectMapper.m"; path = "OCMapper/Source/Categories/NSDictionary+ObjectMapper.m"; sourceTree = "<group>"; };
-		9F41CF7DC5909E1B34B08B41 /* ObjectMappingInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ObjectMappingInfo.m; path = OCMapper/Source/ObjectMappingInfo.m; sourceTree = "<group>"; };
-		ACAE8D989D1A46B4CC01F428 /* Pods_HearHereApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HearHereApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BA3C310461AD5E178B834E20 /* XMLMappingProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XMLMappingProvider.m; path = "OCMapper/Source/Mapping Provider/XML Mapping/XMLMappingProvider.m"; sourceTree = "<group>"; };
-		BA57C1D35D7E50D3D97579B6 /* Pods-HearHereApp-Alamofire.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HearHereApp-Alamofire.xcconfig"; sourceTree = "<group>"; };
-		C0D8E02C04584E6F20C23844 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C329B4809CFE024230FFDD14 /* XMLMappingProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XMLMappingProvider.h; path = "OCMapper/Source/Mapping Provider/XML Mapping/XMLMappingProvider.h"; sourceTree = "<group>"; };
-		C4CD10FDE2112940196F75B3 /* Pods-HearHereApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HearHereApp.debug.xcconfig"; sourceTree = "<group>"; };
-		C7B5C029E4868ED107257181 /* Pods-HearHereApp-OCMapper.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HearHereApp-OCMapper.xcconfig"; sourceTree = "<group>"; };
-		C83E36278CAC5E7E21366FFB /* Pods-HearHereApp-OCMapper-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HearHereApp-OCMapper-dummy.m"; sourceTree = "<group>"; };
-		CA506880A232735BB90B8D10 /* InstanceProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = InstanceProvider.h; path = "OCMapper/Source/Instance Provider/InstanceProvider.h"; sourceTree = "<group>"; };
-		CB8B0ACAF331277C73D549BE /* Pods-HearHereApp-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HearHereApp-frameworks.sh"; sourceTree = "<group>"; };
-		CBAF57CCE95935A75178ABA8 /* InCodeMappingProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = InCodeMappingProvider.m; path = "OCMapper/Source/Mapping Provider/In Code Mapping/InCodeMappingProvider.m"; sourceTree = "<group>"; };
-		D46BFFF3D306918C62144836 /* Pods-HearHereApp-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HearHereApp-umbrella.h"; sourceTree = "<group>"; };
-		DD0FC573E47344D2ADE30801 /* NSObject+ObjectMapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+ObjectMapper.h"; path = "OCMapper/Source/Categories/NSObject+ObjectMapper.h"; sourceTree = "<group>"; };
-		E968D7D96BA314246E1FD79E /* ObjectMappingInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ObjectMappingInfo.h; path = OCMapper/Source/ObjectMappingInfo.h; sourceTree = "<group>"; };
-		EDADB8C46FF62DA22B8FD671 /* MappingProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MappingProvider.h; path = "OCMapper/Source/Mapping Provider/MappingProvider.h"; sourceTree = "<group>"; };
-		F7CB2305E8F437C42102E5CB /* Pods-HearHereApp-Alamofire-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HearHereApp-Alamofire-prefix.pch"; sourceTree = "<group>"; };
-		F8ABF8B123DDB19F214E2991 /* Pods-HearHereApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HearHereApp-dummy.m"; sourceTree = "<group>"; };
-		FF585C3F3512D4F59893B679 /* LoggingProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LoggingProvider.h; path = "OCMapper/Source/Logging Provider/LoggingProvider.h"; sourceTree = "<group>"; };
+		1312356AFDA8D82F33645659 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		184B9A2D2E3BD58080ED8DD5 /* ObjectMappingInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ObjectMappingInfo.m; path = OCMapper/Source/ObjectMappingInfo.m; sourceTree = "<group>"; };
+		18F6A1B0F76E6B034AD54E8A /* NSDictionary+ObjectMapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+ObjectMapper.h"; path = "OCMapper/Source/Categories/NSDictionary+ObjectMapper.h"; sourceTree = "<group>"; };
+		1FD1652D52E48ED37EA5EE11 /* Pods-HearHereApp-Alamofire-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HearHereApp-Alamofire-prefix.pch"; sourceTree = "<group>"; };
+		2C24CF1B818798403E48632B /* Pods-HearHereApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HearHereApp-dummy.m"; sourceTree = "<group>"; };
+		2E1A6DE235FAF35B95E0D9E8 /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
+		2F2E14A8C46C522CB927D078 /* Pods-HearHereApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HearHereApp.debug.xcconfig"; sourceTree = "<group>"; };
+		325257AE3F6FC4843D8158E2 /* Pods-HearHereApp-OCMapper.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HearHereApp-OCMapper.xcconfig"; sourceTree = "<group>"; };
+		35B2777920B05B37BCD9A3C9 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3784F44B20C3A2ABF03B4D1C /* Pods-HearHereApp-Alamofire.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HearHereApp-Alamofire.xcconfig"; sourceTree = "<group>"; };
+		389486C0863F5A624282FC58 /* Pods-HearHereApp-Alamofire-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HearHereApp-Alamofire-dummy.m"; sourceTree = "<group>"; };
+		3A8D27A440593F1B683EA577 /* ObjectInstanceProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ObjectInstanceProvider.m; path = "OCMapper/Source/Instance Provider/ObjectInstanceProvider.m"; sourceTree = "<group>"; };
+		3AE6365B49671AF7232D77B7 /* MappingProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MappingProvider.h; path = "OCMapper/Source/Mapping Provider/MappingProvider.h"; sourceTree = "<group>"; };
+		3B6C799B5C9E71B97582144E /* InCodeMappingProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = InCodeMappingProvider.h; path = "OCMapper/Source/Mapping Provider/In Code Mapping/InCodeMappingProvider.h"; sourceTree = "<group>"; };
+		3FC58CAB9579A36F122C6627 /* CommonLoggingProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CommonLoggingProvider.m; path = "OCMapper/Source/Logging Provider/CommonLoggingProvider.m"; sourceTree = "<group>"; };
+		4046AAF561DA39DE093C5C05 /* ObjectInstanceProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ObjectInstanceProvider.h; path = "OCMapper/Source/Instance Provider/ObjectInstanceProvider.h"; sourceTree = "<group>"; };
+		431EA847ACFDB84F682FB973 /* Pods-HearHereApp-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HearHereApp-frameworks.sh"; sourceTree = "<group>"; };
+		64375924D8A3AB49A0DF95EF /* Pods-HearHereApp-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HearHereApp-umbrella.h"; sourceTree = "<group>"; };
+		766C8B4CBF86F5F2909D7D9E /* Pods_HearHereApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HearHereApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		76CEE694556757F59802B6C5 /* NSObject+ObjectMapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+ObjectMapper.h"; path = "OCMapper/Source/Categories/NSObject+ObjectMapper.h"; sourceTree = "<group>"; };
+		7FDD22FEC1F9C005E639C819 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		85BFA3B925DCBD085D4958E0 /* Pods-HearHereApp-OCMapper-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HearHereApp-OCMapper-umbrella.h"; sourceTree = "<group>"; };
+		8A584E7A9AAF4903F0D1126D /* InCodeMappingProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = InCodeMappingProvider.m; path = "OCMapper/Source/Mapping Provider/In Code Mapping/InCodeMappingProvider.m"; sourceTree = "<group>"; };
+		8ED85D0D5FD0557B91FF1323 /* ManagedObjectInstanceProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ManagedObjectInstanceProvider.h; path = "OCMapper/Source/Instance Provider/ManagedObjectInstanceProvider.h"; sourceTree = "<group>"; };
+		9178D196C193A1865FBC2186 /* Pods-HearHereApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HearHereApp.release.xcconfig"; sourceTree = "<group>"; };
+		96C43F82F88C16986D066EB8 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B16AB3CFFC369E77C8B94E2 /* InstanceProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = InstanceProvider.h; path = "OCMapper/Source/Instance Provider/InstanceProvider.h"; sourceTree = "<group>"; };
+		9DFC997968215913C9CE26CA /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A8F76D55B254330703C864A2 /* Pods-HearHereApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HearHereApp-acknowledgements.plist"; sourceTree = "<group>"; };
+		AB670D15993675670649F903 /* OCMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OCMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF90DA9E4F7F982C8FB33705 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		B25D2BEDF27EF5F30B569939 /* Pods-HearHereApp-Alamofire-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HearHereApp-Alamofire-umbrella.h"; sourceTree = "<group>"; };
+		B8C9C30F413D569196F41EF9 /* ManagedObjectInstanceProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ManagedObjectInstanceProvider.m; path = "OCMapper/Source/Instance Provider/ManagedObjectInstanceProvider.m"; sourceTree = "<group>"; };
+		BE60A48BE7DD8A71412AD0D1 /* Pods-HearHereApp.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-HearHereApp.modulemap"; sourceTree = "<group>"; };
+		BEFBA9EB6C762814805E5944 /* Pods-HearHereApp-Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-HearHereApp-Alamofire.modulemap"; sourceTree = "<group>"; };
+		CCBEABBC288B075EB1507542 /* Pods-HearHereApp-OCMapper-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HearHereApp-OCMapper-Private.xcconfig"; sourceTree = "<group>"; };
+		D680F6A8024FF8A0897CE966 /* Pods-HearHereApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-HearHereApp-acknowledgements.markdown"; sourceTree = "<group>"; };
+		D812A607EAC1DDDD7A9140E6 /* ObjectMapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ObjectMapper.h; path = OCMapper/Source/ObjectMapper.h; sourceTree = "<group>"; };
+		DDBB9282290E7974840ECB77 /* CommonLoggingProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CommonLoggingProvider.h; path = "OCMapper/Source/Logging Provider/CommonLoggingProvider.h"; sourceTree = "<group>"; };
+		DDEBF6C4837A536CA9F0D712 /* Pods-HearHereApp-OCMapper.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-HearHereApp-OCMapper.modulemap"; sourceTree = "<group>"; };
+		E042B000A1EE89C4BAADEB9D /* ObjectMappingInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ObjectMappingInfo.h; path = OCMapper/Source/ObjectMappingInfo.h; sourceTree = "<group>"; };
+		E77BD324A91583C413EC5F3B /* LoggingProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LoggingProvider.h; path = "OCMapper/Source/Logging Provider/LoggingProvider.h"; sourceTree = "<group>"; };
+		E84E3AD74B6EF69847177AD0 /* Pods-HearHereApp-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HearHereApp-resources.sh"; sourceTree = "<group>"; };
+		E89E74DB8FFA3124FC1FA672 /* OCMapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMapper.h; path = OCMapper/Source/OCMapper.h; sourceTree = "<group>"; };
+		F01F8CF840980CF5B289BE6A /* ObjectMapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ObjectMapper.m; path = OCMapper/Source/ObjectMapper.m; sourceTree = "<group>"; };
+		F031C23F19B34FFB2D3D20D2 /* Pods-HearHereApp-OCMapper-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HearHereApp-OCMapper-dummy.m"; sourceTree = "<group>"; };
+		F085E7DF263049FBD684606A /* NSObject+ObjectMapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+ObjectMapper.m"; path = "OCMapper/Source/Categories/NSObject+ObjectMapper.m"; sourceTree = "<group>"; };
+		F0CA9A1DBF96EA7A6042D776 /* NSDictionary+ObjectMapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+ObjectMapper.m"; path = "OCMapper/Source/Categories/NSDictionary+ObjectMapper.m"; sourceTree = "<group>"; };
+		F88D301F5E09DA966A4E2FF1 /* Pods-HearHereApp-OCMapper-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HearHereApp-OCMapper-prefix.pch"; sourceTree = "<group>"; };
+		F99E04782E47EBDDFFC2A193 /* Pods-HearHereApp-Alamofire-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HearHereApp-Alamofire-Private.xcconfig"; sourceTree = "<group>"; };
+		FBCBCF29275DAAC2483AF507 /* Pods-HearHereApp-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HearHereApp-environment.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0B5241BF405F9F93C755C568 /* Frameworks */ = {
+		6C8313A0044134D856E923CB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F41152E5CF5C7BD422EA489E /* Foundation.framework in Frameworks */,
+				B9BA5BC05A640C39D321CAE6 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7D07B4EB51EAC5DB1278F099 /* Frameworks */ = {
+		7AF429D4043BE4D664825FF7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80BE5A510981823C808FA912 /* Foundation.framework in Frameworks */,
+				AACC9E8D00C3339D78260B9C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E6149B7C601A49C71996CE16 /* Frameworks */ = {
+		9994A5DB728F33846EE6176C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				519A0BDEED5F38FC812E6A3A /* Foundation.framework in Frameworks */,
+				97CB63ABB3C42FA2FC34BFA8 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		056DAB387C445099A739A72B /* Alamofire */ = {
+		10B4BCE88507B0533126CC54 = {
 			isa = PBXGroup;
 			children = (
-				17F865F3BABB40A11E4031B0 /* Alamofire.swift */,
-				1435810A48A54AAB61B5BFEF /* Support Files */,
+				AF90DA9E4F7F982C8FB33705 /* Podfile */,
+				A898AA118B72B33869A8EB5B /* Frameworks */,
+				CD3A10FE59D9E01C98DC132B /* Pods */,
+				E891344C36ED6AF711742996 /* Products */,
+				394BE99ACD3BD9612E99E260 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		1364BA4CC712A899142ADC1A /* Alamofire */ = {
+			isa = PBXGroup;
+			children = (
+				2E1A6DE235FAF35B95E0D9E8 /* Alamofire.swift */,
+				6D921B41969DAD89D5647E37 /* Support Files */,
 			);
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
-		1435810A48A54AAB61B5BFEF /* Support Files */ = {
+		1B633A1C3C470C7D9654A8A6 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				0235C132DE33EBB8E0BC85CE /* Info.plist */,
-				49F9F210B316B81EA0198B46 /* Pods-HearHereApp-Alamofire.modulemap */,
-				BA57C1D35D7E50D3D97579B6 /* Pods-HearHereApp-Alamofire.xcconfig */,
-				600B3D7FEEFDB32455262BE8 /* Pods-HearHereApp-Alamofire-Private.xcconfig */,
-				09DE7097FC46438CDEA62ED9 /* Pods-HearHereApp-Alamofire-dummy.m */,
-				F7CB2305E8F437C42102E5CB /* Pods-HearHereApp-Alamofire-prefix.pch */,
-				5CCCD1D7837CE844AB8ED1BA /* Pods-HearHereApp-Alamofire-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Pods-HearHereApp-Alamofire";
-			sourceTree = "<group>";
-		};
-		2D40FDBA8FEFC25A5D0A35BA /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				7AEF60CC2736780FD7C8716F /* Pods-HearHereApp */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		34283470A4D2150231037529 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C0D8E02C04584E6F20C23844 /* Alamofire.framework */,
-				38BC9260AF8F07C04AC12521 /* OCMapper.framework */,
-				ACAE8D989D1A46B4CC01F428 /* Pods_HearHereApp.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		3A2F9F24B194CE928DDCF038 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				71E2252FB6162034567D4FAB /* Info.plist */,
-				1908E5EBEB30C222F43DB2E6 /* Pods-HearHereApp-OCMapper.modulemap */,
-				C7B5C029E4868ED107257181 /* Pods-HearHereApp-OCMapper.xcconfig */,
-				4683714213C3BD5942A3F41A /* Pods-HearHereApp-OCMapper-Private.xcconfig */,
-				C83E36278CAC5E7E21366FFB /* Pods-HearHereApp-OCMapper-dummy.m */,
-				2D2D27B19A7BA00B3C56719B /* Pods-HearHereApp-OCMapper-prefix.pch */,
-				12018E0DDBBA10F93977EF26 /* Pods-HearHereApp-OCMapper-umbrella.h */,
+				35B2777920B05B37BCD9A3C9 /* Info.plist */,
+				DDEBF6C4837A536CA9F0D712 /* Pods-HearHereApp-OCMapper.modulemap */,
+				325257AE3F6FC4843D8158E2 /* Pods-HearHereApp-OCMapper.xcconfig */,
+				CCBEABBC288B075EB1507542 /* Pods-HearHereApp-OCMapper-Private.xcconfig */,
+				F031C23F19B34FFB2D3D20D2 /* Pods-HearHereApp-OCMapper-dummy.m */,
+				F88D301F5E09DA966A4E2FF1 /* Pods-HearHereApp-OCMapper-prefix.pch */,
+				85BFA3B925DCBD085D4958E0 /* Pods-HearHereApp-OCMapper-umbrella.h */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Pods-HearHereApp-OCMapper";
 			sourceTree = "<group>";
 		};
-		519098660DDEBC13DAAFA0AD = {
+		394BE99ACD3BD9612E99E260 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				837E3BDED27DCB477A9391D1 /* Podfile */,
-				DCEE5898774D7512BF5AA966 /* Frameworks */,
-				FDDBB6C38292D51EEA453E2A /* Pods */,
-				34283470A4D2150231037529 /* Products */,
-				2D40FDBA8FEFC25A5D0A35BA /* Targets Support Files */,
+				EF74A785AEA6A21F06436F72 /* Pods-HearHereApp */,
 			);
+			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		7AEF60CC2736780FD7C8716F /* Pods-HearHereApp */ = {
+		6D921B41969DAD89D5647E37 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				0D96FB20A6D5E985ED621D8E /* Info.plist */,
-				809F02B5904776A624B470F5 /* Pods-HearHereApp.modulemap */,
-				342C53DBDC61AB70099C83F0 /* Pods-HearHereApp-acknowledgements.markdown */,
-				44DC478D546715BFBDE65A85 /* Pods-HearHereApp-acknowledgements.plist */,
-				F8ABF8B123DDB19F214E2991 /* Pods-HearHereApp-dummy.m */,
-				5B85F0C8BBF35B38FDADCF20 /* Pods-HearHereApp-environment.h */,
-				CB8B0ACAF331277C73D549BE /* Pods-HearHereApp-frameworks.sh */,
-				8925291672BA7017155503DB /* Pods-HearHereApp-resources.sh */,
-				D46BFFF3D306918C62144836 /* Pods-HearHereApp-umbrella.h */,
-				C4CD10FDE2112940196F75B3 /* Pods-HearHereApp.debug.xcconfig */,
-				28739344A048247CD747D3C9 /* Pods-HearHereApp.release.xcconfig */,
+				9DFC997968215913C9CE26CA /* Info.plist */,
+				BEFBA9EB6C762814805E5944 /* Pods-HearHereApp-Alamofire.modulemap */,
+				3784F44B20C3A2ABF03B4D1C /* Pods-HearHereApp-Alamofire.xcconfig */,
+				F99E04782E47EBDDFFC2A193 /* Pods-HearHereApp-Alamofire-Private.xcconfig */,
+				389486C0863F5A624282FC58 /* Pods-HearHereApp-Alamofire-dummy.m */,
+				1FD1652D52E48ED37EA5EE11 /* Pods-HearHereApp-Alamofire-prefix.pch */,
+				B25D2BEDF27EF5F30B569939 /* Pods-HearHereApp-Alamofire-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-HearHereApp-Alamofire";
+			sourceTree = "<group>";
+		};
+		A3A0ADA5CF1172AE4B89FB95 /* OCMapper */ = {
+			isa = PBXGroup;
+			children = (
+				DDBB9282290E7974840ECB77 /* CommonLoggingProvider.h */,
+				3FC58CAB9579A36F122C6627 /* CommonLoggingProvider.m */,
+				3B6C799B5C9E71B97582144E /* InCodeMappingProvider.h */,
+				8A584E7A9AAF4903F0D1126D /* InCodeMappingProvider.m */,
+				9B16AB3CFFC369E77C8B94E2 /* InstanceProvider.h */,
+				E77BD324A91583C413EC5F3B /* LoggingProvider.h */,
+				8ED85D0D5FD0557B91FF1323 /* ManagedObjectInstanceProvider.h */,
+				B8C9C30F413D569196F41EF9 /* ManagedObjectInstanceProvider.m */,
+				3AE6365B49671AF7232D77B7 /* MappingProvider.h */,
+				18F6A1B0F76E6B034AD54E8A /* NSDictionary+ObjectMapper.h */,
+				F0CA9A1DBF96EA7A6042D776 /* NSDictionary+ObjectMapper.m */,
+				76CEE694556757F59802B6C5 /* NSObject+ObjectMapper.h */,
+				F085E7DF263049FBD684606A /* NSObject+ObjectMapper.m */,
+				E89E74DB8FFA3124FC1FA672 /* OCMapper.h */,
+				4046AAF561DA39DE093C5C05 /* ObjectInstanceProvider.h */,
+				3A8D27A440593F1B683EA577 /* ObjectInstanceProvider.m */,
+				D812A607EAC1DDDD7A9140E6 /* ObjectMapper.h */,
+				F01F8CF840980CF5B289BE6A /* ObjectMapper.m */,
+				E042B000A1EE89C4BAADEB9D /* ObjectMappingInfo.h */,
+				184B9A2D2E3BD58080ED8DD5 /* ObjectMappingInfo.m */,
+				1B633A1C3C470C7D9654A8A6 /* Support Files */,
+			);
+			path = OCMapper;
+			sourceTree = "<group>";
+		};
+		A898AA118B72B33869A8EB5B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B58261398F12F0BEDFD2795C /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B58261398F12F0BEDFD2795C /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				1312356AFDA8D82F33645659 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		CD3A10FE59D9E01C98DC132B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1364BA4CC712A899142ADC1A /* Alamofire */,
+				A3A0ADA5CF1172AE4B89FB95 /* OCMapper */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E891344C36ED6AF711742996 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				96C43F82F88C16986D066EB8 /* Alamofire.framework */,
+				AB670D15993675670649F903 /* OCMapper.framework */,
+				766C8B4CBF86F5F2909D7D9E /* Pods_HearHereApp.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EF74A785AEA6A21F06436F72 /* Pods-HearHereApp */ = {
+			isa = PBXGroup;
+			children = (
+				7FDD22FEC1F9C005E639C819 /* Info.plist */,
+				BE60A48BE7DD8A71412AD0D1 /* Pods-HearHereApp.modulemap */,
+				D680F6A8024FF8A0897CE966 /* Pods-HearHereApp-acknowledgements.markdown */,
+				A8F76D55B254330703C864A2 /* Pods-HearHereApp-acknowledgements.plist */,
+				2C24CF1B818798403E48632B /* Pods-HearHereApp-dummy.m */,
+				FBCBCF29275DAAC2483AF507 /* Pods-HearHereApp-environment.h */,
+				431EA847ACFDB84F682FB973 /* Pods-HearHereApp-frameworks.sh */,
+				E84E3AD74B6EF69847177AD0 /* Pods-HearHereApp-resources.sh */,
+				64375924D8A3AB49A0DF95EF /* Pods-HearHereApp-umbrella.h */,
+				2F2E14A8C46C522CB927D078 /* Pods-HearHereApp.debug.xcconfig */,
+				9178D196C193A1865FBC2186 /* Pods-HearHereApp.release.xcconfig */,
 			);
 			name = "Pods-HearHereApp";
 			path = "Target Support Files/Pods-HearHereApp";
 			sourceTree = "<group>";
 		};
-		9E9C9D086FA99C4C8CA965C0 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				299AAC02694D3CEF424A5177 /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		DCEE5898774D7512BF5AA966 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				9E9C9D086FA99C4C8CA965C0 /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E00B2B88BBA8CFFAE1F17C3D /* OCMapper */ = {
-			isa = PBXGroup;
-			children = (
-				504FC38652B211F94E77424F /* CommonLoggingProvider.h */,
-				2A6BA36328218C956979951F /* CommonLoggingProvider.m */,
-				2E2DE9EDFE8CE8256C2E6C9D /* InCodeMappingProvider.h */,
-				CBAF57CCE95935A75178ABA8 /* InCodeMappingProvider.m */,
-				CA506880A232735BB90B8D10 /* InstanceProvider.h */,
-				FF585C3F3512D4F59893B679 /* LoggingProvider.h */,
-				4A2C0F20FA129F76AD830CF3 /* ManagedObjectInstanceProvider.h */,
-				60E2985B576233FBA0B5AA12 /* ManagedObjectInstanceProvider.m */,
-				EDADB8C46FF62DA22B8FD671 /* MappingProvider.h */,
-				2FDD37F2A653A4B58E83555B /* NSDictionary+ObjectMapper.h */,
-				96B41128F623F3AC41FADD63 /* NSDictionary+ObjectMapper.m */,
-				DD0FC573E47344D2ADE30801 /* NSObject+ObjectMapper.h */,
-				71A0BC80A8756A76463FDC6F /* NSObject+ObjectMapper.m */,
-				6B52592FAF03A8E48EA6E649 /* OCMapper.h */,
-				021A6DDA2109D9B1AF55C14B /* ObjectInstanceProvider.h */,
-				806D0A8BE345A2BDE1802E00 /* ObjectInstanceProvider.m */,
-				3DE7A3204230EE312C62C44C /* ObjectMapper.h */,
-				0E3BDA21A70180E2E857959E /* ObjectMapper.m */,
-				E968D7D96BA314246E1FD79E /* ObjectMappingInfo.h */,
-				9F41CF7DC5909E1B34B08B41 /* ObjectMappingInfo.m */,
-				000C6DBE44B06BEBE49F5555 /* PLISTMappingProvider.h */,
-				3DC0255736467AB2DEB8F05C /* PLISTMappingProvider.m */,
-				C329B4809CFE024230FFDD14 /* XMLMappingProvider.h */,
-				BA3C310461AD5E178B834E20 /* XMLMappingProvider.m */,
-				3A2F9F24B194CE928DDCF038 /* Support Files */,
-			);
-			path = OCMapper;
-			sourceTree = "<group>";
-		};
-		FDDBB6C38292D51EEA453E2A /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				056DAB387C445099A739A72B /* Alamofire */,
-				E00B2B88BBA8CFFAE1F17C3D /* OCMapper */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		0563BE68F1D04B927BA330E5 /* Headers */ = {
+		11C21C75CE73DC1A16E999B9 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E93FCB667B3403F9DA76708A /* CommonLoggingProvider.h in Headers */,
-				7E96272880A2992BD6BEAE9E /* InCodeMappingProvider.h in Headers */,
-				11EDE320EB0FA90B27F01E82 /* InstanceProvider.h in Headers */,
-				8BB2A577256F906C669FDC25 /* LoggingProvider.h in Headers */,
-				930B6FA2648C77EDD3A69700 /* ManagedObjectInstanceProvider.h in Headers */,
-				49A64EC7E5F45E635CF832D1 /* MappingProvider.h in Headers */,
-				0F5BCE99E840064DCA527F6F /* NSDictionary+ObjectMapper.h in Headers */,
-				4EDDEA836EA8C76A6062A701 /* NSObject+ObjectMapper.h in Headers */,
-				FE447C969C62B6AE73FD9F97 /* OCMapper.h in Headers */,
-				693AF255390780139C9BA41A /* ObjectInstanceProvider.h in Headers */,
-				047EC449E77DA0B46D6B49A6 /* ObjectMapper.h in Headers */,
-				065B5256DDE3AB9DA3CB9E91 /* ObjectMappingInfo.h in Headers */,
-				B4825E89EDBC4E9A061F0F77 /* PLISTMappingProvider.h in Headers */,
-				3C92BD88FAB6F2A66FADBA68 /* Pods-HearHereApp-OCMapper-umbrella.h in Headers */,
-				E746B72E0D151943042AF564 /* XMLMappingProvider.h in Headers */,
+				05163BED703F83691E6610F5 /* Pods-HearHereApp-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CFBF6C874CE76908DC98A67F /* Headers */ = {
+		A57F123FE63347499C1BC2D9 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F567D79A59D3EB3A941CF237 /* Pods-HearHereApp-Alamofire-umbrella.h in Headers */,
+				007C9D50F8C04CABDD36DE93 /* Pods-HearHereApp-Alamofire-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EF0AC2AE19BE164615535D94 /* Headers */ = {
+		E458A34B5B9758FDA1AABD2F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0040D20B52DECB4997A9B788 /* Pods-HearHereApp-umbrella.h in Headers */,
+				21C77392DEB9197963975EF3 /* CommonLoggingProvider.h in Headers */,
+				F9C505610E385B941952A906 /* InCodeMappingProvider.h in Headers */,
+				326543E7E17C31629CF9E699 /* InstanceProvider.h in Headers */,
+				4CEB7DDCE6AD1AE40B946AA5 /* LoggingProvider.h in Headers */,
+				AC6D3E1BC96586D5FA0F921E /* ManagedObjectInstanceProvider.h in Headers */,
+				70AD247CB466231A926E0B8C /* MappingProvider.h in Headers */,
+				8B70B6AEF5A6843FE7380D64 /* NSDictionary+ObjectMapper.h in Headers */,
+				36B358F29E40C4165F2B992F /* NSObject+ObjectMapper.h in Headers */,
+				DAD4444010FF4818CA2BA3F9 /* OCMapper.h in Headers */,
+				2B9784B8AA5DDD13A58A7A47 /* ObjectInstanceProvider.h in Headers */,
+				73261DC943F0CDB98D32C9B9 /* ObjectMapper.h in Headers */,
+				B80573BA5B4D244E76771B81 /* ObjectMappingInfo.h in Headers */,
+				292366FE094A4F943E7AB5DA /* Pods-HearHereApp-OCMapper-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		1BAE2E7ED2BE2ACFE0D083FE /* Pods-HearHereApp */ = {
+		342BBA13969996F441CB0421 /* Pods-HearHereApp-Alamofire */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C0DC5BB3E8241FC6F89CC726 /* Build configuration list for PBXNativeTarget "Pods-HearHereApp" */;
+			buildConfigurationList = D9CAE5C83259E4AC56C2BBAB /* Build configuration list for PBXNativeTarget "Pods-HearHereApp-Alamofire" */;
 			buildPhases = (
-				06619FDF3F1319963178A5DC /* Sources */,
-				0B5241BF405F9F93C755C568 /* Frameworks */,
-				EF0AC2AE19BE164615535D94 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C07F0D79C517FC3B92107E11 /* PBXTargetDependency */,
-				8C2FB5E724F0E153749F5109 /* PBXTargetDependency */,
-			);
-			name = "Pods-HearHereApp";
-			productName = "Pods-HearHereApp";
-			productReference = ACAE8D989D1A46B4CC01F428 /* Pods_HearHereApp.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		49EE72ED519F8819EA796290 /* Pods-HearHereApp-Alamofire */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CC6E0DCEE8936BB263927387 /* Build configuration list for PBXNativeTarget "Pods-HearHereApp-Alamofire" */;
-			buildPhases = (
-				80F5DEBFF3F3AEAAA448AAC5 /* Sources */,
-				7D07B4EB51EAC5DB1278F099 /* Frameworks */,
-				CFBF6C874CE76908DC98A67F /* Headers */,
+				96D123ACF84F8C0BF4B1913E /* Sources */,
+				7AF429D4043BE4D664825FF7 /* Frameworks */,
+				A57F123FE63347499C1BC2D9 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -367,16 +334,35 @@
 			);
 			name = "Pods-HearHereApp-Alamofire";
 			productName = "Pods-HearHereApp-Alamofire";
-			productReference = C0D8E02C04584E6F20C23844 /* Alamofire.framework */;
+			productReference = 96C43F82F88C16986D066EB8 /* Alamofire.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		5DFD1CA1F976FB20B424B9DB /* Pods-HearHereApp-OCMapper */ = {
+		77AABA031B9032EA6F67108E /* Pods-HearHereApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EB519429C41C9B4874100C13 /* Build configuration list for PBXNativeTarget "Pods-HearHereApp-OCMapper" */;
+			buildConfigurationList = D556DA77DBE91E1E461C8576 /* Build configuration list for PBXNativeTarget "Pods-HearHereApp" */;
 			buildPhases = (
-				8013287487FE2066BC089575 /* Sources */,
-				E6149B7C601A49C71996CE16 /* Frameworks */,
-				0563BE68F1D04B927BA330E5 /* Headers */,
+				83B77916BF473D722A547EDC /* Sources */,
+				9994A5DB728F33846EE6176C /* Frameworks */,
+				11C21C75CE73DC1A16E999B9 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AD777660EC5D235ADEEF4628 /* PBXTargetDependency */,
+				FC27CE4A97773DD1629E8C36 /* PBXTargetDependency */,
+			);
+			name = "Pods-HearHereApp";
+			productName = "Pods-HearHereApp";
+			productReference = 766C8B4CBF86F5F2909D7D9E /* Pods_HearHereApp.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		BF70C58F7ED057612357BB14 /* Pods-HearHereApp-OCMapper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC26471886654C84E34F94DA /* Build configuration list for PBXNativeTarget "Pods-HearHereApp-OCMapper" */;
+			buildPhases = (
+				6781EDD9D52B5DBCBCF38135 /* Sources */,
+				6C8313A0044134D856E923CB /* Frameworks */,
+				E458A34B5B9758FDA1AABD2F /* Headers */,
 			);
 			buildRules = (
 			);
@@ -384,91 +370,89 @@
 			);
 			name = "Pods-HearHereApp-OCMapper";
 			productName = "Pods-HearHereApp-OCMapper";
-			productReference = 38BC9260AF8F07C04AC12521 /* OCMapper.framework */;
+			productReference = AB670D15993675670649F903 /* OCMapper.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		D6C449A000C74D2ECEF481E4 /* Project object */ = {
+		47D12CA9300BE452ECA89C5F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
 			};
-			buildConfigurationList = 49B5D791D1F0E6E2422128F2 /* Build configuration list for PBXProject "Pods" */;
+			buildConfigurationList = 2D358DDD7B2FD6BB43E9C674 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 519098660DDEBC13DAAFA0AD;
-			productRefGroup = 34283470A4D2150231037529 /* Products */;
+			mainGroup = 10B4BCE88507B0533126CC54;
+			productRefGroup = E891344C36ED6AF711742996 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1BAE2E7ED2BE2ACFE0D083FE /* Pods-HearHereApp */,
-				49EE72ED519F8819EA796290 /* Pods-HearHereApp-Alamofire */,
-				5DFD1CA1F976FB20B424B9DB /* Pods-HearHereApp-OCMapper */,
+				77AABA031B9032EA6F67108E /* Pods-HearHereApp */,
+				342BBA13969996F441CB0421 /* Pods-HearHereApp-Alamofire */,
+				BF70C58F7ED057612357BB14 /* Pods-HearHereApp-OCMapper */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		06619FDF3F1319963178A5DC /* Sources */ = {
+		6781EDD9D52B5DBCBCF38135 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7DB33805251627E02ECD85A1 /* Pods-HearHereApp-dummy.m in Sources */,
+				F0ECEEF7BCF79D6CBB8DBC81 /* CommonLoggingProvider.m in Sources */,
+				1C75764F45B48B0AA3906958 /* InCodeMappingProvider.m in Sources */,
+				C0A6AA99184EB6144C9BDDC1 /* ManagedObjectInstanceProvider.m in Sources */,
+				ECE2D633719234D773D806D6 /* NSDictionary+ObjectMapper.m in Sources */,
+				BB95C16BBFEA12ED0EBF2B1D /* NSObject+ObjectMapper.m in Sources */,
+				5F03B7F43DA01122EC728F31 /* ObjectInstanceProvider.m in Sources */,
+				2ADFB8B446B9BF36E0815EAF /* ObjectMapper.m in Sources */,
+				740E3BD8FA78A8CF3C3DACB2 /* ObjectMappingInfo.m in Sources */,
+				62229956C7986DBA32BBAF6C /* Pods-HearHereApp-OCMapper-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8013287487FE2066BC089575 /* Sources */ = {
+		83B77916BF473D722A547EDC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75C176D47FF5090CAD4D8239 /* CommonLoggingProvider.m in Sources */,
-				BF061BA416D73CAC429C5D01 /* InCodeMappingProvider.m in Sources */,
-				9606EC2E6CCE2A7F106E1B0D /* ManagedObjectInstanceProvider.m in Sources */,
-				142193041675C4DB2E40CFA5 /* NSDictionary+ObjectMapper.m in Sources */,
-				1EBC13769F92AA1CAB4ED8DD /* NSObject+ObjectMapper.m in Sources */,
-				0BF1B7B39B7D7BFE01BD3696 /* ObjectInstanceProvider.m in Sources */,
-				204EB9A81482009DD2D507A1 /* ObjectMapper.m in Sources */,
-				0061D22729D184A618ABDC95 /* ObjectMappingInfo.m in Sources */,
-				5A7C8718D02C71E869E72295 /* PLISTMappingProvider.m in Sources */,
-				F9364F6FCE11CD3F1AAA07E9 /* Pods-HearHereApp-OCMapper-dummy.m in Sources */,
-				AA7297F5DAE5E41EF5041A80 /* XMLMappingProvider.m in Sources */,
+				AFB8BAFEB4DE16BDBC2E7010 /* Pods-HearHereApp-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		80F5DEBFF3F3AEAAA448AAC5 /* Sources */ = {
+		96D123ACF84F8C0BF4B1913E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8EC875D5F48BB56193E4720 /* Alamofire.swift in Sources */,
-				4EA03C423F79CE6F5B74A4E6 /* Pods-HearHereApp-Alamofire-dummy.m in Sources */,
+				FDE5CFA96DA28638437C4749 /* Alamofire.swift in Sources */,
+				6FC19F871634A5519CE460EC /* Pods-HearHereApp-Alamofire-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8C2FB5E724F0E153749F5109 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Pods-HearHereApp-OCMapper";
-			target = 5DFD1CA1F976FB20B424B9DB /* Pods-HearHereApp-OCMapper */;
-			targetProxy = 845D956727E7D38399894CB9 /* PBXContainerItemProxy */;
-		};
-		C07F0D79C517FC3B92107E11 /* PBXTargetDependency */ = {
+		AD777660EC5D235ADEEF4628 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-HearHereApp-Alamofire";
-			target = 49EE72ED519F8819EA796290 /* Pods-HearHereApp-Alamofire */;
-			targetProxy = 3A4E21DB5026C38E6B3E4A6C /* PBXContainerItemProxy */;
+			target = 342BBA13969996F441CB0421 /* Pods-HearHereApp-Alamofire */;
+			targetProxy = 59BD1DBAFE23601AC5907CB9 /* PBXContainerItemProxy */;
+		};
+		FC27CE4A97773DD1629E8C36 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-HearHereApp-OCMapper";
+			target = BF70C58F7ED057612357BB14 /* Pods-HearHereApp-OCMapper */;
+			targetProxy = D75DAC7E30161111BFE7372D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		072FCAAD44666C90F2BE4F42 /* Release */ = {
+		23C629C4BAEB675C075CC7B0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -502,65 +486,9 @@
 			};
 			name = Release;
 		};
-		3D1BF22740445E722CBDBB1D /* Release */ = {
+		428F04F815B529DE8940E0FF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 28739344A048247CD747D3C9 /* Pods-HearHereApp.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-HearHereApp/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Pods-HearHereApp/Pods-HearHereApp.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = Pods_HearHereApp;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		4F217EC67E1F5221973F71A8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4683714213C3BD5942A3F41A /* Pods-HearHereApp-OCMapper-Private.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-HearHereApp-OCMapper/Pods-HearHereApp-OCMapper-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Pods-HearHereApp-OCMapper/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Pods-HearHereApp-OCMapper/Pods-HearHereApp-OCMapper.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = OCMapper;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		6BE15277F7A0950B2013881E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C4CD10FDE2112940196F75B3 /* Pods-HearHereApp.debug.xcconfig */;
+			baseConfigurationReference = 2F2E14A8C46C522CB927D078 /* Pods-HearHereApp.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -588,7 +516,118 @@
 			};
 			name = Debug;
 		};
-		9FB91E84FDF965E9A20D7865 /* Debug */ = {
+		6DA80F65106895BB8E0C657A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F99E04782E47EBDDFFC2A193 /* Pods-HearHereApp-Alamofire-Private.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-HearHereApp-Alamofire/Pods-HearHereApp-Alamofire-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Pods-HearHereApp-Alamofire/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Pods-HearHereApp-Alamofire/Pods-HearHereApp-Alamofire.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = Alamofire;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		724D55E0851849C0624E1E4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9178D196C193A1865FBC2186 /* Pods-HearHereApp.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-HearHereApp/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Pods-HearHereApp/Pods-HearHereApp.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_HearHereApp;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		9169304ACB5CD5621EC245D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F99E04782E47EBDDFFC2A193 /* Pods-HearHereApp-Alamofire-Private.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-HearHereApp-Alamofire/Pods-HearHereApp-Alamofire-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Pods-HearHereApp-Alamofire/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Pods-HearHereApp-Alamofire/Pods-HearHereApp-Alamofire.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Alamofire;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		9A059DC877D1DAFA1788E02B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CCBEABBC288B075EB1507542 /* Pods-HearHereApp-OCMapper-Private.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-HearHereApp-OCMapper/Pods-HearHereApp-OCMapper-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Pods-HearHereApp-OCMapper/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Pods-HearHereApp-OCMapper/Pods-HearHereApp-OCMapper.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = OCMapper;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		9DD1634A938C87E6701A9B6E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -627,64 +666,9 @@
 			};
 			name = Debug;
 		};
-		CEE9CFDF50D6D75932F5242F /* Debug */ = {
+		ED3ABF79D7B31283928EF6E8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 600B3D7FEEFDB32455262BE8 /* Pods-HearHereApp-Alamofire-Private.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-HearHereApp-Alamofire/Pods-HearHereApp-Alamofire-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Pods-HearHereApp-Alamofire/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Pods-HearHereApp-Alamofire/Pods-HearHereApp-Alamofire.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = Alamofire;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		F62023B10D69F3C6144C874D /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 600B3D7FEEFDB32455262BE8 /* Pods-HearHereApp-Alamofire-Private.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-HearHereApp-Alamofire/Pods-HearHereApp-Alamofire-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Pods-HearHereApp-Alamofire/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Pods-HearHereApp-Alamofire/Pods-HearHereApp-Alamofire.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = Alamofire;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		F94A10361CD16F2C1FFCF456 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4683714213C3BD5942A3F41A /* Pods-HearHereApp-OCMapper-Private.xcconfig */;
+			baseConfigurationReference = CCBEABBC288B075EB1507542 /* Pods-HearHereApp-OCMapper-Private.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -712,43 +696,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		49B5D791D1F0E6E2422128F2 /* Build configuration list for PBXProject "Pods" */ = {
+		2D358DDD7B2FD6BB43E9C674 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9FB91E84FDF965E9A20D7865 /* Debug */,
-				072FCAAD44666C90F2BE4F42 /* Release */,
+				9DD1634A938C87E6701A9B6E /* Debug */,
+				23C629C4BAEB675C075CC7B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C0DC5BB3E8241FC6F89CC726 /* Build configuration list for PBXNativeTarget "Pods-HearHereApp" */ = {
+		AC26471886654C84E34F94DA /* Build configuration list for PBXNativeTarget "Pods-HearHereApp-OCMapper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6BE15277F7A0950B2013881E /* Debug */,
-				3D1BF22740445E722CBDBB1D /* Release */,
+				ED3ABF79D7B31283928EF6E8 /* Debug */,
+				9A059DC877D1DAFA1788E02B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CC6E0DCEE8936BB263927387 /* Build configuration list for PBXNativeTarget "Pods-HearHereApp-Alamofire" */ = {
+		D556DA77DBE91E1E461C8576 /* Build configuration list for PBXNativeTarget "Pods-HearHereApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CEE9CFDF50D6D75932F5242F /* Debug */,
-				F62023B10D69F3C6144C874D /* Release */,
+				428F04F815B529DE8940E0FF /* Debug */,
+				724D55E0851849C0624E1E4E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EB519429C41C9B4874100C13 /* Build configuration list for PBXNativeTarget "Pods-HearHereApp-OCMapper" */ = {
+		D9CAE5C83259E4AC56C2BBAB /* Build configuration list for PBXNativeTarget "Pods-HearHereApp-Alamofire" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F94A10361CD16F2C1FFCF456 /* Debug */,
-				4F217EC67E1F5221973F71A8 /* Release */,
+				6DA80F65106895BB8E0C657A /* Debug */,
+				9169304ACB5CD5621EC245D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = D6C449A000C74D2ECEF481E4 /* Project object */;
+	rootObject = 47D12CA9300BE452ECA89C5F /* Project object */;
 }
