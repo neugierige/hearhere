@@ -12,6 +12,12 @@
 #define COCOAPODS_VERSION_MINOR_Alamofire 2
 #define COCOAPODS_VERSION_PATCH_Alamofire 1
 
+// HanekeSwift
+#define COCOAPODS_POD_AVAILABLE_HanekeSwift
+#define COCOAPODS_VERSION_MAJOR_HanekeSwift 0
+#define COCOAPODS_VERSION_MINOR_HanekeSwift 9
+#define COCOAPODS_VERSION_PATCH_HanekeSwift 1
+
 // OCMapper
 #define COCOAPODS_POD_AVAILABLE_OCMapper
 #define COCOAPODS_VERSION_MAJOR_OCMapper 1

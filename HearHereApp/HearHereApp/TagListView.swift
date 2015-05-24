@@ -39,9 +39,9 @@ class TagListView: UIScrollView {
         backgroundColor = Configuration.lightGreyUIColor
         contentSize = CGSize(width: CGRectGetWidth(UIScreen.mainScreen().bounds), height: 0)
     }
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     required init(coder aDecoder:NSCoder) {
         super.init(coder: aDecoder)
     }

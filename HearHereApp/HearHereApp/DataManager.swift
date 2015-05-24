@@ -11,6 +11,7 @@ import UIKit
 import Parse
 import Alamofire
 import MapKit
+import Haneke
 
 var cache: Cache<NSData> = Shared.dataCache
 

@@ -25,7 +25,7 @@ class Venue: Model, Printable {
     }
     
     convenience required init(object: PFObject) {
-        self.init(id: object.objectId)
+        self.init(id: object.objectId!)
         if let n = object["name"]    as? String { name = n }
         if let a = object["address"] as? String { address = a }
         if let p = object["phone"]   as? String { phone = p }
@@ -34,7 +34,7 @@ class Venue: Model, Printable {
     }
     
     convenience init?(json: NSDictionary) {
-        self.init(id: json["objectId"] as String!)
+        self.init(id: json["objectId"]as! String!)
         if let n = json["name"]     as? String { name = n }
         if let a = json["address"]  as? String { address = a }
         if let p = json["phone"]    as? String { phone = p }

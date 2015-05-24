@@ -226,9 +226,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         tapToDismissKeyboard.cancelsTouchesInView = false
         self.scrollView.addGestureRecognizer(tapToDismissKeyboard)
     }
-    
     func keyboardDismiss() {
-        self.touchesBegan(NSSet(), withEvent: UIEvent())
+        self.touchesBegan(Set<NSObject>(), withEvent: UIEvent())
         self.textFieldDidEndEditing(username)
     }
     
@@ -245,11 +244,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     // Hide keyboard when view is pressed
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         self.email.resignFirstResponder()
         self.username.resignFirstResponder()
         self.password.resignFirstResponder()
     }
+
     
     // Scroll up when keyboard appears, so text field is not obscured.
     func textFieldDidBeginEditing(textField: UITextField) {

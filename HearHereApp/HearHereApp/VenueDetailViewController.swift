@@ -12,7 +12,6 @@ import MapKit
 class VenueDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate {
     
     let table = UITableView()
-    let cellIdentifier: String?
     let edvc = EventDetailViewController()
     var event: Event!
     var mapItemTitle = String()
@@ -134,7 +133,7 @@ class VenueDetailViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.layer.borderWidth = 0.0
         cell.textLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
@@ -155,7 +154,7 @@ class VenueDetailViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let header: UITableViewHeaderFooterView = view as UITableViewHeaderFooterView
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         header.contentView.backgroundColor = Configuration.lightBlueUIColor
         header.textLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 14.0)
         header.textLabel.text = "Venue Information"

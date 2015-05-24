@@ -32,12 +32,12 @@ class Event: Model, NSCoding {
     var venueDetail: String?
     
     
-    required init(coder aDecoder: NSCoder) {
+    @objc required init(coder aDecoder: NSCoder) {
         println(aDecoder)
         super.init(id: "")
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
+    @objc func encodeWithCoder(aCoder: NSCoder) {
         
         println(aCoder)
     }
@@ -46,7 +46,7 @@ class Event: Model, NSCoding {
     }
     
     convenience required init(object: PFObject) {
-        self.init(id: object["objectId"] as String!)
+        self.init(id: object["objectId"] as! String!)
         if let n = object["title"]          as? String { title = n }
         if let n = object["artistName"]     as? String { artistName = n }
         if let d = object["artistDetail"]   as? String { artistDetail = d }
@@ -60,7 +60,7 @@ class Event: Model, NSCoding {
         if let u = object["artistDetail"]   as? String { artistDetail = u }
         if let f = object["photo"] as? PFFile {
             f.getDataInBackgroundWithBlock({ (data, error) -> Void in
-                var d = NSData(data: data)
+                var d = NSData(data: data!)
                 if let image = UIImage(data: d) {
                     self.photo = image
                 }
@@ -70,15 +70,15 @@ class Event: Model, NSCoding {
             venue.append(Venue(object: v as PFObject))
         }
         if let a = object.objectForKey("artists") as? [AnyObject] {
-            a.map { self.artists.append(Artist(object: $0 as PFObject)) }
+            a.map { self.artists.append(Artist(object: $0 as! PFObject)) }
         }
         if let c = object.objectForKey("categories") as? [AnyObject] {
-            c.map { self.categories.append(Category(object: $0 as PFObject)) }
+            c.map { self.categories.append(Category(object: $0 as! PFObject)) }
         }
     }
     
     convenience init?(json: NSDictionary) {
-        self.init(id: json["objectId"] as String!)
+        self.init(id: json["objectId"] as! String!)
         if let n = json["title"] as? String { title = n }
         if let n = json["artistName"] as? String { artistName = n }
         if let d = json["artistDetail"] as? String { artistDetail = d }
@@ -109,7 +109,7 @@ class Event: Model, NSCoding {
         if let u = json["numAttendees"]   as? Int { numAttendees = u }
         if let u = json["artistDetail"] as? String { artistDetail = u }
         if let f = json["photo"]          as? NSDictionary {
-            DataManager.downloadImageWithURL(f["url"] as String) { success, image in
+            DataManager.downloadImageWithURL(f["url"] as! String) { success, image in
                 if success { self.photo = image }
             }
         }
@@ -136,7 +136,7 @@ class Event: Model, NSCoding {
     func getVenue(venues: NSArray, completion: Venue -> Void) {
         if LocalCache.venues.count == 0 {
             
-            var id = venues[0].objectForKey("objectId") as String
+            var id = venues[0].objectForKey("objectId") as! String
             var query = PFQuery(className: "Venue")
             query.whereKey("objectId", equalTo: id)
             // TODO: fix. running on main thread
@@ -148,7 +148,7 @@ class Event: Model, NSCoding {
             }
             //       }
         } else {
-            completion(LocalCache.venues.filter { $0.objectId == (venues[0].objectForKey("objectId") as String) }[0])
+            completion(LocalCache.venues.filter { $0.objectId == (venues[0].objectForKey("objectId") as! String) }[0])
         }
     }
     
@@ -156,7 +156,7 @@ class Event: Model, NSCoding {
         var ids = [String]()
         var artistArray = [Artist]()
         for i in artists {
-            ids.append(i.objectForKey("objectId") as String)
+            ids.append(i.objectForKey("objectId") as! String)
         }
         if LocalCache.artists.count == 0 {
 //            println("event art")
@@ -181,7 +181,7 @@ class Event: Model, NSCoding {
         var ids = [String]()
         var categoriesArray = [Category]()
         for i in categories {
-            ids.append(i.objectForKey("objectId") as String)
+            ids.append(i.objectForKey("objectId") as! String)
         }
         if LocalCache.categories.count == 0 {
 //            println("event cat")

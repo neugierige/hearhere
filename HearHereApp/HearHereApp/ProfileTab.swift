@@ -54,7 +54,7 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("defaultCell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("defaultCell", forIndexPath: indexPath) as! UITableViewCell
         
         cell.selectionStyle = .None
         
@@ -161,7 +161,7 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ProfileShowTags" {
-            var tvc = segue.destinationViewController as TagsViewController
+            var tvc = segue.destinationViewController as! TagsViewController
             tvc.appearedFromProfile = true
         }
     }
@@ -206,8 +206,8 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         
         let alertController = UIAlertController(title: "Login", message: "to continue", preferredStyle: .Alert)
         let loginAction = UIAlertAction(title: "Login", style: .Default) { (_) in
-            let loginTextField = alertController.textFields![0] as UITextField
-            let passwordTextField = alertController.textFields![1] as UITextField
+            let loginTextField = alertController.textFields![0] as! UITextField
+            let passwordTextField = alertController.textFields![1] as! UITextField
             var u = User(username: loginTextField.text, password: passwordTextField.text)
             
             func signInUser(completion: (User -> Void)!) {
@@ -273,7 +273,7 @@ class ProfileTab: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         tfs.map { $0.resignFirstResponder() }
         return false
     }
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         tfs.map { $0.resignFirstResponder() }
     }
     func textFieldDidEndEditing(textField: UITextField) {

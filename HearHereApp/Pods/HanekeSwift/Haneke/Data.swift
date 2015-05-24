@@ -41,7 +41,7 @@ extension String : DataConvertible, DataRepresentable {
     
     public static func convertFromData(data:NSData) -> Result? {
         var string = NSString(data: data, encoding: NSUTF8StringEncoding)
-        return string
+        return string as? Result
     }
     
     public func asData() -> NSData! {

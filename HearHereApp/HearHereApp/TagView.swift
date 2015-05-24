@@ -65,9 +65,6 @@ class TagView: UIView, UIGestureRecognizerDelegate {
         name = tagName
         setupView()
     }
-    override init() {
-        super.init()
-    }
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

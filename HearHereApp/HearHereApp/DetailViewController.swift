@@ -1,6 +1,5 @@
 //
 //  DetailViewController.swift
-//  EventDetailVC
 //
 //  Created by Luyuan Xing on 3/13/15.
 //  Copyright (c) 2015 LXing. All rights reserved.
@@ -9,18 +8,15 @@
 import UIKit
 
 class DetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    let table = UITableView()
-    let cellIdentifier: String?
-    let edvc = EventDetailViewController()
+
     var event: Event!
-    
+    let table = UITableView()
+    let edvc = EventDetailViewController()
+
     var textView = UITextView()
     var scrollView = UIScrollView()
     var margin: CGFloat = 10.0
     
-    //***** INFO TO LOAD FROM PARSE
-    var textViewText: String?
     
     override func viewDidLoad() {
         //self.event = edvc.event
@@ -34,7 +30,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         tabBarController?.tabBar.hidden = true
         hidesBottomBarWhenPushed = true
         textView.editable = false
-        textView.text = textViewText
+        textView.text = event.artistDetail
         //view.addSubview(textView)
         
         //scrollView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.bounds.height)
@@ -58,7 +54,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.layer.borderWidth = 0.0
         cell.textLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
@@ -75,7 +71,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let header: UITableViewHeaderFooterView = view as UITableViewHeaderFooterView
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         header.contentView.backgroundColor = Configuration.lightBlueUIColor
         header.textLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 14.0)
         header.textLabel.text = "Artist Information"
