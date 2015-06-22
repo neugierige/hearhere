@@ -51,7 +51,7 @@ class CalendarTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier!, forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier!, forIndexPath: indexPath) as! UITableViewCell
         
         let item: AnyObject = self.tableArray[indexPath.section].events[indexPath.row]
         
@@ -69,7 +69,7 @@ class CalendarTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let header: UITableViewHeaderFooterView = view as UITableViewHeaderFooterView
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         header.contentView.backgroundColor = Configuration.medBlueUIColor
         header.textLabel.textColor = UIColor.whiteColor()
         header.textLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 14.0)
@@ -79,8 +79,10 @@ class CalendarTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var edvc = EventDetailViewController()
         edvc.event = self.tableArray[indexPath.section].events[indexPath.row]
-        edvc.backView = "Calendar"
-        CalendarTab().title = "Calendar"
+        //edvc.backView = "Calendar"
+        //CalendarTab().title = "Calendar"
+        self.navController?.title = "Calendar"
+        println("the title is \(self.navController?.tabBarController!.tabBarItem.title)")
         self.navController?.showViewController(edvc, sender: indexPath)
     }
     

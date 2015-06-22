@@ -66,10 +66,10 @@ class SearchView: UIView, UITextFieldDelegate {
         viewBindingsDict.setValue(leftButton, forKey: "leftButton")
         viewBindingsDict.setValue(rightButton, forKey: "rightButton")
         //addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(>=8)-[leftButton(22)]-10-|", options: nil, metrics: nil, views: viewBindingsDict))
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(>=8)-[searchField(35)]-4-|", options: nil, metrics: nil, views: viewBindingsDict))
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(>=8)-[rightButton(22)]-10-|", options: nil, metrics: nil, views: viewBindingsDict))
+        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(>=8)-[searchField(35)]-4-|", options: nil, metrics: nil, views: viewBindingsDict as [NSObject : AnyObject]))
+        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(>=8)-[rightButton(22)]-10-|", options: nil, metrics: nil, views: viewBindingsDict as [NSObject : AnyObject]))
         // addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[leftButton(22)]-[searchField(>=200)]-[rightButton(22)]-|", options: nil, metrics: nil, views: viewBindingsDict))
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(22)-[searchField(>=200)]-[rightButton(22)]-|", options: nil, metrics: nil, views: viewBindingsDict))
+        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(22)-[searchField(>=200)]-[rightButton(22)]-|", options: nil, metrics: nil, views: viewBindingsDict as [NSObject : AnyObject]))
         
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "searching:", name: "UITextFieldTextDidChangeNotification", object: searchField)
@@ -99,7 +99,7 @@ class SearchView: UIView, UITextFieldDelegate {
     */
     internal func searching(notification: NSNotification) {
         // Uppercase text to search and search if more than one character in field
-        var text = (notification.object as UITextField).text.uppercaseString
+        var text = (notification.object as! UITextField).text.uppercaseString
         delegate!.searchViewDidInputText(text)
     }
     
@@ -149,8 +149,17 @@ class SearchView: UIView, UITextFieldDelegate {
     :param: touches not used
     :param: event   not used
     */
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         searchField.resignFirstResponder()
     }
+//    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+//        searchField.resignFirstResponder()
+//    }
     
 }
+
+
+
+
+
+

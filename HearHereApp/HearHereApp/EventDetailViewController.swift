@@ -1,4 +1,4 @@
-//
+    //
 //  ViewController.swift
 //  EventDetailVC
 //
@@ -47,11 +47,11 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
         self.title = "\(previousTabName)"
         
         //NAV BACK BUTTON
-        if let backView = self.backView {
-            let backNavText = "< " + backView
-            let backNavButton:UIBarButtonItem = UIBarButtonItem(title: backNavText, style: UIBarButtonItemStyle.Plain, target: self, action: "backButtonClick")
-            self.navigationItem.leftBarButtonItem = backNavButton
-        }
+//        if let backView = self.backView {
+//            let backNavText = backView
+//            let backNavButton:UIBarButtonItem = UIBarButtonItem(title: backNavText, style: UIBarButtonItemStyle.Plain, target: self, action: "backButtonClick")
+//            self.navigationItem.leftBarButtonItem = backNavButton
+//        }
         
         //NAV SHARE BUTTONS
         var shareButton = UINavigationItem(title: "share")
@@ -190,9 +190,9 @@ class EventDetailViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if event.artistDetail == nil {
-            if event.artists[0].detail != nil {
+            //if event.artists[0].detail != nil {     //----SOMETHING WRONG HERE
                 tableCellContent.append("Artist Information")
-            }
+            //}
         } else if event.artistDetail != nil  {
             tableCellContent.append("Artist Information")
         }

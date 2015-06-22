@@ -57,6 +57,7 @@
 		F93271A41ABF715800B1F0DE /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93271A31ABF715800B1F0DE /* MapAnnotation.swift */; };
 		F93A26D11AAB6D9C00ED3BD8 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */; };
 		F95049201AE173B900A829DC /* VenueDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F950491F1AE173B900A829DC /* VenueDetailViewController.swift */; };
+		F95512561B35C4BC003FCE63 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4609CC3B1AA9758A00D2E70D /* Parse.framework */; };
 		F983DA521AB8ADCF00A3B4E2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F983DA511AB8ADCF00A3B4E2 /* DetailViewController.swift */; };
 		F987BA171AA7C720008FDD56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987BA161AA7C720008FDD56 /* AppDelegate.swift */; };
 		F987BA191AA7C720008FDD56 /* HomeTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987BA181AA7C720008FDD56 /* HomeTab.swift */; };
@@ -71,7 +72,6 @@
 		F995C3EA1AA91D6500F6EC88 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F995C3E91AA91D6500F6EC88 /* SignInViewController.swift */; };
 		F9A7B1011AC0A2A600B7FD4A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A7B0FF1AC0A2A600B7FD4A /* Crashlytics.framework */; };
 		F9A7B1021AC0A2A600B7FD4A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A7B1001AC0A2A600B7FD4A /* Fabric.framework */; };
-		F9B5260B1AEEF71C004E03ED /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9B5260A1AEEF71C004E03ED /* Parse.framework */; };
 		F9CF09721AA7E179005E28F7 /* CalendarTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09711AA7E179005E28F7 /* CalendarTab.swift */; };
 		F9CF09761AA7E1A1005E28F7 /* ProfileTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CF09751AA7E1A1005E28F7 /* ProfileTab.swift */; };
 /* End PBXBuildFile section */
@@ -141,6 +141,7 @@
 		F93271A31ABF715800B1F0DE /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		F93A26D01AAB6D9C00ED3BD8 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		F950491F1AE173B900A829DC /* VenueDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueDetailViewController.swift; sourceTree = "<group>"; };
+		F95512541B35C4A1003FCE63 /* parse-library-1.7.4 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "parse-library-1.7.4"; path = "../../../Desktop/App project/_PARSE stuff/parse-library-1.7.4"; sourceTree = "<group>"; };
 		F983DA511AB8ADCF00A3B4E2 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F987BA111AA7C720008FDD56 /* HearHereApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HearHereApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F987BA151AA7C720008FDD56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -169,7 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9B5260B1AEEF71C004E03ED /* Parse.framework in Frameworks */,
+				F95512561B35C4BC003FCE63 /* Parse.framework in Frameworks */,
 				4693CDEC1AB7DAF100DCBA29 /* Accounts.framework in Frameworks */,
 				4693CDEA1AB7DA8400DCBA29 /* Social.framework in Frameworks */,
 				F9A7B1011AC0A2A600B7FD4A /* Crashlytics.framework in Frameworks */,
@@ -214,6 +215,7 @@
 		4609CC301AA9716100D2E70D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F95512541B35C4A1003FCE63 /* parse-library-1.7.4 */,
 				F9B5260A1AEEF71C004E03ED /* Parse.framework */,
 				F9A7B0FF1AC0A2A600B7FD4A /* Crashlytics.framework */,
 				F9A7B1001AC0A2A600B7FD4A /* Fabric.framework */,

@@ -12,8 +12,8 @@ import UIKit
 func signInAlert(completion: User? -> Void) {
     let alertController = UIAlertController(title: "Login", message: "to continue", preferredStyle: .Alert)
     let loginAction = UIAlertAction(title: "Login", style: .Default) { (_) in
-        let loginTextField = alertController.textFields![0] as UITextField
-        let passwordTextField = alertController.textFields![1] as UITextField
+        let loginTextField = alertController.textFields![0] as! UITextField
+        let passwordTextField = alertController.textFields![1] as! UITextField
         var u = User(username: loginTextField.text, password: passwordTextField.text)
         
         func signInUser(completion: (User -> Void)!) {

@@ -235,7 +235,7 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
     */
     func searchViewDidInputText(uppercaseString: String) {
         // Uppercase text to search and search if more than one character in field
-        if countElements(uppercaseString) > 1 {
+        if count(uppercaseString) > 1 {
             var subset = tagNames.filter { $0.uppercaseString.rangeOfString(uppercaseString) != nil }
             // Remove tags from view and redraw with subset
             tagPoolListView.removeAllTagViews()
@@ -244,7 +244,7 @@ class TagsViewController: UIViewController, SearchViewProtocol, FilterPopoverVie
                 TagView.color2 = Configuration.tagFontUIColor
                 self.createTag(name)
             }
-        } else if countElements(uppercaseString) == 0 {
+        } else if count(uppercaseString) == 0 {
             // When textField empty, remove tags and redraw with all except the chosen ones
             tagPoolListView.removeAllTagViews()
             var currentPicks = tagPickListView.getAllTagNames()

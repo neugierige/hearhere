@@ -75,7 +75,7 @@ class CalendarTableViewCell: UITableViewCell {
             self.contentView.addSubview(timeLabel)
         }
         
-        let timeLabel = self.viewWithTag(1) as UILabel
+        let timeLabel = self.viewWithTag(1) as! UILabel
         
         if let event = item as? Event {
             timeLabel.text = dc.formatTime(event.dateTime)

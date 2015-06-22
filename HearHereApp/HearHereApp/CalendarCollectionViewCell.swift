@@ -11,8 +11,8 @@ import UIKit
 class CalendarCollectionViewCell: UICollectionViewCell {
     
     let dc = DateConverter()
-    let dayLabel = UILabel()
-    let dateLabel = UILabel()
+    var dayLabel = UILabel()
+    var dateLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

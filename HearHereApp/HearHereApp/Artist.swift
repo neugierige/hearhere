@@ -25,15 +25,21 @@ class Artist: Model {//: Printable {
     }
     
     convenience required init(object: PFObject) {
-        self.init(id: object.objectId)
-        if let n = object["name"] as? String { name = n }
-        if let n = object["url"] as? String { name = n }
-        if let n = object["email"] as? String { name = n }
-        if let n = object["detail"] as? String { name = n }
+        //self.init(id: "")
+        self.init(name: object.objectId ?? "")
+//        if let objId = object.objectId {
+//            self.init(id: objId)
+            if let n = object["name"] as? String { name = n }
+            if let n = object["url"] as? String { name = n }
+            if let n = object["email"] as? String { name = n }
+            if let n = object["detail"] as? String { name = n }
+//        }
     }
+
     // may not need
     convenience init?(json: NSDictionary) {
-        self.init(id: json["objectId"] as String!)
+        
+        self.init(id: json["objectId"] as! String!)
         if let n = json["name"] as? String { name = n }
     }
     

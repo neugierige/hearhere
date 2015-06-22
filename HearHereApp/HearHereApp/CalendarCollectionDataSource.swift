@@ -50,7 +50,7 @@ class CalendarCollectionDataSource: NSObject, UICollectionViewDataSource, UIColl
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(
             self.cellIdentifier!,
-            forIndexPath: indexPath) as CalendarCollectionViewCell
+            forIndexPath: indexPath) as! CalendarCollectionViewCell
         
         let item: AnyObject = self.collectionArray[indexPath.section].dates[indexPath.row]
         
@@ -65,7 +65,7 @@ class CalendarCollectionDataSource: NSObject, UICollectionViewDataSource, UIColl
         
         var identifier = "calendarCollectionHeader"
 
-        let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: identifier, forIndexPath: indexPath) as UICollectionReusableView
+        let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: identifier, forIndexPath: indexPath) as! UICollectionReusableView
     
         if kind == UICollectionElementKindSectionHeader {
             if let header = view as? CalendarHeaderReusableView {

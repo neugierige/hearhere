@@ -68,12 +68,12 @@ class FriendsTableViewController: UIViewController, UITableViewDelegate, UITable
     
     func searchViewDidInputText(uppercaseString: String) {
             // Uppercase text to search and search if more than one character in field
-            if countElements(uppercaseString) > 1 {
+            if count(uppercaseString) > 1 {
                 DataManager.retrieveUsersWithPredicate(uppercaseString) { users in
                     self.users = users
                     self.tableView.reloadData()
                 }
-            } else if countElements(uppercaseString) == 0 {
+            } else if count(uppercaseString) == 0 {
 
             }
     }

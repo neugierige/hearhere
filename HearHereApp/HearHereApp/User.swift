@@ -127,33 +127,60 @@ class User: Model, Printable {
         let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
         dispatch_async(backgroundQueue) {
 
+//        if let a = object.objectForKey("artists") as? [AnyObject] {
+////            DataManager.retrieveArtistsForUser(a) {
+//            let ids = a.map { ($0 as! PFObject).objectId }
+//            var query = PFQuery(className: "Artist").whereKey("objectId", containedIn: ids)
+//            //var query = PFQuery(className: "Artist").whereKey("objectId", containedIn: ids)
+//            self.artists = (query.findObjects() as [PFObject]).map { (Artist(object: $0 as PFObject)) }
+//        }
+            
         if let a = object.objectForKey("artists") as? [AnyObject] {
-//            DataManager.retrieveArtistsForUser(a) {
             let ids = a.map { ($0 as! PFObject).objectId }
-            var query = PFQuery(className: "Artist").whereKey("objectId", containedIn: ids)
-            //var query = PFQuery(className: "Artist").whereKey("objectId", containedIn: ids)
-            self.artists = (query.findObjects() as [PFObject]).map { (Artist(object: $0 as PFObject)) }
+            var query = PFQuery(className: "Artist")
+            
+            if let idsUnwrapped = ids as? [String] {
+                query.whereKey("objectId", containedIn: idsUnwrapped)
+                self.artists = (query.findObjects() as! [PFObject]).map { (Artist(object: $0 as PFObject)) }
+            }
         }
+            
         if let c = object.objectForKey("categories") as? [AnyObject] {
             let ids = c.map { ($0 as! PFObject).objectId }
-            var query = PFQuery(className: "Category").whereKey("objectId", containedIn: ids)
-            self.categories = (query.findObjects() as [PFObject]).map { (Category(object: $0 as PFObject)) }
+            var query = PFQuery(className: "Category")
+            if let idsUnwrapped = ids as? [String] {
+                query.whereKey("objectId", containedIn: idsUnwrapped)
+                self.categories = (query.findObjects() as! [PFObject]).map { (Category(object: $0 as PFObject)) }
+            }
         }
+            
         if let v = object.objectForKey("venues") as? [AnyObject] {
             let ids = v.map { ($0 as! PFObject).objectId }
-            var query = PFQuery(className: "Venue").whereKey("objectId", containedIn: ids)
-            self.venues = (query.findObjects() as [PFObject]).map { (Venue(object: $0 as PFObject)) }
+            var query = PFQuery(className: "Venue")
+            if let idsUnwrapped = ids as? [String] {
+                query.whereKey("objectId", containedIn: idsUnwrapped)
+                self.venues = (query.findObjects() as! [PFObject]).map { (Venue(object: $0 as PFObject)) }
+            }
         }
+            
         if let e = object.objectForKey("events") as? [AnyObject] {
             let ids = e.map { ($0 as! PFObject).objectId }
-            var query = PFQuery(className: "Category").whereKey("objectId", containedIn: ids)
-            self.events = (query.findObjects() as [PFObject]).map { (Event(object: $0 as PFObject)) }
+            var query = PFQuery(className: "Category")
+            if let idsUnwrapped = ids as? [String] {
+                query.whereKey("objectId", containedIn: idsUnwrapped)
+                self.events = (query.findObjects() as! [PFObject]).map { (Event(object: $0 as PFObject)) }
+            }
         }
+            
         if let u = object.objectForKey("users") as? [AnyObject] {
             let ids = u.map { ($0 as! PFObject).objectId }
-            var query = PFQuery(className: "User").whereKey("objectId", containedIn: ids)
-            self.users = (query.findObjects() as [PFObject]).map { (User(object: $0 as PFObject)) }
+            var query = PFQuery(className: "User")
+            if let idsUnwrapped = ids as? [String] {
+                query.whereKey("objectId", containedIn: idsUnwrapped)
+                self.users = (query.findObjects() as! [PFObject]).map { (User(object: $0 as PFObject)) }
+            }
         }
+            
         }
     }
     convenience init(currentUser: PFUser) {

@@ -109,7 +109,7 @@ class DateConverter {
     }
     
     func getCalendarInt(dt:NSDate, type:String) -> Int {
-        let flags: NSCalendarUnit = .WeekdayCalendarUnit | .DayCalendarUnit | .MonthCalendarUnit | .YearCalendarUnit
+        let flags: NSCalendarUnit = NSCalendarUnit.CalendarUnitWeekday | NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitYear
         let dateComponents = NSCalendar.currentCalendar().components(flags, fromDate: dt)
         
         switch type {

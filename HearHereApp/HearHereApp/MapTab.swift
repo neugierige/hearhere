@@ -111,7 +111,6 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
         eventsArray.removeAll(keepCapacity: false)
         
         DataManager.retrieveEventsForDate(dt) { events in
-        //println("date tapped: \(dt)")
             for event in events {
                 var dtConverted = self.dateConverter.formatDate(dt, type: "short")
                 if self.dateConverter.formatDate(event.dateTime, type: "short") == dtConverted {
@@ -125,7 +124,6 @@ class MapTab: UIViewController, MKMapViewDelegate, ScrollCalendarDelegate {
                     alert.addAction(UIAlertAction(title: "Try Again", style: .Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
-                //println("events: \(event.dateTime)")
             }
         }
     }

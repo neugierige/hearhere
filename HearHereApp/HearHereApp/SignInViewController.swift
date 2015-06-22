@@ -154,7 +154,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {//, CLLocatio
         spinner.startAnimating()
         if username.text != "" && password.text != "" {
             var user = User(username: username.text, password: password.text)
-            DataManager.signInUser(user) { error, _ in
+            DataManager.signInUser(user) { error, _ in          //-----SOMETHING WRONG HERE. Not giving error or performing segue
                 if let e = error {
                     self.spinner.stopAnimating()
                     self.displaySuccessErrorLabel(e, valid: false)
@@ -184,13 +184,17 @@ class SignInViewController: UIViewController, UITextFieldDelegate {//, CLLocatio
         }
         return true
     }
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         username.resignFirstResponder()
         password.resignFirstResponder()
     }
+    //override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+//        username.resignFirstResponder()
+//        password.resignFirstResponder()
+    //}
     
     func dismissKeyboard() {
-        touchesBegan(NSSet(), withEvent: UIEvent())
+        touchesBegan(Set<NSObject>(), withEvent: UIEvent())
         textFieldDidEndEditing(username)
     }
     

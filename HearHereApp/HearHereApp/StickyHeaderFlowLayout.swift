@@ -12,7 +12,7 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
    
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
         
-        var answer: [UICollectionViewLayoutAttributes] = super.layoutAttributesForElementsInRect(rect)! as [UICollectionViewLayoutAttributes]
+        var answer: [UICollectionViewLayoutAttributes] = super.layoutAttributesForElementsInRect(rect)! as! [UICollectionViewLayoutAttributes]
         let contentOffset = collectionView!.contentOffset
         
         var missingSections = NSMutableIndexSet()

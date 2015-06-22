@@ -18,12 +18,12 @@ class Category: Model {
     }
 
     convenience required init(object: PFObject) {
-        self.init(id: object.objectId)
+        self.init(id: object.objectId!)
         if let n = object["name"] as? String { name = n }
     }
 
     convenience init?(json: NSDictionary) {
-        self.init(id: json["objectId"] as String!)
+        self.init(id: json["objectId"] as! String!)
         if let n = json["name"]     as? String { name = n }
     }
 

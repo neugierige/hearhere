@@ -149,8 +149,8 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
     func signInAlert(completion: User? -> Void) {
         let alertController = UIAlertController(title: "Login", message: "to continue", preferredStyle: .Alert)
         let loginAction = UIAlertAction(title: "Login", style: .Default) { (_) in
-            let loginTextField = alertController.textFields![0] as UITextField
-            let passwordTextField = alertController.textFields![1] as UITextField
+            let loginTextField = alertController.textFields![0] as! UITextField
+            let passwordTextField = alertController.textFields![1] as! UITextField
             var u = User(username: loginTextField.text, password: passwordTextField.text)
             
             func signInUser(completion: (User -> Void)!) {
@@ -201,7 +201,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("homeCell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("homeCell", forIndexPath: indexPath) as! UITableViewCell
         
         let event = eventsArray[indexPath.row]
         
@@ -254,6 +254,7 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
         var evdc = EventDetailViewController()
         evdc.event = eventsArray[indexPath.row]
         evdc.backView = "Home"
+        self.title = "Home"
         navigationController?.showViewController(evdc, sender: indexPath)
     }
     
@@ -264,9 +265,9 @@ class HomeTab: UIViewController, UITableViewDataSource, UITableViewDelegate, CLL
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         if DataManager.userLoggedIn() {
-            DataManager.saveUserLocation(locations[0] as CLLocation)
+            DataManager.saveUserLocation(locations[0] as! CLLocation)
         } else {
-            anonymousUser.location = locations[0] as CLLocation
+            anonymousUser.location = locations[0] as! CLLocation
         }
     }
     

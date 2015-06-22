@@ -132,7 +132,7 @@ class Event: Model, NSCoding {
     }
     
     // TODO: THis is where the long running thread comes from.
-    // It is not getting executed fast enough befor home page starts
+    // It is not getting executed fast enough before home page starts
     func getVenue(venues: NSArray, completion: Venue -> Void) {
         if LocalCache.venues.count == 0 {
             
@@ -140,13 +140,13 @@ class Event: Model, NSCoding {
             var query = PFQuery(className: "Venue")
             query.whereKey("objectId", equalTo: id)
             // TODO: fix. running on main thread
-            //        query.findObjectsInBackgroundWithBlock { objects, error in
+            //query.findObjectsInBackgroundWithBlock { objects, error in
             var objects = query.findObjects()
             if let o = objects as? [PFObject] {
                 var ven = Venue(object: o[0] as PFObject)
                 completion(ven)
             }
-            //       }
+            //}
         } else {
             completion(LocalCache.venues.filter { $0.objectId == (venues[0].objectForKey("objectId") as! String) }[0])
         }

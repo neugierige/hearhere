@@ -8,6 +8,7 @@ target 'HearHereApp' do
   pod 'Alamofire', '~> 1.2'
   pod 'OCMapper'
   pod 'HanekeSwift'
+  pod 'Parse'
 end
 
 target 'HearHereAppTests' do
